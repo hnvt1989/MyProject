@@ -1,0 +1,49 @@
+﻿@model IEnumerable<MyProject.Models.ShoppingCart.Product>
+@{
+    ViewBag.Title = "Home";
+}
+
+
+<div class="row">
+    <div class="large-12 columns">
+
+        <div class="hide-for-small">
+            <div id="featured">
+                <img src="~/Content/Images/Slide1.jpg" alt="slide image">
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<br>
+
+<div class="row">
+    <div class="large-12 columns">
+        <div class="row">
+
+            @foreach (var product in Model)
+            {
+
+                var base64 = Convert.ToBase64String(@product.Image);
+                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+
+                <div class="large-3 small-6 columns">
+                    <img src="@imgSrc" />
+                    @*                    <a>@product.Description</a>*@
+                    <a>@Html.ActionLink(@product.Description, "Details", "Store", new { id = product.Id }, "")</a>
+                    <p>$@product.Price</p>
+                    <p class="button">
+                        @Html.ActionLink("Add to cart", "AddToCart", "ShoppingCart", new { id = product.Id }, new { @style = "color: #FFFFFF" })
+                    </p>
+                </div>
+            }
+
+
+
+
+
+        </div>
+    </div>
+</div>
+

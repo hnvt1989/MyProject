@@ -1,0 +1,103 @@
+﻿@using MyProject.Helper;
+
+
+@model MyProject.Models.Account.ExtendedProfileModels
+@{
+    ViewBag.Title = "Your Profile";
+}
+
+@*<div class="row">
+    <div class="large-12 columns text-center">
+        <h1>Your Profile</h1>
+    </div>
+</div>*@
+
+<div class="row">
+    <div class="col-md-8">
+        <section id="ProfileForm">
+            @using (Html.BeginForm("ViewProfile", "Profile", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <fieldset>
+                    <legend>
+                        <h3>Profile Picture</h3>
+                    </legend>
+                    @{
+                        if (Model.Image != null)
+                        {
+                            var base64 = Convert.ToBase64String(Model.Image);
+                            var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                            <img src="@imgSrc" height="275" width="275"/>
+                        }
+                        else
+                        {
+                            //default image
+                            <img src="~/Content/Images/DefaultProfile.jpg" height="275" width="275"/>                           
+                        }
+                    }
+
+                    
+
+                    <div class="form-group">
+@*                        @Html.LabelFor(m => m.UserProfilePicture, new {@class = "col-md-2 control-label"})*@
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.UserProfilePicture, new {type = "file"})
+                            @Html.ValidationMessage("CustomMessage")
+                        </div>
+                    </div>
+                </fieldset>
+                
+                <fieldset>
+                    <legend><h3>About Yourself</h3></legend>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.FirstName, new Dictionary<string, Object> { { "class", "col-md-2 control-label" }, { "placeholder", "Must be between 1 and 10 characters." } })
+                        <div class="col-md-10">
+                            @Html.KTextBoxFor(m => m.FirstName, new { @class = "fill" })
+                            @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
+                            @*<small class="error">Invalid entry</small>*@
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.LastName, new Dictionary<string, Object> { { "class", "col-md-2 control-label" } })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.LastName, new Dictionary<string, Object> { { "class", "form-control" }, { "placeholder", "Must be between 1 and 10 characters." } })
+                            @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Email, new Dictionary<string, Object> { { "class", "form-control" }, { "placeholder", "e.g someone@something.com" } })
+                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </fieldset>
+
+                 <fieldset>
+                    <legend><h3>Account Setting</h3></legend>
+                    <div class="form-group">
+                            @Html.ActionLink("Manage account setting", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                    </div>
+                </fieldset>
+                
+                <fieldset>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" class="medium success button" value="Save" />
+                            @*@Html.ActionLink("Cancel", "Index", "Home", null, new { @class = "btn btn-default" })*@
+                        </div>
+                    </div>
+                </fieldset>               
+
+            }
+
+        </section>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

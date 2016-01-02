@@ -1,0 +1,21 @@
+{
+    "environmentSettings": {
+        "webSite": {
+            "name": "cuztomize",
+            "location": "North Central US"
+        },
+        "databases": [
+            {
+                "connectionStringName": "DefaultConnection",
+                "databaseName": "cuztomize_db",
+                "serverName": "ecpkyorevf",
+                "user": "dbadmin",
+                "password": "",
+                "edition": "",
+                "size": "",
+                "collation": "",
+                "location": "North Central US"
+            }
+        ]
+    }
+}

@@ -1,0 +1,28 @@
+﻿@using MyProject.Helper;
+
+
+@model MyProject.Models.Account.ExtendedIdentityModels
+@{
+    ViewBag.Title = "Your Profile";
+}
+
+<div class="row">
+    <div class="large-12 columns text-center">
+        <h1>Your Profile</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <section id="ProfileForm">
+                <fieldset>
+                    <legend><h3>Profile saved successfully !</h3></legend>
+                </fieldset>
+        </section>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
