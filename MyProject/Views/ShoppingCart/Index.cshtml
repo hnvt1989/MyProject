@@ -117,7 +117,7 @@
         </p>
 
         <p class="button success">
-            @Html.ActionLink("Checkout", "AddressAndPayment", "Checkout", new {cartItem = Model.CartItems}, new {@style="color: #FFFFFF"})
+            @Html.ActionLink("Checkout", "Index", "Checkout", new {cartTotal = Model.CartTotal}, new {@style="color: #FFFFFF"})
         </p>
 
 

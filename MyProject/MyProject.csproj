@@ -176,6 +176,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CheckoutController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
@@ -204,11 +205,14 @@
       <DependentUpon>201412301738242_FirstName.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\ShoppingCart\Address.cs" />
+    <Compile Include="Models\ShoppingCart\PaymentTransaction.cs" />
     <Compile Include="Models\ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\ShoppingCart\Cart.cs" />
     <Compile Include="Models\ShoppingCart\Category.cs" />
     <Compile Include="Models\Account\ExtendedIdentityModels.cs" />
     <Compile Include="Models\Account\IdentityModels.cs" />
+    <Compile Include="Models\ViewModels\CheckoutViewModel.cs" />
     <Compile Include="Models\ViewModels\ManageViewModels.cs" />
     <Compile Include="Models\ShoppingCart\LineOrderDetail.cs" />
     <Compile Include="Models\ShoppingCart\Order.cs" />
@@ -428,6 +432,7 @@
     <Content Include="Views\Profile\ViewProfile.cshtml" />
     <Content Include="Views\Profile\UpdateProfile.cshtml" />
     <Content Include="Views\ShoppingCart\Index.cshtml" />
+    <Content Include="Views\Checkout\Index.cshtml" />
     <None Include="Views\Store\ProductDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
