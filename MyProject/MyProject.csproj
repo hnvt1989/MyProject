@@ -442,6 +442,7 @@
     <Content Include="Views\OrderConfirm\Index.cshtml" />
     <Content Include="Views\OrderSummary\Index.cshtml" />
     <Content Include="Views\Shared\OrderNotFound.cshtml" />
+    <Content Include="Views\OrderSummary\OrderNotFound.cshtml" />
     <None Include="Views\Store\ProductDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>

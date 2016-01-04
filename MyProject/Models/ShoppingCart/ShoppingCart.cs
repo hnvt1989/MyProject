@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
+using Microsoft.AspNet.Identity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -12,7 +12,7 @@ namespace MyProject.Models.ShoppingCart
     {
         ShoppingCartContext soContext = new ShoppingCartContext();
         string ShoppingCartId { get; set; }
-        public const string CartSessionKey = "Code";
+        public const string CartSessionKey = "CartCode";
 
         public static ShoppingCart GetCart(HttpContextBase context)
         {
@@ -163,7 +163,7 @@ namespace MyProject.Models.ShoppingCart
                 var lineOrderDetail = new LineOrderDetail
                 {
                     ProductId = item.ProductId,
-                    //OrderId = order.Id,
+                    
                     UnitPrice = item.Product.Price,
                     Quantity = item.Count
                 };

@@ -1,0 +1,28 @@
+﻿@using MyProject.Helper
+@model MyProject.Models.ViewModels.OrderSummaryViewModel
+
+@{
+    ViewBag.Title = "Order Summary";
+}
+
+<div class="row">
+    <div class="large-12 columns">
+        
+        <section id="ProfileForm">
+            @using (Html.BeginForm("Index", "OrderSummary", FormMethod.Post, new {@class = "form-horizontal", role = "form", enctype = "multipart/form-data"}))
+            {
+                @Html.AntiForgeryToken()
+                <hr/>
+                @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+
+                <div align="left">
+                    <b>Find order</b>
+                    @Html.KTextBoxFor(m => m.OrderNumber, new {style = "width:150px"})
+                    <input id="searchBtn" type="submit" class="button" value="Search"/>
+                </div>
+                <div><b>Order not found</b></div>
+            }
+        </section>
+    </div>
+</div>
+

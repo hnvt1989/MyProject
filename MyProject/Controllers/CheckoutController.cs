@@ -4,9 +4,12 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.Ajax.Utilities;
+using Microsoft.AspNet.Identity;
 using Microsoft.Owin.BuilderProperties;
+using MyProject.DAL;
 using MyProject.Models.ShoppingCart;
 using MyProject.Models.ViewModels;
+using WebGrease.Css.Extensions;
 using Address = MyProject.Models.ShoppingCart.Address;
 
 namespace MyProject.Controllers
@@ -17,6 +20,22 @@ namespace MyProject.Controllers
         // GET: /Checkout/
         public ActionResult Index(string cartCode, decimal cartTotal)
         {
+            //if user not logged in, ask them to log in to place an order
+            if (!Request.IsAuthenticated)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+
+            //using (var context = new ShoppingCartContext())
+            //{
+            //    context.Carts.Where(c => c.Code == HttpContext.Session["CartCode"] as string).ForEach(cart => cart.Code = HttpContext.User.Identity.Name);
+            //    context.SaveChanges();
+
+            //    //update the cart code session
+            //    HttpContext.Session["CartCode"] = HttpContext.User.Identity.Name;
+            //}
+
             var checkoutModel = new CheckoutViewModel()
             {
                 CartTotal = cartTotal,
@@ -54,16 +73,19 @@ namespace MyProject.Controllers
         [HttpPost]
         public ActionResult Index(CheckoutViewModel model)
         {
+
             if (ModelState.IsValid)
             {
                 var cart = ShoppingCart.GetCart(this.HttpContext);
-
                 // Set up our ViewModel
                 var viewModel = new ShoppingCartViewModel
                 {
                     CartItems = cart.GetCartItems(),
                     CartTotal = cart.GetTotal()
                 };
+
+                //update the cart code to the user id if they are logged in
+                //viewModel.CartItems.ForEach(c => c.Code = cart.GetCartId(HttpContext));
 
                 string paymentTypeValue = Request.Form["paymentType"].ToString();
                 var paymentType = new PaymentType();
@@ -122,5 +144,5 @@ namespace MyProject.Controllers
             }
             return View(model);
         }
-	}
+    }
 }

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+using MyProject.DAL;
 using MyProject.Models.Core;
 using MyProject.Models.ShoppingCart;
 using MyProject.Models.ViewModels;
@@ -37,11 +39,22 @@ namespace MyProject.Controllers
                     OrderDate = DateTime.Now,                
                     OrderDetails = new List<LineOrderDetail>()
                 };
+
+                //user who placed the order
+                using (IdentityContext _idDb = new IdentityContext())
+                {
+                    var _currentUserId = User.Identity.GetUserId();
+                    var _currentUser = _idDb.Users.FirstOrDefault(x => x.Id == _currentUserId);
+                    order.UserName = _currentUser.UserName;
+                }
+
+
+                order.UserName = User.Identity.GetUserName();
                 var orderNumber = ShoppingCart.GetCart(this).CreateOrder(order);
                 return RedirectToAction("Index", "OrderSummary", new {orderNumber = orderNumber});
             }
 
-            TempData["OrderInfo"] = m;
+            //TempData["OrderInfo"] = m;
             return View();
         }
     }

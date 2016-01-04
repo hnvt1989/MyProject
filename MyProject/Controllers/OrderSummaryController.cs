@@ -34,7 +34,7 @@ namespace MyProject.Controllers
                                       select lineItems).ToList();
                 return View(model);
             }
-            return View();
+            return View("OrderNotFound");
         }
     }
 }
