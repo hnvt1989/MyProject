@@ -45,7 +45,7 @@ namespace MyProject.Migrations
             //    {
             //        Email = "huynguyenvt1989@gmail.com",
             //        UserName = "huynguyenvt1989@gmail.com",
-            //        FirstName = "Jason",
+            //        FullName = "Jason",
             //        LastName = "Nguyen",
             //        ProfilePicture = ProductInitializer.ImageToByteArray(Image.FromFile(HostingEnvironment.MapPath(@"~/Content/Images/Profile1.jpg"))),
             //    };

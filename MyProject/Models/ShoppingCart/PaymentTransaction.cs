@@ -16,7 +16,7 @@ namespace MyProject.Models.ShoppingCart
         public string Code { get; set; }
 
         [Required]
-        [RegularExpression(@"^[1][0-9]{1,10}$", ErrorMessage = "Must be a number")]
+        [RegularExpression(@"^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$", ErrorMessage = "Must be a number")]
         [Display(Name = "Amount")]
         public decimal Amount { get; set; }
 
@@ -27,14 +27,11 @@ namespace MyProject.Models.ShoppingCart
 
         public bool PartialPayment { get; set; }
 
-        [ForeignKey("Address")]
-        public int BillingAddressId { get; set; }
 
         [ForeignKey("PaymentStatus")]
         public int PaymentStatusId { get; set; }
 
-        public virtual Address BillingAddress { get; set; }
-
+        [Display(Name = "Payment type")]
         public virtual PaymentType PaymentType { get; set; }
 
         public virtual PaymentStatus PaymentStatus { get; set; }

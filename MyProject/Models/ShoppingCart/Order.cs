@@ -11,18 +11,22 @@ namespace MyProject.Models.ShoppingCart
         public int Id { get; set; }
 
         public string UserName { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Address { get; set; }
-        public string City { get; set; }
-        public string State { get; set; }
-        public string PostalCode { get; set; }
-        public string Country { get; set; }
+        public string FullName { get; set; }
+
+        [ForeignKey("Address")]
+        public int ShippingAddressId { get; set; }
+
+        [ForeignKey("PaymentTransaction")]
+        public int PaymentTransactionId { get; set; }
+
         public string Phone { get; set; }
         public string Email { get; set; }
 
         public decimal Total { get; set; }
         public System.DateTime OrderDate { get; set; }
-        public List<LineOrderDetail> OrderDetails { get; set; } 
+        public List<LineOrderDetail> OrderDetails { get; set; }
+
+        public virtual Address Address { get; set; }
+        public virtual PaymentTransaction PaymentTransaction { get; set; }
     }
 }

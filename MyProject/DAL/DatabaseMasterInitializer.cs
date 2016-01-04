@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Drawing;
+using System.Dynamic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Web;
 using System.Web.Hosting;
 using Microsoft.AspNet.Identity;
@@ -42,29 +44,6 @@ namespace MyProject.DAL
                 userManager.Create(userToInsert, "vt1989");
             }
 
-            //using (var pContext = new ProductContext())
-            //{
-            //    var categories = new List<Category>
-            //{
-            //new Category{Id = 101, Description = "Female-Winter-Collection"},
-            //new Category{Id = 102, Description = "Female-Casual-Collection"},
-            //};
-            //    categories.ForEach(s => pContext.Categories.Add(s));
-            //    pContext.SaveChanges();
-
-            //    var products = new List<Product>
-            //{
-            //new Product{Id = 1001, Description = "Heathered Knit Drawstring Jumpsuit", Image = ImageToByteArray(Image.FromFile(HostingEnvironment.MapPath(@"~/Content/Images/Image1.jpg"))), Id = 101, FeatureProduct = true, Price = 9.99m},
-            //new Product{Id = 1002, Description = "Two-pocket Gingham Shirt", Image = ImageToByteArray(Image.FromFile(HostingEnvironment.MapPath(@"~/Content/Images/Image2.jpg"))), Id = 102, FeatureProduct = true, Price = 11.99m},
-            //new Product{Id = 1003, Description = "Upside-Down Eiffei Tower Tee", Image = ImageToByteArray(Image.FromFile(HostingEnvironment.MapPath(@"~/Content/Images/Image3.jpg"))), Id = 102, FeatureProduct = true, Price = 7.95m},
-            //new Product{Id = 1004, Description = "Perforated Faux Leather Loafers", Image = ImageToByteArray(Image.FromFile(HostingEnvironment.MapPath(@"~/Content/Images/Image4.jpg"))), Id = 101, FeatureProduct = true, Price = 5.95m},
-            //new Product{Id = 1005, Description = "Faux Leather Skinny Pants", Image = ImageToByteArray(Image.FromFile(HostingEnvironment.MapPath(@"~/Content/Images/Image5.jpg"))), Id = 101, FeatureProduct = false, Price = 15.99m}
-            //};
-
-            //    products.ForEach(s => pContext.Products.Add(s));
-            //    pContext.SaveChanges();
-            //}
-
             using (var cContext = new ShoppingCartContext())
             {
 
@@ -85,6 +64,77 @@ namespace MyProject.DAL
             new Product{Id = 5, Code = "1005", Description = "Faux Leather Skinny Pants", Image = ImageToByteArray(Image.FromFile(HostingEnvironment.MapPath(@"~/Content/Images/Image5.jpg"))), CategoryId = 1, FeatureProduct = false, Price = 15.99m}
             };
                 products.ForEach(s => cContext.Products.Add(s));
+                cContext.SaveChanges();
+
+
+                var paymentStatuses = new List<PaymentStatus>
+                {
+                    new PaymentStatus() { Code = "Hold", Description = "On Hold"},
+                    new PaymentStatus() { Code = "Processing", Description = "Processing"},
+                    new PaymentStatus() { Code = "Processed", Description = "Processed"},
+                    new PaymentStatus() { Code = "Completed", Description = "Completed"}
+                };
+
+                cContext.PaymentStatuses.AddRange(paymentStatuses);
+                cContext.SaveChanges();
+
+                var addresses = new List<Address>
+                {
+                    new Address(){ Code = Guid.NewGuid().ToString(),Line1 = "1508/4 duong 30 thang 4", Line2 = "Phuong 12, tp Vung Tau", Line3 = "Vietnam"},
+
+                };
+                cContext.Addresses.AddRange(addresses);
+                cContext.SaveChanges();
+
+                var paymentTypes = new List<PaymentType>
+                {
+                    new PaymentType() {Code = "Cash", Description = "Cash payment"},
+                    new PaymentType() {Code = "PayPal", Description = "PayPal payment"}
+                };
+
+                cContext.PaymentTypes.AddRange(paymentTypes);
+                cContext.SaveChanges();
+
+                var paymentTransactions = new List<PaymentTransaction>
+                {
+                    new PaymentTransaction()
+                    {
+                        Code = Guid.NewGuid().ToString(),
+                        Amount = 6.66m,
+                        PartialPayment = true,
+                        PaymentStatusId = 1,
+                        PaymentTypeId = 1,
+                        PostedAmount = 6.66m,
+                        
+                    }
+                };
+                cContext.PaymentTransactions.AddRange(paymentTransactions);
+                cContext.SaveChanges();
+
+                var orders = new List<Order>
+                {
+                    new Order()
+                    {
+                        Id = 1,
+                        UserName = "huynguyenvt1989@gmail.com",
+                        FullName = "Jason Nguyen",
+                        Phone = "503-111-4444",
+                        OrderDate =  DateTime.Now,
+                        ShippingAddressId = 1,
+                        PaymentTransactionId = 1,
+                        Email = "huynguyenvt1989@gmail.com"
+                    }
+                };
+                var lineOrderDetails = new List<LineOrderDetail>
+                {
+                    new LineOrderDetail
+                    {
+                        ProductId = 1,
+                        OrderId = 1,
+                        UnitPrice = 9.99m,
+                        Quantity = 1
+                    }
+                };
 
                 var carts = new List<Cart>
                 {
@@ -97,29 +147,8 @@ namespace MyProject.DAL
                     }
                 };
 
-                var orders = new List<Order>
-                {
-                    new Order()
-                    {
-                        UserName = "huynguyenvt1989@gmail.com",
-                        FirstName = "Jason",
-                        LastName = "Nguyen",
-                        Phone = "503-111-4444",
-                        OrderDate =  DateTime.Now
-                    }
-                };
-                var lineOrderDetails = new List<LineOrderDetail>
-                {
-                    new LineOrderDetail
-                    {
-                        ProductId = 1,
-                        OrderId = 0,
-                        UnitPrice = 9.99m,
-                        Quantity = 1
-                    }
-                };
 
-                //carts.ForEach(c => cContext.Carts.Add(c));
+
                 cContext.Carts.AddRange(carts);
                 cContext.Orders.AddRange(orders);
                 cContext.LineOrderDetails.AddRange(lineOrderDetails);

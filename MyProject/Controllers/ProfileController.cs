@@ -111,7 +111,7 @@ namespace MyProject.Controllers
         //        Id = user.Id,
         //        Email = user.Email,
         //        LastName = user.LastName,
-        //        FirstName = user.FirstName,
+        //        FullName = user.FullName,
         //        AccessFailedCount = user.AccessFailedCount,
         //        EmailConfirmed = user.EmailConfirmed,
         //        LockoutEnabled = user.LockoutEnabled,

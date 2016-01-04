@@ -26,7 +26,7 @@
       exposed                  : [],        // array of expose elements
       tip_animation_fade_speed : 300,       // when tipAnimation = 'fade' this is speed in milliseconds for the transition
       cookie_monster           : false,     // true or false to control whether cookies are used
-      cookie_name              : 'joyride', // Name the cookie you'll use
+      cookie_name              : 'joyride', // FullName the cookie you'll use
       cookie_domain            : false,     // Will this cookie be attached to a domain, ie. '.notableapp.com'
       cookie_expires           : 365,       // set when you would like the cookie to expire.
       tip_container            : 'body',    // Where will the tip be attached
