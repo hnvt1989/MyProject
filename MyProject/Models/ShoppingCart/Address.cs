@@ -25,6 +25,11 @@ namespace MyProject.Models.ShoppingCart
 
         [Display(Name = "Address line 3")]
         public string Line3 { get; set; }
+
+        [ForeignKey("AddressType")]
+        public int AddressTypeId { get; set; }
+
+        public virtual AddressType AddressType { get; set; }
     }
 
     public class AddressType

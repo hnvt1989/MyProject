@@ -45,8 +45,54 @@ namespace MyProject.DAL
                 userManager.Create(userToInsert, "vt1989");
             }
 
+
+
+            //set up products 
             using (var cContext = new ShoppingCartContext())
             {
+
+                //set up account address
+
+                AddressFlow.AddNewAddress("huynguyenvt1989@gmail.com", new Address()
+                {
+                    AddressType = new AddressType() { Code = "Primary", Description = "Primary address" },
+                    Code = Guid.NewGuid().ToString(),
+                    Line1 = "1508 duong 30 thang 4",
+                    Line2 = "F12, Tp Vung tau",
+                    Line3 = "Viet Nam"   
+                });
+
+                AddressFlow.AddNewAddress("huynguyenvt1989@gmail.com", new Address()
+                {
+                    AddressType = new AddressType() { Code = "Alternative", Description = "Alternative address" },
+                    Code = Guid.NewGuid().ToString(),
+                    Line1 = "17000 duong Phan Chau Trinh",
+                    Line2 = "F11, Tp Vung tau",
+                    Line3 = "Viet Nam"
+                });
+
+                //cContext.Addresses.AddRange(new[]
+                //{
+                //    new Address()
+                //    {
+                //        AddressType = new AddressType(){Code = "Primary", Description = "Primary address"},
+                //        Code = Guid.NewGuid().ToString(),
+                //        Line1 = "1508 duong 30 thang 4",
+                //        Line2 = "F12, Tp Vung tau",
+                //        Line3 = "Viet Nam"
+                //    },
+                //    new Address()
+                //    {
+                //        AddressType = new AddressType(){Code = "Alternative", Description = "Alternative address"},
+                //        Code = Guid.NewGuid().ToString(),
+                //        Line1 = "17000 duong Phan Chau Trinh",
+                //        Line2 = "F11, Tp Vung tau",
+                //        Line3 = "Viet Nam"
+                //    }
+                //});
+                //cContext.SaveChanges();
+
+
                 var sequences = new List<Sequence>
                 {
                     new Sequence(){Code = "Order", StartValue = 1000, CurrentValue = 1000}
@@ -84,14 +130,6 @@ namespace MyProject.DAL
                 };
 
                 cContext.PaymentStatuses.AddRange(paymentStatuses);
-                cContext.SaveChanges();
-
-                var addresses = new List<Address>
-                {
-                    new Address(){ Code = Guid.NewGuid().ToString(),Line1 = "1508/4 duong 30 thang 4", Line2 = "Phuong 12, tp Vung Tau", Line3 = "Vietnam"},
-
-                };
-                cContext.Addresses.AddRange(addresses);
                 cContext.SaveChanges();
 
                 var paymentTypes = new List<PaymentType>

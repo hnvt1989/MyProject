@@ -207,6 +207,7 @@
       <DependentUpon>201412301738242_FirstName.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Account\AccountAddress.cs" />
     <Compile Include="Models\Core\Sequence.cs" />
     <Compile Include="Models\ShoppingCart\Address.cs" />
     <Compile Include="Models\ShoppingCart\PaymentTransaction.cs" />

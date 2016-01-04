@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Web;
+using MyProject.Models.Account;
 using MyProject.Models.Core;
 using MyProject.Models.ShoppingCart;
 
@@ -17,6 +18,9 @@ namespace MyProject.DAL
         }
         public DbSet<PaymentTransaction> PaymentTransactions { get; set; }
         public DbSet<Address> Addresses { get; set; }
+        public DbSet<AddressType> AddressTypes { get; set; }
+        public DbSet<AccountAddress> AccountAddresses { get; set; }
+
         public DbSet<PaymentType> PaymentTypes { get; set; }
         public DbSet<PaymentStatus> PaymentStatuses { get; set; }
         public DbSet<Cart> Carts { get; set; }
