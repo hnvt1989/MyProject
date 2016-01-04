@@ -1,56 +1,55 @@
-﻿@model MyProject.Models.ViewModels.OrderConfirmViewModel
+﻿@using MyProject.Helper
+@model MyProject.Models.ViewModels.OrderSummaryViewModel
 
 @{
-    ViewBag.Title = "Confirm Order";
+    ViewBag.Title = "Order Summary";
 }
 
-<script src="/Scripts/jquery-1.10.2.min.js"
-    type="text/javascript"></script>
-<script type="text/javascript">
-
-    $(function() {
-        // backbutton go back to payment detail
-        $('#backBtn').click(function() {
-            history.go(-1);
-        });
-    });
-</script>
 <div class="row">
     <div class="large-12 columns">
-        <h3>Confirm your order</h3>
+        
         <section id="ProfileForm">
-            @using (Html.BeginForm("Index", "OrderConfirm", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+            @using (Html.BeginForm("Index", "OrderSummary", FormMethod.Post, new {@class = "form-horizontal", role = "form", enctype = "multipart/form-data"}))
             {
                 @Html.AntiForgeryToken()
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <hr/>
+                @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+
+                <div align="left">
+                    <b>Find order</b>
+                    @Html.KTextBoxFor(m => m.OrderNumber, new {style = "width:150px"})
+                    <input id="searchBtn" type="submit" class="button" value="Search"/>
+                </div>
+                <div align="center"><h3>Order Summary</h3></div>
                 <fieldset>
                     <legend>
                         <h4>Shipping</h4>
                     </legend>
 
                     <div>
-
                         <div>
-                            <span><b>Customer Name: </b>&nbsp;&nbsp;@Model.CheckOutInfo.Name</span>
+                            <span><b>Order Number: </b>&nbsp;&nbsp;&nbsp;&nbsp;@Model.OrderNumber</span>
                         </div>
                         <div>
-                            <span><b>Customer Email: </b>&nbsp;&nbsp;@Model.CheckOutInfo.Email</span>
+                            <span><b>Customer Name: </b>&nbsp;&nbsp;@Model.FullName</span>
                         </div>
                         <div>
-                            <span><b>Customer Phone: </b>&nbsp;@Model.CheckOutInfo.Email</span>
+                            <span><b>Customer Email: </b>&nbsp;&nbsp;@Model.Email</span>
+                        </div>
+                        <div>
+                            <span><b>Customer Phone: </b>&nbsp;@Model.Email</span>
                         </div>
                         <div>
                             <span><b>Shipping Address: </b></span>
                         </div>
                         <div>
-                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Model.CheckOutInfo.ShippingAddress.Line1</span>
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Model.ShippingAddress.Line1</span>
                         </div>
                         <div>
-                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Model.CheckOutInfo.ShippingAddress.Line2</span>
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Model.ShippingAddress.Line2</span>
                         </div>
                         <div>
-                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Model.CheckOutInfo.ShippingAddress.Line3</span>
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Model.ShippingAddress.Line3</span>
                         </div>
                     </div>
                 </fieldset>
@@ -70,9 +69,9 @@
                             <th>Quantity
                             </th>
                         </tr>
-                        @foreach (var item in Model.CartViewModel.CartItems)
+                        @foreach (var item in Model.OrderDetails)
                         {
-                            <tr id="row-@item.Id">
+                            <tr id="row-@item.Product.Id">
                                 <td>
                                     @{
                                         if (@item.Product.Image != null)
@@ -89,13 +88,13 @@
                                     }
                                 </td>
                                 <td>
-                                    @Html.ActionLink(item.Product.Description, "Details", "Store", new {id = item.ProductId}, null)
+                                    @item.Product.Description
                                 </td>
                                 <td>
                                     @item.Product.Price
                                 </td>
-                                <td id="item-count-@item.Id">
-                                    @item.Count
+                                <td id="item-count-@item.Product.Id">
+                                    @item.Quantity
                                 </td>
                             </tr>
                         }
@@ -104,7 +103,7 @@
                             <td></td>
                             <td><b>Total</b></td>
                             <td id="cart-total">
-                                <b>@Model.CartViewModel.CartTotal</b>
+                                <b>@Model.Total</b>
                             </td>
                         </tr>
                     </table>
@@ -120,19 +119,17 @@
                             </th>
                         </tr>
                         <tr>
-                            <td>@Model.CheckOutInfo.PaymentTransaction.PaymentType.Description
+                            <td>@Model.PaymentTransaction.PaymentType.Description
                             </td>
-                            <td>@Model.CheckOutInfo.PaymentTransaction.Amount
+                            <td>@Model.PaymentTransaction.Amount
                             </td>
                         </tr>
                     </table>
                 </fieldset>
-
-                <input id="backBtn" class="button success" value="Back"/>
-                <input id="submitBtn" type = "submit" class="button success" value="Submit Order" />
             }
         </section>
     </div>
 </div>
+
 
 

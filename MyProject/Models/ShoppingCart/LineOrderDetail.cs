@@ -9,7 +9,9 @@ namespace MyProject.Models.ShoppingCart
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int LineOrderDetailId { get; set; }
 
+        [ForeignKey("Order")]
         public int OrderId { get; set; }
+
         public int ProductId { get; set; }
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -144,37 +145,44 @@ namespace MyProject.Models.ShoppingCart
             return total ?? decimal.Zero;
         }
 
-        public int CreateOrder(Order order)
+        public long CreateOrder(Order order)
         {
             decimal orderTotal = 0;
 
             var cartItems = GetCartItems();
             // Iterate over the items in the cart, 
             // adding the order details for each
+
+            //todo: sequence number ?
+            //var nextOrderId = soContext.Orders.Max(o => o.Id);
+
+            //order.Id = nextOrderId;
+
             foreach (var item in cartItems)
             {
                 var lineOrderDetail = new LineOrderDetail
                 {
                     ProductId = item.ProductId,
-                    OrderId = order.Id,
+                    //OrderId = order.Id,
                     UnitPrice = item.Product.Price,
                     Quantity = item.Count
                 };
                 // Set the order total of the shopping cart
                 orderTotal += (item.Count * item.Product.Price);
 
-                soContext.LineOrderDetails.Add(lineOrderDetail);
+                order.OrderDetails.Add(lineOrderDetail);
 
             }
             // Set the order's total to the orderTotal count
             order.Total = orderTotal;
 
+            soContext.Orders.Add(order);
             // Save the order
             soContext.SaveChanges();
             // Empty the shopping cart
             EmptyCart();
             // Return the Id as the confirmation number
-            return order.Id;
+            return order.OrderNumber;
         }
 
         // We're using HttpContextBase to allow access to cookies.

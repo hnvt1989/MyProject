@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MyProject.Models.Core;
 using MyProject.Models.ShoppingCart;
 using MyProject.Models.ViewModels;
 
@@ -13,6 +14,8 @@ namespace MyProject.Controllers
         public ActionResult Index()
         {
             OrderConfirmViewModel model = (OrderConfirmViewModel) TempData["OrderInfo"];
+
+            TempData["OrderConfirm"] = model;
             return View(model);
         }
 
@@ -20,19 +23,25 @@ namespace MyProject.Controllers
         [HttpPost]
         public ActionResult Index(OrderConfirmViewModel model)
         {
+            OrderConfirmViewModel m = (OrderConfirmViewModel)TempData["OrderConfirm"];
+
             if (ModelState.IsValid)
             {
                 var order = new Order()
                 {
-                    FullName = model.CheckOutInfo.Name,
-                    Address = model.CheckOutInfo.ShippingAddress,
-                    PaymentTransaction = model.CheckOutInfo.PaymentTransaction,
-                    Email = model.CheckOutInfo.Email,
+                    OrderNumber = SeqHelper.Next("Order"),
+                    FullName = m.CheckOutInfo.Name,
+                    Address = m.CheckOutInfo.ShippingAddress,
+                    PaymentTransaction = m.CheckOutInfo.PaymentTransaction,
+                    Email = m.CheckOutInfo.Email,
                     OrderDate = DateTime.Now,                
-
+                    OrderDetails = new List<LineOrderDetail>()
                 };
-                ShoppingCart.GetCart(this).CreateOrder(order);
+                var orderNumber = ShoppingCart.GetCart(this).CreateOrder(order);
+                return RedirectToAction("Index", "OrderSummary", new {orderNumber = orderNumber});
             }
+
+            TempData["OrderInfo"] = m;
             return View();
         }
     }

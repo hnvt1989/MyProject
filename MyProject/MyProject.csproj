@@ -180,6 +180,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OrderConfirmController.cs" />
+    <Compile Include="Controllers\OrderSummaryController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
@@ -206,6 +207,7 @@
       <DependentUpon>201412301738242_FirstName.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Core\Sequence.cs" />
     <Compile Include="Models\ShoppingCart\Address.cs" />
     <Compile Include="Models\ShoppingCart\PaymentTransaction.cs" />
     <Compile Include="Models\ViewModels\AccountViewModels.cs" />
@@ -220,6 +222,7 @@
     <Compile Include="Models\ShoppingCart\Product.cs" />
     <Compile Include="Models\ShoppingCart\ShoppingCart.cs" />
     <Compile Include="Models\ViewModels\OrderConfirmViewModel.cs" />
+    <Compile Include="Models\ViewModels\OrderSummaryViewModel.cs" />
     <Compile Include="Models\ViewModels\ShoppingCartAddViewModel.cs" />
     <Compile Include="Models\ViewModels\ShoppingCartRemoveViewModel.cs" />
     <Compile Include="Models\ViewModels\ShoppingCartViewModel.cs" />
@@ -227,6 +230,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Images\ProductDefault.png" />
     <Content Include="Content\Images\Profile1.jpg" />
     <Content Include="Content\Images\DefaultProfile.jpg" />
     <Content Include="Content\foundation\foundation.css" />
@@ -436,6 +440,8 @@
     <Content Include="Views\ShoppingCart\Index.cshtml" />
     <Content Include="Views\Checkout\Index.cshtml" />
     <Content Include="Views\OrderConfirm\Index.cshtml" />
+    <Content Include="Views\OrderSummary\Index.cshtml" />
+    <Content Include="Views\Shared\OrderNotFound.cshtml" />
     <None Include="Views\Store\ProductDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>

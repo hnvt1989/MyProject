@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using MyProject.Models;
 using MyProject.Models.Account;
+using MyProject.Models.Core;
 using MyProject.Models.ShoppingCart;
 
 namespace MyProject.DAL
@@ -46,6 +47,13 @@ namespace MyProject.DAL
 
             using (var cContext = new ShoppingCartContext())
             {
+                var sequences = new List<Sequence>
+                {
+                    new Sequence(){Code = "Order", StartValue = 1000, CurrentValue = 1000}
+                };
+
+                cContext.Sequences.AddRange(sequences);
+                cContext.SaveChanges();
 
                 var categories = new List<Category>
             {
@@ -115,26 +123,35 @@ namespace MyProject.DAL
                 {
                     new Order()
                     {
-                        Id = 1,
+                        OrderNumber = SeqHelper.Next("Order"),
                         UserName = "huynguyenvt1989@gmail.com",
                         FullName = "Jason Nguyen",
                         Phone = "503-111-4444",
                         OrderDate =  DateTime.Now,
                         ShippingAddressId = 1,
                         PaymentTransactionId = 1,
-                        Email = "huynguyenvt1989@gmail.com"
+                        Email = "huynguyenvt1989@gmail.com",
+                        OrderDetails = new List<LineOrderDetail>()
+                        {
+                             new LineOrderDetail
+                                {
+                                    ProductId = 1,
+                                    UnitPrice = 9.99m,
+                                    Quantity = 1
+                                }
+                        }
                     }
                 };
-                var lineOrderDetails = new List<LineOrderDetail>
-                {
-                    new LineOrderDetail
-                    {
-                        ProductId = 1,
-                        OrderId = 1,
-                        UnitPrice = 9.99m,
-                        Quantity = 1
-                    }
-                };
+                //var lineOrderDetails = new List<LineOrderDetail>
+                //{
+                //    new LineOrderDetail
+                //    {
+                //        ProductId = 1,
+                //        OrderId = 1,
+                //        UnitPrice = 9.99m,
+                //        Quantity = 1
+                //    }
+                //};
 
                 var carts = new List<Cart>
                 {
@@ -151,7 +168,7 @@ namespace MyProject.DAL
 
                 cContext.Carts.AddRange(carts);
                 cContext.Orders.AddRange(orders);
-                cContext.LineOrderDetails.AddRange(lineOrderDetails);
+                //cContext.LineOrderDetails.AddRange(lineOrderDetails);
                 cContext.SaveChanges();
 
             }

@@ -81,7 +81,7 @@
                 else
                 {
                     //default image
-                            <img src="~/Content/Images/DefaultProfile.jpg" height="40" width="40" />
+                    <img src="~/Content/Images/ProductDefault.png" height="40" width="40"/>
                 }
                         }
                     </td>
@@ -116,7 +116,7 @@
         </table>
 
         <p class="button success">
-            @Html.ActionLink("Home", "Index", "Home", new { cartItem = Model.CartItems }, new { @style = "color: #FFFFFF" })
+            @Html.ActionLink("Back", "Index", "Home", new { cartItem = Model.CartItems }, new { @style = "color: #FFFFFF" })
         </p>
 
 
