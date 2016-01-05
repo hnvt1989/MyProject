@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MyProject.DAL;
 using MyProject.Models.ShoppingCart;
 using Address = MyProject.Models.ShoppingCart.Address;
 
@@ -30,8 +31,17 @@ namespace MyProject.Models.ViewModels
 
         public PaymentTransaction PaymentTransaction { get; set; }
 
-        public List<PaymentType> PaymentTypes { get; set; } 
+        //public List<PaymentType> PaymentTypes { get; set; } 
 
-        public SelectList PaymentTypesList { get; set; }
-    }
+        public SelectList PaymentTypesList {
+            get
+            {
+                using (var context = new ShoppingCartContext())
+                {
+                    return new SelectList(context.PaymentTypes.ToList().Select(c => c.Description), "Cash");
+                };
+                
+            }
+        }
+        }
 }

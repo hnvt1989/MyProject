@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using System.Web.WebSockets;
 using MyProject.DAL;
 using MyProject.Models.ShoppingCart;
 
@@ -48,6 +49,22 @@ namespace MyProject.Models.Account
                 });
 
                 context.SaveChanges();
+            }
+        }
+
+        public static List<Address> GetAccountAddresses(string userName)
+        {
+            string userId = "";
+               using (IdentityContext _idDb = new IdentityContext())
+                {
+                    
+                    userId = _idDb.Users.FirstOrDefault(x => x.UserName == userName).Id;
+
+                }
+
+            using (var context = new ShoppingCartContext())
+            {
+                return context.AccountAddresses.Where(aa => aa.UserId == userId).Select(aa => aa.Address).ToList();
             }
         }
     }

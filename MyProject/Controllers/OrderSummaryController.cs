@@ -24,6 +24,7 @@ namespace MyProject.Controllers
                     Email = order.Email,
                     OrderDate = order.OrderDate,
                     PaymentTransaction = order.PaymentTransaction,
+                    
                     FullName = order.FullName,
                     ShippingAddress = order.Address,
                     Phone = order.Phone,
@@ -32,6 +33,14 @@ namespace MyProject.Controllers
                 model.OrderDetails = (from lineItems in _soCartContext.LineOrderDetails
                                       where lineItems.OrderId == order.Id
                                       select lineItems).ToList();
+
+
+                ////payment transaction detail:
+                //using (var context = new ShoppingCartContext())
+                //{
+                //    model.PaymentTransaction.PaymentType =  context.PaymentTypes.SingleOrDefault(t => t.Id == model.PaymentTransaction.PaymentTypeId);
+                //}
+                
                 return View(model);
             }
             return View("OrderNotFound");

@@ -59,7 +59,8 @@ namespace MyProject.DAL
                     Code = Guid.NewGuid().ToString(),
                     Line1 = "1508 duong 30 thang 4",
                     Line2 = "F12, Tp Vung tau",
-                    Line3 = "Viet Nam"   
+                    Line3 = "Viet Nam",
+                    Primary = true
                 });
 
                 AddressFlow.AddNewAddress("huynguyenvt1989@gmail.com", new Address()
@@ -68,7 +69,8 @@ namespace MyProject.DAL
                     Code = Guid.NewGuid().ToString(),
                     Line1 = "17000 duong Phan Chau Trinh",
                     Line2 = "F11, Tp Vung tau",
-                    Line3 = "Viet Nam"
+                    Line3 = "Viet Nam",
+                    Primary = false
                 });
 
                 //cContext.Addresses.AddRange(new[]
@@ -134,8 +136,8 @@ namespace MyProject.DAL
 
                 var paymentTypes = new List<PaymentType>
                 {
-                    new PaymentType() {Code = "Cash", Description = "Cash payment"},
-                    new PaymentType() {Code = "PayPal", Description = "PayPal payment"}
+                    new PaymentType() {Code = "Cash", Description = "Cash"},
+                    new PaymentType() {Code = "PayPal", Description = "PayPal"}
                 };
 
                 cContext.PaymentTypes.AddRange(paymentTypes);

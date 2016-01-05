@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mime;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.BuilderProperties;
 using MyProject.DAL;
+using MyProject.Models.Account;
 using MyProject.Models.ShoppingCart;
 using MyProject.Models.ViewModels;
 using WebGrease.Css.Extensions;
@@ -20,63 +22,81 @@ namespace MyProject.Controllers
         // GET: /Checkout/
         public ActionResult Index(string cartCode, decimal cartTotal)
         {
-            //if user not logged in, ask them to log in to place an order
-            if (!Request.IsAuthenticated)
+            if (ModelState.IsValid)
             {
-                return RedirectToAction("Login", "Account");
-            }
-
-
-            //using (var context = new ShoppingCartContext())
-            //{
-            //    context.Carts.Where(c => c.Code == HttpContext.Session["CartCode"] as string).ForEach(cart => cart.Code = HttpContext.User.Identity.Name);
-            //    context.SaveChanges();
-
-            //    //update the cart code session
-            //    HttpContext.Session["CartCode"] = HttpContext.User.Identity.Name;
-            //}
-
-            var checkoutModel = new CheckoutViewModel()
-            {
-                CartTotal = cartTotal,
-                PaymentAmount = cartTotal,
-                PaymentTransaction = new PaymentTransaction()
+                //if user not logged in, ask them to log in to place an order
+                if (!Request.IsAuthenticated)
                 {
-                    //todo return billing address from account
-                    PaymentType = null
-                },
-                //todo: return shipping address from account
-                ShippingAddress = null,
-
-                //todo: load from PaymentTypes table
-                PaymentTypes = new List<PaymentType>()
-                {
-                    new PaymentType()
-                    {
-                        Id = 1,
-                        Code = "Cash",
-                        Description = "Cash"
-                    },
-                    new PaymentType()
-                    {
-                        Id = 2,
-                        Code = "PayPal",
-                        Description = "PayPal"
-                    }
+                    return RedirectToAction("Login", "Account");
                 }
-            };
 
-            checkoutModel.PaymentTypesList = new SelectList(checkoutModel.PaymentTypes, "Code", "Description");
-            return View(checkoutModel);
+
+                //using (var context = new ShoppingCartContext())
+                //{
+                //    context.Carts.Where(c => c.Code == HttpContext.Session["CartCode"] as string).ForEach(cart => cart.Code = HttpContext.User.Identity.Name);
+                //    context.SaveChanges();
+
+                //    //update the cart code session
+                //    HttpContext.Session["CartCode"] = HttpContext.User.Identity.Name;
+                //}
+
+                var user = new ApplicationUser();
+                using (IdentityContext _idDb = new IdentityContext())
+                {
+                    var _currentUserId = User.Identity.GetUserId();
+                    user = _idDb.Users.FirstOrDefault(x => x.Id == _currentUserId);
+
+                }
+
+                var addresses = AddressFlow.GetAccountAddresses(user.UserName);
+
+                var checkoutModel = new CheckoutViewModel()
+                {
+                    CartTotal = cartTotal,
+                    PaymentAmount = cartTotal,
+                    PaymentTransaction = new PaymentTransaction()
+                    {
+                        //todo return billing address from account
+                        PaymentType = null
+                    },
+                    //PaymentTypes = new List<PaymentType>(),
+                    //todo: return shipping address from account
+                    ShippingAddress = addresses.SingleOrDefault(a=>a.Primary),
+                    Name = user.LastName + " " + user.FirstName,
+                    Email = user.Email,
+                    Phone = user.PhoneNumber
+                };
+
+                TempData["CheckoutInfo"] = checkoutModel;
+
+                //using (var context = new ShoppingCartContext())
+                //{
+                //    checkoutModel.PaymentTypes.AddRange(context.PaymentTypes.ToList());
+                //}
+
+
+                //checkoutModel.PaymentTypesList = new SelectList(checkoutModel.PaymentTypes, "Code", "Description");
+                return View(checkoutModel);
+            }
+            return View();
         }
 
         [HttpPost]
         public ActionResult Index(CheckoutViewModel model)
         {
+            string cartCode = "";
+            decimal cartTotal = 0m;
+
+            var cart = ShoppingCart.GetCart(this.HttpContext);
+            //to redirect if view is not valid
+            cartCode = cart.ShoppingCartId;
+            cartTotal = cart.GetTotal();
+
 
             if (ModelState.IsValid)
             {
-                var cart = ShoppingCart.GetCart(this.HttpContext);
+                
+                
                 // Set up our ViewModel
                 var viewModel = new ShoppingCartViewModel
                 {
@@ -84,28 +104,17 @@ namespace MyProject.Controllers
                     CartTotal = cart.GetTotal()
                 };
 
+
+
                 //update the cart code to the user id if they are logged in
                 //viewModel.CartItems.ForEach(c => c.Code = cart.GetCartId(HttpContext));
 
                 string paymentTypeValue = Request.Form["paymentType"].ToString();
-                var paymentType = new PaymentType();
-                switch (paymentTypeValue)
+                PaymentType paymentType;
+
+                using (var context = new ShoppingCartContext())
                 {
-                    case "Cash":
-                        paymentType.Code = "Cash";
-                        paymentType.Id = 1;
-                        paymentType.Description = "Cash payment";
-                        break;
-                    case "PayPal":
-                        paymentType.Code = "PayPal";
-                        paymentType.Id = 2;
-                        paymentType.Description = "Paypal payment";
-                        break;
-                    default:
-                        paymentType.Code = "Default";
-                        paymentType.Id = 0;
-                        paymentType.Description = "Default payment";
-                        break;
+                    paymentType  = context.PaymentTypes.SingleOrDefault(t => t.Code == paymentTypeValue);
                 }
 
                 var m = new OrderConfirmViewModel()
@@ -121,7 +130,8 @@ namespace MyProject.Controllers
                             PartialPayment = (model.PaymentTransaction.Amount < viewModel.CartTotal),
                             //todo:
                             PaymentStatusId = 1, //1 = on hold, 2 = processing, 3 = processed, 4 = complete
-                            PaymentType = paymentType,
+                            PaymentTypeId = paymentType.Id,
+                            PaymentTypeDescription =  paymentType.Description,
                             PostedAmount = 0m
 
                         },
@@ -129,20 +139,18 @@ namespace MyProject.Controllers
                         Email = model.Email,
                         Phone = model.Phone
                     }
-                    //CartCode = model.CartCode,
-                    //CartTotal = model.CartTotal,
-                    //Address = model.Address,
-                    //PaymentTransaction = model.PaymentTransaction,
-                    //FullName = model.FullName,
-                    //Email = model.Email,
-                    //Phone = model.Phone,
-                    //ShippingAddress = model.ShippingAddress
                 };
+                m.CheckOutInfo.ShippingAddress.Primary = false;
+                m.CheckOutInfo.ShippingAddress.Code = Guid.NewGuid().ToString();
+                m.CheckOutInfo.ShippingAddress.AddressTypeId = 2;
+
 
                 TempData["OrderInfo"] = m;
                 return RedirectToAction("Index", "OrderConfirm");
             }
-            return View(model);
+
+            var checkoutModel = TempData["CheckoutInfo"];
+            return View(checkoutModel);
         }
     }
 }

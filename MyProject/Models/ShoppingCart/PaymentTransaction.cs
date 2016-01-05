@@ -35,6 +35,8 @@ namespace MyProject.Models.ShoppingCart
         public virtual PaymentType PaymentType { get; set; }
 
         public virtual PaymentStatus PaymentStatus { get; set; }
+
+        public string PaymentTypeDescription { get; set; }
     }
 
     public class PaymentType

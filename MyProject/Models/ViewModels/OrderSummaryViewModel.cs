@@ -21,5 +21,6 @@ namespace MyProject.Models.ViewModels
 
         public Address ShippingAddress { get; set; }
         public PaymentTransaction PaymentTransaction { get; set; }
+        
     }
 }

@@ -30,6 +30,8 @@ namespace MyProject.Models.ShoppingCart
         public int AddressTypeId { get; set; }
 
         public virtual AddressType AddressType { get; set; }
+
+        public bool Primary { get; set; }
     }
 
     public class AddressType

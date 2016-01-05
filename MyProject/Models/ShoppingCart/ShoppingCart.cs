@@ -11,7 +11,7 @@ namespace MyProject.Models.ShoppingCart
     public partial class ShoppingCart
     {
         ShoppingCartContext soContext = new ShoppingCartContext();
-        string ShoppingCartId { get; set; }
+        public string ShoppingCartId { get; set; }
         public const string CartSessionKey = "CartCode";
 
         public static ShoppingCart GetCart(HttpContextBase context)
