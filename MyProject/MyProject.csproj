@@ -248,9 +248,6 @@
     <Content Include="App_Readme\Foundation for Sites\readme.md" />
     <Content Include="config.rb" />
     <Content Include="App_Readme\Foundation_readme.md" />
-    <None Include="Properties\PublishProfiles\cuzdomfashion - FTP.pubxml" />
-    <None Include="Properties\PublishProfiles\cuzdomfashion - Web Deploy.pubxml" />
-    <None Include="Properties\PublishProfiles\cuztomize.pubxml" />
     <Content Include="Content\Images\Image4.jpg" />
     <Content Include="Content\Images\Image1.jpg" />
     <Content Include="Content\Images\Image2.jpg" />
@@ -448,6 +445,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
