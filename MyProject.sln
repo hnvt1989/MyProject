@@ -2,12 +2,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyProject", "MyProject\MyProject.csproj", "{D616CF03-649B-4AAB-90C3-FEE46ADD6617}"
-	ProjectSection(ProjectDependencies) = postProject
-		{ADF48449-6715-4D99-A972-F195280CE4BC} = {ADF48449-6715-4D99-A972-F195280CE4BC}
-		{A4DACC72-9AAB-4482-8062-B84DCEED6643} = {A4DACC72-9AAB-4482-8062-B84DCEED6643}
-		{89FB1195-1575-43C1-B214-2C582F7B0228} = {89FB1195-1575-43C1-B214-2C582F7B0228}
-		{01E0DBBF-B02B-4F4E-B4BB-9E832B8DB291} = {01E0DBBF-B02B-4F4E-B4BB-9E832B8DB291}
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PublishScripts", "PublishScripts", "{721C7A3E-D164-470A-B8C0-E358BDD9572D}"
 	ProjectSection(SolutionItems) = preProject
@@ -20,22 +14,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configurations", "Configura
 		PublishScripts\Configurations\MyProject-WAWS-dev.json = PublishScripts\Configurations\MyProject-WAWS-dev.json
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Account", "Account\Account.csproj", "{89FB1195-1575-43C1-B214-2C582F7B0228}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "UnitTest\UnitTest.csproj", "{69ABEB1F-B680-4BEE-BAEE-7D351BBE449D}"
 	ProjectSection(ProjectDependencies) = postProject
-		{ADF48449-6715-4D99-A972-F195280CE4BC} = {ADF48449-6715-4D99-A972-F195280CE4BC}
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Account.Logic", "Account.Logic\Account.Logic.csproj", "{A4DACC72-9AAB-4482-8062-B84DCEED6643}"
-	ProjectSection(ProjectDependencies) = postProject
-		{89FB1195-1575-43C1-B214-2C582F7B0228} = {89FB1195-1575-43C1-B214-2C582F7B0228}
-		{01E0DBBF-B02B-4F4E-B4BB-9E832B8DB291} = {01E0DBBF-B02B-4F4E-B4BB-9E832B8DB291}
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{ADF48449-6715-4D99-A972-F195280CE4BC}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transactional", "Transactional\Transactional.csproj", "{01E0DBBF-B02B-4F4E-B4BB-9E832B8DB291}"
-	ProjectSection(ProjectDependencies) = postProject
-		{89FB1195-1575-43C1-B214-2C582F7B0228} = {89FB1195-1575-43C1-B214-2C582F7B0228}
+		{D616CF03-649B-4AAB-90C3-FEE46ADD6617} = {D616CF03-649B-4AAB-90C3-FEE46ADD6617}
 	EndProjectSection
 EndProject
 Global
@@ -48,22 +29,10 @@ Global
 		{D616CF03-649B-4AAB-90C3-FEE46ADD6617}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D616CF03-649B-4AAB-90C3-FEE46ADD6617}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D616CF03-649B-4AAB-90C3-FEE46ADD6617}.Release|Any CPU.Build.0 = Release|Any CPU
-		{89FB1195-1575-43C1-B214-2C582F7B0228}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{89FB1195-1575-43C1-B214-2C582F7B0228}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{89FB1195-1575-43C1-B214-2C582F7B0228}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{89FB1195-1575-43C1-B214-2C582F7B0228}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A4DACC72-9AAB-4482-8062-B84DCEED6643}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A4DACC72-9AAB-4482-8062-B84DCEED6643}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A4DACC72-9AAB-4482-8062-B84DCEED6643}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A4DACC72-9AAB-4482-8062-B84DCEED6643}.Release|Any CPU.Build.0 = Release|Any CPU
-		{ADF48449-6715-4D99-A972-F195280CE4BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ADF48449-6715-4D99-A972-F195280CE4BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ADF48449-6715-4D99-A972-F195280CE4BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ADF48449-6715-4D99-A972-F195280CE4BC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{01E0DBBF-B02B-4F4E-B4BB-9E832B8DB291}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{01E0DBBF-B02B-4F4E-B4BB-9E832B8DB291}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{01E0DBBF-B02B-4F4E-B4BB-9E832B8DB291}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{01E0DBBF-B02B-4F4E-B4BB-9E832B8DB291}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69ABEB1F-B680-4BEE-BAEE-7D351BBE449D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69ABEB1F-B680-4BEE-BAEE-7D351BBE449D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69ABEB1F-B680-4BEE-BAEE-7D351BBE449D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69ABEB1F-B680-4BEE-BAEE-7D351BBE449D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

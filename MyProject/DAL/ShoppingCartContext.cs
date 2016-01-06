@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
+using System.Security.Permissions;
+using System.Security.Policy;
 using System.Web;
 using MyProject.Models.Account;
 using MyProject.Models.Core;
@@ -32,6 +34,12 @@ namespace MyProject.DAL
 
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<ProductOffer> ProductOffers { get; set; }
+        public DbSet<PriceType> PriceTypes { get; set; }
+        public DbSet<Promotion> Promotions { get; set; }
+        public DbSet<PromotionLineItem> PromotionLineItems { get; set; }
+        public DbSet<CartLineItem> CartLineItems { get; set; }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

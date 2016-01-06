@@ -44,6 +44,10 @@
       <HintPath>..\Build\Core.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="nunit.framework, Version=3.0.5813.39031, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.3.0.1\lib\net45\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -186,6 +190,7 @@
     <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="DAL\DatabaseMasterContext.cs" />
     <Compile Include="DAL\DatabaseMasterInitializer.cs" />
+    <Compile Include="DAL\DatabaseMasterInitializerForTest.cs" />
     <Compile Include="DAL\ProductContext.cs" />
     <Compile Include="DAL\IdentityContext.cs" />
     <Compile Include="DAL\ShoppingCartContext.cs" />
@@ -446,6 +451,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Properties\PublishProfiles\" />
+    <Folder Include="UnitTest\ViewController\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
