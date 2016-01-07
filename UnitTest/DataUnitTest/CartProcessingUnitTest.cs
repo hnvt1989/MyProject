@@ -46,10 +46,10 @@ namespace UnitTest.DataUnitTest
                 //    Code = shoppingCart.ShoppingCartId,
                 //    DateCreated = DateTime.Now,
                 //    OriginalPrice = CartContext.Products.Single(p => p.Id == cart.ProductId).Price,
-                //    DiscountPrice = 0m,
+                //    DiscountAmount = 0m,
                 //    Quantity = cart.Count,
                 //    ShippingCost = 0m,
-                //    FinalPrice = 0m,
+                //    DiscountedPrice = 0m,
                 //    ProductOffer =
                 //        CartContext.ProductOffers.Single(po => po.ProductId == cart.ProductId && po.PriceType.Code == "R")
                 //});
@@ -61,31 +61,31 @@ namespace UnitTest.DataUnitTest
                 Code = shoppingCart.ShoppingCartId,
                 DateCreated = DateTime.Now,
                 OriginalPrice = CartContext.Products.Single(p => p.Id == c.ProductId).Price,
-                DiscountPrice = 0m,
+                DiscountAmount = 0m,
                 Quantity = c.Count,
                 ShippingCost = 0m,
-                FinalPrice = 0m,
+                DiscountedPrice = 0m,
                 ProductCode = "1001",
                 PriceType = "R"
             }));
         }
 
         [Test]
-        public void BasicCheck()
+        public void _0_BasicCheck()
         {
             Assert.AreEqual("1001", CartContext.Products.Single(p => p.Code == "1001").Code);
 
         }
 
         [Test]
-        public void CartPrice()
+        public void _1_CartPrice()
         {
             Assert.AreEqual(37.97m, shoppingCart.GetTotal());
 
         }
 
         [Test]
-        public void PromoExpression_Parse()
+        public void _2_PromoExpression_Parse()
         {
             var exp =
                 "Category=1001,1002;PriceType=R,W;ItemCode=1001,1005;FreeShipping=True;BuyItemCategory=1004;BuyItemCount=5;BuyItemCode=1001,1002;GetItemCategory=1003;GetItemCount=2;GetItemCode=1005;PercentDiscount=0.25;AmountDiscount=10";
@@ -106,7 +106,7 @@ namespace UnitTest.DataUnitTest
         }
 
         [Test]
-        public void TestApplyEach()
+        public void _3_PercentDiscount_Categories()
         {
             //15 percent off Female-Winter-Collection
             var exp =
@@ -117,14 +117,108 @@ namespace UnitTest.DataUnitTest
 
             var cartlineItems = new List<CartLineItem>()
             {
-                new CartLineItem(){Categories = new List<string>(){"1001"}, OriginalPrice = 40m, DiscountPrice = 0m, FinalPrice = 40m},
-                new CartLineItem(){Categories = new List<string>(){"1003", "1004"}, OriginalPrice = 20m, DiscountPrice = 0m, FinalPrice = 20m}
+                new CartLineItem(){Categories = new List<string>(){"1001"}, OriginalPrice = 40m, DiscountAmount = 0m, DiscountedPrice = 40m, Quantity = 2,DiscountApplied = false, PriceType = "R"},
+                new CartLineItem(){Categories = new List<string>(){"1003", "1004"}, OriginalPrice = 20m, DiscountAmount = 0m, DiscountedPrice = 20m, Quantity = 1,DiscountApplied = false, PriceType = "R"}
             };
 
             new CartProcessor().ApplyEach(promo, cartlineItems);
-            Assert.AreEqual(70m, cartlineItems.Sum(c => c.FinalPrice));
+            Assert.AreEqual(88m, cartlineItems.Sum(c => c.Sum));
             //Assert.AreEqual(CartContext.Products.Single(p => p.Code == "1001").Price,
-            //    cartProcessor.Process(promotion.PromotionLineItems, cartLineItems).FirstOrDefault().FinalPrice);
+            //    cartProcessor.Process(promotion.PromotionLineItems, cartLineItems).FirstOrDefault().DiscountedPrice);
+        }
+
+        [Test]
+        public void _4_AmountDiscount_Categories()
+        {
+            //1.5 dollar off Female-Casual-Collection
+            var exp =
+                "Category=1002;PriceType=R;AmountDiscount=1.5";
+            var promo = new PromotionLineItem { PromotionLineItemExpression = exp };
+
+            var cartlineItems = new List<CartLineItem>()
+            {
+                new CartLineItem(){Categories = new List<string>(){"1001"}, OriginalPrice = 40m, DiscountAmount = 0m, DiscountedPrice = 40m, Quantity = 1, DiscountApplied = false, PriceType = "R"},
+                new CartLineItem(){Categories = new List<string>(){"1003", "1002"}, OriginalPrice = 20m, DiscountAmount = 0m, DiscountedPrice = 20m, Quantity = 2, DiscountApplied = false, PriceType = "R"}
+            };
+
+            new CartProcessor().ApplyEach(promo, cartlineItems);
+            Assert.AreEqual(77m, cartlineItems.Sum(c => c.Sum));
+        }
+
+        [Test]
+        public void _5_PercentDiscount_ItemCodes()
+        {
+            //1.5 dollar off Female-Casual-Collection
+            var exp =
+                "ItemCode=1004;PriceType=R;PercentDiscount=0.25";
+            var promo = new PromotionLineItem { PromotionLineItemExpression = exp };
+
+            var cartlineItems = new List<CartLineItem>()
+            {
+                new CartLineItem(){ProductCode = "1004", OriginalPrice = 25m, DiscountAmount = 0m, DiscountedPrice = 25m, Quantity = 1, DiscountApplied = false, PriceType = "R"},
+                new CartLineItem(){ProductCode = "1005", OriginalPrice = 20m, DiscountAmount = 0m, DiscountedPrice = 20m, Quantity = 2, DiscountApplied = false, PriceType = "R"}
+            };
+
+            new CartProcessor().ApplyEach(promo, cartlineItems);
+            Assert.AreEqual(58.75m, cartlineItems.Sum(c => c.Sum));
+        }
+
+        [Test]
+        public void _6_AmountDiscount_ItemCodes()
+        {
+            //1.5 dollar off Female-Casual-Collection
+            var exp =
+                "ItemCode=1005;PriceType=R;AmountDiscount=5.25";
+            var promo = new PromotionLineItem { PromotionLineItemExpression = exp };
+
+            var cartlineItems = new List<CartLineItem>()
+            {
+                new CartLineItem(){ProductCode = "1004", OriginalPrice = 25m, DiscountAmount = 0m, DiscountedPrice = 25m, Quantity = 1, DiscountApplied = false, PriceType = "R"},
+                new CartLineItem(){ProductCode = "1005", OriginalPrice = 20m, DiscountAmount = 0m, DiscountedPrice = 20m, Quantity = 2, DiscountApplied = false, PriceType = "R"}
+            };
+
+            new CartProcessor().ApplyEach(promo, cartlineItems);
+            Assert.AreEqual(54.5m, cartlineItems.Sum(c => c.Sum));
+        }
+
+        [Test]
+        public void _7_BuyItemsGetItemFree_SameItem()
+        {
+            //Buy 1004 get 1004 free
+            var exp =
+                "PriceType=R;BuyItemCode=1004;BuyItemCount=5;GetItemCode=1004;GetItemCount=1";
+            var promo = new PromotionLineItem { PromotionLineItemExpression = exp };
+
+            var cartlineItems = new List<CartLineItem>()
+            {
+                new CartLineItem(){ProductCode = "1004", OriginalPrice = 25m, DiscountAmount = 0m, DiscountedPrice = 25m, Quantity = 12, DiscountApplied = false, PriceType = "R"},
+                new CartLineItem(){ProductCode = "1005", OriginalPrice = 20m, DiscountAmount = 0m, DiscountedPrice = 20m, Quantity = 2, DiscountApplied = false, PriceType = "R"}
+            };
+            new CartProcessor().ApplyEach(promo, cartlineItems);
+            Assert.AreEqual(340m, cartlineItems.Sum(c => c.Sum));
+            Assert.AreEqual(2, cartlineItems.Where(c => c.AddOnItem).ToList().Count);
+            Assert.AreEqual("1004", cartlineItems.FirstOrDefault(c=>c.AddOnItem).ProductCode);
+        }
+
+
+        [Test]
+        public void _8_BuyItemsGetItemFree_DifferentItem()
+        {
+            //Buy 1004 get 1004 free
+            var exp =
+                "PriceType=R;BuyItemCode=1004;BuyItemCount=5;GetItemCode=1001;GetItemCount=2";
+            var promo = new PromotionLineItem { PromotionLineItemExpression = exp };
+
+            var cartlineItems = new List<CartLineItem>()
+            {
+                new CartLineItem(){ProductCode = "1004", OriginalPrice = 25m, DiscountAmount = 0m, DiscountedPrice = 25m, Quantity = 6, DiscountApplied = false, PriceType = "R"},
+                new CartLineItem(){ProductCode = "1005", OriginalPrice = 20m, DiscountAmount = 0m, DiscountedPrice = 20m, Quantity = 2, DiscountApplied = false, PriceType = "R"}
+            };
+            new CartProcessor().ApplyEach(promo, cartlineItems);
+            Assert.AreEqual(190m, cartlineItems.Sum(c => c.Sum));
+            Assert.AreEqual("1001", cartlineItems.Single(c => c.AddOnItem).ProductCode);
+            Assert.AreEqual(1, cartlineItems.Where(c => c.AddOnItem).ToList().Count);
+            Assert.AreEqual(2, cartlineItems.Single(c => c.AddOnItem).Quantity);
         }
     }
 }

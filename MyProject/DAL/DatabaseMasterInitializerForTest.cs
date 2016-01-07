@@ -315,11 +315,11 @@ namespace MyProject.DAL
                     new CartLineItem()
                     {
                         Code = Guid.NewGuid().ToString(),
-                        DiscountPrice = 0m,
+                        DiscountAmount = 0m,
                         Quantity = 5,
                         OriginalPrice = 0m,
                         ShippingCost = 0m,
-                        FinalPrice = 0m,
+                        DiscountedPrice = 0m,
                         ProductCode = "1001",
                         PriceType = "R",
                         DateCreated = DateTime.Now
@@ -327,11 +327,11 @@ namespace MyProject.DAL
                     new CartLineItem()
                     {
                         Code = Guid.NewGuid().ToString(),
-                        DiscountPrice = 0m,
+                        DiscountAmount = 0m,
                         Quantity = 5,
                         OriginalPrice = 0m,
                         ShippingCost = 0m,
-                        FinalPrice = 0m,
+                        DiscountedPrice = 0m,
                         ProductCode = "1002",
                         PriceType = "W",
                         DateCreated = DateTime.Now

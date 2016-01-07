@@ -105,7 +105,7 @@ namespace MyProject.Models.ShoppingCart
                 GetItemCode = new List<string>(),
                 GetItemCount = 0,
 
-                PercentDiscount = 1,
+                PercentDiscount = 0,
                 AmountDiscount = 0
             };
 

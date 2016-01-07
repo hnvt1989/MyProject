@@ -90,12 +90,17 @@ namespace MyProject.Models.ShoppingCart
 
         public decimal OriginalPrice { get; set; }
 
-        public decimal DiscountPrice { get; set; }
+        public decimal DiscountAmount { get; set; }
 
         public decimal ShippingCost { get; set; }
 
         //price after discount
-        public decimal FinalPrice { get; set; }
+        public decimal DiscountedPrice { get; set; }
 
+        public decimal Sum {get { return DiscountedPrice * Quantity + ShippingCost; }}
+
+        public bool DiscountApplied { get; set; }
+
+        public bool AddOnItem { get; set; }
     }
 }

@@ -288,6 +288,10 @@ namespace MyProject.DAL
                             new PromotionLineItem()
                             {
                                 Code = "10PercentOff_1001",
+                                Active = true,
+                                StartDate = DateTime.Now,
+                                EndDate = DateTime.Now.AddDays(2),
+                                PromotionLineItemExpression = ""
                                 //Description = "10 percent off item 1001",
                                 //Quantity = 2,
                                 //FreeShipping = true,
@@ -300,21 +304,6 @@ namespace MyProject.DAL
                                 //Exclusive = true,
                                 //Order = 1
                             },
-                            //new PromotionLineItem()
-                            //{
-                            //    Code = "2dollarOff_Female-Casual-Collection",
-                            //    Description = "2 dollar off female casual collection",
-                            //    Quantity = 2,
-                            //    FreeShipping = false,
-                            //    AmountDiscount = 2m,
-                            //    PercentDiscount = 1m,
-                            //    Active = true,
-                            //    StartDate = DateTime.Now,
-                            //    EndDate = DateTime.Now.AddDays(5),
-                            //    ProductOffers = cContext.ProductOffers.Where(po => po.Product.Categories.Equals(cContext.Categories.Where(c => c.Code == "1002").ToList())).ToList(),
-                            //    Exclusive = true,
-                            //    Order = 1
-                            //},
                         }
                     },
 
@@ -326,11 +315,11 @@ namespace MyProject.DAL
                     new CartLineItem()
                     {
                         Code = Guid.NewGuid().ToString(),
-                        DiscountPrice = 0m,
+                        DiscountAmount = 0m,
                         Quantity = 5,
                         OriginalPrice = 0m,
                         ShippingCost = 0m,
-                        FinalPrice = 0m,
+                        DiscountedPrice = 0m,
                         ProductCode = "1001",
                         PriceType = "R",
                         DateCreated = DateTime.Now
@@ -338,11 +327,11 @@ namespace MyProject.DAL
                     new CartLineItem()
                     {
                         Code = Guid.NewGuid().ToString(),
-                        DiscountPrice = 0m,
+                        DiscountAmount = 0m,
                         Quantity = 5,
                         OriginalPrice = 0m,
                         ShippingCost = 0m,
-                        FinalPrice = 0m,
+                        DiscountedPrice = 0m,
                         ProductCode = "1002",
                         PriceType = "W",
                         DateCreated = DateTime.Now
