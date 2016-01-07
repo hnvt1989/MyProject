@@ -288,33 +288,22 @@ namespace MyProject.DAL
                             new PromotionLineItem()
                             {
                                 Code = "10PercentOff_1001",
-                                Description = "10 percent off item 1001",
-                                Quantity = 2,
-                                FreeShipping = true,
-                                AmountDiscount = 0.00m,
-                                PercentDiscount = 0.1m,
                                 Active = true,
                                 StartDate = DateTime.Now,
                                 EndDate = DateTime.Now.AddDays(2),
-                                ProductOffers = cContext.ProductOffers.Where(po=> po.ProductId == cContext.Products.FirstOrDefault(p => p.Code == "1001" && po.PriceTypeId ==  cContext.PriceTypes.FirstOrDefault(c => c.Code == "R").Id).Id).ToList(),
-                                Exclusive = true,
-                                Order = 1
+                                PromotionLineItemExpression = ""
+                                //Description = "10 percent off item 1001",
+                                //Quantity = 2,
+                                //FreeShipping = true,
+                                //AmountDiscount = 0.00m,
+                                //PercentDiscount = 0.1m,
+                                //Active = true,
+                                //StartDate = DateTime.Now,
+                                //EndDate = DateTime.Now.AddDays(2),
+                                //ProductOffers = cContext.ProductOffers.Where(po=> po.ProductId == cContext.Products.FirstOrDefault(p => p.Code == "1001" && po.PriceTypeId ==  cContext.PriceTypes.FirstOrDefault(c => c.Code == "R").Id).Id).ToList(),
+                                //Exclusive = true,
+                                //Order = 1
                             },
-                            //new PromotionLineItem()
-                            //{
-                            //    Code = "2dollarOff_Female-Casual-Collection",
-                            //    Description = "2 dollar off female casual collection",
-                            //    Quantity = 2,
-                            //    FreeShipping = false,
-                            //    AmountDiscount = 2m,
-                            //    PercentDiscount = 1m,
-                            //    Active = true,
-                            //    StartDate = DateTime.Now,
-                            //    EndDate = DateTime.Now.AddDays(5),
-                            //    ProductOffers = cContext.ProductOffers.Where(po => po.Product.Categories.Equals(cContext.Categories.Where(c => c.Code == "1002").ToList())).ToList(),
-                            //    Exclusive = true,
-                            //    Order = 1
-                            //},
                         }
                     },
 
@@ -331,7 +320,8 @@ namespace MyProject.DAL
                         OriginalPrice = 0m,
                         ShippingCost = 0m,
                         FinalPrice = 0m,
-                        ProductOffer = cContext.ProductOffers.Single(po => po.Code == "1001-R"),
+                        ProductCode = "1001",
+                        PriceType = "R",
                         DateCreated = DateTime.Now
                     },
                     new CartLineItem()
@@ -342,7 +332,8 @@ namespace MyProject.DAL
                         OriginalPrice = 0m,
                         ShippingCost = 0m,
                         FinalPrice = 0m,
-                        ProductOffer = cContext.ProductOffers.Single(po => po.Code == "1002-R"),
+                        ProductCode = "1002",
+                        PriceType = "W",
                         DateCreated = DateTime.Now
                     },
                 });

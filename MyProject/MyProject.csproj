@@ -173,6 +173,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppLogic\Cart\CartProcessor.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\Bundles\Foundation.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -191,7 +192,6 @@
     <Compile Include="DAL\DatabaseMasterContext.cs" />
     <Compile Include="DAL\DatabaseMasterInitializer.cs" />
     <Compile Include="DAL\DatabaseMasterInitializerForTest.cs" />
-    <Compile Include="DAL\ProductContext.cs" />
     <Compile Include="DAL\IdentityContext.cs" />
     <Compile Include="DAL\ShoppingCartContext.cs" />
     <Compile Include="DataContext\IdentityMigrations\201412302033055_InitialCreate.cs" />
@@ -216,6 +216,7 @@
     <Compile Include="Models\Core\Sequence.cs" />
     <Compile Include="Models\ShoppingCart\Address.cs" />
     <Compile Include="Models\ShoppingCart\PaymentTransaction.cs" />
+    <Compile Include="Models\ShoppingCart\Promotion.cs" />
     <Compile Include="Models\ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\ShoppingCart\Cart.cs" />
     <Compile Include="Models\ShoppingCart\Category.cs" />
