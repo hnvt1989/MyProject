@@ -115,7 +115,7 @@ namespace MyProject.Models.ShoppingCart
 
     public class CartProcessor
     {
-        public List<CartLineItem> Process(List<PromotionLineItem> promotions, List<CartLineItem> cartLineItems  )
+        public IEnumerable<CartLineItem> Process(IEnumerable<PromotionLineItem> promotions, IEnumerable<CartLineItem> cartLineItems  )
         {
             foreach (var promo in promotions)
             {

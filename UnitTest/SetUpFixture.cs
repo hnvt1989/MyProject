@@ -13,9 +13,9 @@ namespace UnitTest
         public void SetUp()
         {
             //initialize data
-            Database.SetInitializer(new DatabaseMasterInitializerForTest());
-            var context = new DatabaseMasterContext();
-            context.Database.Initialize(true);
+            //Database.SetInitializer(new DatabaseMasterInitializerForTest());
+            //var context = new DatabaseMasterContext();
+            //context.Database.Initialize(true);
         }
 
         [TearDown]

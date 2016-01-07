@@ -13,8 +13,10 @@ namespace MyProject.Models.ShoppingCart
 
         public int ProductId { get; set; }
         public int Count { get; set; }
+        public decimal ShippingCost { get; set; }
 
         public System.DateTime DateCreated { get; set; }
         public virtual Product Product { get; set; }
+        
     }
 }
