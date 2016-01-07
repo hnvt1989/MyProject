@@ -14,6 +14,15 @@ namespace MyProject.Models.ShoppingCart
         public string ShoppingCartId { get; set; }
         public const string CartSessionKey = "CartCode";
 
+        public List<Cart> CartItems
+        {
+            get
+            {
+                return soContext.Carts.Where(
+                cart => cart.Code == ShoppingCartId).ToList();
+            }
+        }
+ 
         public static ShoppingCart GetCart(HttpContextBase context)
         {
             var cart = new ShoppingCart();

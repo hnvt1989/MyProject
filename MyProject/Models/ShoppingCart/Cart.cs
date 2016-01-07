@@ -11,7 +11,9 @@ namespace MyProject.Models.ShoppingCart
 
         public string Code { get; set; }
 
+        [ForeignKey("Product")]
         public int ProductId { get; set; }
+
         public int Count { get; set; }
         public decimal ShippingCost { get; set; }
 
