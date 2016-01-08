@@ -39,6 +39,10 @@
                     function (data) {
                         // Successful requests get here
                         $('#item-count-' + data.AddId).text(data.ItemCount);
+                        $('#item-net-' + data.AddId).text(data.NetBeforeDiscount);
+                        $('#item-sum-' + data.AddId).text(data.Sum);
+                        $('#item-discount-' + data.AddId).text(data.TotalDiscount);
+                        $('#item-shippingcost-' + data.AddId).text(data.ShippingCost);
                         $('#cart-total').text(data.CartTotal);
                         $('#update-message').text(data.Message);
                         $('#cart-status').text('Cart (' + data.CartCount + ')');
@@ -63,6 +67,14 @@
                 <th>Price (each)
                 </th>
                 <th>Quantity
+                </th>
+                <th>Net
+                </th>
+                <th>Discount
+                </th>
+                <th>Shipping
+                </th>
+                <th>Total
                 </th>
                 <th></th>
             </tr>
@@ -92,7 +104,19 @@
                         @item.Product.Price
                     </td>
                     <td id="item-count-@item.Id">
-                        @item.Count
+                        @item.Quantity
+                    </td>
+                    <td id="item-net-@item.Id">
+                        @item.NetBeforeDiscount
+                    </td>
+                    <td id="item-discount-@item.Id">
+                        @item.TotalDiscountAmount
+                    </td>
+                    <td id="item-shippingcost-@item.Id">
+                        @item.ShippingCost
+                    </td>
+                     <td id="item-sum-@item.Id">
+                        @item.Sum
                     </td>
                     <td>
                         <a href="#" class="AddLink" data-id="@item.Id">Add</a>

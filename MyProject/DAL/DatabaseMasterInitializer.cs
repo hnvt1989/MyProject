@@ -16,7 +16,7 @@ using MyProject.Models.ShoppingCart;
 
 namespace MyProject.DAL
 {
-    public class DatabaseMasterInitializer : System.Data.Entity.DropCreateDatabaseAlways<DbContext>
+    public class DatabaseMasterInitializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<DbContext>
     {
         protected override void Seed(DbContext context)
         {
@@ -287,22 +287,57 @@ namespace MyProject.DAL
                         {
                             new PromotionLineItem()
                             {
-                                Code = "10PercentOff_1001",
+                                Code = "15PercentOff_1001",
+                                Description = "15 percent off Female-Winter-Collection",
                                 Active = true,
                                 StartDate = DateTime.Now,
                                 EndDate = DateTime.Now.AddDays(2),
-                                PromotionLineItemExpression = ""
-                                //Description = "10 percent off item 1001",
-                                //Quantity = 2,
-                                //FreeShipping = true,
-                                //AmountDiscount = 0.00m,
-                                //PercentDiscount = 0.1m,
-                                //Active = true,
-                                //StartDate = DateTime.Now,
-                                //EndDate = DateTime.Now.AddDays(2),
-                                //ProductOffers = cContext.ProductOffers.Where(po=> po.ProductId == cContext.Products.FirstOrDefault(p => p.Code == "1001" && po.PriceTypeId ==  cContext.PriceTypes.FirstOrDefault(c => c.Code == "R").Id).Id).ToList(),
-                                //Exclusive = true,
-                                //Order = 1
+                                PromotionLineItemExpression = "Category=1001;PriceType=R;PercentDiscount=0.15"
+                            },
+                            new PromotionLineItem()
+                            {
+                                Code = "1.5offFemale-Casual-Collection",
+                                Description = "1.5 off Female-Casual-Collection",
+                                Active = true,
+                                StartDate = DateTime.Now,
+                                EndDate = DateTime.Now.AddDays(2),
+                                PromotionLineItemExpression = "Category=1002;PriceType=R;AmountDiscount=1.5"
+                            },
+                            new PromotionLineItem()
+                            {
+                                Code = "25_percent_off_item_1004",
+                                Description = "25 percent off item 1004",
+                                Active = true,
+                                StartDate = DateTime.Now,
+                                EndDate = DateTime.Now.AddDays(2),
+                                PromotionLineItemExpression = "ItemCode=1004;PriceType=R;PercentDiscount=0.25"
+                            },
+                            new PromotionLineItem()
+                            {
+                                Code = "5.25_off_item_item_1005",
+                                Description = "5.25 off item item 1005",
+                                Active = true,
+                                StartDate = DateTime.Now,
+                                EndDate = DateTime.Now.AddDays(2),
+                                PromotionLineItemExpression = "ItemCode=1005;PriceType=R;AmountDiscount=5.25"
+                            },
+                            new PromotionLineItem()
+                            {
+                                Code = "Buy_5_1004_get_1_item_1004_free",
+                                Description = "Buy 5 item 1004 get 1 item 1004 free",
+                                Active = true,
+                                StartDate = DateTime.Now,
+                                EndDate = DateTime.Now.AddDays(2),
+                                PromotionLineItemExpression = "PriceType=R;BuyItemCode=1004;BuyItemCount=5;GetItemCode=1004;GetItemCount=1"
+                            },
+                            new PromotionLineItem()
+                            {
+                                Code = "Buy_5_item_1004_get_2_item_1001_free",
+                                Description = "Buy 5 item 1004 get 2 item 1001 free",
+                                Active = true,
+                                StartDate = DateTime.Now,
+                                EndDate = DateTime.Now.AddDays(2),
+                                PromotionLineItemExpression = "PriceType=R;BuyItemCode=1004;BuyItemCount=5;GetItemCode=1001;GetItemCount=2"
                             },
                         }
                     },
@@ -310,35 +345,35 @@ namespace MyProject.DAL
                 });
                 cContext.SaveChanges();
 
-                cContext.CartLineItems.AddRange(new List<CartLineItem>
-                {
-                    new CartLineItem()
-                    {
-                        Code = Guid.NewGuid().ToString(),
-                        DiscountAmount = 0m,
-                        Quantity = 5,
-                        OriginalPrice = 0m,
-                        ShippingCost = 0m,
-                        DiscountedPrice = 0m,
-                        ProductCode = "1001",
-                        PriceType = "R",
-                        DateCreated = DateTime.Now
-                    },
-                    new CartLineItem()
-                    {
-                        Code = Guid.NewGuid().ToString(),
-                        DiscountAmount = 0m,
-                        Quantity = 5,
-                        OriginalPrice = 0m,
-                        ShippingCost = 0m,
-                        DiscountedPrice = 0m,
-                        ProductCode = "1002",
-                        PriceType = "W",
-                        DateCreated = DateTime.Now
-                    },
-                });
+                //cContext.CartLineItems.AddRange(new List<CartLineItem>
+                //{
+                //    new CartLineItem()
+                //    {
+                //        Code = Guid.NewGuid().ToString(),
+                //        DiscountAmount = 0m,
+                //        Quantity = 5,
+                //        OriginalPrice = 0m,
+                //        ShippingCost = 0m,
+                //        DiscountedPrice = 0m,
+                //        ProductCode = "1001",
+                //        PriceType = "R",
+                //        DateCreated = DateTime.Now
+                //    },
+                //    new CartLineItem()
+                //    {
+                //        Code = Guid.NewGuid().ToString(),
+                //        DiscountAmount = 0m,
+                //        Quantity = 5,
+                //        OriginalPrice = 0m,
+                //        ShippingCost = 0m,
+                //        DiscountedPrice = 0m,
+                //        ProductCode = "1002",
+                //        PriceType = "W",
+                //        DateCreated = DateTime.Now
+                //    },
+                //});
 
-                cContext.SaveChanges();
+                //cContext.SaveChanges();
 
                 var paymentStatuses = new List<PaymentStatus>
                 {
@@ -382,7 +417,7 @@ namespace MyProject.DAL
                     {
                         Product = cContext.Products.Single(p=> p.Code == "1003"),
                         Code = Guid.NewGuid().ToString(),
-                        Count = 1,
+                        Quantity = 1,
                         DateCreated = DateTime.Now,
                     }
                 });

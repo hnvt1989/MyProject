@@ -22,44 +22,13 @@ namespace MyProject.Models.ShoppingCart
 
     public class PromotionLineItem
     {
-        //[Key]
-        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        //public int Id { get; set; }
-
-        //public string Code { get; set; }
-
-        //public string Description { get; set; }
-
-        //public int Quantity { get; set; }
-
-        //public bool FreeShipping { get; set; }
-
-        //public decimal PercentDiscount { get; set; }
-
-        //public decimal AmountDiscount { get; set; }
-
-        //public ICollection<ProductOffer> ProductOffers { get; set; }
-
-        ////the starting date of the promotion
-        //public DateTime StartDate { get; set; }
-
-        ////the ending date of the promotion
-        //public DateTime EndDate { get; set; }
-
-        //public bool Active { get; set; }
-
-        ////can be used with other promotions ?
-        //public bool Exclusive { get; set; }
-
-        ////the order of the cart processing
-        //public int Order { get; set; }
-
-        //public ICollection<Category> Categories { get; set; }
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         public string Code { get; set; }
+
+        public string Description { get; set; }
 
         //the starting date of the promotion
         public DateTime StartDate { get; set; }

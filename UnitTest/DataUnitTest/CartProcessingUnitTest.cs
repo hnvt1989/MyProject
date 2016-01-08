@@ -7,7 +7,7 @@ using System.Runtime.Remoting;
 using System.Security.Policy;
 using System.Web;
 using System.Web.WebSockets;
-using MyProject.AppLogic.Cart;
+using MyProject.AppLogic.CartLogic;
 using MyProject.DAL;
 using MyProject.Models.ShoppingCart;
 using NUnit.Framework;
@@ -20,7 +20,7 @@ namespace UnitTest.DataUnitTest
         private ShoppingCart shoppingCart = new ShoppingCart();
         private Promotion promotion;
         private CartProcessor cartProcessor = new CartProcessor();
-        private List<CartLineItem> cartLineItems;
+        private List<Cart> cartLineItems;
 
         //[TestFixtureSetUp]
         public void OneTimeSetUp()
@@ -56,16 +56,16 @@ namespace UnitTest.DataUnitTest
             }
 
             var list = shoppingCart.GetCartItems().ToList();
-            list.ForEach(c => cartLineItems.Add(new CartLineItem()
+            list.ForEach(c => cartLineItems.Add(new Cart()
             {
                 Code = shoppingCart.ShoppingCartId,
                 DateCreated = DateTime.Now,
                 OriginalPrice = CartContext.Products.Single(p => p.Id == c.ProductId).Price,
                 DiscountAmount = 0m,
-                Quantity = c.Count,
+                Quantity = c.Quantity,
                 ShippingCost = 0m,
-                DiscountedPrice = 0m,
-                ProductCode = "1001",
+                //DiscountedPrice = 0m,
+                //ProductCode = "1001",
                 PriceType = "R"
             }));
         }
@@ -115,10 +115,10 @@ namespace UnitTest.DataUnitTest
 
             var promo = new PromotionLineItem {PromotionLineItemExpression = exp};
 
-            var cartlineItems = new List<CartLineItem>()
+            var cartlineItems = new List<Cart>()
             {
-                new CartLineItem(){Categories = new List<string>(){"1001"}, OriginalPrice = 40m, DiscountAmount = 0m, DiscountedPrice = 40m, Quantity = 2,DiscountApplied = false, PriceType = "R"},
-                new CartLineItem(){Categories = new List<string>(){"1003", "1004"}, OriginalPrice = 20m, DiscountAmount = 0m, DiscountedPrice = 20m, Quantity = 1,DiscountApplied = false, PriceType = "R"}
+                new Cart(){Categories = new List<string>(){"1001"}, OriginalPrice = 40m, DiscountAmount = 0m, Quantity = 2,DiscountApplied = false, PriceType = "R"},
+                new Cart(){Categories = new List<string>(){"1003", "1004"}.ToList(), OriginalPrice = 20m, DiscountAmount = 0m, Quantity = 1,DiscountApplied = false, PriceType = "R"}
             };
 
             new CartProcessor().ApplyEach(promo, cartlineItems);
@@ -135,10 +135,10 @@ namespace UnitTest.DataUnitTest
                 "Category=1002;PriceType=R;AmountDiscount=1.5";
             var promo = new PromotionLineItem { PromotionLineItemExpression = exp };
 
-            var cartlineItems = new List<CartLineItem>()
+            var cartlineItems = new List<Cart>()
             {
-                new CartLineItem(){Categories = new List<string>(){"1001"}, OriginalPrice = 40m, DiscountAmount = 0m, DiscountedPrice = 40m, Quantity = 1, DiscountApplied = false, PriceType = "R"},
-                new CartLineItem(){Categories = new List<string>(){"1003", "1002"}, OriginalPrice = 20m, DiscountAmount = 0m, DiscountedPrice = 20m, Quantity = 2, DiscountApplied = false, PriceType = "R"}
+                new Cart(){Categories = new List<string>(){"1001"}, OriginalPrice = 40m, DiscountAmount = 0m, Quantity = 1, DiscountApplied = false, PriceType = "R"},
+                new Cart(){Categories = new List<string>(){"1002", "1003"}, OriginalPrice = 20m, DiscountAmount = 0m, Quantity = 2, DiscountApplied = false, PriceType = "R"}
             };
 
             new CartProcessor().ApplyEach(promo, cartlineItems);
@@ -148,15 +148,15 @@ namespace UnitTest.DataUnitTest
         [Test]
         public void _5_PercentDiscount_ItemCodes()
         {
-            //1.5 dollar off Female-Casual-Collection
+            //25 percent off item 1004
             var exp =
                 "ItemCode=1004;PriceType=R;PercentDiscount=0.25";
             var promo = new PromotionLineItem { PromotionLineItemExpression = exp };
 
-            var cartlineItems = new List<CartLineItem>()
+            var cartlineItems = new List<Cart>()
             {
-                new CartLineItem(){ProductCode = "1004", OriginalPrice = 25m, DiscountAmount = 0m, DiscountedPrice = 25m, Quantity = 1, DiscountApplied = false, PriceType = "R"},
-                new CartLineItem(){ProductCode = "1005", OriginalPrice = 20m, DiscountAmount = 0m, DiscountedPrice = 20m, Quantity = 2, DiscountApplied = false, PriceType = "R"}
+                new Cart(){Product = CartContext.Products.Single(p=> p.Code == "1004"), OriginalPrice = 25m, DiscountAmount = 0m, Quantity = 1, DiscountApplied = false, PriceType = "R"},
+                new Cart(){Product = CartContext.Products.Single(p=> p.Code == "1005"), OriginalPrice = 20m, DiscountAmount = 0m, Quantity = 2, DiscountApplied = false, PriceType = "R"}
             };
 
             new CartProcessor().ApplyEach(promo, cartlineItems);
@@ -166,15 +166,15 @@ namespace UnitTest.DataUnitTest
         [Test]
         public void _6_AmountDiscount_ItemCodes()
         {
-            //1.5 dollar off Female-Casual-Collection
+            //5.25 off item item 1005
             var exp =
                 "ItemCode=1005;PriceType=R;AmountDiscount=5.25";
             var promo = new PromotionLineItem { PromotionLineItemExpression = exp };
 
-            var cartlineItems = new List<CartLineItem>()
+            var cartlineItems = new List<Cart>()
             {
-                new CartLineItem(){ProductCode = "1004", OriginalPrice = 25m, DiscountAmount = 0m, DiscountedPrice = 25m, Quantity = 1, DiscountApplied = false, PriceType = "R"},
-                new CartLineItem(){ProductCode = "1005", OriginalPrice = 20m, DiscountAmount = 0m, DiscountedPrice = 20m, Quantity = 2, DiscountApplied = false, PriceType = "R"}
+                new Cart(){Product = CartContext.Products.Single(p=> p.Code == "1004"), OriginalPrice = 25m, DiscountAmount = 0m, Quantity = 1, DiscountApplied = false, PriceType = "R"},
+                new Cart(){Product = CartContext.Products.Single(p=> p.Code == "1005"), OriginalPrice = 20m, DiscountAmount = 0m, Quantity = 2, DiscountApplied = false, PriceType = "R"}
             };
 
             new CartProcessor().ApplyEach(promo, cartlineItems);
@@ -184,39 +184,39 @@ namespace UnitTest.DataUnitTest
         [Test]
         public void _7_BuyItemsGetItemFree_SameItem()
         {
-            //Buy 1004 get 1004 free
+            //Buy 5 item 1004 get 1 item 1004 free
             var exp =
                 "PriceType=R;BuyItemCode=1004;BuyItemCount=5;GetItemCode=1004;GetItemCount=1";
             var promo = new PromotionLineItem { PromotionLineItemExpression = exp };
 
-            var cartlineItems = new List<CartLineItem>()
+            var cartlineItems = new List<Cart>()
             {
-                new CartLineItem(){ProductCode = "1004", OriginalPrice = 25m, DiscountAmount = 0m, DiscountedPrice = 25m, Quantity = 12, DiscountApplied = false, PriceType = "R"},
-                new CartLineItem(){ProductCode = "1005", OriginalPrice = 20m, DiscountAmount = 0m, DiscountedPrice = 20m, Quantity = 2, DiscountApplied = false, PriceType = "R"}
+                new Cart(){Product = CartContext.Products.Single(p=> p.Code == "1004"), OriginalPrice = 25m, DiscountAmount = 0m, Quantity = 12, DiscountApplied = false, PriceType = "R"},
+                new Cart(){Product = CartContext.Products.Single(p=> p.Code == "1005"), OriginalPrice = 20m, DiscountAmount = 0m, Quantity = 2, DiscountApplied = false, PriceType = "R"}
             };
             new CartProcessor().ApplyEach(promo, cartlineItems);
             Assert.AreEqual(340m, cartlineItems.Sum(c => c.Sum));
             Assert.AreEqual(2, cartlineItems.Where(c => c.AddOnItem).ToList().Count);
-            Assert.AreEqual("1004", cartlineItems.FirstOrDefault(c=>c.AddOnItem).ProductCode);
+            Assert.AreEqual("1004", cartlineItems.FirstOrDefault(c=>c.AddOnItem).Product.Code);
         }
 
 
         [Test]
         public void _8_BuyItemsGetItemFree_DifferentItem()
         {
-            //Buy 1004 get 1004 free
+            //Buy 5 item 1004 get 1004 free
             var exp =
                 "PriceType=R;BuyItemCode=1004;BuyItemCount=5;GetItemCode=1001;GetItemCount=2";
             var promo = new PromotionLineItem { PromotionLineItemExpression = exp };
 
-            var cartlineItems = new List<CartLineItem>()
+            var cartlineItems = new List<Cart>()
             {
-                new CartLineItem(){ProductCode = "1004", OriginalPrice = 25m, DiscountAmount = 0m, DiscountedPrice = 25m, Quantity = 6, DiscountApplied = false, PriceType = "R"},
-                new CartLineItem(){ProductCode = "1005", OriginalPrice = 20m, DiscountAmount = 0m, DiscountedPrice = 20m, Quantity = 2, DiscountApplied = false, PriceType = "R"}
+                new Cart(){Product = CartContext.Products.Single(p=> p.Code == "1004"), OriginalPrice = 25m, DiscountAmount = 0m, Quantity = 6, DiscountApplied = false, PriceType = "R"},
+                new Cart(){Product = CartContext.Products.Single(p=> p.Code == "1005"), OriginalPrice = 20m, DiscountAmount = 0m, Quantity = 2, DiscountApplied = false, PriceType = "R"}
             };
             new CartProcessor().ApplyEach(promo, cartlineItems);
             Assert.AreEqual(190m, cartlineItems.Sum(c => c.Sum));
-            Assert.AreEqual("1001", cartlineItems.Single(c => c.AddOnItem).ProductCode);
+            Assert.AreEqual("1001", cartlineItems.Single(c => c.AddOnItem).Product.Code);
             Assert.AreEqual(1, cartlineItems.Where(c => c.AddOnItem).ToList().Count);
             Assert.AreEqual(2, cartlineItems.Single(c => c.AddOnItem).Quantity);
         }

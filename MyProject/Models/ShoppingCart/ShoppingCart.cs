@@ -4,7 +4,9 @@ using Microsoft.AspNet.Identity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MyProject.AppLogic.CartLogic;
 using MyProject.DAL;
+using NUnit.Framework.Internal;
 
 namespace MyProject.Models.ShoppingCart
 {
@@ -13,6 +15,7 @@ namespace MyProject.Models.ShoppingCart
         ShoppingCartContext soContext = new ShoppingCartContext();
         public string ShoppingCartId { get; set; }
         public const string CartSessionKey = "CartCode";
+        public CartProcessor CartProcessor = new CartProcessor();
 
         public List<Cart> CartItems
         {
@@ -22,7 +25,45 @@ namespace MyProject.Models.ShoppingCart
                 cart => cart.Code == ShoppingCartId).ToList();
             }
         }
- 
+
+        public void UpdateCart()
+        {
+            foreach (var c in CartItems)
+            {
+                //parsing cat again
+                //c.Categories =
+                //    soContext.Products.Single(p => p.Id == c.ProductId).Categories.Select(cat => cat.Code).ToList();
+                //var prod = soContext.Products.Where(p => p.Id == c.ProductId).SelectMany(x => x.Categories);
+                c.Categories = soContext.Products.Where(p => p.Id == c.ProductId).SelectMany(x => x.Categories).Select(y => y.Code).ToList();
+            }
+
+            var newCarts = CartProcessor.Process(soContext.Promotions.Single(p => p.Code == "Christmas discount").PromotionLineItems.ToList(), CartItems);
+
+            foreach (var cart in soContext.Carts)
+            {
+                foreach (var nCart in newCarts)
+                {
+                    if (cart.Code == nCart.Code && cart.ProductId == nCart.ProductId)
+                    {
+                        cart.Quantity = nCart.Quantity;
+                        cart.DiscountAmount = nCart.DiscountAmount;
+                        cart.ShippingCost = nCart.ShippingCost;
+                        cart.DiscountAmount = nCart.DiscountAmount;
+                        cart.OriginalPrice = nCart.OriginalPrice;
+                        cart.AddOnItem = nCart.AddOnItem;
+                        //cart.DiscountedPrice = nCart.DiscountedPrice;
+                        cart.NetBeforeDiscount = nCart.NetBeforeDiscount;
+                        cart.Sum = nCart.Sum;
+                        cart.TotalDiscountAmount = nCart.TotalDiscountAmount;
+
+                    }
+                }
+
+            }
+            soContext.SaveChanges();
+        }
+
+
         public static ShoppingCart GetCart(HttpContextBase context)
         {
             var cart = new ShoppingCart();
@@ -50,8 +91,17 @@ namespace MyProject.Models.ShoppingCart
                 {
                     ProductId = product.Id,
                     Code = ShoppingCartId,
-                    Count = 1,
-                    DateCreated = DateTime.Now
+                    Quantity = 1,
+                    DateCreated = DateTime.Now,
+                    PriceType = "R",
+                    Categories = new List<string>() { "1001", "1002" },
+                    AddOnItem = false,
+                    ShippingCost = 0m,
+                    DiscountAmount = 0m,
+                    OriginalPrice = soContext.Products.Single(p => p.Id == product.Id).Price,
+                    Product = soContext.Products.Single(p => p.Id == product.Id),
+                    //DiscountedPrice = 0m,
+                    DiscountApplied = false,
                 };
                 soContext.Carts.Add(cartItem);
             }
@@ -59,10 +109,14 @@ namespace MyProject.Models.ShoppingCart
             {
                 // If the item does exist in the cart, 
                 // then add one to the quantity
-                cartItem.Count++;
+                cartItem.Quantity++;
             }
             // Save changes
             soContext.SaveChanges();
+
+
+            //update the cart (promotion)
+            UpdateCart();
         }
 
         public int RemoveFromCart(int id)
@@ -76,10 +130,10 @@ namespace MyProject.Models.ShoppingCart
 
             if (cartItem != null)
             {
-                if (cartItem.Count > 1)
+                if (cartItem.Quantity > 1)
                 {
-                    cartItem.Count--;
-                    itemCount = cartItem.Count;
+                    cartItem.Quantity--;
+                    itemCount = cartItem.Quantity;
                 }
                 else
                 {
@@ -88,6 +142,9 @@ namespace MyProject.Models.ShoppingCart
                 // Save changes
                 soContext.SaveChanges();
             }
+
+            UpdateCart();
+
             return itemCount;
         }
 
@@ -104,11 +161,15 @@ namespace MyProject.Models.ShoppingCart
             if (cartItem != null)
             {
                 //Add 1 more item
-                cartItem.Count++;
-                itemCount = cartItem.Count;
+                cartItem.Quantity++;
+                itemCount = cartItem.Quantity;
+
+                // Save changes
+                soContext.SaveChanges();
+
+                UpdateCart();
             }
-            // Save changes
-            soContext.SaveChanges();
+
             return itemCount;
         }
 
@@ -123,6 +184,8 @@ namespace MyProject.Models.ShoppingCart
             }
             // Save changes
             soContext.SaveChanges();
+
+            UpdateCart();
         }
 
         public List<Cart> GetCartItems()
@@ -136,7 +199,7 @@ namespace MyProject.Models.ShoppingCart
             // Get the count of each item in the cart and sum them up
             int? count = (from cartItems in soContext.Carts
                           where cartItems.Code == ShoppingCartId
-                          select (int?)cartItems.Count).Sum();
+                          select (int?)cartItems.Quantity).Sum();
             // Return 0 if all entries are null
             return count ?? 0;
         }
@@ -148,8 +211,7 @@ namespace MyProject.Models.ShoppingCart
             // sum all album price totals to get the cart total
             decimal? total = (from cartItems in soContext.Carts
                               where cartItems.Code == ShoppingCartId
-                              select (int?)cartItems.Count *
-                              cartItems.Product.Price).Sum();
+                              select (decimal?)cartItems.Sum).Sum();
 
             return total ?? decimal.Zero;
         }
@@ -172,12 +234,12 @@ namespace MyProject.Models.ShoppingCart
                 var lineOrderDetail = new LineOrderDetail
                 {
                     ProductId = item.ProductId,
-                    
+
                     UnitPrice = item.Product.Price,
-                    Quantity = item.Count
+                    Quantity = item.Quantity
                 };
                 // Set the order total of the shopping cart
-                orderTotal += (item.Count * item.Product.Price);
+                orderTotal += (item.Quantity * item.Product.Price);
 
                 order.OrderDetails.Add(lineOrderDetail);
 

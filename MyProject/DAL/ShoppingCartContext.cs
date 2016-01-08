@@ -38,7 +38,7 @@ namespace MyProject.DAL
         public DbSet<PriceType> PriceTypes { get; set; }
         public DbSet<Promotion> Promotions { get; set; }
         public DbSet<PromotionLineItem> PromotionLineItems { get; set; }
-        public DbSet<CartLineItem> CartLineItems { get; set; }
+        //public DbSet<CartLineItem> CartLineItems { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

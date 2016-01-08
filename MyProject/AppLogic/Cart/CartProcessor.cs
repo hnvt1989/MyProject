@@ -5,26 +5,30 @@ using System.Web;
 using MyProject.DAL;
 using MyProject.Models.ShoppingCart;
 
-namespace MyProject.AppLogic.Cart
+namespace MyProject.AppLogic.CartLogic
 {
     public class CartProcessor
     {
-        public IEnumerable<CartLineItem> Process(IEnumerable<PromotionLineItem> promotions, IEnumerable<CartLineItem> cartLineItems)
+        public List<Cart> Process(List<PromotionLineItem> promotions, List<Cart> Carts)
         {
             foreach (var promo in promotions)
             {
-
+                if (promo.Active && promo.StartDate <= DateTime.Now && DateTime.Now < promo.EndDate )
+                {
+                    ApplyEach(promo, Carts);
+                }
             }
-            return cartLineItems;
+            return Carts;
         }
 
-        public void ApplyEach(PromotionLineItem promo, List<CartLineItem> cartLineItems)
+        public void ApplyEach(PromotionLineItem promo, List<Cart> carts)
         {
-            var tempLineItems = new List<CartLineItem>();
+            var tempLineItems = new List<Cart>();
 
-            foreach (var lineItem in cartLineItems)
+            foreach (var lineItem in carts)
             {
                 var promoExp = PromotionLineItemExpression.Parse(promo.PromotionLineItemExpression);
+                lineItem.DiscountApplied = false;
 
                 if (promoExp.Category.Count > 0 && !lineItem.DiscountApplied && 
                     promoExp.PriceType.Contains(lineItem.PriceType))
@@ -36,7 +40,7 @@ namespace MyProject.AppLogic.Cart
                         lineItem.DiscountAmount = promoExp.AmountDiscount +
                                                  (lineItem.OriginalPrice*promoExp.PercentDiscount);
 
-                        lineItem.DiscountedPrice = lineItem.OriginalPrice - lineItem.DiscountAmount;
+                        //lineItem.DiscountedPrice = lineItem.OriginalPrice - lineItem.DiscountAmount;
                     }
                     lineItem.DiscountApplied = true;
                 }
@@ -44,13 +48,13 @@ namespace MyProject.AppLogic.Cart
                 if (promoExp.ItemCode.Count > 0 && !lineItem.DiscountApplied && 
                     promoExp.PriceType.Contains(lineItem.PriceType))
                 {
-                    var qualified = promoExp.ItemCode.Contains(lineItem.ProductCode);
+                    var qualified = promoExp.ItemCode.Contains(lineItem.Product.Code);
                     if (qualified)
                     {
                         lineItem.DiscountAmount = promoExp.AmountDiscount +
                                                  (lineItem.OriginalPrice * promoExp.PercentDiscount);
 
-                        lineItem.DiscountedPrice = lineItem.OriginalPrice - lineItem.DiscountAmount;
+                        //lineItem.DiscountedPrice = lineItem.OriginalPrice - lineItem.DiscountAmount;
                     }
                     lineItem.DiscountApplied = true;
                 }
@@ -58,7 +62,7 @@ namespace MyProject.AppLogic.Cart
                 if (promoExp.BuyItemCode.Count > 0 && !lineItem.DiscountApplied &&
                     promoExp.PriceType.Contains(lineItem.PriceType))
                 {
-                    var qualified = promoExp.BuyItemCode.Contains(lineItem.ProductCode) && lineItem.Quantity >= promoExp.BuyItemCount;
+                    var qualified = promoExp.BuyItemCode.Contains(lineItem.Product.Code) && lineItem.Quantity >= promoExp.BuyItemCount;
                     if (qualified)
                     {
                         //how many free items ?
@@ -69,12 +73,12 @@ namespace MyProject.AppLogic.Cart
                             var product = context.Products.Single(p => p.Code == promoExp.GetItemCode.FirstOrDefault()); //only support single get product
                             for (int i = 0; i < freeItemCount; i++)
                             {
-                                tempLineItems.Add(new CartLineItem()
+                                tempLineItems.Add(new Cart()
                                 {
                                     OriginalPrice = product.Price,
                                     DiscountAmount = product.Price,
                                     ShippingCost = lineItem.ShippingCost,
-                                    DiscountedPrice = 0m,
+                                    //DiscountedPrice = 0m,
                                     DiscountApplied = true,
                                     AddOnItem = true,
                                     Quantity = promoExp.GetItemCount,
@@ -82,7 +86,8 @@ namespace MyProject.AppLogic.Cart
                                     Categories = lineItem.Categories,
                                     DateCreated = lineItem.DateCreated,
                                     PriceType = lineItem.PriceType,
-                                    ProductCode = product.Code
+                                    Product = product
+                                    //ProductCode = product.Code
                                 });
                             }
                         }
@@ -99,7 +104,7 @@ namespace MyProject.AppLogic.Cart
                 //}
             }
 
-            cartLineItems.AddRange(tempLineItems);
+            carts.AddRange(tempLineItems);
             //return ret;
         }
     }
