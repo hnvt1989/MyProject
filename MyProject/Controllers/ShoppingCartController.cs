@@ -85,10 +85,9 @@ namespace MyProject.Controllers
             string productDescription = _shoppingCartContext.Carts
                 .Single(item => item.Id == id && item.Code == cart.ShoppingCartId).Product.Description;
 
+            var ret = cart.AddOneItemToCart(id);
 
-            int itemCount = cart.AddOneItemToCart(id);
-
-            var updatedCart = _shoppingCartContext.Carts.Single(item => item.Id == id && item.Code == cart.ShoppingCartId);
+            var updatedCart = _shoppingCartContext.Carts.FirstOrDefault(item => item.Id == id && item.Code == cart.ShoppingCartId);
 
             // update cart view
             var results = new ShoppingCartAddViewModel()
@@ -97,11 +96,11 @@ namespace MyProject.Controllers
                     " has been added to your shopping cart.",
                 CartTotal = cart.GetTotal(),
                 CartCount = cart.GetCount(),
-                ItemCount = itemCount,
-                TotalDiscount = _shoppingCartContext.Carts.Single(item => item.Id == id && item.Code == cart.ShoppingCartId).TotalDiscountAmount,
-                ShippingCost = _shoppingCartContext.Carts.Single(item => item.Id == id && item.Code == cart.ShoppingCartId).ShippingCost,
-                NetBeforeDiscount = _shoppingCartContext.Carts.Single(item => item.Id == id && item.Code == cart.ShoppingCartId).NetBeforeDiscount,
-                Sum = updatedCart.Sum,
+                ItemCount = ret.Quantity,
+                TotalDiscount = ret.TotalDiscountAmount,
+                ShippingCost = ret.ShippingCost,
+                NetBeforeDiscount = ret.NetBeforeDiscount,
+                Sum = ret.Sum,
                 AddId = id,
                 
             };

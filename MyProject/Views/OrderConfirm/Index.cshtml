@@ -8,9 +8,9 @@
     type="text/javascript"></script>
 <script type="text/javascript">
 
-    $(function() {
+    $(function () {
         // backbutton go back to payment detail
-        $('#backBtn').click(function() {
+        $('#backBtn').click(function () {
             history.go(-1);
         });
     });
@@ -69,33 +69,53 @@
                             </th>
                             <th>Quantity
                             </th>
+                            <th>Net
+                            </th>
+                            <th>Discount
+                            </th>
+                            <th>Shipping
+                            </th>
+                            <th>Total
+                            </th>
                         </tr>
                         @foreach (var item in Model.CartViewModel.CartItems)
                         {
                             <tr id="row-@item.Id">
                                 <td>
                                     @{
-                                        if (@item.Product.Image != null)
-                                        {
-                                            var base64 = Convert.ToBase64String(@item.Product.Image);
-                                            var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-                                            <img src="@imgSrc" height="40" width="40"/>
-                                        }
-                                        else
-                                        {
-                                            //default image
-                                            <img src="~/Content/Images/ProductDefault.png" height="40" width="40"/>
-                                        }
+                            if (@item.Product.Image != null)
+                            {
+                                var base64 = Convert.ToBase64String(@item.Product.Image);
+                                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                                        <img src="@imgSrc" height="40" width="40"/>
+                            }
+                            else
+                            {
+                                //default image
+                                        <img src="~/Content/Images/ProductDefault.png" height="40" width="40" />
+                            }
                                     }
                                 </td>
                                 <td>
-                                    @Html.ActionLink(item.Product.Description, "Details", "Store", new {id = item.ProductId}, null)
+                                    @Html.ActionLink(item.Product.Description, "Details", "Store", new { id = item.ProductId }, null)
                                 </td>
                                 <td>
                                     @item.Product.Price
                                 </td>
                                 <td id="item-count-@item.Id">
                                     @item.Quantity
+                                </td>
+                                <td id="item-net-@item.Id">
+                                    @item.NetBeforeDiscount
+                                </td>
+                                <td id="item-discount-@item.Id">
+                                    @item.TotalDiscountAmount
+                                </td>
+                                <td id="item-shippingcost-@item.Id">
+                                    @item.ShippingCost
+                                </td>
+                                <td id="item-sum-@item.Id">
+                                    @item.Sum
                                 </td>
                             </tr>
                         }
@@ -128,8 +148,8 @@
                     </table>
                 </fieldset>
 
-                <input id="backBtn" class="button success" value="Back"/>
-                <input id="submitBtn" type = "submit" class="button success" value="Submit Order" />
+                <input id="backBtn" class="button success" value="Back" />
+                <input id="submitBtn" type="submit" class="button success" value="Submit Order" />
             }
         </section>
     </div>

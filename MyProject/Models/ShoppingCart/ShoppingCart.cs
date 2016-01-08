@@ -148,7 +148,7 @@ namespace MyProject.Models.ShoppingCart
             return itemCount;
         }
 
-        public int AddOneItemToCart(int id)
+        public Cart AddOneItemToCart(int id)
         {
             // Get the matching cart and product instances
             // Get the cart
@@ -170,7 +170,9 @@ namespace MyProject.Models.ShoppingCart
                 UpdateCart();
             }
 
-            return itemCount;
+            return soContext.Carts.Single(
+                cart => cart.Code == ShoppingCartId
+                        && cart.Id == id);
         }
 
         public void EmptyCart()
