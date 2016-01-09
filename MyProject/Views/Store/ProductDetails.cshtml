@@ -20,8 +20,8 @@
             <h4>@Model.Description</h4>
             <p>Product description goes here</p>
             <div class="panel">
-                <h5><em>Giá tiền: </em> @String.Format("{0:F}", Model.Price) VND</h5>
-                <h6 class="subheader">Praesent placerat dui tincidunt elit suscipit sed.</h6>
+                <h5><b><em>Giá tiền: </em> @String.Format("{0:F}", Model.Price) VND</b></h5>
+                <h6 class="subheader">Tiền vận chuyển:   50.00 VND</h6>
                  <p class="button">
                     @Html.ActionLink("Add to cart", "ContinueToCart", "Store", new {id = @Model.Id}, new {@style="color: #FFFFFF"})
                 </p>
