@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using MyProject.AppLogic.CartLogic;
 using MyProject.DAL;
 using NUnit.Framework.Internal;
+using WebGrease.Css.Extensions;
 
 namespace MyProject.Models.ShoppingCart
 {
@@ -236,11 +237,16 @@ namespace MyProject.Models.ShoppingCart
         {
             using (var context = new ShoppingCartContext())
             {
-                decimal? total = (from cartItems in context.Carts
-                                  where cartItems.Code == ShoppingCartId
-                                  select (decimal?)cartItems.Sum).Sum();
+                var carts = context.Carts.Where(c => c.Code == ShoppingCartId).ToList();
+                if (carts.Count() > 0)
+                    return carts.Select(c => Convert.ToDecimal(c.Sum)).Sum();
+                return 0m;
 
-                return (total != null) ? decimal.Round((decimal)total, 2, MidpointRounding.AwayFromZero) : decimal.Zero;
+                //decimal? total = (from cartItems in context.Carts
+                //                  where cartItems.Code == ShoppingCartId
+                //                  select (decimal?)cartItems.Sum).Sum();
+
+                //return (total != null) ? decimal.Round((decimal)total, 2, MidpointRounding.AwayFromZero) : decimal.Zero;
             }
         }
 

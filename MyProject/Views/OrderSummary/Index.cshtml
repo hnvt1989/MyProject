@@ -100,25 +100,26 @@
                                     @item.Product.Description
                                 </td>
                                 <td>
-                                    @item.Product.Price
+                                    @String.Format("{0:N}",@item.Product.Price)
+                                    
                                 </td>
                                 <td id="item-count-@item.Product.Id">
                                     @item.Quantity
                                 </td>
                                 <td id="item-net-@item.Product.Id">
-                                    @String.Format("{0:F}",@item.Net)
+                                    @String.Format("{0:N}",@item.Net)
                         
                                 </td>
                                 <td id="item-discount-@item.Product.Id">
-                                    @String.Format("{0:F}",@item.TotalDiscount)
+                                    @String.Format("{0:N}",@item.TotalDiscount)
                         
                                 </td>
                                 <td id="item-shippingcost-@item.Product.Id">
-                                    @String.Format("{0:F}",@item.ShippingCost)
+                                    @String.Format("{0:N}",@item.ShippingCost)
                         
                                 </td>
                                 <td id="item-sum-@item.Product.Id">
-                                    @String.Format("{0:F}",@item.Total)
+                                    @String.Format("{0:N}",@item.Total)
                         
                                 </td>
                             </tr>
@@ -126,9 +127,13 @@
                         <tr>
                             <td></td>
                             <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                             <td><b>Total</b></td>
                             <td id="cart-total">
-                                <b>@Model.Total</b>
+                                <b>@String.Format("{0:N}",@Model.Total)</b>
                             </td>
                         </tr>
                     </table>
@@ -146,7 +151,7 @@
                         <tr>
                             <td>@Model.PaymentTransaction.PaymentType.Description
                             </td>
-                            <td>@Model.PaymentTransaction.Amount
+                            <td>@String.Format("{0:N}",@Model.PaymentTransaction.Amount)
                             </td>
                         </tr>
                     </table>

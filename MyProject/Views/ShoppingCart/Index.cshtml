@@ -105,25 +105,25 @@
                         @Html.ActionLink(item.Product.Description, "Details", "Store", new { id = item.ProductId }, null)
                     </td>
                     <td>
-                        @String.Format("{0:F}",@item.Product.Price)
+                        @String.Format("{0:N}",@item.Product.Price)
                     </td>
                     <td id="item-count-@item.Id">
                         @item.Quantity
                     </td>
                     <td id="item-net-@item.Id">
-                        @String.Format("{0:F}",@item.NetBeforeDiscount)
+                        @String.Format("{0:N}",@item.NetBeforeDiscount)
                         
                     </td>
                     <td id="item-discount-@item.Id">
-                        @String.Format("{0:F}",@item.TotalDiscountAmount)
+                        @String.Format("{0:N}",@item.TotalDiscountAmount)
                         
                     </td>
                     <td id="item-shippingcost-@item.Id">
-                        @String.Format("{0:F}",@item.ShippingCost)
+                        @String.Format("{0:N}",@item.ShippingCost)
                         
                     </td>
                     <td id="item-sum-@item.Id">
-                        @String.Format("{0:F}",@item.Sum)
+                        @String.Format("{0:N}",@item.Sum)
                         
                     </td>
                     <td>
@@ -140,9 +140,11 @@
                 <td></td>
                 <td></td>
                 <td></td>
+                <td></td>
+                <td></td>
                 <td><b>Total</b></td>
                 <td id="cart-total">
-                    <b>@String.Format("{0:F}",@Model.CartTotal)</b>
+                    <b>@String.Format("{0:N}", @Model.CartTotal)</b>
                 </td>
             </tr>
         </table>

@@ -100,31 +100,40 @@
                                     @Html.ActionLink(item.Product.Description, "Details", "Store", new { id = item.ProductId }, null)
                                 </td>
                                 <td>
-                                    @item.Product.Price
+                                   @String.Format("{0:N}",@item.Product.Price)
+                                    
                                 </td>
                                 <td id="item-count-@item.Id">
                                     @item.Quantity
                                 </td>
                                 <td id="item-net-@item.Id">
-                                    @item.NetBeforeDiscount
+                                    @String.Format("{0:N}",@item.NetBeforeDiscount)
+                                    
                                 </td>
                                 <td id="item-discount-@item.Id">
-                                    @item.TotalDiscountAmount
+                                    @String.Format("{0:N}",@item.TotalDiscountAmount)
+                                    
                                 </td>
                                 <td id="item-shippingcost-@item.Id">
-                                    @item.ShippingCost
+                                    @String.Format("{0:N}",@item.ShippingCost)
+                                    
                                 </td>
                                 <td id="item-sum-@item.Id">
-                                    @item.Sum
+                                    @String.Format("{0:N}",@item.Sum)
+                                    
                                 </td>
                             </tr>
                         }
                         <tr>
                             <td></td>
                             <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                             <td><b>Total</b></td>
-                            <td id="cart-total">
-                                <b>@Model.CartViewModel.CartTotal</b>
+                            <td id="cart-total">      
+                                <b>@String.Format("{0:N}",@Model.CartViewModel.CartTotal)</b>
                             </td>
                         </tr>
                     </table>
