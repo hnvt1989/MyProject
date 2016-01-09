@@ -105,7 +105,7 @@
                         @Html.ActionLink(item.Product.Description, "Details", "Store", new { id = item.ProductId }, null)
                     </td>
                     <td>
-                        @String.Format("{0:N}",@item.Product.Price)
+                        @String.Format("{0:N}",@item.OriginalPrice)
                     </td>
                     <td id="item-count-@item.Id">
                         @item.Quantity

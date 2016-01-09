@@ -23,8 +23,8 @@ namespace MyProject.Models.ShoppingCart
 
         public string Description { get; set; }
 
-        //stock price
-        public decimal Price { get; set; }
+        ////stock price
+        //public decimal Price { get; set; }
 
         public bool FeatureProduct { get; set; }
 
@@ -35,7 +35,10 @@ namespace MyProject.Models.ShoppingCart
         public byte[] Image { get; set; }
 
         [ForeignKey("Category")]
-        public ICollection<Category> Categories { get; set; } 
+        public ICollection<Category> Categories { get; set; }
+
+        [ForeignKey("ProductOffer")]
+        public ICollection<ProductOffer> ProductOffers { get; set; } 
     }
 
     public class ProductOffer

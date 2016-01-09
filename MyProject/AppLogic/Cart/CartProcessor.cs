@@ -75,8 +75,8 @@ namespace MyProject.AppLogic.CartLogic
                             {
                                 tempLineItems.Add(new Cart()
                                 {
-                                    OriginalPrice = product.Price,
-                                    DiscountAmount = product.Price,
+                                    OriginalPrice = context.ProductOffers.ToList().Single(po => po.ProductId == product.Id && po.PriceTypeId == 1).Price,
+                                    DiscountAmount = context.ProductOffers.ToList().Single(po => po.ProductId == product.Id && po.PriceTypeId == 1).Price,
                                     ShippingCost = lineItem.ShippingCost,
                                     //DiscountedPrice = 0m,
                                     DiscountApplied = true,

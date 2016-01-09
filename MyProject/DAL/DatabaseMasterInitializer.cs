@@ -98,13 +98,31 @@ namespace MyProject.DAL
                         Image =
                             ImageToByteArray(Image.FromFile(HostingEnvironment.MapPath(@"~/Content/Images/Image1.jpg"))),
                         FeatureProduct = true,
-                        Price = 9.99m,
                         Weight = 1,
                         QuantityOnHand = 29,
                         Categories = new List<Category>()
                         {
                             cContext.Categories.SingleOrDefault(c=>c.Code=="1002")
-                        }
+                        },
+                        //ProductOffers = new List<ProductOffer>()
+                        //{
+                        //    new ProductOffer()
+                        //    {
+                        //        Code = "1001-R",
+                        //        Product = cContext.Products.Single(p=> p.Code == "1001"),
+                        //        Price = 15m,
+                        //        Discountable = true,
+                        //        PriceType = cContext.PriceTypes.Single(t=>t.Code == "R"),
+                        //    },
+                        //    new ProductOffer()
+                        //    {
+                        //        Code = "1001-W",
+                        //        Product = cContext.Products.Single(p=> p.Code == "1001"),
+                        //        Price = 12m,
+                        //        Discountable = true,
+                        //        PriceType = cContext.PriceTypes.Single(t=>t.Code == "W"),
+                        //    }
+                        //}
                     },
                     new Product
                     {
@@ -114,13 +132,31 @@ namespace MyProject.DAL
                         Image =
                             ImageToByteArray(Image.FromFile(HostingEnvironment.MapPath(@"~/Content/Images/Image2.jpg"))),
                         FeatureProduct = true,
-                        Price = 11.99m,
                         Weight = 0.5m,
                         QuantityOnHand = 22,
                         Categories = new List<Category>()
                         {
                             cContext.Categories.SingleOrDefault(c=>c.Code=="1001")
-                        }
+                        },
+                        //ProductOffers = new List<ProductOffer>()
+                        //{
+                        //    new ProductOffer()
+                        //    {
+                        //        Code = "1002-R",
+                        //        Product = cContext.Products.Single(p=> p.Code == "1002"),
+                        //        Price = 12.5m,
+                        //        Discountable = true,
+                        //        PriceType = cContext.PriceTypes.Single(t=>t.Code == "R"),
+                        //    },
+                        //    new ProductOffer()
+                        //    {
+                        //        Code = "1002-W",
+                        //        Product = cContext.Products.Single(p=> p.Code == "1002"),
+                        //        Price = 10.5m,
+                        //        Discountable = true,
+                        //        PriceType = cContext.PriceTypes.Single(t=>t.Code == "W"),
+                        //    }
+                        //}
                     },
                     new Product
                     {
@@ -130,13 +166,31 @@ namespace MyProject.DAL
                         Image =
                             ImageToByteArray(Image.FromFile(HostingEnvironment.MapPath(@"~/Content/Images/Image3.jpg"))),
                         FeatureProduct = true,
-                        Price = 7.95m,
                         Weight = 0.25m,
                         QuantityOnHand = 40,
                         Categories = new List<Category>()
                         {
                             cContext.Categories.SingleOrDefault(c=>c.Code=="1002")
-                        }
+                        },
+                        //ProductOffers = new List<ProductOffer>()
+                        //{
+                        //    new ProductOffer()
+                        //    {
+                        //        Code = "1003-R",
+                        //        Product = cContext.Products.Single(p=> p.Code == "1003"),
+                        //        Price = 6.5m,
+                        //        Discountable = true,
+                        //        PriceType = cContext.PriceTypes.Single(t=>t.Code == "R"),
+                        //    },
+                        //    new ProductOffer()
+                        //    {
+                        //        Code = "1003-W",
+                        //        Product = cContext.Products.Single(p=> p.Code == "1003"),
+                        //        Price = 5.5m,
+                        //        Discountable = true,
+                        //        PriceType = cContext.PriceTypes.Single(t=>t.Code == "W"),
+                        //    }
+                        //}
                     },
                     new Product
                     {
@@ -146,13 +200,31 @@ namespace MyProject.DAL
                         Image =
                             ImageToByteArray(Image.FromFile(HostingEnvironment.MapPath(@"~/Content/Images/Image4.jpg"))),
                         FeatureProduct = true,
-                        Price = 5.95m,
                         Weight = .125m,
                         QuantityOnHand = 15,
                         Categories = new List<Category>()
                         {
                             cContext.Categories.SingleOrDefault(c=>c.Code=="1001")
-                        }
+                        },
+                        //ProductOffers = new List<ProductOffer>()
+                        //{
+                        //    new ProductOffer()
+                        //    {
+                        //        Code = "1004-R",
+                        //        Product = cContext.Products.Single(p=> p.Code == "1004"),
+                        //        Price = 8.5m,
+                        //        Discountable = true,
+                        //        PriceType = cContext.PriceTypes.Single(t=>t.Code == "R"),
+                        //    },
+                        //    new ProductOffer()
+                        //    {
+                        //        Code = "1004-W",
+                        //        Product = cContext.Products.Single(p=> p.Code == "1004"),
+                        //        Price = 7.25m,
+                        //        Discountable = true,
+                        //        PriceType = cContext.PriceTypes.Single(t=>t.Code == "W"),
+                        //    }
+                        //}
                     },
                     new Product
                     {
@@ -162,13 +234,31 @@ namespace MyProject.DAL
                         Image =
                             ImageToByteArray(Image.FromFile(HostingEnvironment.MapPath(@"~/Content/Images/Image5.jpg"))),
                         FeatureProduct = false,
-                        Price = 15.99m,
                         Weight = 1m,
                         QuantityOnHand = 20,
                         Categories = new List<Category>()
                         {
                             cContext.Categories.SingleOrDefault(c=>c.Code=="1002")
-                        }
+                        },
+                        //ProductOffers = new List<ProductOffer>()
+                        //{
+                        //    new ProductOffer()
+                        //    {
+                        //        Code = "1005-R",
+                        //        Product = cContext.Products.Single(p=> p.Code == "1005"),
+                        //        Price = 10m,
+                        //        Discountable = true,
+                        //        PriceType = cContext.PriceTypes.Single(t=>t.Code == "R"),
+                        //    },
+                        //    new ProductOffer()
+                        //    {
+                        //        Code = "1005-W",
+                        //        Product = cContext.Products.Single(p=> p.Code == "1005"),
+                        //        Price = 9m,
+                        //        Discountable = true,
+                        //        PriceType = cContext.PriceTypes.Single(t=>t.Code == "W"),
+                        //    }
+                        //}
                     }
                 };
 

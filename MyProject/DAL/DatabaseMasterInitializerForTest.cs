@@ -98,7 +98,6 @@ namespace MyProject.DAL
                         Image =
                             ImageToByteArray(Image.FromFile(HostingEnvironment.MapPath(@"~/Content/Images/Image1.jpg"))),
                         FeatureProduct = true,
-                        Price = 9.99m,
                         Weight = 1,
                         QuantityOnHand = 29,
                         Categories = new List<Category>()
@@ -114,7 +113,6 @@ namespace MyProject.DAL
                         Image =
                             ImageToByteArray(Image.FromFile(HostingEnvironment.MapPath(@"~/Content/Images/Image2.jpg"))),
                         FeatureProduct = true,
-                        Price = 11.99m,
                         Weight = 0.5m,
                         QuantityOnHand = 22,
                         Categories = new List<Category>()
@@ -130,7 +128,6 @@ namespace MyProject.DAL
                         Image =
                             ImageToByteArray(Image.FromFile(HostingEnvironment.MapPath(@"~/Content/Images/Image3.jpg"))),
                         FeatureProduct = true,
-                        Price = 7.95m,
                         Weight = 0.25m,
                         QuantityOnHand = 40,
                         Categories = new List<Category>()
@@ -146,7 +143,6 @@ namespace MyProject.DAL
                         Image =
                             ImageToByteArray(Image.FromFile(HostingEnvironment.MapPath(@"~/Content/Images/Image4.jpg"))),
                         FeatureProduct = true,
-                        Price = 5.95m,
                         Weight = .125m,
                         QuantityOnHand = 15,
                         Categories = new List<Category>()
@@ -162,7 +158,6 @@ namespace MyProject.DAL
                         Image =
                             ImageToByteArray(Image.FromFile(HostingEnvironment.MapPath(@"~/Content/Images/Image5.jpg"))),
                         FeatureProduct = false,
-                        Price = 15.99m,
                         Weight = 1m,
                         QuantityOnHand = 20,
                         Categories = new List<Category>()

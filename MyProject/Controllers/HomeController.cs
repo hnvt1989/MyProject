@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using MyProject.DAL;
 using MyProject.Models;
 using MyProject.Models.ShoppingCart;
+using MyProject.Models.ViewModels;
 
 namespace MyProject.Controllers
 {
@@ -13,12 +14,25 @@ namespace MyProject.Controllers
     {
         public ActionResult Index()
         {
-            List<Product> products = new List<Product>();
+            List<ProductViewModel> products = new List<ProductViewModel>();
 
             using (var pContext = new ShoppingCartContext())
             {
                 var prods = pContext.Products.Where(p => p.FeatureProduct == true);
-                products.AddRange(prods);
+                var offers = pContext.ProductOffers.ToList();
+                foreach (var p in prods)
+                {
+                    products.Add(new ProductViewModel()
+                    {
+                        Id = p.Id,
+                        Code = p.Code,
+                        Description = p.Description,
+                        Price = offers.Single(po => po.ProductId == p.Id && po.PriceTypeId == 1).Price,
+                        FeatureProduct = p.FeatureProduct,
+                        Image = p.Image
+                    });
+                }
+                
 
             }
             return View(products);

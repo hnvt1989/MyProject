@@ -37,10 +37,10 @@ namespace UnitTest.DataUnitTest
 
             foreach (var cart in shoppingCart.GetCartItems())
             {
-                var OriginalPrice = CartContext.Products.Single(p => p.Id == cart.ProductId).Price;
-                var ProductOffer =
-                    CartContext.ProductOffers.Single(po => po.ProductId == cart.ProductId && po.PriceType.Code == "R");
-                string put;
+                //var OriginalPrice = CartContext.Products.Single(p => p.Id == cart.ProductId).Price;
+                //var ProductOffer =
+                //    CartContext.ProductOffers.Single(po => po.ProductId == cart.ProductId && po.PriceType.Code == "R");
+                //string put;
                 //cartLineItems.Add(new CartLineItem()
                 //{
                 //    Code = shoppingCart.ShoppingCartId,
@@ -56,18 +56,18 @@ namespace UnitTest.DataUnitTest
             }
 
             var list = shoppingCart.GetCartItems().ToList();
-            list.ForEach(c => cartLineItems.Add(new Cart()
-            {
-                Code = shoppingCart.ShoppingCartId,
-                DateCreated = DateTime.Now,
-                OriginalPrice = CartContext.Products.Single(p => p.Id == c.ProductId).Price,
-                DiscountAmount = 0m,
-                Quantity = c.Quantity,
-                ShippingCost = 0m,
-                //DiscountedPrice = 0m,
-                //ProductCode = "1001",
-                PriceType = "R"
-            }));
+            //list.ForEach(c => cartLineItems.Add(new Cart()
+            //{
+            //    Code = shoppingCart.ShoppingCartId,
+            //    DateCreated = DateTime.Now,
+            //    OriginalPrice = CartContext.Products.Single(p => p.Id == c.ProductId).Price,
+            //    DiscountAmount = 0m,
+            //    Quantity = c.Quantity,
+            //    ShippingCost = 0m,
+            //    //DiscountedPrice = 0m,
+            //    //ProductCode = "1001",
+            //    PriceType = "R"
+            //}));
         }
 
         [Test]

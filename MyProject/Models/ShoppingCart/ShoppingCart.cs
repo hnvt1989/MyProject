@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.AspNet.Identity;
 using System.Linq;
+using System.Net.Mime;
 using System.Security.Policy;
 using System.Web;
 using System.Web.Mvc;
@@ -105,7 +106,8 @@ namespace MyProject.Models.ShoppingCart
                         AddOnItem = false,
                         ShippingCost = 0m,
                         DiscountAmount = 0m,
-                        OriginalPrice = context.Products.Single(p => p.Id == product.Id).Price,
+                        OriginalPrice = context.Products.Where(p => p.Id == product.Id).SelectMany( x => x.ProductOffers).ToList().Single(o => o.ProductId == product.Id && o.PriceTypeId == 1).Price,
+                        //OriginalPrice = context.Products.Single(p => p.Id == product.Id).Price,
                         Product = context.Products.Single(p => p.Id == product.Id),
                         //DiscountedPrice = 0m,
                         DiscountApplied = false,
@@ -269,7 +271,7 @@ namespace MyProject.Models.ShoppingCart
                 {
                     ProductId = item.ProductId,
 
-                    UnitPrice = item.Product.Price,
+                    UnitPrice = item.OriginalPrice,
                     Quantity = item.Quantity,
                     ShippingCost = item.ShippingCost,
                     Net = item.NetBeforeDiscount,
