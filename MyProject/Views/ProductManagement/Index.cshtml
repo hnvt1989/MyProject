@@ -1,0 +1,35 @@
+﻿@using System.Collections
+@using MyProject.Models.ViewModels
+@model MyProject.Models.ViewModels.ProductManagementViewModel
+
+@{
+    ViewBag.Title = "Product Management";
+}
+
+<div class="row">
+    <div class="large-12 columns">
+        <h3>Product Management</h3>
+        <p class="button">
+            @Html.ActionLink("Add new product", "ContinueToCart", "Store", new { @style = "color: #FFFFFF" })
+        </p>
+        <div class="row">
+            @foreach (var product in Model.Products)
+            {
+
+                var base64 = Convert.ToBase64String(@product.Image);
+                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+
+                <div class="large-3 small-6 columns">
+                    <img src="@imgSrc"/>
+                    @*                    <a>@product.Description</a>*@
+                    <a>@Html.ActionLink(@product.Description, "Details", "Store", new { id = product.Id }, "")</a>
+                    @*                    <p>$@product.Price</p>
+                    <p class="button">
+                        @Html.ActionLink("Add to cart", "AddToCart", "ShoppingCart", new {id = product.Id}, new {@style = "color: #FFFFFF"})
+                    </p>*@
+                </div>
+            }
+        </div>
+    </div>
+</div>
+

@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using MyProject.DAL;
 using MyProject.Models.ShoppingCart;
+using MyProject.Models.ViewModels;
 
 namespace MyProject.Controllers
 {
@@ -20,8 +21,21 @@ namespace MyProject.Controllers
 
         public ActionResult Details(int id)
         {
-            var prod = _shoppingCartContext.Products.SingleOrDefault(p => p.Id == id);
-            return View("ProductDetails", prod);
+            var productModel = new ProductViewModel();
+
+            using (var pContext = new ShoppingCartContext())
+            {
+                var prod = pContext.Products.SingleOrDefault(p => p.Id == id);
+                var offers = pContext.ProductOffers.ToList();
+
+                productModel.Code = prod.Code;
+                productModel.Id = prod.Id;
+                productModel.Description = prod.Description;
+                productModel.Price = offers.Single(po => po.ProductId == prod.Id && po.PriceTypeId == 1).Price;
+                productModel.FeatureProduct = prod.FeatureProduct;
+                productModel.Image = prod.Image;
+            }
+            return View("ProductDetails", productModel);
         }
 
         public ActionResult ContinueToCart(int id)

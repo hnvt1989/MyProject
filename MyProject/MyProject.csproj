@@ -223,6 +223,7 @@
     <Compile Include="Models\ShoppingCart\Category.cs" />
     <Compile Include="Models\Account\ExtendedIdentityModels.cs" />
     <Compile Include="Models\Account\IdentityModels.cs" />
+    <Compile Include="Models\ViewModels\CategoryViewModel.cs" />
     <Compile Include="Models\ViewModels\CheckoutViewModel.cs" />
     <Compile Include="Models\ViewModels\ManageViewModels.cs" />
     <Compile Include="Models\ShoppingCart\LineOrderDetail.cs" />
@@ -231,6 +232,7 @@
     <Compile Include="Models\ShoppingCart\ShoppingCart.cs" />
     <Compile Include="Models\ViewModels\OrderConfirmViewModel.cs" />
     <Compile Include="Models\ViewModels\OrderSummaryViewModel.cs" />
+    <Compile Include="Models\ViewModels\ProductManagementViewModel.cs" />
     <Compile Include="Models\ViewModels\ProductViewModel.cs" />
     <Compile Include="Models\ViewModels\ShoppingCartAddViewModel.cs" />
     <Compile Include="Models\ViewModels\ShoppingCartRemoveViewModel.cs" />
@@ -239,6 +241,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Images\MainSiteProfile.jpg" />
     <Content Include="Content\Images\ProductDefault.png" />
     <Content Include="Content\Images\Profile1.jpg" />
     <Content Include="Content\Images\DefaultProfile.jpg" />
@@ -248,6 +251,7 @@
     <Content Include="Content\ie.css" />
     <Content Include="Content\Images\Image5.jpg" />
     <Content Include="Content\Images\Profile2.jpg" />
+    <Content Include="Content\Images\SiteOwner.jpg" />
     <Content Include="Content\print.css" />
     <Content Include="Content\screen.css" />
     <Content Include="favicon.ico" />
@@ -449,13 +453,15 @@
     <Content Include="Views\OrderSummary\Index.cshtml" />
     <Content Include="Views\Shared\OrderNotFound.cshtml" />
     <Content Include="Views\OrderSummary\OrderNotFound.cshtml" />
+    <Content Include="Views\ProductManagement\Index.cshtml" />
+    <Content Include="Views\ProductManagement\Index1.cshtml" />
+    <Content Include="Views\ProductManagement\Index2.cshtml" />
     <None Include="Views\Store\ProductDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="UnitTest\ViewController\" />
-    <Folder Include="Views\ProductManagement\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
