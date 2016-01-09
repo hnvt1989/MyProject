@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -39,7 +40,7 @@ namespace MyProject.Models.ShoppingCart
         //price after discount
         public decimal DiscountedPrice
         {
-            get { return (OriginalPrice*Quantity) - TotalDiscountAmount; }
+            get { return decimal.Round((OriginalPrice * Quantity) - TotalDiscountAmount, 2, MidpointRounding.AwayFromZero); }
         }
 
         [NotMapped] public decimal _netBeforeDiscount;
@@ -48,7 +49,8 @@ namespace MyProject.Models.ShoppingCart
         {
             get
             {
-                _netBeforeDiscount =  OriginalPrice*Quantity;
+                _netBeforeDiscount = decimal.Round(OriginalPrice*Quantity, 2, MidpointRounding.AwayFromZero);
+                //_netBeforeDiscount =  OriginalPrice*Quantity;
                 return _netBeforeDiscount;
             }
             set { _netBeforeDiscount = value; }
@@ -60,7 +62,8 @@ namespace MyProject.Models.ShoppingCart
         {
             get
             {
-                _totalDiscountAmount = DiscountAmount*Quantity;
+                _totalDiscountAmount = decimal.Round(DiscountAmount * Quantity, 2, MidpointRounding.AwayFromZero);
+                //_totalDiscountAmount = DiscountAmount*Quantity;
                 return _totalDiscountAmount;
             }
             set { _totalDiscountAmount = value; }
@@ -72,7 +75,8 @@ namespace MyProject.Models.ShoppingCart
         {
             get
             {
-                _sum = DiscountedPrice  + ShippingCost;
+                _sum = decimal.Round(DiscountedPrice + ShippingCost, 2, MidpointRounding.AwayFromZero);
+                //_sum = DiscountedPrice  + ShippingCost;
                 return _sum;
             }
             set { _sum = value; }

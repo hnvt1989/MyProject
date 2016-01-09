@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.AspNet.Identity;
 using System.Linq;
+using System.Security.Policy;
 using System.Web;
 using System.Web.Mvc;
 using MyProject.AppLogic.CartLogic;
@@ -21,46 +22,49 @@ namespace MyProject.Models.ShoppingCart
         {
             get
             {
-                return soContext.Carts.Where(
-                cart => cart.Code == ShoppingCartId).ToList();
+                using (var context = new ShoppingCartContext())
+                {
+                    return context.Carts.Where(cart => cart.Code == ShoppingCartId).ToList();
+                }
             }
         }
 
         public void UpdateCart()
         {
-            foreach (var c in CartItems)
+            using (var context = new ShoppingCartContext())
             {
-                //parsing cat again
-                //c.Categories =
-                //    soContext.Products.Single(p => p.Id == c.ProductId).Categories.Select(cat => cat.Code).ToList();
-                //var prod = soContext.Products.Where(p => p.Id == c.ProductId).SelectMany(x => x.Categories);
-                c.Categories = soContext.Products.Where(p => p.Id == c.ProductId).SelectMany(x => x.Categories).Select(y => y.Code).ToList();
-            }
+                var cartItems = context.Carts.Where(cart => cart.Code == ShoppingCartId).ToList();
 
-            var newCarts = CartProcessor.Process(soContext.Promotions.Single(p => p.Code == "Christmas discount").PromotionLineItems.ToList(), CartItems);
-
-            foreach (var cart in soContext.Carts)
-            {
-                foreach (var nCart in newCarts)
+                foreach (var c in cartItems)
                 {
-                    if (cart.Code == nCart.Code && cart.ProductId == nCart.ProductId)
-                    {
-                        cart.Quantity = nCart.Quantity;
-                        cart.DiscountAmount = nCart.DiscountAmount;
-                        cart.ShippingCost = nCart.ShippingCost;
-                        cart.DiscountAmount = nCart.DiscountAmount;
-                        cart.OriginalPrice = nCart.OriginalPrice;
-                        cart.AddOnItem = nCart.AddOnItem;
-                        //cart.DiscountedPrice = nCart.DiscountedPrice;
-                        cart.NetBeforeDiscount = nCart.NetBeforeDiscount;
-                        cart.Sum = nCart.Sum;
-                        cart.TotalDiscountAmount = nCart.TotalDiscountAmount;
-
-                    }
+                    c.Categories = context.Products.Where(p => p.Id == c.ProductId).SelectMany(x => x.Categories).Select(y => y.Code).ToList();
                 }
 
+                var newCarts = CartProcessor.Process(context.Promotions.Single(p => p.Code == "Christmas discount").PromotionLineItems.ToList(), cartItems);
+
+                foreach (var cart in context.Carts)
+                {
+                    foreach (var nCart in newCarts)
+                    {
+                        if (cart.Code == nCart.Code && cart.ProductId == nCart.ProductId)
+                        {
+                            cart.Quantity = nCart.Quantity;
+                            cart.DiscountAmount = nCart.DiscountAmount;
+                            cart.ShippingCost = nCart.ShippingCost;
+                            cart.DiscountAmount = nCart.DiscountAmount;
+                            cart.OriginalPrice = nCart.OriginalPrice;
+                            cart.AddOnItem = nCart.AddOnItem;
+                            //cart.DiscountedPrice = nCart.DiscountedPrice;
+                            cart.NetBeforeDiscount = nCart.NetBeforeDiscount;
+                            cart.Sum = nCart.Sum;
+                            cart.TotalDiscountAmount = nCart.TotalDiscountAmount;
+
+                        }
+                    }
+
+                }
+                context.SaveChanges();
             }
-            soContext.SaveChanges();
         }
 
 
@@ -79,143 +83,165 @@ namespace MyProject.Models.ShoppingCart
 
         public void AddToCart(Product product)
         {
-            // Get the matching cart and product instances
-            var cartItem = soContext.Carts.SingleOrDefault(
-                c => c.Code == ShoppingCartId
-                && c.ProductId == product.Id);
-
-            if (cartItem == null)
+            using (var context = new ShoppingCartContext())
             {
-                // Create a new cart item if no cart item exists
-                cartItem = new Cart
+                // Get the matching cart and product instances
+                var cartItem = context.Carts.SingleOrDefault(
+                    c => c.Code == ShoppingCartId
+                    && c.ProductId == product.Id);
+
+                if (cartItem == null)
                 {
-                    ProductId = product.Id,
-                    Code = ShoppingCartId,
-                    Quantity = 1,
-                    DateCreated = DateTime.Now,
-                    PriceType = "R",
-                    Categories = new List<string>() { "1001", "1002" },
-                    AddOnItem = false,
-                    ShippingCost = 0m,
-                    DiscountAmount = 0m,
-                    OriginalPrice = soContext.Products.Single(p => p.Id == product.Id).Price,
-                    Product = soContext.Products.Single(p => p.Id == product.Id),
-                    //DiscountedPrice = 0m,
-                    DiscountApplied = false,
-                };
-                soContext.Carts.Add(cartItem);
-            }
-            else
-            {
-                // If the item does exist in the cart, 
-                // then add one to the quantity
-                cartItem.Quantity++;
-            }
-            // Save changes
-            soContext.SaveChanges();
-
-
-            //update the cart (promotion)
-            UpdateCart();
-        }
-
-        public int RemoveFromCart(int id)
-        {
-            // Get the cart
-            var cartItem = soContext.Carts.Single(
-                cart => cart.Code == ShoppingCartId
-                && cart.Id == id);
-
-            int itemCount = 0;
-
-            if (cartItem != null)
-            {
-                if (cartItem.Quantity > 1)
-                {
-                    cartItem.Quantity--;
-                    itemCount = cartItem.Quantity;
+                    // Create a new cart item if no cart item exists
+                    cartItem = new Cart
+                    {
+                        ProductId = product.Id,
+                        Code = ShoppingCartId,
+                        Quantity = 1,
+                        DateCreated = DateTime.Now,
+                        PriceType = "R",
+                        Categories = new List<string>() { "1001", "1002" },
+                        AddOnItem = false,
+                        ShippingCost = 0m,
+                        DiscountAmount = 0m,
+                        OriginalPrice = context.Products.Single(p => p.Id == product.Id).Price,
+                        Product = context.Products.Single(p => p.Id == product.Id),
+                        //DiscountedPrice = 0m,
+                        DiscountApplied = false,
+                    };
+                    context.Carts.Add(cartItem);
                 }
                 else
                 {
-                    soContext.Carts.Remove(cartItem);
+                    // If the item does exist in the cart, 
+                    // then add one to the quantity
+                    cartItem.Quantity++;
                 }
                 // Save changes
-                soContext.SaveChanges();
+                context.SaveChanges();
+
+
+                //update the cart (promotion)
+                UpdateCart();
+
             }
-
-            UpdateCart();
-
-            return itemCount;
         }
+
+        public Cart RemoveFromCart(int id)
+        {
+            using (var context = new ShoppingCartContext())
+            {
+
+
+                // Get the cart
+                var cartItem = context.Carts.Single(
+                    cart => cart.Code == ShoppingCartId
+                    && cart.Id == id);
+
+                if (cartItem != null)
+                {
+                    if (cartItem.Quantity > 1)
+                    {
+                        cartItem.Quantity--;
+                        // Save changes
+                        context.SaveChanges();
+                        UpdateCart();
+                    }
+                    else
+                    {
+                        context.Carts.Remove(cartItem);
+                        // Save changes
+                        context.SaveChanges();
+                        UpdateCart();
+                        return null;
+                    }
+
+                }
+                return context.Carts.Single(c => c.Code == ShoppingCartId && c.Id == id);
+            }      
+        }
+
+        //public Cart GetCartLine(string cartId, int id)
+        //{
+        //    using (var context = new ShoppingCartContext())
+        //    {
+        //        return context.Carts.Single(c => c.Code == cartId && c.Id == id);
+        //    }
+        //}
 
         public Cart AddOneItemToCart(int id)
         {
-            // Get the matching cart and product instances
-            // Get the cart
-            var cartItem = soContext.Carts.Single(
-                cart => cart.Code == ShoppingCartId
-                && cart.Id == id);
-
-            var itemCount = 0;
-
-            if (cartItem != null)
+            using (var context = new ShoppingCartContext())
             {
-                //Add 1 more item
-                cartItem.Quantity++;
-                itemCount = cartItem.Quantity;
+                // Get the matching cart and product instances
+                // Get the cart
+                var cartItem = context.Carts.Single(
+                    cart => cart.Code == ShoppingCartId
+                    && cart.Id == id);
 
-                // Save changes
-                soContext.SaveChanges();
+                if (cartItem != null)
+                {
+                    //Add 1 more item
+                    cartItem.Quantity++;
+                    // Save changes
+                    context.SaveChanges();
 
-                UpdateCart();
+                    UpdateCart();
+                }
+
+                return context.Carts.Single(
+                    cart => cart.Code == ShoppingCartId
+                            && cart.Id == id);
             }
-
-            return soContext.Carts.Single(
-                cart => cart.Code == ShoppingCartId
-                        && cart.Id == id);
         }
 
         public void EmptyCart()
         {
-            var cartItems = soContext.Carts.Where(
-                cart => cart.Code == ShoppingCartId);
-
-            foreach (var cartItem in cartItems)
+            using (var context = new ShoppingCartContext())
             {
-                soContext.Carts.Remove(cartItem);
-            }
-            // Save changes
-            soContext.SaveChanges();
+                var cartItems = context.Carts.Where(
+                    cart => cart.Code == ShoppingCartId);
 
-            UpdateCart();
+                foreach (var cartItem in cartItems)
+                {
+                    context.Carts.Remove(cartItem);
+                }
+                // Save changes
+                context.SaveChanges();
+
+                UpdateCart();
+            }
         }
 
         public List<Cart> GetCartItems()
         {
-            return soContext.Carts.Where(
-                cart => cart.Code == ShoppingCartId).ToList();
+
+           return soContext.Carts.Where(cart => cart.Code == ShoppingCartId).ToList();
         }
 
         public int GetCount()
         {
             // Get the count of each item in the cart and sum them up
-            int? count = (from cartItems in soContext.Carts
-                          where cartItems.Code == ShoppingCartId
-                          select (int?)cartItems.Quantity).Sum();
-            // Return 0 if all entries are null
-            return count ?? 0;
+            using (var context = new ShoppingCartContext())
+            {
+                int? count = (from cartItems in context.Carts
+                              where cartItems.Code == ShoppingCartId
+                              select (int?)cartItems.Quantity).Sum();
+                // Return 0 if all entries are null
+                return count ?? 0;
+            }
         }
 
         public decimal GetTotal()
         {
-            // Multiply album price by count of that album to get 
-            // the current price for each of those albums in the cart
-            // sum all album price totals to get the cart total
-            decimal? total = (from cartItems in soContext.Carts
-                              where cartItems.Code == ShoppingCartId
-                              select (decimal?)cartItems.Sum).Sum();
+            using (var context = new ShoppingCartContext())
+            {
+                decimal? total = (from cartItems in context.Carts
+                                  where cartItems.Code == ShoppingCartId
+                                  select (decimal?)cartItems.Sum).Sum();
 
-            return total ?? decimal.Zero;
+                return (total != null) ? decimal.Round((decimal)total, 2, MidpointRounding.AwayFromZero) : decimal.Zero;
+            }
         }
 
         public long CreateOrder(Order order)
@@ -238,10 +264,14 @@ namespace MyProject.Models.ShoppingCart
                     ProductId = item.ProductId,
 
                     UnitPrice = item.Product.Price,
-                    Quantity = item.Quantity
+                    Quantity = item.Quantity,
+                    ShippingCost = item.ShippingCost,
+                    Net = item.NetBeforeDiscount,
+                    TotalDiscount = item.TotalDiscountAmount,
+                    Total = item.Sum
                 };
                 // Set the order total of the shopping cart
-                orderTotal += (item.Quantity * item.Product.Price);
+                orderTotal += item.Sum;
 
                 order.OrderDetails.Add(lineOrderDetail);
 

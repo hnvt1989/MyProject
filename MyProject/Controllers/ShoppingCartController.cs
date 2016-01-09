@@ -33,15 +33,17 @@ namespace MyProject.Controllers
         // GET: /Store/AddToCart/5
         public ActionResult AddToCart(int id)
         {
-            // Retrieve the product from the database
-            var addedProduct= _shoppingCartContext.Products
-                .Single(product => product.Id == id);
+            using (var context = new ShoppingCartContext())
+            {
+                // Retrieve the product from the database
+                var addedProduct = context.Products
+                    .Single(product => product.Id == id);
 
-            // Add it to the shopping cart
-            var cart = ShoppingCart.GetCart(this.HttpContext);
+                // Add it to the shopping cart
+                var cart = ShoppingCart.GetCart(this.HttpContext);
 
-            cart.AddToCart(addedProduct);
-
+                cart.AddToCart(addedProduct);
+            }
             //Go back to index
             return RedirectToAction("Index");
         }
@@ -57,19 +59,32 @@ namespace MyProject.Controllers
             string productDescription = _shoppingCartContext.Carts
                 .Single(item => item.Id == id).Product.Description;
 
-            // Remove from cart
-            int itemCount = cart.RemoveFromCart(id);
+            var ret = cart.RemoveFromCart(id);
 
-            // Display the confirmation message
-            var results = new ShoppingCartRemoveViewModel
+            // update cart view
+            var results = new ShoppingCartRemoveViewModel()
             {
                 Message = Server.HtmlEncode(productDescription) +
                     " has been removed from your shopping cart.",
                 CartTotal = cart.GetTotal(),
                 CartCount = cart.GetCount(),
-                ItemCount = itemCount,
-                DeleteId = id
+                DeleteId = id,
+
             };
+
+            //if item was not removed
+            if (ret != null)
+            {
+                results.ItemCount = ret.Quantity;
+                results.TotalDiscount = ret.TotalDiscountAmount;
+                results.ShippingCost = ret.ShippingCost;
+                results.NetBeforeDiscount = ret.NetBeforeDiscount;
+                results.Sum = ret.Sum;
+            }
+            else
+            {
+                results.ItemCount = 0;
+            }
             return Json(results);
         }
 
@@ -87,7 +102,7 @@ namespace MyProject.Controllers
 
             var ret = cart.AddOneItemToCart(id);
 
-            var updatedCart = _shoppingCartContext.Carts.FirstOrDefault(item => item.Id == id && item.Code == cart.ShoppingCartId);
+            //var updatedCart = _shoppingCartContext.Carts.FirstOrDefault(item => item.Id == id && item.Code == cart.ShoppingCartId);
 
             // update cart view
             var results = new ShoppingCartAddViewModel()

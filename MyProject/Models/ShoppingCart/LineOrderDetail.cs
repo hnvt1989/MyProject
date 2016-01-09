@@ -19,6 +19,11 @@ namespace MyProject.Models.ShoppingCart
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }
         public decimal ShippingCost { get; set; }
+        public decimal Net { get; set; }
+        public decimal TotalDiscount { get; set; }
+
+        //total amount after discount
+        public decimal Total { get; set; }
 
         public virtual Order Order { get; set; }
         public virtual Product Product { get; set; }

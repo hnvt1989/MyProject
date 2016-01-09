@@ -23,6 +23,10 @@
                             });
                         } else {
                             $('#item-count-' + data.DeleteId).text(data.ItemCount);
+                            $('#item-net-' + data.DeleteId).text(data.NetBeforeDiscount);
+                            $('#item-sum-' + data.DeleteId).text(data.Sum);
+                            $('#item-discount-' + data.DeleteId).text(data.TotalDiscount);
+                            $('#item-shippingcost-' + data.DeleteId).text(data.ShippingCost);      
                         }
                         $('#cart-total').text(data.CartTotal);
                         $('#update-message').text(data.Message);
@@ -64,7 +68,7 @@
                 </th>
                 <th>Description
                 </th>
-                <th>Price (each)
+                <th>Price
                 </th>
                 <th>Quantity
                 </th>
@@ -101,22 +105,26 @@
                         @Html.ActionLink(item.Product.Description, "Details", "Store", new { id = item.ProductId }, null)
                     </td>
                     <td>
-                        @item.Product.Price
+                        @String.Format("{0:F}",@item.Product.Price)
                     </td>
                     <td id="item-count-@item.Id">
                         @item.Quantity
                     </td>
                     <td id="item-net-@item.Id">
-                        @item.NetBeforeDiscount
+                        @String.Format("{0:F}",@item.NetBeforeDiscount)
+                        
                     </td>
                     <td id="item-discount-@item.Id">
-                        @item.TotalDiscountAmount
+                        @String.Format("{0:F}",@item.TotalDiscountAmount)
+                        
                     </td>
                     <td id="item-shippingcost-@item.Id">
-                        @item.ShippingCost
+                        @String.Format("{0:F}",@item.ShippingCost)
+                        
                     </td>
-                     <td id="item-sum-@item.Id">
-                        @item.Sum
+                    <td id="item-sum-@item.Id">
+                        @String.Format("{0:F}",@item.Sum)
+                        
                     </td>
                     <td>
                         <a href="#" class="AddLink" data-id="@item.Id">Add</a>
@@ -134,7 +142,7 @@
                 <td></td>
                 <td><b>Total</b></td>
                 <td id="cart-total">
-                    <b>@Model.CartTotal</b>
+                    <b>@String.Format("{0:F}",@Model.CartTotal)</b>
                 </td>
             </tr>
         </table>
