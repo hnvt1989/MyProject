@@ -25,7 +25,7 @@ namespace MyProject.Controllers
 
             using (var pContext = new ShoppingCartContext())
             {
-                var prod = pContext.Products.SingleOrDefault(p => p.Id == id);
+                var prod = pContext.Products.Single(p => p.Id == id);
                 var offers = pContext.ProductOffers.ToList();
 
                 productModel.Code = prod.Code;
@@ -34,6 +34,7 @@ namespace MyProject.Controllers
                 productModel.Price = offers.Single(po => po.ProductId == prod.Id && po.PriceTypeId == 1).Price;
                 productModel.FeatureProduct = prod.FeatureProduct;
                 productModel.Image = prod.Image;
+                productModel.DetailDescription = prod.DetailDescription;
             }
             return View("ProductDetails", productModel);
         }

@@ -1,0 +1,27 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using MyProject.Models.ShoppingCart;
+
+namespace MyProject.Models.ViewModels
+{
+    public class EditProductViewModel
+    {
+        public EditProductViewModel()
+        {
+            //Categories = new List<Category>();
+            //PriceTypes = new List<PriceType>();
+            //Offers = new List<ProductOffer>();
+            //ProductView = new ProductViewModel();
+        }
+
+        public ProductViewModel ProductView { get; set; }
+
+        //public List<Category> Categories { get; set; }
+ 
+        //public List<PriceType> PriceTypes { get; set; }
+
+        //public List<ProductOffer> Offers { get; set; } 
+    }
+}

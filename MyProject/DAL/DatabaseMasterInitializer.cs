@@ -16,7 +16,7 @@ using MyProject.Models.ShoppingCart;
 
 namespace MyProject.DAL
 {
-    public class DatabaseMasterInitializer : System.Data.Entity.DropCreateDatabaseAlways<DbContext>
+    public class DatabaseMasterInitializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<DbContext>
     {
         protected override void Seed(DbContext context)
         {
@@ -100,6 +100,7 @@ namespace MyProject.DAL
                         FeatureProduct = true,
                         Weight = 1,
                         QuantityOnHand = 29,
+                        DetailDescription = "this is a good product , Heathered Knit Drawstring Jumpsuit. Ship from USA.",
                         Categories = new List<Category>()
                         {
                             cContext.Categories.SingleOrDefault(c=>c.Code=="1002")
@@ -134,6 +135,7 @@ namespace MyProject.DAL
                         FeatureProduct = true,
                         Weight = 0.5m,
                         QuantityOnHand = 22,
+                        DetailDescription = "this is a good product , Heathered Knit Drawstring Jumpsuit. Ship from USA.",
                         Categories = new List<Category>()
                         {
                             cContext.Categories.SingleOrDefault(c=>c.Code=="1001")
@@ -168,6 +170,7 @@ namespace MyProject.DAL
                         FeatureProduct = true,
                         Weight = 0.25m,
                         QuantityOnHand = 40,
+                        DetailDescription = "this is a good product , Heathered Knit Drawstring Jumpsuit. Ship from USA.",
                         Categories = new List<Category>()
                         {
                             cContext.Categories.SingleOrDefault(c=>c.Code=="1002")
@@ -197,6 +200,7 @@ namespace MyProject.DAL
                         Id = 4,
                         Code = "1004",
                         Description = "Perforated Faux Leather Loafers",
+                        DetailDescription = "this is a good product , Heathered Knit Drawstring Jumpsuit. Ship from USA.",
                         Image =
                             ImageToByteArray(Image.FromFile(HostingEnvironment.MapPath(@"~/Content/Images/Image4.jpg"))),
                         FeatureProduct = true,
@@ -231,6 +235,7 @@ namespace MyProject.DAL
                         Id = 5,
                         Code = "1005",
                         Description = "Faux Leather Skinny Pants",
+                        DetailDescription = "this is a good product , Heathered Knit Drawstring Jumpsuit. Ship from USA.",
                         Image =
                             ImageToByteArray(Image.FromFile(HostingEnvironment.MapPath(@"~/Content/Images/Image5.jpg"))),
                         FeatureProduct = false,

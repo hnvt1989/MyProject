@@ -23,6 +23,8 @@ namespace MyProject.Models.ShoppingCart
 
         public string Description { get; set; }
 
+        public string DetailDescription { get; set; }
+
         ////stock price
         //public decimal Price { get; set; }
 
