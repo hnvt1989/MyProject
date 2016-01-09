@@ -287,7 +287,7 @@ namespace MyProject.DAL
                     {
                         Code = "1001-R",
                         Product = cContext.Products.Single(p=> p.Code == "1001"),
-                        Price = 15m,
+                        Price = 300000m,
                         Discountable = true,
                         PriceType = cContext.PriceTypes.Single(t=>t.Code == "R"),
                     },
@@ -295,7 +295,7 @@ namespace MyProject.DAL
                     {
                         Code = "1001-W",
                         Product = cContext.Products.Single(p=> p.Code == "1001"),
-                        Price = 12m,
+                        Price = 240000m,
                         Discountable = true,
                         PriceType = cContext.PriceTypes.Single(t=>t.Code == "W"),
                     },
@@ -303,7 +303,7 @@ namespace MyProject.DAL
                     {
                         Code = "1002-R",
                         Product = cContext.Products.Single(p=> p.Code == "1002"),
-                        Price = 20m,
+                        Price = 200000m,
                         Discountable = true,
                         PriceType = cContext.PriceTypes.Single(t=>t.Code == "R"),
                     },
@@ -311,7 +311,7 @@ namespace MyProject.DAL
                     {
                         Code = "1002-W",
                         Product = cContext.Products.Single(p=> p.Code == "1002"),
-                        Price = 18m,
+                        Price = 180000m,
                         Discountable = true,
                         PriceType = cContext.PriceTypes.Single(t=>t.Code == "W"),
                     },
@@ -319,7 +319,7 @@ namespace MyProject.DAL
                     {
                         Code = "1003-R",
                         Product = cContext.Products.Single(p=> p.Code == "1003"),
-                        Price = 31m,
+                        Price = 310000m,
                         Discountable = true,
                         PriceType = cContext.PriceTypes.Single(t=>t.Code == "R"),
                     },
@@ -327,7 +327,7 @@ namespace MyProject.DAL
                     {
                         Code = "1003-W",
                         Product = cContext.Products.Single(p=> p.Code == "1003"),
-                        Price = 21m,
+                        Price = 280000m,
                         Discountable = true,
                         PriceType = cContext.PriceTypes.Single(t=>t.Code == "W"),
                     },
@@ -335,7 +335,7 @@ namespace MyProject.DAL
                     {
                         Code = "1004-R",
                         Product = cContext.Products.Single(p=> p.Code == "1004"),
-                        Price = 11m,
+                        Price = 500000m,
                         Discountable = true,
                         PriceType = cContext.PriceTypes.Single(t=>t.Code == "R"),
                     },
@@ -343,7 +343,7 @@ namespace MyProject.DAL
                     {
                         Code = "1004-W",
                         Product = cContext.Products.Single(p=> p.Code == "1004"),
-                        Price = 10m,
+                        Price = 450000m,
                         Discountable = true,
                         PriceType = cContext.PriceTypes.Single(t=>t.Code == "W"),
                     },
@@ -351,7 +351,7 @@ namespace MyProject.DAL
                     {
                         Code = "1005-R",
                         Product = cContext.Products.Single(p=> p.Code == "1005"),
-                        Price = 40m,
+                        Price = 430000m,
                         Discountable = true,
                         PriceType = cContext.PriceTypes.Single(t=>t.Code == "R"),
                     },
@@ -359,7 +359,7 @@ namespace MyProject.DAL
                     {
                         Code = "1005-W",
                         Product = cContext.Products.Single(p=> p.Code == "1005"),
-                        Price = 32m,
+                        Price = 400000m,
                         Discountable = true,
                         PriceType = cContext.PriceTypes.Single(t=>t.Code == "W"),
                     },
@@ -386,12 +386,12 @@ namespace MyProject.DAL
                             },
                             new PromotionLineItem()
                             {
-                                Code = "1.5offFemale-Casual-Collection",
-                                Description = "1.5 off Female-Casual-Collection",
+                                Code = "15offFemale-Casual-Collection",
+                                Description = "15d off Female-Casual-Collection",
                                 Active = true,
                                 StartDate = DateTime.Now,
                                 EndDate = DateTime.Now.AddDays(2),
-                                PromotionLineItemExpression = "Category=1002;PriceType=R;AmountDiscount=1.5"
+                                PromotionLineItemExpression = "Category=1002;PriceType=R;AmountDiscount=15000"
                             },
                             new PromotionLineItem()
                             {
@@ -404,12 +404,12 @@ namespace MyProject.DAL
                             },
                             new PromotionLineItem()
                             {
-                                Code = "5.25_off_item_item_1005",
-                                Description = "5.25 off item item 1005",
+                                Code = "25_off_item_item_1005",
+                                Description = "25 off item item 1005",
                                 Active = true,
                                 StartDate = DateTime.Now,
                                 EndDate = DateTime.Now.AddDays(2),
-                                PromotionLineItemExpression = "ItemCode=1005;PriceType=R;AmountDiscount=5.25"
+                                PromotionLineItemExpression = "ItemCode=1005;PriceType=R;AmountDiscount=25000"
                             },
                             new PromotionLineItem()
                             {

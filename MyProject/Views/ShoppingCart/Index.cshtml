@@ -58,27 +58,27 @@
 </script>
 <div class="row">
     <div class="large-12 columns">
-        <h3>Review Your cart</h3>
+        <h3>Giỏ hàng của bạn</h3>
 
         <div id="update-message" style="color:deeppink">
         </div>
         <table>
             <tr>
-                <th>Product
+                <th>Sản phẩm
                 </th>
-                <th>Description
+                <th>Tên sản phẩm
                 </th>
-                <th>Price
+                <th>Tiền
                 </th>
-                <th>Quantity
+                <th>Số lượng
                 </th>
-                <th>Net
+                <th>Tổng
                 </th>
-                <th>Discount
+                <th>Khuyến mãi
                 </th>
-                <th>Shipping
+                <th>Cước vận chuyển
                 </th>
-                <th>Total
+                <th>Tổng cộng
                 </th>
                 <th></th>
             </tr>
@@ -105,33 +105,33 @@
                         @Html.ActionLink(item.Product.Description, "Details", "Store", new { id = item.ProductId }, null)
                     </td>
                     <td>
-                        @String.Format("{0:N}",@item.OriginalPrice)
+                        @item.OriginalPrice.ToString("N0")
                     </td>
                     <td id="item-count-@item.Id">
                         @item.Quantity
                     </td>
                     <td id="item-net-@item.Id">
-                        @String.Format("{0:N}",@item.NetBeforeDiscount)
+                        @item.NetBeforeDiscount.ToString("N0")
                         
                     </td>
                     <td id="item-discount-@item.Id">
-                        @String.Format("{0:N}",@item.TotalDiscountAmount)
+                        @item.TotalDiscountAmount.ToString("N0")
                         
                     </td>
                     <td id="item-shippingcost-@item.Id">
-                        @String.Format("{0:N}",@item.ShippingCost)
+                        @item.ShippingCost.ToString("N0")
                         
                     </td>
                     <td id="item-sum-@item.Id">
-                        @String.Format("{0:N}",@item.Sum)
+                        @item.Sum.ToString("N0")
                         
                     </td>
                     <td>
-                        <a href="#" class="AddLink" data-id="@item.Id">Add</a>
+                        <a href="#" class="AddLink" data-id="@item.Id">Thêm</a>
 
                     </td>
                     <td>
-                        <a href="#" class="RemoveLink" data-id="@item.Id">Remove</a>
+                        <a href="#" class="RemoveLink" data-id="@item.Id">Bớt</a>
                     </td>
                 </tr>
             }
@@ -142,26 +142,26 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td><b>Total</b></td>
+                <td><b>Tổng tiền:</b></td>
                 <td id="cart-total">
-                    <b>@String.Format("{0:N}", @Model.CartTotal)</b>
+                    <b>@Model.CartTotal.ToString("N0") đ</b>
                 </td>
             </tr>
         </table>
 
         <p class="button success">
-            @Html.ActionLink("Back", "Index", "Home", new { cartItem = Model.CartItems }, new { @style = "color: #FFFFFF" })
+            @Html.ActionLink("Quay về", "Index", "Home", new { cartItem = Model.CartItems }, new { @style = "color: #FFFFFF" })
         </p>
 
 
         <p class="button success" id="checkoutBtn">
             @if (Model.CartItems.Count > 0)
             {
-                @Html.ActionLink("Checkout", "Index", "Checkout", new { cartCode = Model.CartItems.FirstOrDefault().Code, cartTotal = Model.CartTotal }, new { @style = "color: #FFFFFF" })
+                @Html.ActionLink("Thanh toán tiền", "Index", "Checkout", new { cartCode = Model.CartItems.FirstOrDefault().Code, cartTotal = Model.CartTotal }, new { @style = "color: #FFFFFF" })
             }
             else
             {
-                @Html.ActionLink("Checkout", "Index", "Checkout", new { cartCode = "", cartTotal = Model.CartTotal }, new { onclick = "javascript:return false;", @style = "color: #FFFFFF" })
+                @Html.ActionLink("Thanh toán tiền", "Index", "Checkout", new { cartCode = "", cartTotal = Model.CartTotal }, new { onclick = "javascript:return false;", @style = "color: #FFFFFF" })
             }
         </p>
 

@@ -64,8 +64,8 @@ namespace MyProject.Controllers
             // update cart view
             var results = new ShoppingCartRemoveViewModel()
             {
-                Message = Server.HtmlEncode(productDescription) +
-                    " has been removed from your shopping cart.",
+                Message = "(1) " + Server.HtmlEncode(productDescription) +
+                    " đã được lấy ra giỏ hàng.",
                 CartTotal = cart.GetTotal(),
                 CartCount = cart.GetCount(),
                 DeleteId = id,
@@ -107,8 +107,8 @@ namespace MyProject.Controllers
             // update cart view
             var results = new ShoppingCartAddViewModel()
             {
-                Message = Server.HtmlEncode(productDescription) +
-                    " has been added to your shopping cart.",
+                Message = "(1)" + Server.HtmlEncode(productDescription) +
+                    " đã được thêm vào giỏ hàng của bạn.",
                 CartTotal = cart.GetTotal(),
                 CartCount = cart.GetCount(),
                 ItemCount = ret.Quantity,
