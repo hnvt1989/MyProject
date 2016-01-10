@@ -69,12 +69,12 @@
                             </th>
                             <th>Quantity
                             </th>
-                            <th>Net
+@*                            <th>Net
                             </th>
                             <th>Discount
                             </th>
                             <th>Shipping
-                            </th>
+                            </th>*@
                             <th>Total
                             </th>
                         </tr>
@@ -106,7 +106,7 @@
                                 <td id="item-count-@item.Id">
                                     @item.Quantity
                                 </td>
-                                <td id="item-net-@item.Id">
+  @*                              <td id="item-net-@item.Id">
                                     @String.Format("{0:N}",@item.NetBeforeDiscount)
                                     
                                 </td>
@@ -117,7 +117,7 @@
                                 <td id="item-shippingcost-@item.Id">
                                     @String.Format("{0:N}",@item.ShippingCost)
                                     
-                                </td>
+                                </td>*@
                                 <td id="item-sum-@item.Id">
                                     @String.Format("{0:N}",@item.Sum)
                                     
@@ -128,9 +128,9 @@
                             <td></td>
                             <td></td>
                             <td></td>
+@*                            <td></td>
                             <td></td>
-                            <td></td>
-                            <td></td>
+                            <td></td>*@
                             <td><b>Total</b></td>
                             <td id="cart-total">      
                                 <b>@String.Format("{0:N}",@Model.CartViewModel.CartTotal)</b>

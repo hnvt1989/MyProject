@@ -23,10 +23,10 @@
                             });
                         } else {
                             $('#item-count-' + data.DeleteId).text(data.ItemCount);
-                            $('#item-net-' + data.DeleteId).text(data.NetBeforeDiscount);
+                            //$('#item-net-' + data.DeleteId).text(data.NetBeforeDiscount);
                             $('#item-sum-' + data.DeleteId).text(data.Sum);
-                            $('#item-discount-' + data.DeleteId).text(data.TotalDiscount);
-                            $('#item-shippingcost-' + data.DeleteId).text(data.ShippingCost);      
+                            //$('#item-discount-' + data.DeleteId).text(data.TotalDiscount);
+                            //$('#item-shippingcost-' + data.DeleteId).text(data.ShippingCost);      
                         }
                         $('#cart-total').text(data.CartTotal);
                         $('#update-message').text(data.Message);
@@ -43,10 +43,10 @@
                     function (data) {
                         // Successful requests get here
                         $('#item-count-' + data.AddId).text(data.ItemCount);
-                        $('#item-net-' + data.AddId).text(data.NetBeforeDiscount);
+                        //$('#item-net-' + data.AddId).text(data.NetBeforeDiscount);
                         $('#item-sum-' + data.AddId).text(data.Sum);
-                        $('#item-discount-' + data.AddId).text(data.TotalDiscount);
-                        $('#item-shippingcost-' + data.AddId).text(data.ShippingCost);
+                        //$('#item-discount-' + data.AddId).text(data.TotalDiscount);
+                        //$('#item-shippingcost-' + data.AddId).text(data.ShippingCost);
                         $('#cart-total').text(data.CartTotal);
                         $('#update-message').text(data.Message);
                         $('#cart-status').text('Cart (' + data.CartCount + ')');
@@ -72,12 +72,12 @@
                 </th>
                 <th>Số lượng
                 </th>
-                <th>Tổng
+@*                <th>Tổng
                 </th>
                 <th>Khuyến mãi
                 </th>
                 <th>Cước vận chuyển
-                </th>
+                </th>*@
                 <th>Tổng cộng
                 </th>
                 <th></th>
@@ -110,7 +110,7 @@
                     <td id="item-count-@item.Id">
                         @item.Quantity
                     </td>
-                    <td id="item-net-@item.Id">
+@*                    <td id="item-net-@item.Id">
                         @item.NetBeforeDiscount.ToString("N0")
                         
                     </td>
@@ -121,7 +121,7 @@
                     <td id="item-shippingcost-@item.Id">
                         @item.ShippingCost.ToString("N0")
                         
-                    </td>
+                    </td>*@
                     <td id="item-sum-@item.Id">
                         @item.Sum.ToString("N0")
                         
@@ -139,9 +139,9 @@
                 <td></td>
                 <td></td>
                 <td></td>
+@*                <td></td>
                 <td></td>
-                <td></td>
-                <td></td>
+                <td></td>*@
                 <td><b>Tổng tiền:</b></td>
                 <td id="cart-total">
                     <b>@Model.CartTotal.ToString("N0") đ</b>

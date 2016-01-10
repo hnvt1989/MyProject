@@ -21,6 +21,7 @@
 
                 <div class="large-3 small-6 columns">
                     <img src="@imgSrc"/>
+                    <div><span><b>Item #</b>@product.Code</span></div>
                     @*                    <a>@product.Description</a>*@
                     <a>@Html.ActionLink(@product.Description, "EditProduct", "ProductManagement", new { id = product.Id }, "")</a>
                     @*                    <p>$@product.Price</p>
