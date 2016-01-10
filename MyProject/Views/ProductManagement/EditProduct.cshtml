@@ -87,7 +87,25 @@
                 </p>*@
                     </div>
 
-                    <div>
+                    <div class="panel">
+                        <h5><b><em>Weight: </em></b></h5>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.ProductView.WeightPounds, new {@class = "col-md-2 control-label"})
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.ProductView.WeightPounds)
+                                @Html.ValidationMessageFor(m => m.ProductView.WeightPounds, "", new {@class = "text-danger"})
+                            </div>
+                        </div>
+
+                         <div class="form-group">
+                            @Html.LabelFor(m => m.ProductView.WeightOunce, new {@class = "col-md-2 control-label"})
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.ProductView.WeightOunce)
+                                @Html.ValidationMessageFor(m => m.ProductView.WeightOunce, "", new {@class = "text-danger"})
+                            </div>
+                        </div>
+
+                        <div>
                         <input type="submit" class="medium success button" value="Save" />
                     </div>
                 </div>
@@ -103,7 +121,7 @@
                     <p>Pork drumstick turkey fugiat. Tri-tip elit turducken pork chop in. Swine short ribs meatball irure bacon nulla pork belly cupidatat meatloaf cow. Nulla corned beef sunt ball tip, qui bresaola enim jowl. Capicola short ribs minim salami nulla nostrud pastrami.</p>
                 </div>
             </div>
-@*    <div class="row">
+        @*    <div class="row">
         <hr>
         <div class="large-12 columns">
             <h4>You might also like:</h4>
@@ -113,6 +131,7 @@
             <img src="http://placehold.it/200x150&text=[img]">
         </div>
     </div>*@
+                </div>
         }
     </section>
 

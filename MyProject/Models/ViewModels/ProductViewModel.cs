@@ -30,7 +30,11 @@ namespace MyProject.Models.ViewModels
 
         public bool FeatureProduct { get; set; }
 
-        public decimal Weight { get; set; }
+        [Display(Name = "Pound")]
+        public decimal WeightPounds { get; set; }
+
+        [Display(Name = "Ounce")]
+        public decimal WeightOunce { get; set; }
 
         public byte[] Image { get; set; }
 
