@@ -11,7 +11,6 @@ namespace MyProject.Models.ViewModels
 
         public int Id { get; set; }
 
-        [Required]
         [Display(Name = "Enter Code")]
         public string Code { get; set; }
 
@@ -35,7 +34,6 @@ namespace MyProject.Models.ViewModels
 
         public byte[] Image { get; set; }
 
-        [Required]
         public HttpPostedFileBase ProductImage { get; set; }
     }
 }

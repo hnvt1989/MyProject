@@ -10,7 +10,7 @@
     <div class="large-12 columns">
         <h3>Product Management</h3>
         <p class="button">
-            @Html.ActionLink("Add new product", "ContinueToCart", "Store", new { @style = "color: #FFFFFF" })
+            @Html.ActionLink("Add new product", "EditProduct", "ProductManagement", new { id = -1 }, new { @style = "color: #FFFFFF"})
         </p>
         <div class="row">
             @foreach (var product in Model.Products)

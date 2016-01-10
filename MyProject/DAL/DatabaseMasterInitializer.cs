@@ -16,7 +16,7 @@ using MyProject.Models.ShoppingCart;
 
 namespace MyProject.DAL
 {
-    public class DatabaseMasterInitializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<DbContext>
+    public class DatabaseMasterInitializer : System.Data.Entity.DropCreateDatabaseAlways<DbContext>
     {
         protected override void Seed(DbContext context)
         {
@@ -75,7 +75,8 @@ namespace MyProject.DAL
 
                 var sequences = new List<Sequence>
                 {
-                    new Sequence(){Code = "Order", StartValue = 1000, CurrentValue = 1000}
+                    new Sequence(){Code = "Order", StartValue = 1000, CurrentValue = 1000},
+                    new Sequence(){Code = "Item", StartValue = 2000, CurrentValue = 2000}
                 };
 
                 cContext.Sequences.AddRange(sequences);

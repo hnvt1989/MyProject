@@ -1,5 +1,7 @@
 ﻿@model MyProject.Models.ViewModels.EditProductViewModel
+@using System.Collections
 @using MyProject.Helper;
+@using MyProject.Models.ShoppingCart
 
 @{
     ViewBag.Title = "Edit Product";
@@ -7,7 +9,7 @@
 
 <body>
     <section id="ProductForm">
-        @using (Html.BeginForm("EditProduct", "ProductManagement", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data"}))
+        @using (Html.BeginForm("EditProduct", "ProductManagement", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
         {
             @Html.AntiForgeryToken()
             <hr />
@@ -17,14 +19,20 @@
                 <hr>
                 <div class="large-5 columns">
                     @{
-                        var base64 = Convert.ToBase64String(@Model.ProductView.Image);
-                        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-                        <img alt="@Model.ProductView.Description" src="@imgSrc" height="400" width="400"/>
-                    }
-                     <div class="form-group">
-@*                        @Html.LabelFor(m => m.UserProfilePicture, new {@class = "col-md-2 control-label"})*@
+                        if (Model.ProductView.Image != null)
+                        {
+                            var base64 = Convert.ToBase64String(@Model.ProductView.Image);
+                            var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                            <img alt="@Model.ProductView.Description" src="@imgSrc" height="400" width="400"/>
+                        }
+                        else
+                        {
+                            <img src="~/Content/Images/ProductDefault.png" height="400" width="400"/>
+                        }}
+                    <div class="form-group">
+                        @*                        @Html.LabelFor(m => m.UserProfilePicture, new {@class = "col-md-2 control-label"})*@
                         <div class="col-md-10">
-                            @Html.TextBoxFor(m => m.ProductView.ProductImage, new {type = "file"})
+                            @Html.TextBoxFor(m => m.ProductView.ProductImage, new { type = "file" })
                             @Html.ValidationMessage("CustomMessage")
                         </div>
                     </div>
@@ -33,7 +41,7 @@
 
                 <div class="large-5 columns">
                     <div class="form-group">
-                         @Html.LabelFor(m => m.ProductView.Code, new { @class = "col-md-2 control-label" })
+                        @Html.LabelFor(m => m.ProductView.Code, new { @class = "col-md-2 control-label" })
                         <div class="col-md-10">
                             @Html.TextBoxFor(m => m.ProductView.Code, new { @class = "fill" })
                             @Html.ValidationMessageFor(m => m.ProductView.Code, "", new { @class = "text-danger" })
@@ -41,22 +49,37 @@
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(m => m.ProductView.Description, new {@class = "col-md-2 control-label"})
+                        @Html.LabelFor(m => m.ProductView.Description, new { @class = "col-md-2 control-label" })
                         <div class="col-md-10">
                             @Html.TextBoxFor(m => m.ProductView.Description)
-                            @Html.ValidationMessageFor(m => m.ProductView.Description, "", new {@class = "text-danger"})
+                            @Html.ValidationMessageFor(m => m.ProductView.Description, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
                     <div class="form-group">
-                         @Html.LabelFor(m => m.ProductView.DetailDescription, new { @class = "col-md-2 control-label" })
+                        @Html.LabelFor(m => m.ProductView.DetailDescription, new { @class = "col-md-2 control-label" })
                         <div class="col-md-10">
-                            @Html.TextBoxFor(m => m.ProductView.DetailDescription, new { id = "detailDescriptionTextBox", Value= Model.ProductView.DetailDescription, @class = "fill" })
+                            @Html.TextBoxFor(m => m.ProductView.DetailDescription, new { id = "detailDescriptionTextBox", Value = Model.ProductView.DetailDescription, @class = "fill" })
                             @Html.ValidationMessageFor(m => m.ProductView.DetailDescription, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
                     <div class="panel">
+                        <h5><b><em>Pricing: </em></b></h5>
+
+                        @for (int i = 0 ; i < Model.Offers.Count; i++)
+                        {
+                            var priceType = (Model.Offers[i].PriceTypeId == 1) ? "Retail" : "Whole Sale";
+                            <div class="form-group">
+                                <h6>@priceType</h6>
+                                <div class="col-md-10">
+                                    @Html.EditorFor(m => m.Offers[i].Price)
+                                    @Html.HiddenFor(m => m.Offers[i].Price)
+                                    @Html.HiddenFor(m => m.Offers[i].PriceTypeId)
+@*                                    @Html.ValidationMessageFor(m => Model.Offers[i].Price, "", new { @class = "text-danger" })*@
+                                </div>
+                            </div>
+                        }
                         @*                <h5><b><em>Giá tiền: </em> @Model.Price.ToString("N0") đ</b></h5>
                 <h6 class="subheader">Cước vận chuyển:   50.00 đ (ước lượng)</h6>
                  <p class="button">
