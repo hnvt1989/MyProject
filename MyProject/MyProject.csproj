@@ -468,6 +468,7 @@
     <Content Include="Views\CategoryManagment\Index.cshtml" />
     <Content Include="Views\CategoryManagment\EditCategory.cshtml" />
     <Content Include="Views\AppSetting\Index.cshtml" />
+    <Content Include="Views\AppSetting\EditAppSetting.cshtml" />
     <None Include="Views\Store\ProductDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
