@@ -1,0 +1,19 @@
+﻿@model List<MyProject.Models.ViewModels.AppSettingViewModel>
+
+@{
+    ViewBag.Title = "Application Setting";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="row">
+    <div class="large-12 columns">
+             @foreach (var appSetting in Model)
+            {
+                <div class="large-3 small-6 columns">
+                    <div><span><b>Category #</b>@appSetting.Code</span></div>
+                    <a>@Html.ActionLink(@appSetting.Description, "EditAppSetting", "AppSetting", new { id = appSetting.Id }, "")</a>
+                </div>
+            }
+    </div>
+</div>

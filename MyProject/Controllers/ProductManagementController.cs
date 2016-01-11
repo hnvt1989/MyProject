@@ -15,8 +15,39 @@ namespace MyProject.Controllers
 {
     public class ProductManagementController : Controller
     {
+        public ActionResult FilterByCategory(string code)
+        {
+             var prods = new List<Product>();
+
+                using (var context = new ShoppingCartContext())
+                {
+                    prods = (from p in context.Products
+                        where p.Categories.Any(c => c.Code == code)
+                             select p).Take(24).ToList();
+                }
+            using (var context = new ShoppingCartContext())
+            {
+                var productCategories = new ProductManagementViewModel();
+                foreach (var prod in prods)
+                {
+                    productCategories.Products.Add(new ProductViewModel()
+                    {
+                        Code = prod.Code,
+                        Description = prod.Description,
+                        Image = prod.Image,
+                        Id = prod.Id
+                    });
+                }
+
+                productCategories.SelectedCategory = code;
+                return View("Index", productCategories);
+            }
+
+        }
         public ActionResult Index()
         {
+
+
             if (ModelState.IsValid)
             {
                 using (var context = new ShoppingCartContext())
@@ -24,6 +55,7 @@ namespace MyProject.Controllers
                     var productCategories = new ProductManagementViewModel();
 
                     var categories = context.Categories.ToList();
+
                     //var defaultCat = categories.First();
 
                     //var prods = from p in context.Products

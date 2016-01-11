@@ -44,7 +44,7 @@ namespace MyProject.Models.ViewModels
             {
                 using (var context = new ShoppingCartContext())
                 {
-                    return new SelectList(context.PaymentTypes.ToList().Select(c => c.Description), "Cash");
+                    return new SelectList(context.PaymentTypes.ToList().Select(c => c.Description), "Bank");
                 };
                 
             }

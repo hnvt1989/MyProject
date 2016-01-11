@@ -1,65 +1,102 @@
-﻿@model IEnumerable<MyProject.Models.ViewModels.ProductViewModel>
+﻿@model MyProject.Models.ViewModels.HomeViewModel
 @{
-    ViewBag.Title = "Home";
+    ViewBag.Title = "Trang chủ";
 }
 
+
 <body>
-    <div class="row">
-        <div class="large-12 columns">
-            <div class="row">
+<br/>
+<div class="row">
+    <div class="large-12 columns">
 
-                <div class="large-4 small-12 columns">
-                    <img src="~/Content/Images/MainSiteProfile.jpg">
-                    <div class="hide-for-small panel">
-                        <h3>Header</h3>
-                        <h5 class="subheader">Chúng tôi nhận đặt hàng ở Mỹ</h5>
+
+
+
+        <div class="row">
+
+            <!-- Off Canvas Menu -->
+            @*                <aside class="left-off-canvas-menu">
+
+                    <div class="icon-bar vertical five-up">
+                        <a class="item">
+                            <i class="fi-home"></i>
+                            <label>Home</label>
+                        </a>
+                        <a class="item">
+                            <i class="fi-home"></i>
+                            <label>Bookmark</label>
+                        </a>
+                        <a class="item">
+                            <i class="fi-home"></i>
+                            <label>Info</label>
+                        </a>
+                        <a class="item">
+                            <i class="fi-home"></i>
+                            <label>Mail</label>
+                        </a>
+                        <a class="item">
+                            <i class="fi-home"></i>
+                            <label>Like</label>
+                        </a>
                     </div>
-@*                    <a href="#">
-                        <div class="panel callout radius">
-                            <h6>99&nbsp; items in your cart</h6>
-                        </div>
-                    </a>*@
+
+                </aside>*@
+
+
+            <div class="large-4 small-12 columns">
+                <img src="~/Content/Images/MainSiteProfile.jpg">
+                <div class="hide-for-small panel">
+                    <h3>Header</h3>
+                    <h5 class="subheader">Chúng tôi nhận đặt hàng ở Mỹ</h5>
                 </div>
-
-                <div class="large-8 columns">
-                    <div class="row">
-
-                        @foreach (var product in Model)
-                        {
-                            var base64 = Convert.ToBase64String(@product.Image);
-                            var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-
-                            <div class="large-4 small-6 columns">
-
-                                <img src="@imgSrc"/>
-                                <div class="panel">
-                                    <h5><a>@Html.ActionLink(@product.Description, "Details", "Store", new {id = product.Id}, "")</a></h5>
-                                    <h6 class="subheader">@product.Price.ToString("N0") đ</h6>
-                                </div>
-                            </div>
-                        }
+                <a href="#">
+                    <div class="panel callout radius">
+                        <h6>@Html.ActionLink("Giỏ hàng của bạn", "Index", "ShoppingCart")</h6>
                     </div>
-
-                    <div class="row">
-                        <div class="large-12 columns">
-                            <div class="panel">
-                                <div class="row">
-                                    <div class="large-2 small-6 columns">
-                                        <img src="~/Content/Images/SiteOwner.jpg">
-                                    </div>
-                                    <div class="large-10 small-6 columns">
-                                        <strong>Trang Web này được điều hành bởi:</strong>
-                                        <hr>
-                                        Aí Võ & Huy Nguyễn, 
-                                    </div>
+                </a>
+@*                <div class="row">
+                    <div class="large-12 columns">
+                        <div class="panel">
+                            <div class="row">
+                                <div class="large-2 small-6 columns">
+                                    <img src="~/Content/Images/SiteOwner.jpg">
+                                </div>
+                                <div class="large-10 small-6 columns">
+                                    <strong>Trang Web này được điều hành bởi:</strong>
+                                    <hr>
+                                    Aí Võ & Huy Nguyễn,
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>*@
+
+            </div>
+
+            <div class="large-8 columns">
+                @Html.LabelFor(x => x.CategoryList)
+                @Html.DropDownListFor(x => x.SelectedCategory, Model.CategoryList, new {id = "categorySelection", onchange = "document.location.href = '/Home/FilterByCategory?code=' + this.options[this.selectedIndex].value;"})
+                <div class="row">
+
+                    @foreach (var product in Model.ProductViewModels)
+                    {
+                        var base64 = Convert.ToBase64String(@product.Image);
+                        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+
+                        <div class="large-4 small-6 columns">
+
+                            <img src="@imgSrc"/>
+                            <div class="panel">
+                                <h5><a>@Html.ActionLink(@product.Description, "Details", "Store", new {id = product.Id})</a></h5>
+                                <h6 class="subheader">@product.Price.ToString("N0") đ</h6>
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
         </div>
     </div>
+</div>
 </body>
 
 

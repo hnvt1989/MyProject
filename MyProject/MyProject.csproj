@@ -181,6 +181,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AppSettingController.cs" />
     <Compile Include="Controllers\CategoryManagmentController.cs" />
     <Compile Include="Controllers\CheckoutController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -215,6 +216,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account\AccountAddress.cs" />
+    <Compile Include="Models\Core\AppSetting.cs" />
     <Compile Include="Models\Core\Sequence.cs" />
     <Compile Include="Models\ShoppingCart\Address.cs" />
     <Compile Include="Models\ShoppingCart\PaymentTransaction.cs" />
@@ -224,9 +226,11 @@
     <Compile Include="Models\ShoppingCart\Category.cs" />
     <Compile Include="Models\Account\ExtendedIdentityModels.cs" />
     <Compile Include="Models\Account\IdentityModels.cs" />
+    <Compile Include="Models\ViewModels\AppSettingViewModel.cs" />
     <Compile Include="Models\ViewModels\CategoryManagementViewModel.cs" />
     <Compile Include="Models\ViewModels\CategoryViewModel.cs" />
     <Compile Include="Models\ViewModels\CheckoutViewModel.cs" />
+    <Compile Include="Models\ViewModels\HomeViewModel.cs" />
     <Compile Include="Models\ViewModels\ManageViewModels.cs" />
     <Compile Include="Models\ShoppingCart\LineOrderDetail.cs" />
     <Compile Include="Models\ShoppingCart\Order.cs" />
@@ -463,6 +467,7 @@
     <Content Include="Views\ProductManagement\ProductNotFound.cshtml" />
     <Content Include="Views\CategoryManagment\Index.cshtml" />
     <Content Include="Views\CategoryManagment\EditCategory.cshtml" />
+    <Content Include="Views\AppSetting\Index.cshtml" />
     <None Include="Views\Store\ProductDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>

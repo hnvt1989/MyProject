@@ -16,7 +16,7 @@ using MyProject.Models.ShoppingCart;
 
 namespace MyProject.DAL
 {
-    public class DatabaseMasterInitializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<DbContext>
+    public class DatabaseMasterInitializer : System.Data.Entity.DropCreateDatabaseAlways<DbContext>
     {
         protected override void Seed(DbContext context)
         {
@@ -541,6 +541,17 @@ namespace MyProject.DAL
                                     Quantity = 1
                                 }
                         }
+                    }
+                });
+
+                cContext.AppSettings.AddRange(new List<AppSetting>
+                {
+                    new AppSetting()
+                    {
+                        Code = "ShippingRate",
+                        Description = "Shipping Rate per lb",
+                        Value = "4",
+                        ValueType = "decimal"
                     }
                 });
 
