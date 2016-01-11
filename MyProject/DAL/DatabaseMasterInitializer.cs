@@ -16,7 +16,7 @@ using MyProject.Models.ShoppingCart;
 
 namespace MyProject.DAL
 {
-    public class DatabaseMasterInitializer : System.Data.Entity.DropCreateDatabaseAlways<DbContext>
+    public class DatabaseMasterInitializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<DbContext>
     {
         protected override void Seed(DbContext context)
         {

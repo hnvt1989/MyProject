@@ -24,14 +24,16 @@ namespace MyProject.Controllers
                     var productCategories = new ProductManagementViewModel();
 
                     var categories = context.Categories.ToList();
-                    var defaultCat = categories.First();
+                    //var defaultCat = categories.First();
 
-                    var prods = from p in context.Products
-                                where p.Categories.Any(c => c.Code == defaultCat.Code)
-                                select p;
+                    //var prods = from p in context.Products
+                    //            where p.Categories.Any(c => c.Code == defaultCat.Code)
+                    //            select p;
+
+                    var prods = context.Products.Take(12);
                     //productCategories.Products.AddRange(prods);
                     //                  where cartItems.Code == ShoppingCartId
-                    foreach (var prod in prods.Take(12))
+                    foreach (var prod in prods)
                     {
 
                         productCategories.Products.Add(new ProductViewModel()
