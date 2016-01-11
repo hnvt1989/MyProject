@@ -14,33 +14,35 @@
                 @Html.AntiForgeryToken()
                 <hr/>
                 @Html.ValidationSummary(true, "", new {@class = "text-danger"})
-
-                <div align="left">
-                    <b>Find order</b>
-                    @Html.KTextBoxFor(m => m.OrderNumber, new {style = "width:150px"})
-                    <input id="searchBtn" type="submit" class="button" value="Search"/>
-                </div>
-                <div align="center"><h3>Order Summary</h3></div>
+                if (Request.IsAuthenticated)
+                 {
+                     <div align="left">
+                         <b>Find order</b>
+                         @Html.KTextBoxFor(m => m.OrderNumber, new {style = "width:150px"})
+                         <input id="searchBtn" type="submit" class="button" value="Search"/>
+                     </div>
+                 }
+                <div align="center"><h3>Đơn đặt hàng</h3></div>
                 <fieldset>
                     <legend>
-                        <h4>Shipping</h4>
+                        <h4>Thông tin khách hàng</h4>
                     </legend>
 
                     <div>
                         <div>
-                            <span><b>Order Number: </b>&nbsp;&nbsp;&nbsp;&nbsp;@Model.OrderNumber</span>
+                            <span><b>Mã số đơn đặt hàng: </b>&nbsp;&nbsp;&nbsp;&nbsp;@Model.OrderNumber</span>
                         </div>
                         <div>
-                            <span><b>Customer Name: </b>&nbsp;&nbsp;@Model.FullName</span>
+                            <span><b>Tên khách hàng: </b>&nbsp;&nbsp;@Model.FullName</span>
                         </div>
                         <div>
-                            <span><b>Customer Email: </b>&nbsp;&nbsp;@Model.Email</span>
+                            <span><b>Địa chỉ Email: </b>&nbsp;&nbsp;@Model.Email</span>
                         </div>
                         <div>
-                            <span><b>Customer Phone: </b>&nbsp;@Model.Email</span>
+                            <span><b>Số phone: </b>&nbsp;@Model.Phone</span>
                         </div>
                         <div>
-                            <span><b>Shipping Address: </b></span>
+                            <span><b>Địa chỉ: </b></span>
                         </div>
                         <div>
                             <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Model.ShippingAddress.Line1</span>
@@ -55,18 +57,18 @@
                 </fieldset>
                 <fieldset>
                     <legend>
-                        <h4>Products</h4>
+                        <h4>Sản phẩm</h4>
                     </legend>
 
                     <table>
                         <tr>
-                            <th>Product
+                            <th>
                             </th>
-                            <th>Description
+                            <th>Tên sản phẩm
                             </th>
-                            <th>Price
+                            <th>Giá tiền
                             </th>
-                            <th>Quantity
+                            <th>Số lượng
                             </th>
 @*                            <th>Net
                             </th>
@@ -74,7 +76,7 @@
                             </th>
                             <th>Shipping
                             </th>*@
-                            <th>Total
+                            <th>Tổng
                             </th>
                             <th></th>
                         </tr>
@@ -100,7 +102,7 @@
                                     @item.Product.Description
                                 </td>
                                 <td>
-                                    @String.Format("{0:N}",@item.UnitPrice)
+                                    @String.Format("{0:N0}",@item.UnitPrice)
                                     
                                 </td>
                                 <td id="item-count-@item.Product.Id">
@@ -119,7 +121,7 @@
                         
                                 </td>*@
                                 <td id="item-sum-@item.Product.Id">
-                                    @String.Format("{0:N}",@item.Total)
+                                    @String.Format("{0:N0}",@item.Total)
                         
                                 </td>
                             </tr>
@@ -131,27 +133,27 @@
 @*                            <td></td>
                             <td></td>
                             <td></td>*@
-                            <td><b>Total</b></td>
+                            <td><b>Tổng số tiền</b></td>
                             <td id="cart-total">
-                                <b>@String.Format("{0:N}",@Model.Total)</b>
+                                <b>@String.Format("{0:N0}",@Model.Total)</b>
                             </td>
                         </tr>
                     </table>
                 </fieldset>
 
                 <fieldset>
-                    <h4>Payment</h4>
+                    <h4>Thanh toán</h4>
                     <table>
                         <tr>
-                            <th>Payment type
+                            <th>Cách thanh toán
                             </th>
-                            <th>Amount
+                            <th>Tổng
                             </th>
                         </tr>
                         <tr>
                             <td>@Model.PaymentTransaction.PaymentType.Description
                             </td>
-                            <td>@String.Format("{0:N}",@Model.PaymentTransaction.Amount)
+                            <td>@String.Format("{0:N0}",@Model.PaymentTransaction.Amount)
                             </td>
                         </tr>
                     </table>

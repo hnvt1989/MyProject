@@ -35,6 +35,7 @@ namespace MyProject.Controllers
                     FullName = m.CheckOutInfo.Name,
                     Address = m.CheckOutInfo.ShippingAddress,
                     PaymentTransaction = m.CheckOutInfo.PaymentTransaction,
+                    Phone = m.CheckOutInfo.Phone,
                     Email = m.CheckOutInfo.Email,
                     OrderDate = DateTime.Now,                
                     OrderDetails = new List<LineOrderDetail>()
@@ -45,11 +46,13 @@ namespace MyProject.Controllers
                 {
                     var _currentUserId = User.Identity.GetUserId();
                     var _currentUser = _idDb.Users.FirstOrDefault(x => x.Id == _currentUserId);
-                    order.UserName = _currentUser.UserName;
+
+                    if(_currentUser != null)
+                        order.UserName = _currentUser.UserName;
                 }
 
-
-                order.UserName = User.Identity.GetUserName();
+                if(User != null)
+                    order.UserName = User.Identity.GetUserName();
                 var orderNumber = ShoppingCart.GetCart(this).CreateOrder(order);
                 return RedirectToAction("Index", "OrderSummary", new {orderNumber = orderNumber});
             }

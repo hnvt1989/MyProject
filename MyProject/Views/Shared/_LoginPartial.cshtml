@@ -6,8 +6,18 @@
     @Html.AntiForgeryToken()
     <ul class="top-bar-items right">
         <li>
-            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Home", routeValues: null, htmlAttributes: new { title = "Manage" })
+            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Home", routeValues: null, htmlAttributes: new {title = "Manage"})
         </li>
+
+        <li class="has-dropdown">
+            @Html.ActionLink("Order Managment", "Index", "OrderSummary", new {orderNumber = 10000}, new {@style = "color: #FFFFFF"})
+            <ul class="dropdown">
+                <li class="has-dropdown">
+                    @Html.ActionLink("Search Orders", "Index", "OrderSummary", new {orderNumber = 10000}, new {@style = "color: #FFFFFF"})
+                </li>
+            </ul>
+        </li>
+
         <li class="has-dropdown">
             @Html.ActionLink("Product Managment", "Index", "ProductManagement", routeValues: null, htmlAttributes: new { title = "Manage" })
             <ul class="dropdown">

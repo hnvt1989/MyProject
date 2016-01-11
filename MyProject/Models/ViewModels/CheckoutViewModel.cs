@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -12,7 +13,8 @@ namespace MyProject.Models.ViewModels
 {
     public class CheckoutViewModel
     {
-        [DisplayName("Full Name")]
+        [Required]
+        [DisplayName("Tên")]
         public string Name { get; set; }
 
         public string CartCode { get; set; }
@@ -21,8 +23,12 @@ namespace MyProject.Models.ViewModels
 
         public decimal PaymentAmount { get; set; }
 
+        [Required]
+        [DisplayName("Số phone")]
         public string Phone { get; set; }
 
+        [Required]
+        [DisplayName("Địa chỉ Email")]
         public string Email { get; set; }
 
         public Address BillingAddress { get; set; }

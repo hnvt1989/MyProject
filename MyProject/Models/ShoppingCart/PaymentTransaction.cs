@@ -16,8 +16,10 @@ namespace MyProject.Models.ShoppingCart
         public string Code { get; set; }
 
         [Required]
-        [RegularExpression(@"^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$", ErrorMessage = "Must be a number")]
-        [Display(Name = "Amount")]
+        //[RegularExpression(@"N0", ErrorMessage = "Must be a number")]
+        //[RegularExpression(@"^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$", ErrorMessage = "Must be a number")]
+        //[RegularExpression(@"^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*$", ErrorMessage = "Must be a number")]
+        [Display(Name = "Tổng số tiền")]
         public decimal Amount { get; set; }
 
         public decimal PostedAmount { get; set; }
@@ -31,7 +33,7 @@ namespace MyProject.Models.ShoppingCart
         [ForeignKey("PaymentStatus")]
         public int PaymentStatusId { get; set; }
 
-        [Display(Name = "Payment type")]
+        [Display(Name = "Cách thanh toán tiền")]
         public virtual PaymentType PaymentType { get; set; }
 
         public virtual PaymentStatus PaymentStatus { get; set; }

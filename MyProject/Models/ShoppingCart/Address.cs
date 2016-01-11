@@ -17,7 +17,7 @@ namespace MyProject.Models.ShoppingCart
         public string Code { get; set; }
 
         [Required]
-        [Display(Name = "Address line 1")]
+        [Display(Name = "Địa chỉ nhà")]
         public string Line1 { get; set; }
 
         [Display(Name = "Address line 2")]

@@ -487,6 +487,7 @@ namespace MyProject.DAL
                 cContext.PaymentTypes.AddRange(new List<PaymentType>
                 {
                     new PaymentType() {Code = "Bank", Description = "Chuyển tiền qua tài khoản"},
+                    new PaymentType() {Code = "Cash", Description = "Gởi tiền mặt"},
                 });
                 cContext.SaveChanges();
 

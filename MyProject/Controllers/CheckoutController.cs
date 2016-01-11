@@ -25,10 +25,10 @@ namespace MyProject.Controllers
             if (ModelState.IsValid)
             {
                 //if user not logged in, ask them to log in to place an order
-                if (!Request.IsAuthenticated)
-                {
-                    return RedirectToAction("Login", "Account");
-                }
+                //if (!Request.IsAuthenticated)
+                //{
+                //    return RedirectToAction("Login", "Account");
+                //}
 
 
                 //using (var context = new ShoppingCartContext())
@@ -48,7 +48,12 @@ namespace MyProject.Controllers
 
                 }
 
-                var addresses = AddressFlow.GetAccountAddresses(user.UserName);
+                var addresses = new List<Address>();
+                if (user != null)
+                {
+                    addresses = AddressFlow.GetAccountAddresses(user.UserName);
+                }
+                    
 
                 var checkoutModel = new CheckoutViewModel()
                 {
@@ -62,11 +67,17 @@ namespace MyProject.Controllers
                     //PaymentTypes = new List<PaymentType>(),
                     //todo: return shipping address from account
                     ShippingAddress = addresses.SingleOrDefault(a=>a.Primary),
-                    Name = user.LastName + " " + user.FirstName,
-                    Email = user.Email,
-                    Phone = user.PhoneNumber
+                    //Name = user.LastName + " " + user.FirstName,
+                    //Email = user.Email,
+                    //Phone = user.PhoneNumber
                 };
 
+                if (user != null)
+                {
+                    checkoutModel.Name = user.LastName + " " + user.FirstName;
+                    checkoutModel.Email = user.Email;
+                    checkoutModel.Phone = user.PhoneNumber;
+                }
                 TempData["CheckoutInfo"] = checkoutModel;
 
                 //using (var context = new ShoppingCartContext())
@@ -114,7 +125,7 @@ namespace MyProject.Controllers
 
                 using (var context = new ShoppingCartContext())
                 {
-                    paymentType  = context.PaymentTypes.SingleOrDefault(t => t.Code == paymentTypeValue);
+                    paymentType  = context.PaymentTypes.Single(t => t.Description == paymentTypeValue);
                 }
 
                 var m = new OrderConfirmViewModel()
@@ -125,9 +136,15 @@ namespace MyProject.Controllers
                         ShippingAddress = model.ShippingAddress,
                         PaymentTransaction = new PaymentTransaction()
                         {
-                            Amount = model.PaymentTransaction.Amount,
+                            //todo: comment out this line, because we disabled the amount text box.
+                            //todo: when amount text box is enabled, uncomment this line to get the entered amount value
+                            //Amount = model.PaymentTransaction.Amount,
+
+
+                            Amount = viewModel.CartTotal,
                             Code = Guid.NewGuid().ToString(),
-                            PartialPayment = (model.PaymentTransaction.Amount < viewModel.CartTotal),
+                            PartialPayment = false,
+                            //PartialPayment = (model.PaymentTransaction.Amount < viewModel.CartTotal),
                             //todo:
                             PaymentStatusId = 1, //1 = on hold, 2 = processing, 3 = processed, 4 = complete
                             PaymentTypeId = paymentType.Id,

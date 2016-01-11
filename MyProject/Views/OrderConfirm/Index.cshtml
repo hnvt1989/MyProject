@@ -17,7 +17,7 @@
 </script>
 <div class="row">
     <div class="large-12 columns">
-        <h3>Confirm your order</h3>
+        <h3>Xác nhận đơn đặt hàng </h3>
         <section id="ProfileForm">
             @using (Html.BeginForm("Index", "OrderConfirm", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
             {
@@ -26,22 +26,22 @@
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <fieldset>
                     <legend>
-                        <h4>Shipping</h4>
+                        <h4>Thông tin khách hàng</h4>
                     </legend>
 
                     <div>
 
                         <div>
-                            <span><b>Customer Name: </b>&nbsp;&nbsp;@Model.CheckOutInfo.Name</span>
+                            <span><b>Tên khách hàng: </b>&nbsp;&nbsp;@Model.CheckOutInfo.Name</span>
                         </div>
                         <div>
-                            <span><b>Customer Email: </b>&nbsp;&nbsp;@Model.CheckOutInfo.Email</span>
+                            <span><b>Địa chỉ Email: </b>&nbsp;&nbsp;@Model.CheckOutInfo.Email</span>
                         </div>
                         <div>
-                            <span><b>Customer Phone: </b>&nbsp;@Model.CheckOutInfo.Email</span>
+                            <span><b>Số phone: </b>&nbsp;@Model.CheckOutInfo.Phone</span>
                         </div>
                         <div>
-                            <span><b>Shipping Address: </b></span>
+                            <span><b>Địa chỉ nhà: </b></span>
                         </div>
                         <div>
                             <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Model.CheckOutInfo.ShippingAddress.Line1</span>
@@ -56,18 +56,18 @@
                 </fieldset>
                 <fieldset>
                     <legend>
-                        <h4>Products</h4>
+                        <h4>Giỏ hàng</h4>
                     </legend>
 
                     <table>
                         <tr>
-                            <th>Product
+                            <th>
                             </th>
-                            <th>Description
+                            <th>Tên sản phẩm
                             </th>
-                            <th>Price (each)
+                            <th>Giá tiền
                             </th>
-                            <th>Quantity
+                            <th>Số lượng
                             </th>
 @*                            <th>Net
                             </th>
@@ -75,7 +75,7 @@
                             </th>
                             <th>Shipping
                             </th>*@
-                            <th>Total
+                            <th>Tổng
                             </th>
                         </tr>
                         @foreach (var item in Model.CartViewModel.CartItems)
@@ -119,7 +119,7 @@
                                     
                                 </td>*@
                                 <td id="item-sum-@item.Id">
-                                    @String.Format("{0:N}",@item.Sum)
+                                    @String.Format("{0:N0}",@item.Sum)
                                     
                                 </td>
                             </tr>
@@ -131,34 +131,34 @@
 @*                            <td></td>
                             <td></td>
                             <td></td>*@
-                            <td><b>Total</b></td>
+                            <td><b>Tổng số tiền</b></td>
                             <td id="cart-total">      
-                                <b>@String.Format("{0:N}",@Model.CartViewModel.CartTotal)</b>
+                                <b>@String.Format("{0:N0}",@Model.CartViewModel.CartTotal)</b>
                             </td>
                         </tr>
                     </table>
                 </fieldset>
 
                 <fieldset>
-                    <h4>Payment</h4>
+                    <h4>Thanh toán</h4>
                     <table>
                         <tr>
-                            <th>Payment type
+                            <th>Cách thanh toán
                             </th>
-                            <th>Amount
+                            <th>Tổng
                             </th>
                         </tr>
                         <tr>
                             <td>@Model.CheckOutInfo.PaymentTransaction.PaymentTypeDescription
                             </td>
-                            <td>@Model.CheckOutInfo.PaymentTransaction.Amount
+                            <td>@Model.CheckOutInfo.PaymentTransaction.Amount.ToString("N0")
                             </td>
                         </tr>
                     </table>
                 </fieldset>
 
-                <input id="backBtn" class="button success" value="Back" />
-                <input id="submitBtn" type="submit" class="button success" value="Submit Order" />
+                <input id="backBtn" class="button success" value="Quay lại" />
+                <input id="submitBtn" type="submit" class="button success" value="Đặt hàng ngay!" />
             }
         </section>
     </div>
