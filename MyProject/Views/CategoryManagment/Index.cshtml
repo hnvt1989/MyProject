@@ -1,0 +1,22 @@
+﻿@model MyProject.Models.ViewModels.CategoryManagementViewModel
+
+@{
+    ViewBag.Title = "Category Managment";
+}
+
+<div class="row">
+    <div class="large-12 columns">
+        <h3>Category Management</h3>
+
+        <div class="row">
+            @foreach (var category in Model.CategoryViewModels)
+            {
+                <div class="large-3 small-6 columns">
+                    <div><span><b>Category #</b>@category.Code</span></div>
+                    <a>@Html.ActionLink(@category.Description, "EditCategory", "CategoryManagment", new { id = category.Id }, "")</a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+

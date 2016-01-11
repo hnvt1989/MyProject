@@ -3,15 +3,19 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using MyProject.Models.ShoppingCart;
 
 namespace MyProject.Models.ViewModels
 {
     public class ProductViewModel
     {
-
+        public ProductViewModel()
+        {
+            Categories = new List<Category>();
+        }
         public int Id { get; set; }
 
-        [Display(Name = "Enter Code")]
+        [Display(Name = "Product Code")]
         public string Code { get; set; }
 
         [Required]
@@ -26,6 +30,7 @@ namespace MyProject.Models.ViewModels
 
         public string PriceType { get; set; }
 
+        [Display(Name = "Quantity on hand")]
         public int QuantityOnHand { get; set; }
 
         public bool FeatureProduct { get; set; }
@@ -39,5 +44,7 @@ namespace MyProject.Models.ViewModels
         public byte[] Image { get; set; }
 
         public HttpPostedFileBase ProductImage { get; set; }
+
+        public List<Category> Categories { get; set; }
     }
 }

@@ -1,17 +1,33 @@
 ﻿@using System.Collections
+@using MyProject.Helper
 @using MyProject.Models.ViewModels
 @model MyProject.Models.ViewModels.ProductManagementViewModel
 
 @{
     ViewBag.Title = "Product Management";
+    ViewBag.Status = "";
 }
 
 <div class="row">
     <div class="large-12 columns">
         <h3>Product Management</h3>
-        <p class="button">
-            @Html.ActionLink("Add new product", "EditProduct", "ProductManagement", new { id = -1 }, new { @style = "color: #FFFFFF"})
-        </p>
+
+        <section id="ProfileForm">
+            @using (Html.BeginForm("SearchProduct", "ProductManagement", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div align="left">
+                    <b>Find product</b>
+                    @Html.KTextBoxFor(m => m.SearchProductId, new {style = "width:150px"})
+                    <input id="searchBtn" type="submit" class="button" value="Search"/>
+                </div>
+                <span>@ViewBag.Status</span>
+
+            }
+        </section>
         <div class="row">
             @foreach (var product in Model.Products)
             {

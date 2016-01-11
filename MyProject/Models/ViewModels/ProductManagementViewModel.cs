@@ -15,5 +15,7 @@ namespace MyProject.Models.ViewModels
         }
         public List<CategoryViewModel> Categories;
         public List<ProductViewModel> Products;
+
+        public string SearchProductId { get; set; }
     }
 }

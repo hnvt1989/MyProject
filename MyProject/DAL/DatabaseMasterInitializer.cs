@@ -75,8 +75,9 @@ namespace MyProject.DAL
 
                 var sequences = new List<Sequence>
                 {
-                    new Sequence(){Code = "Order", StartValue = 1000, CurrentValue = 1000},
-                    new Sequence(){Code = "Item", StartValue = 2000, CurrentValue = 2000}
+                    new Sequence(){Code = "Order", StartValue = 10000, CurrentValue = 10000},
+                    new Sequence(){Code = "Item", StartValue = 20000, CurrentValue = 20004},
+                    new Sequence(){Code = "Category", StartValue = 30000, CurrentValue = 30001}
                 };
 
                 cContext.Sequences.AddRange(sequences);
@@ -84,8 +85,8 @@ namespace MyProject.DAL
 
                 cContext.Categories.AddRange(new List<Category>
                 {
-                    new Category {Code = "1001", Description = "Female-Winter-Collection"},
-                    new Category {Code = "1002", Description = "Female-Casual-Collection"},
+                    new Category {Code = "30000", Description = "Female-Winter-Collection"},
+                    new Category {Code = "30001", Description = "Female-Casual-Collection"},
                 });
                 cContext.SaveChanges();
 
@@ -94,7 +95,7 @@ namespace MyProject.DAL
                     new Product
                     {
                         Id = 1,
-                        Code = "1001",
+                        Code = "20000",
                         Description = "Heathered Knit Drawstring Jumpsuit",
                         Image =
                             ImageToByteArray(Image.FromFile(HostingEnvironment.MapPath(@"~/Content/Images/Image1.jpg"))),
@@ -104,7 +105,7 @@ namespace MyProject.DAL
                         DetailDescription = "this is a good product , Heathered Knit Drawstring Jumpsuit. Ship from USA.",
                         Categories = new List<Category>()
                         {
-                            cContext.Categories.SingleOrDefault(c=>c.Code=="1002")
+                            cContext.Categories.SingleOrDefault(c=>c.Code=="30000")
                         },
                         //ProductOffers = new List<ProductOffer>()
                         //{
@@ -129,7 +130,7 @@ namespace MyProject.DAL
                     new Product
                     {
                         Id = 2,
-                        Code = "1002",
+                        Code = "20001",
                         Description = "Two-pocket Gingham Shirt",
                         Image =
                             ImageToByteArray(Image.FromFile(HostingEnvironment.MapPath(@"~/Content/Images/Image2.jpg"))),
@@ -139,7 +140,7 @@ namespace MyProject.DAL
                         DetailDescription = "this is a good product , Heathered Knit Drawstring Jumpsuit. Ship from USA.",
                         Categories = new List<Category>()
                         {
-                            cContext.Categories.SingleOrDefault(c=>c.Code=="1001")
+                            cContext.Categories.SingleOrDefault(c=>c.Code=="30000")
                         },
                         //ProductOffers = new List<ProductOffer>()
                         //{
@@ -164,7 +165,7 @@ namespace MyProject.DAL
                     new Product
                     {
                         Id = 3,
-                        Code = "1003",
+                        Code = "20002",
                         Description = "Upside-Down Eiffei Tower Tee",
                         Image =
                             ImageToByteArray(Image.FromFile(HostingEnvironment.MapPath(@"~/Content/Images/Image3.jpg"))),
@@ -174,7 +175,7 @@ namespace MyProject.DAL
                         DetailDescription = "this is a good product , Heathered Knit Drawstring Jumpsuit. Ship from USA.",
                         Categories = new List<Category>()
                         {
-                            cContext.Categories.SingleOrDefault(c=>c.Code=="1002")
+                            cContext.Categories.SingleOrDefault(c=>c.Code=="30001")
                         },
                         //ProductOffers = new List<ProductOffer>()
                         //{
@@ -199,7 +200,7 @@ namespace MyProject.DAL
                     new Product
                     {
                         Id = 4,
-                        Code = "1004",
+                        Code = "20003",
                         Description = "Perforated Faux Leather Loafers",
                         DetailDescription = "this is a good product , Heathered Knit Drawstring Jumpsuit. Ship from USA.",
                         Image =
@@ -209,7 +210,7 @@ namespace MyProject.DAL
                         QuantityOnHand = 15,
                         Categories = new List<Category>()
                         {
-                            cContext.Categories.SingleOrDefault(c=>c.Code=="1001")
+                            cContext.Categories.SingleOrDefault(c=>c.Code=="30001")
                         },
                         //ProductOffers = new List<ProductOffer>()
                         //{
@@ -234,7 +235,7 @@ namespace MyProject.DAL
                     new Product
                     {
                         Id = 5,
-                        Code = "1005",
+                        Code = "20004",
                         Description = "Faux Leather Skinny Pants",
                         DetailDescription = "this is a good product , Heathered Knit Drawstring Jumpsuit. Ship from USA.",
                         Image =
@@ -244,7 +245,7 @@ namespace MyProject.DAL
                         QuantityOnHand = 20,
                         Categories = new List<Category>()
                         {
-                            cContext.Categories.SingleOrDefault(c=>c.Code=="1002")
+                            cContext.Categories.SingleOrDefault(c=>c.Code=="30001")
                         },
                         //ProductOffers = new List<ProductOffer>()
                         //{
@@ -291,80 +292,80 @@ namespace MyProject.DAL
                 {
                     new ProductOffer()
                     {
-                        Code = "1001-R",
-                        Product = cContext.Products.Single(p=> p.Code == "1001"),
+                        Code = "20000-R",
+                        Product = cContext.Products.Single(p=> p.Code == "20000"),
                         Price = 300000m,
                         Discountable = true,
                         PriceType = cContext.PriceTypes.Single(t=>t.Code == "R"),
                     },
                     new ProductOffer()
                     {
-                        Code = "1001-W",
-                        Product = cContext.Products.Single(p=> p.Code == "1001"),
+                        Code = "20000-W",
+                        Product = cContext.Products.Single(p=> p.Code == "20000"),
                         Price = 240000m,
                         Discountable = true,
                         PriceType = cContext.PriceTypes.Single(t=>t.Code == "W"),
                     },
                     new ProductOffer()
                     {
-                        Code = "1002-R",
-                        Product = cContext.Products.Single(p=> p.Code == "1002"),
+                        Code = "20001-R",
+                        Product = cContext.Products.Single(p=> p.Code == "20001"),
                         Price = 200000m,
                         Discountable = true,
                         PriceType = cContext.PriceTypes.Single(t=>t.Code == "R"),
                     },
                     new ProductOffer()
                     {
-                        Code = "1002-W",
-                        Product = cContext.Products.Single(p=> p.Code == "1002"),
+                        Code = "20001-W",
+                        Product = cContext.Products.Single(p=> p.Code == "20001"),
                         Price = 180000m,
                         Discountable = true,
                         PriceType = cContext.PriceTypes.Single(t=>t.Code == "W"),
                     },
                     new ProductOffer()
                     {
-                        Code = "1003-R",
-                        Product = cContext.Products.Single(p=> p.Code == "1003"),
+                        Code = "20002-R",
+                        Product = cContext.Products.Single(p=> p.Code == "20002"),
                         Price = 310000m,
                         Discountable = true,
                         PriceType = cContext.PriceTypes.Single(t=>t.Code == "R"),
                     },
                     new ProductOffer()
                     {
-                        Code = "1003-W",
-                        Product = cContext.Products.Single(p=> p.Code == "1003"),
+                        Code = "20002-W",
+                        Product = cContext.Products.Single(p=> p.Code == "20002"),
                         Price = 280000m,
                         Discountable = true,
                         PriceType = cContext.PriceTypes.Single(t=>t.Code == "W"),
                     },
                     new ProductOffer()
                     {
-                        Code = "1004-R",
-                        Product = cContext.Products.Single(p=> p.Code == "1004"),
+                        Code = "20003-R",
+                        Product = cContext.Products.Single(p=> p.Code == "20003"),
                         Price = 500000m,
                         Discountable = true,
                         PriceType = cContext.PriceTypes.Single(t=>t.Code == "R"),
                     },
                     new ProductOffer()
                     {
-                        Code = "1004-W",
-                        Product = cContext.Products.Single(p=> p.Code == "1004"),
+                        Code = "20003-W",
+                        Product = cContext.Products.Single(p=> p.Code == "20003"),
                         Price = 450000m,
                         Discountable = true,
                         PriceType = cContext.PriceTypes.Single(t=>t.Code == "W"),
                     },
                     new ProductOffer()
                     {
-                        Code = "1005-R",
-                        Product = cContext.Products.Single(p=> p.Code == "1005"),
+                        Code = "20004-R",
+                        Product = cContext.Products.Single(p=> p.Code == "20004"),
                         Price = 430000m,
                         Discountable = true,
                         PriceType = cContext.PriceTypes.Single(t=>t.Code == "R"),
                     },
                     new ProductOffer()
                     {
-                        Code = "1005-W",
-                        Product = cContext.Products.Single(p=> p.Code == "1005"),
+                        Code = "20004-W",
+                        Product = cContext.Products.Single(p=> p.Code == "20004"),
                         Price = 400000m,
                         Discountable = true,
                         PriceType = cContext.PriceTypes.Single(t=>t.Code == "W"),
@@ -385,7 +386,7 @@ namespace MyProject.DAL
                             {
                                 Code = "15PercentOff_1001",
                                 Description = "15 percent off Female-Winter-Collection",
-                                Active = true,
+                                Active = false,
                                 StartDate = DateTime.Now,
                                 EndDate = DateTime.Now.AddDays(2),
                                 PromotionLineItemExpression = "Category=1001;PriceType=R;PercentDiscount=0.15"
@@ -394,7 +395,7 @@ namespace MyProject.DAL
                             {
                                 Code = "15offFemale-Casual-Collection",
                                 Description = "15d off Female-Casual-Collection",
-                                Active = true,
+                                Active = false,
                                 StartDate = DateTime.Now,
                                 EndDate = DateTime.Now.AddDays(2),
                                 PromotionLineItemExpression = "Category=1002;PriceType=R;AmountDiscount=15000"
@@ -403,7 +404,7 @@ namespace MyProject.DAL
                             {
                                 Code = "25_percent_off_item_1004",
                                 Description = "25 percent off item 1004",
-                                Active = true,
+                                Active = false,
                                 StartDate = DateTime.Now,
                                 EndDate = DateTime.Now.AddDays(2),
                                 PromotionLineItemExpression = "ItemCode=1004;PriceType=R;PercentDiscount=0.25"
@@ -412,7 +413,7 @@ namespace MyProject.DAL
                             {
                                 Code = "25_off_item_item_1005",
                                 Description = "25 off item item 1005",
-                                Active = true,
+                                Active = false,
                                 StartDate = DateTime.Now,
                                 EndDate = DateTime.Now.AddDays(2),
                                 PromotionLineItemExpression = "ItemCode=1005;PriceType=R;AmountDiscount=25000"
@@ -421,7 +422,7 @@ namespace MyProject.DAL
                             {
                                 Code = "Buy_5_1004_get_1_item_1004_free",
                                 Description = "Buy 5 item 1004 get 1 item 1004 free",
-                                Active = true,
+                                Active = false,
                                 StartDate = DateTime.Now,
                                 EndDate = DateTime.Now.AddDays(2),
                                 PromotionLineItemExpression = "PriceType=R;BuyItemCode=1004;BuyItemCount=5;GetItemCode=1004;GetItemCount=1"
@@ -430,7 +431,7 @@ namespace MyProject.DAL
                             {
                                 Code = "Buy_5_item_1004_get_2_item_1001_free",
                                 Description = "Buy 5 item 1004 get 2 item 1001 free",
-                                Active = true,
+                                Active = false,
                                 StartDate = DateTime.Now,
                                 EndDate = DateTime.Now.AddDays(2),
                                 PromotionLineItemExpression = "PriceType=R;BuyItemCode=1004;BuyItemCount=5;GetItemCode=1001;GetItemCount=2"
@@ -485,8 +486,7 @@ namespace MyProject.DAL
 
                 cContext.PaymentTypes.AddRange(new List<PaymentType>
                 {
-                    new PaymentType() {Code = "Cash", Description = "Cash"},
-                    new PaymentType() {Code = "PayPal", Description = "PayPal"}
+                    new PaymentType() {Code = "Bank", Description = "Chuyển tiền qua tài khoản"},
                 });
                 cContext.SaveChanges();
 
@@ -511,7 +511,7 @@ namespace MyProject.DAL
                 {
                     new Cart()
                     {
-                        Product = cContext.Products.Single(p=> p.Code == "1003"),
+                        Product = cContext.Products.Single(p=> p.Code == "20003"),
                         Code = Guid.NewGuid().ToString(),
                         Quantity = 1,
                         DateCreated = DateTime.Now,

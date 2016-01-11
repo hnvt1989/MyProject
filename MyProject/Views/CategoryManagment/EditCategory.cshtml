@@ -1,0 +1,41 @@
+﻿@model MyProject.Models.ViewModels.CategoryViewModel
+
+@{
+    ViewBag.Title = "Edit Category";
+}
+
+<body>
+    <section id="ProductForm">
+        @using (Html.BeginForm("EditCategory", "CategoryManagment", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="row">
+                <hr>
+
+                <div class="large-5 columns">
+                     <div class="form-group">
+                        @Html.LabelFor(m => m.Code, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.DisplayTextFor(m => m.Code)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Description, new {@class = "col-md-2 control-label"})
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Description)
+                            @Html.ValidationMessageFor(m => m.Description, "", new {@class = "text-danger"})
+                        </div>
+                    </div>
+                    <div>
+                        <input type="submit" class="medium success button" value="Save"/>
+                    </div>
+                </div>
+                </div>
+        }
+    </section>
+
+</body>
+

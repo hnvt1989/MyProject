@@ -6,10 +6,24 @@
     @Html.AntiForgeryToken()
     <ul class="top-bar-items right">
         <li>
-            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Home", routeValues: null, htmlAttributes: new {title = "Manage"})
+            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Home", routeValues: null, htmlAttributes: new { title = "Manage" })
         </li>
-        <li>
+        <li class="has-dropdown">
             @Html.ActionLink("Product Managment", "Index", "ProductManagement", routeValues: null, htmlAttributes: new { title = "Manage" })
+            <ul class="dropdown">
+                <li class="has-dropdown">
+                    @Html.ActionLink("View Products", "Index", "ProductManagement", routeValues: null, htmlAttributes: new { title = "Manage" })
+                </li>
+                <li class="has-dropdown">
+                    @Html.ActionLink("Add Product", "EditProduct", "ProductManagement", new {id = -1}, new {@style = "color: #FFFFFF"})
+                </li>
+                 <li class="has-dropdown">
+                    @Html.ActionLink("View Categories", "Index", "CategoryManagment", routeValues: null, htmlAttributes: new { title = "Manage" })
+                </li>
+                <li class="has-dropdown">
+                    @Html.ActionLink("Add Category", "EditCategory", "CategoryManagment", new {id = -1}, new {@style = "color: #FFFFFF"})
+                </li>
+            </ul>
         </li>
         <li>
             @Html.ActionLink("Profile", "ViewProfile", "Profile", routeValues: null, htmlAttributes: new { title = "Manage" })
@@ -27,7 +41,7 @@ else
 
     <ul class="top-bar-items right">
         <li>@Html.ActionLink("Home", "Index", "Home", routeValues: null, htmlAttributes: new { id = "homeLink" })</li>
-@*        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new {id = "registerLink"})</li>*@
-        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new {id = "loginLink"})</li>
+        @*        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new {id = "registerLink"})</li>*@
+        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     </ul>
 }

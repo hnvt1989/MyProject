@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.Ajax.Utilities;
 using MyProject.DAL;
 using MyProject.Models.Account;
 using MyProject.Models.Core;
@@ -14,8 +15,6 @@ namespace MyProject.Controllers
 {
     public class ProductManagementController : Controller
     {
-        //
-        // GET: /ProductManagement/
         public ActionResult Index()
         {
             if (ModelState.IsValid)
@@ -32,7 +31,7 @@ namespace MyProject.Controllers
                                 select p;
                     //productCategories.Products.AddRange(prods);
                     //                  where cartItems.Code == ShoppingCartId
-                    foreach (var prod in prods)
+                    foreach (var prod in prods.Take(12))
                     {
 
                         productCategories.Products.Add(new ProductViewModel()
@@ -46,16 +45,6 @@ namespace MyProject.Controllers
                     return View(productCategories);
                 }
             }
-            return View();
-        }
-
-        public ActionResult Index1()
-        {
-            return View();
-        }
-
-        public ActionResult Index2()
-        {
             return View();
         }
 
@@ -78,14 +67,19 @@ namespace MyProject.Controllers
                             Code = "",
                             Description = "Description",
                             DetailDescription = "Detail description",
+                            Categories = new List<Category>()
                         },
-                        Categories = new List<Category>(),
+                        Categories = new List<CategoryViewModel>(),
                         Offers = new List<ProductOffer>(),
                         PriceTypes = new List<PriceType>(),
                     };
-                    ret.Categories.AddRange(categories);
+                    categories.ForEach(c => ret.Categories.Add(new CategoryViewModel(){Code = c.Code,Description = c.Description, IsChecked = false}));
                     ret.PriceTypes.AddRange(priceTypes);
                     ret.Offers.AddRange(offers);
+
+                    ret.ProductView.WeightOunce = 0m;
+                    ret.ProductView.WeightPounds = 0m;
+                    ret.ProductView.QuantityOnHand = 0;
 
                     TempData["ProductEditId"] = id;
                     return View(ret);
@@ -109,23 +103,84 @@ namespace MyProject.Controllers
                             Description = product.Description,
                             DetailDescription = product.DetailDescription,
                             Image = product.Image,
-                            Id = product.Id
+                            Id = product.Id,
+                            Categories = new List<Category>()
                         },
-                        Categories = new List<Category>(),
+                        Categories = new List<CategoryViewModel>(),
                         Offers = new List<ProductOffer>(),
                         PriceTypes = new List<PriceType>(),
                     };
-                    ret.Categories.AddRange(categories);
+
                     ret.Offers.AddRange(offers);
                     ret.PriceTypes.AddRange(priceTypes);
 
                     TempData["ProductEditId"] = id;
+
+                    var weightInOunce = product.Weight*16;
+                    ret.ProductView.WeightOunce = weightInOunce%16;
+                    ret.ProductView.WeightPounds = (weightInOunce - ret.ProductView.WeightOunce)/16;
+
+                    //quantity on hand
+                    ret.ProductView.QuantityOnHand = product.QuantityOnHand;
+
+                    //categories
+                    categories.ForEach(c => ret.Categories.Add(new CategoryViewModel() { Id = c.Id, Code = c.Code, Description = c.Description, IsChecked = false }));
+                    ret.ProductView.Categories.AddRange(context.Products.Where(p => p.Id == id).SelectMany(prod => prod.Categories));
+
+                    foreach (var cat in ret.Categories)
+                    {
+                        if (ret.ProductView.Categories.Select(c => c.Code).ToList().Contains(cat.Code))
+                        {
+                            cat.IsChecked = true;
+                        }
+                    }
+
+
                     return View(ret);
                 }
+                
                 return View();
             }
         }
 
+        public ActionResult SearchProduct(ProductManagementViewModel productCategories)
+        {
+            using (var context = new ShoppingCartContext())
+            {
+                if (productCategories.SearchProductId.IsNullOrWhiteSpace())
+                {
+                    return RedirectToAction("Index");
+                }
+                var prods = context.Products.Where(p => productCategories.SearchProductId.Contains(p.Code) || productCategories.SearchProductId.Contains(p.Description));
+                
+
+                var categories = context.Categories.ToList();
+                var defaultCat = categories.First();
+
+                foreach (var prod in prods.Take(12))
+                {
+
+                    productCategories.Products.Add(new ProductViewModel()
+                    {
+                        Code = prod.Code,
+                        Description = prod.Description,
+                        Image = prod.Image,
+                        Id = prod.Id
+                    });
+                }
+                //no thing return
+                if (prods.ToList().Count == 0)
+                {
+                    ViewBag.Status = "No product matched the search criteria";
+
+                }
+                return View("Index", productCategories);
+                
+            }
+            
+        }
+
+        
         [HttpPost]
         public async Task<ActionResult> EditProduct(EditProductViewModel model)
         {
@@ -187,6 +242,25 @@ namespace MyProject.Controllers
                             });
                         }
 
+                        //weight
+                        decimal ounces = model.ProductView.WeightOunce;
+                        decimal lbs = model.ProductView.WeightPounds;
+                        decimal weight = lbs + (ounces / 16);
+                        newProd.Weight = weight;
+
+                        //quantity on hand
+                        newProd.QuantityOnHand = model.ProductView.QuantityOnHand;
+
+                        //categories
+                        foreach (var cat in model.Categories)
+                        {
+
+                            if (cat.IsChecked)
+                            {
+                                newProd.Categories.Add(context.Categories.Single(c => c.Code == cat.Code));
+                            }
+                        }
+
                         await context.SaveChangesAsync();
 
                         return RedirectToAction("EditProduct", productId);
@@ -233,6 +307,40 @@ namespace MyProject.Controllers
                                 .Price = p.Price;
                         }
 
+                        //weight
+                        decimal ounces = model.ProductView.WeightOunce;
+                        decimal lbs = model.ProductView.WeightPounds;
+                        decimal weight = lbs + (ounces/16);
+                        product.Weight = weight;
+
+
+                        //quantity on hand
+                        product.QuantityOnHand = model.ProductView.QuantityOnHand;
+
+
+                        //categories
+                        model.ProductView.Categories.AddRange(context.Products.Where(p => p.Id == id).SelectMany(prod => prod.Categories));
+
+                        var setCat = model.ProductView.Categories;
+
+                        //load both  collection before removing many-to-many can work !
+                        context.Entry(product).Collection("Categories").Load();
+
+                        foreach (var cat in model.Categories)
+                        {
+
+                            if (cat.IsChecked && !setCat.Select(c => c.Code).ToList().Contains(cat.Code))
+                            {
+                                product.Categories.Add(context.Categories.Single(c => c.Code == cat.Code));
+                            }
+                            if (!cat.IsChecked && setCat.Select(c => c.Code).ToList().Contains(cat.Code))
+                            {
+                                                        
+
+                                product.Categories.Remove(context.Categories.Single(c => c.Code == cat.Code));
+                            }
+                        }
+
                         await context.SaveChangesAsync();
                     }
                     return RedirectToAction("EditProduct", model.ProductView.Id);
@@ -241,5 +349,7 @@ namespace MyProject.Controllers
             }
             return View();
         }
+
+
     }
 }

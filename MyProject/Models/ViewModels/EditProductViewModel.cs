@@ -11,10 +11,11 @@ namespace MyProject.Models.ViewModels
         public EditProductViewModel ()
         {
             this.Offers = new List<ProductOffer>();
+            this.Categories = new List<CategoryViewModel>();
         }
         public ProductViewModel ProductView { get; set; }
 
-        public List<Category> Categories { get; set; }
+        public List<CategoryViewModel> Categories { get; set; }
 
         public List<PriceType> PriceTypes { get; set; }
 

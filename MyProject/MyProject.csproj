@@ -181,6 +181,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CategoryManagmentController.cs" />
     <Compile Include="Controllers\CheckoutController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -223,6 +224,7 @@
     <Compile Include="Models\ShoppingCart\Category.cs" />
     <Compile Include="Models\Account\ExtendedIdentityModels.cs" />
     <Compile Include="Models\Account\IdentityModels.cs" />
+    <Compile Include="Models\ViewModels\CategoryManagementViewModel.cs" />
     <Compile Include="Models\ViewModels\CategoryViewModel.cs" />
     <Compile Include="Models\ViewModels\CheckoutViewModel.cs" />
     <Compile Include="Models\ViewModels\ManageViewModels.cs" />
@@ -458,6 +460,9 @@
     <Content Include="Views\ProductManagement\Index1.cshtml" />
     <Content Include="Views\ProductManagement\Index2.cshtml" />
     <Content Include="Views\ProductManagement\EditProduct.cshtml" />
+    <Content Include="Views\ProductManagement\ProductNotFound.cshtml" />
+    <Content Include="Views\CategoryManagment\Index.cshtml" />
+    <Content Include="Views\CategoryManagment\EditCategory.cshtml" />
     <None Include="Views\Store\ProductDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>

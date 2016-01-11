@@ -5,6 +5,7 @@
 
 @{
     ViewBag.Title = "Edit Product";
+    ViewBag.DisabledProductCode = true;
 }
 
 <body>
@@ -42,10 +43,11 @@
                 <div class="large-5 columns">
                     <div class="form-group">
                         @Html.LabelFor(m => m.ProductView.Code, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
-                            @Html.TextBoxFor(m => m.ProductView.Code, new { @class = "fill" })
+                        @Html.DisplayTextFor(m => m.ProductView.Code)
+@*                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.ProductView.Code, ViewBag.DisabledProductCode ? (object)new { disabled="disabled" } : new {})
                             @Html.ValidationMessageFor(m => m.ProductView.Code, "", new { @class = "text-danger" })
-                        </div>
+                        </div>*@
                     </div>
 
                     <div class="form-group">
@@ -97,19 +99,42 @@
                             </div>
                         </div>
 
-                         <div class="form-group">
+                        <div class="form-group">
                             @Html.LabelFor(m => m.ProductView.WeightOunce, new {@class = "col-md-2 control-label"})
                             <div class="col-md-10">
                                 @Html.TextBoxFor(m => m.ProductView.WeightOunce)
                                 @Html.ValidationMessageFor(m => m.ProductView.WeightOunce, "", new {@class = "text-danger"})
                             </div>
                         </div>
+                    </div>
 
-                        <div>
+                    <div class="panel">
+                        <h5><b><em>Quantity: </em></b></h5>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.ProductView.QuantityOnHand, new {@class = "col-md-2 control-label"})
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.ProductView.QuantityOnHand)
+                                @Html.ValidationMessageFor(m => m.ProductView.QuantityOnHand, "", new {@class = "text-danger"})
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel">
+                        <h5><b><em>Category: </em></b></h5>
+                        @for(int i = 0 ; i < Model.Categories.Count; i++)
+                        {
+                            @Html.CheckBoxFor(m => m.Categories[i].IsChecked)<span>@Model.Categories[i].Description</span>
+                            @Html.HiddenFor(m => m.Categories[i].IsChecked)
+                            @Html.HiddenFor(m => m.Categories[i].Code)
+                            <br/>
+                            
+                        }
+                    </div>
+
+                    <div>
                         <input type="submit" class="medium success button" value="Save" />
                     </div>
                 </div>
-            </div>
             <div class="row">
                 <hr />
                 <div class="large-6 columns">
