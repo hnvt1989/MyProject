@@ -67,11 +67,12 @@ namespace MyProject.Controllers
             {
                 Message = "(1) " + Server.HtmlEncode(productDescription) +
                     " đã được lấy ra giỏ hàng.",
+                CartTotalToString = (cart.GetTotal() + cart.GetTotalShippingCost()).ToString("N0") + " đ",
                 CartTotal = cart.GetTotal() + cart.GetTotalShippingCost(),
                 CartCount = cart.GetCount(),
                 DeleteId = id,
                 TotalCartShippingCost = cart.GetTotalShippingCost(),
-
+                TotalCartShippingCostToString = (cart.GetTotalShippingCost()).ToString("N0") + " đ"
             };
 
             //if item was not removed
@@ -82,6 +83,7 @@ namespace MyProject.Controllers
                 results.ShippingCost = ret.ShippingCost;
                 results.NetBeforeDiscount = ret.NetBeforeDiscount;
                 results.Sum = ret.Sum;
+                results.SumToString = ret.Sum.ToString("N0") + " đ";
             }
             else
             {
@@ -112,15 +114,17 @@ namespace MyProject.Controllers
                 Message = "(1)" + Server.HtmlEncode(productDescription) +
                     " đã được thêm vào giỏ hàng của bạn.",
                 CartTotal = cart.GetTotal() + cart.GetTotalShippingCost(),
+                CartTotalToString = (cart.GetTotal() + cart.GetTotalShippingCost()).ToString("N0") + " đ",
                 CartCount = cart.GetCount(),
                 ItemCount = ret.Quantity,
                 TotalDiscount = ret.TotalDiscountAmount,
                 ShippingCost = ret.ShippingCost,
                 NetBeforeDiscount = ret.NetBeforeDiscount,
                 Sum = ret.Sum,
+                SumToString = ret.Sum.ToString("N0"),
                 AddId = id,
                 TotalCartShippingCost = cart.GetTotalShippingCost(),
-                
+                TotalCartShippingCostToString = cart.GetTotalShippingCost().ToString("N0") + " đ"
             };
             return Json(results);
         }

@@ -102,15 +102,15 @@
 
 
                     <div class="form-group">
-                        @Html.LabelFor(m => m.PaymentTransaction.Amount, new Dictionary<string, Object> {{"class", "col-md-2 control-label"}})
-
+@*                        @Html.LabelFor(m => m.PaymentTransaction.Amount, new Dictionary<string, Object> {{"class", "col-md-2 control-label"}})*@
+                        <b>Tổng số tiền: @Model.CartTotal.ToString("N0") đ</b>
                         <div class="col-md-10">
-                            @Html.KTextBoxFor(m => m.PaymentTransaction.Amount, new { id = "amountTextBox", Value= Model.PaymentAmount, @class = "fill" , disabled="disabled"})
+                            @Html.KTextBoxFor(m => m.PaymentTransaction.Amount, new { id = "amountTextBox", Value= Model.PaymentAmount, @class = "fill" , disabled="disabled", @style = "display:none;"})
                             @Html.ValidationMessageFor(m => m.PaymentTransaction.Amount, "", new {@class = "text-danger"})
                         </div>
                     </div>
                     <div class="amount-due">
-                        <b>Còn lại: <span>0.00</span></b>
+@*                        <b>Còn lại: <span>0.00</span></b>*@
                     </div>
                 </fieldset>
                 
