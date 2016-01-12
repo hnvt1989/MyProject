@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using MyProject.AppLogic.Communication;
 using MyProject.DAL;
 using MyProject.Models.ViewModels;
 
@@ -12,7 +14,7 @@ namespace MyProject.Controllers
     {
         ShoppingCartContext _soCartContext = new ShoppingCartContext();
 
-        public ActionResult Index(long orderNumber)
+        public async Task<ActionResult> Index(long orderNumber)
         {
             var order = _soCartContext.Orders.SingleOrDefault(o => o.OrderNumber == orderNumber);
 
@@ -40,7 +42,8 @@ namespace MyProject.Controllers
                 //{
                 //    model.PaymentTransaction.PaymentType =  context.PaymentTypes.SingleOrDefault(t => t.Id == model.PaymentTransaction.PaymentTypeId);
                 //}
-                
+                await EmailSender.Send(model);
+
                 return View(model);
             }
             return View("OrderNotFound");

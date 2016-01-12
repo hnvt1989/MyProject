@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
@@ -25,6 +26,10 @@ namespace MyProject.Models.ViewModels
         [Required]
         [Display(Name = "Enter detail description")]
         public string DetailDescription { get; set; }
+
+        [Required]
+        [DisplayName("Purchased Price (the price we bought in the product)")]
+        public decimal BuyInPrice { get; set; }
 
         public decimal Price { get; set; }
 

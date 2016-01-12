@@ -101,6 +101,7 @@ namespace MyProject.Controllers
                             Code = "",
                             Description = "Description",
                             DetailDescription = "Detail description",
+                            BuyInPrice = 0m,
                             Categories = new List<Category>()
                         },
                         Categories = new List<CategoryViewModel>(),
@@ -138,7 +139,8 @@ namespace MyProject.Controllers
                             DetailDescription = product.DetailDescription,
                             Image = product.Image,
                             Id = product.Id,
-                            Categories = new List<Category>()
+                            Categories = new List<Category>(),
+                            BuyInPrice = product.BuyInPrice
                         },
                         Categories = new List<CategoryViewModel>(),
                         Offers = new List<ProductOffer>(),
@@ -228,11 +230,13 @@ namespace MyProject.Controllers
                     {
                         var newProd = new Product()
                         {
-                            Code = (string.IsNullOrEmpty(model.ProductView.Code)) ? SeqHelper.Next("Item").ToString() : (model.ProductView.Code),
+                            Code = SeqHelper.Next("Item").ToString(),
+                            //Code = (string.IsNullOrEmpty(model.ProductView.Code)) ? SeqHelper.Next("Item").ToString() : (model.ProductView.Code),
                             Description = model.ProductView.Description,
                             FeatureProduct = true,
                             //Weight = 0.5m,
                             //QuantityOnHand = 22,
+                            BuyInPrice = model.ProductView.BuyInPrice,
                             DetailDescription = model.ProductView.DetailDescription,
                             Categories = new List<Category>()
                             {
@@ -309,8 +313,9 @@ namespace MyProject.Controllers
                         //string paymentTypeValue = Request.Form["paymentType"].ToString();
 
                         product.Description = model.ProductView.Description;
-                        product.Code = model.ProductView.Code;
+                        //product.Code = model.ProductView.Code;
                         product.DetailDescription = model.ProductView.DetailDescription;
+                        product.BuyInPrice = model.ProductView.BuyInPrice;
 
                         if (model.ProductView.ProductImage != null)
                         {

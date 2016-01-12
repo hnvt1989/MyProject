@@ -28,6 +28,7 @@ namespace MyProject.DAL
                 {
                     Email = "huynguyenvt1989@gmail.com",
                     UserName = "huynguyenvt1989@gmail.com",
+                    PhoneNumber = "503-984-5029",
                     FirstName = "Jason",
                     LastName = "Nguyen",
                     ProfilePicture = ImageToByteArray(Image.FromFile(HostingEnvironment.MapPath(@"~/Content/Images/Profile1.jpg"))),
@@ -96,6 +97,7 @@ namespace MyProject.DAL
                     {
                         Id = 1,
                         Code = "20000",
+                        BuyInPrice = 150000,
                         Description = "Heathered Knit Drawstring Jumpsuit",
                         Image =
                             ImageToByteArray(Image.FromFile(HostingEnvironment.MapPath(@"~/Content/Images/Image1.jpg"))),
@@ -131,6 +133,7 @@ namespace MyProject.DAL
                     {
                         Id = 2,
                         Code = "20001",
+                        BuyInPrice = 150000,
                         Description = "Two-pocket Gingham Shirt",
                         Image =
                             ImageToByteArray(Image.FromFile(HostingEnvironment.MapPath(@"~/Content/Images/Image2.jpg"))),
@@ -166,6 +169,7 @@ namespace MyProject.DAL
                     {
                         Id = 3,
                         Code = "20002",
+                        BuyInPrice = 150000,
                         Description = "Upside-Down Eiffei Tower Tee",
                         Image =
                             ImageToByteArray(Image.FromFile(HostingEnvironment.MapPath(@"~/Content/Images/Image3.jpg"))),
@@ -201,6 +205,7 @@ namespace MyProject.DAL
                     {
                         Id = 4,
                         Code = "20003",
+                        BuyInPrice = 150000,
                         Description = "Perforated Faux Leather Loafers",
                         DetailDescription = "this is a good product , Heathered Knit Drawstring Jumpsuit. Ship from USA.",
                         Image =
@@ -236,6 +241,7 @@ namespace MyProject.DAL
                     {
                         Id = 5,
                         Code = "20004",
+                        BuyInPrice = 150000,
                         Description = "Faux Leather Skinny Pants",
                         DetailDescription = "this is a good product , Heathered Knit Drawstring Jumpsuit. Ship from USA.",
                         Image =
@@ -552,6 +558,20 @@ namespace MyProject.DAL
                         Description = "Shipping Rate per lb",
                         Value = "100000",
                         ValueType = "decimal"
+                    },
+                    new AppSetting()
+                    {
+                        Code = "NotificationEmail1",
+                        Description = "Send order notification to email 1",
+                        Value = "huynguyenvt1989@gmail.com",
+                        ValueType = "string"
+                    },
+                    new AppSetting()
+                    {
+                        Code = "NotificationEmail2",
+                        Description = "Send order notification to email 2",
+                        Value = "huynguyenvt1989@gmail.com",
+                        ValueType = "string"
                     }
                 });
 

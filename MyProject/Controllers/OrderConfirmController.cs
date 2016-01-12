@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using MyProject.AppLogic.Communication;
 using MyProject.DAL;
 using MyProject.Models.Core;
 using MyProject.Models.ShoppingCart;
@@ -23,7 +25,7 @@ namespace MyProject.Controllers
 
 
         [HttpPost]
-        public ActionResult Index(OrderConfirmViewModel model)
+        public async Task<ActionResult> Index(OrderConfirmViewModel model)
         {
             OrderConfirmViewModel m = (OrderConfirmViewModel)TempData["OrderConfirm"];
 

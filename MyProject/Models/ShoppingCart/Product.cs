@@ -34,6 +34,8 @@ namespace MyProject.Models.ShoppingCart
 
         public int QuantityOnHand { get; set; }
 
+        public decimal BuyInPrice { get; set; }
+
         public byte[] Image { get; set; }
 
         [ForeignKey("Category")]
