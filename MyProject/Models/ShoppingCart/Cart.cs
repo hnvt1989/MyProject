@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Dynamic;
 
 namespace MyProject.Models.ShoppingCart
 {
@@ -32,6 +33,8 @@ namespace MyProject.Models.ShoppingCart
         //public virtual ProductOffer ProductOffer { get; set; }
 
         public decimal OriginalPrice { get; set; }
+
+        public decimal ProductWeight { get; set; }
 
         public decimal DiscountAmount { get; set; }
 
@@ -75,7 +78,7 @@ namespace MyProject.Models.ShoppingCart
         {
             get
             {
-                _sum = decimal.Round(DiscountedPrice + ShippingCost, 2, MidpointRounding.AwayFromZero);
+                _sum = decimal.Round(DiscountedPrice, 2, MidpointRounding.AwayFromZero);
                 //_sum = DiscountedPrice  + ShippingCost;
                 return _sum;
             }

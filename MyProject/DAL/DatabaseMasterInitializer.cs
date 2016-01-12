@@ -550,7 +550,7 @@ namespace MyProject.DAL
                     {
                         Code = "ShippingRate",
                         Description = "Shipping Rate per lb",
-                        Value = "4",
+                        Value = "100000",
                         ValueType = "decimal"
                     }
                 });

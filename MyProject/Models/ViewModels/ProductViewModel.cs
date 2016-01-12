@@ -30,6 +30,8 @@ namespace MyProject.Models.ViewModels
 
         public string PriceType { get; set; }
 
+        public decimal ShippingCost { get; set; }
+
         [Display(Name = "Quantity on hand")]
         public int QuantityOnHand { get; set; }
 

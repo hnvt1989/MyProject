@@ -21,7 +21,7 @@
             <p> @Model.DetailDescription</p>
             <div class="panel">
                 <h5><b><em>Giá tiền: </em> @Model.Price.ToString("N0") đ</b></h5>
-                <h6 class="subheader">Cước vận chuyển:   50.00 đ (ước lượng)</h6>
+                <h6 class="subheader">Cước vận chuyển:   @Model.ShippingCost.ToString("N0") đ </h6>
                  <p class="button">
                     @Html.ActionLink("Thêm vào giỏ hàng", "ContinueToCart", "Store", new {id = @Model.Id}, new {@style="color: #FFFFFF"})
                 </p>

@@ -35,6 +35,11 @@ namespace MyProject.Models.ShoppingCart
         {
             using (var context = new ShoppingCartContext())
             {
+                var shippingRateObj = context.AppSettings.Single(a => a.Code == "ShippingRate");
+                var shippingRate = 0m;
+                if (shippingRateObj.ValueType == "decimal")
+                    shippingRate =  Convert.ToDecimal(shippingRateObj.Value);
+
                 var cartItems = context.Carts.Where(cart => cart.Code == ShoppingCartId).ToList();
 
                 foreach (var c in cartItems)
@@ -52,7 +57,7 @@ namespace MyProject.Models.ShoppingCart
                         {
                             cart.Quantity = nCart.Quantity;
                             cart.DiscountAmount = nCart.DiscountAmount;
-                            cart.ShippingCost = nCart.ShippingCost;
+                            cart.ShippingCost = cart.ProductWeight * nCart.Quantity * shippingRate; //fixed rate shipping
                             cart.DiscountAmount = nCart.DiscountAmount;
                             cart.OriginalPrice = nCart.OriginalPrice;
                             cart.AddOnItem = nCart.AddOnItem;
@@ -111,6 +116,7 @@ namespace MyProject.Models.ShoppingCart
                         Product = context.Products.Single(p => p.Id == product.Id),
                         //DiscountedPrice = 0m,
                         DiscountApplied = false,
+                        ProductWeight = product.Weight
                     };
                     context.Carts.Add(cartItem);
                 }
@@ -252,9 +258,27 @@ namespace MyProject.Models.ShoppingCart
             }
         }
 
+        public decimal GetTotalShippingCost()
+        {
+            using (var context = new ShoppingCartContext())
+            {
+                var carts = context.Carts.Where(c => c.Code == ShoppingCartId).ToList();
+                if (carts.Count() > 0)
+                    return carts.Select(c => Convert.ToDecimal(c.ShippingCost)).Sum();
+                return 0m;
+
+                //decimal? total = (from cartItems in context.Carts
+                //                  where cartItems.Code == ShoppingCartId
+                //                  select (decimal?)cartItems.Sum).Sum();
+
+                //return (total != null) ? decimal.Round((decimal)total, 2, MidpointRounding.AwayFromZero) : decimal.Zero;
+            }
+        }
+
         public long CreateOrder(Order order)
         {
             decimal orderTotal = 0;
+            decimal shippingCost = 0;
 
             var cartItems = GetCartItems();
             // Iterate over the items in the cart, 
@@ -280,12 +304,14 @@ namespace MyProject.Models.ShoppingCart
                 };
                 // Set the order total of the shopping cart
                 orderTotal += item.Sum;
+                shippingCost += item.ShippingCost;
 
                 order.OrderDetails.Add(lineOrderDetail);
 
             }
             // Set the order's total to the orderTotal count
-            order.Total = orderTotal;
+            order.Total = orderTotal + shippingCost;
+            order.ShippingCost = shippingCost;
 
             soContext.Orders.Add(order);
             // Save the order

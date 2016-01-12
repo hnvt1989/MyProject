@@ -25,6 +25,9 @@ namespace MyProject.Controllers
 
             using (var pContext = new ShoppingCartContext())
             {
+                var shippingRate = Convert.ToDecimal(pContext.AppSettings.Single(a => a.Code == "ShippingRate").Value);
+
+
                 var prod = pContext.Products.Single(p => p.Id == id);
                 var offers = pContext.ProductOffers.ToList();
 
@@ -35,6 +38,7 @@ namespace MyProject.Controllers
                 productModel.FeatureProduct = prod.FeatureProduct;
                 productModel.Image = prod.Image;
                 productModel.DetailDescription = prod.DetailDescription;
+                productModel.ShippingCost = prod.Weight*shippingRate;
             }
             return View("ProductDetails", productModel);
         }

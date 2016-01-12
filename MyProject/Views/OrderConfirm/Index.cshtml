@@ -2,6 +2,8 @@
 
 @{
     ViewBag.Title = "Confirm Order";
+    ViewBag.TotalShippingCost = "Cước vận chuyển";
+    ViewBag.CartTotal = "Tổng số tiền";
 }
 
 <script src="/Scripts/jquery-1.10.2.min.js"
@@ -124,6 +126,18 @@
                                 </td>
                             </tr>
                         }
+                       <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+@*                            <td></td>
+                            <td></td>
+                            <td></td>*@
+                            <td><b>@ViewBag.TotalShippingCost</b></td>
+                            <td id="cart-total">      
+                                <b>@String.Format("{0:N0}",@Model.CartViewModel.CartTotalShippingCost)</b>
+                            </td>
+                        </tr>
                         <tr>
                             <td></td>
                             <td></td>
@@ -131,7 +145,7 @@
 @*                            <td></td>
                             <td></td>
                             <td></td>*@
-                            <td><b>Tổng số tiền</b></td>
+                            <td><b>@ViewBag.CartTotal</b></td>
                             <td id="cart-total">      
                                 <b>@String.Format("{0:N0}",@Model.CartViewModel.CartTotal)</b>
                             </td>

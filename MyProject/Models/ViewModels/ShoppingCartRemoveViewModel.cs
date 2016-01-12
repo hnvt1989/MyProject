@@ -17,5 +17,6 @@ namespace MyProject.Models.ViewModels
         public decimal ShippingCost { get; set; }
         public decimal NetBeforeDiscount { get; set; }
         public decimal Sum { get; set; }
+        public decimal TotalCartShippingCost { get; set; }
     }
 }

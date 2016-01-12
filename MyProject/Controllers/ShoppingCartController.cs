@@ -23,7 +23,8 @@ namespace MyProject.Controllers
             var viewModel = new ShoppingCartViewModel
             {
                 CartItems = cart.GetCartItems(),
-                CartTotal = cart.GetTotal(),           
+                CartTotal = cart.GetTotal() + cart.GetTotalShippingCost(),
+                CartTotalShippingCost = cart.GetTotalShippingCost()
             };
             // Return the view
             return View(viewModel);
@@ -66,9 +67,10 @@ namespace MyProject.Controllers
             {
                 Message = "(1) " + Server.HtmlEncode(productDescription) +
                     " đã được lấy ra giỏ hàng.",
-                CartTotal = cart.GetTotal(),
+                CartTotal = cart.GetTotal() + cart.GetTotalShippingCost(),
                 CartCount = cart.GetCount(),
                 DeleteId = id,
+                TotalCartShippingCost = cart.GetTotalShippingCost(),
 
             };
 
@@ -109,7 +111,7 @@ namespace MyProject.Controllers
             {
                 Message = "(1)" + Server.HtmlEncode(productDescription) +
                     " đã được thêm vào giỏ hàng của bạn.",
-                CartTotal = cart.GetTotal(),
+                CartTotal = cart.GetTotal() + cart.GetTotalShippingCost(),
                 CartCount = cart.GetCount(),
                 ItemCount = ret.Quantity,
                 TotalDiscount = ret.TotalDiscountAmount,
@@ -117,6 +119,7 @@ namespace MyProject.Controllers
                 NetBeforeDiscount = ret.NetBeforeDiscount,
                 Sum = ret.Sum,
                 AddId = id,
+                TotalCartShippingCost = cart.GetTotalShippingCost(),
                 
             };
             return Json(results);

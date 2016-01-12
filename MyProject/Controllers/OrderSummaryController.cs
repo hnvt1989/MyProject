@@ -24,7 +24,7 @@ namespace MyProject.Controllers
                     Email = order.Email,
                     OrderDate = order.OrderDate,
                     PaymentTransaction = order.PaymentTransaction,
-                    
+                    ShippingCost = order.ShippingCost,
                     FullName = order.FullName,
                     ShippingAddress = order.Address,
                     Phone = order.Phone,

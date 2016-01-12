@@ -112,7 +112,8 @@ namespace MyProject.Controllers
                 var viewModel = new ShoppingCartViewModel
                 {
                     CartItems = cart.GetCartItems(),
-                    CartTotal = cart.GetTotal()
+                    CartTotal = cart.GetTotal() + cart.GetTotalShippingCost(),
+                    CartTotalShippingCost = cart.GetTotalShippingCost(),
                 };
 
 

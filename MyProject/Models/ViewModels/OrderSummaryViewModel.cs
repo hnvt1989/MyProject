@@ -16,6 +16,7 @@ namespace MyProject.Models.ViewModels
         public string Email { get; set; }
 
         public decimal Total { get; set; }
+        public decimal ShippingCost { get; set; }
         public System.DateTime OrderDate { get; set; }
         public List<LineOrderDetail> OrderDetails { get; set; }
 

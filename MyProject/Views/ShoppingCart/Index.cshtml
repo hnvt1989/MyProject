@@ -1,6 +1,7 @@
 ﻿@model MyProject.Models.ViewModels.ShoppingCartViewModel
 @{
     ViewBag.Title = "Shopping Cart";
+    ViewBag.CartTotalShippingCost = "Cước vận chuyển";
 }
 <script src="/Scripts/jquery-1.10.2.min.js"
     type="text/javascript"></script>
@@ -31,6 +32,7 @@
                         $('#cart-total').text(data.CartTotal);
                         $('#update-message').text(data.Message);
                         $('#cart-status').text('Cart (' + data.CartCount + ')');
+                        $('#cart-total-shipping').text(data.TotalCartShippingCost);
                     });
             }
         });
@@ -50,6 +52,8 @@
                         $('#cart-total').text(data.CartTotal);
                         $('#update-message').text(data.Message);
                         $('#cart-status').text('Cart (' + data.CartCount + ')');
+                        $('#cart-total-shipping').text(data.TotalCartShippingCost);
+                        
                     });
             }
         });
@@ -135,11 +139,25 @@
                     </td>
                 </tr>
             }
+
             <tr>
                 <td></td>
                 <td></td>
                 <td></td>
-@*                <td></td>
+                @*                <td></td>
+                <td></td>
+                <td></td>*@
+                <td><b>@ViewBag.CartTotalShippingCost</b></td>
+                <td id="cart-total-shipping">
+                    <b>@Model.CartTotalShippingCost.ToString("N0") đ</b>
+                </td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                @*                <td></td>
                 <td></td>
                 <td></td>*@
                 <td><b>Tổng tiền:</b></td>

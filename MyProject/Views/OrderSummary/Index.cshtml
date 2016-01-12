@@ -3,6 +3,8 @@
 
 @{
     ViewBag.Title = "Order Summary";
+    ViewBag.CartTotal = "Tổng số tiền";
+    ViewBag.TotalShippingCost = "Cước vận chuyển";
 }
 
 <div class="row">
@@ -126,6 +128,20 @@
                                 </td>
                             </tr>
                         }
+
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            @*                            <td></td>
+                            <td></td>
+                            <td></td>*@
+                            <td><b>@ViewBag.TotalShippingCost</b></td>
+                            <td id="cart-total">
+                                <b>@String.Format("{0:N0}", @Model.ShippingCost)</b>
+                            </td>
+                        </tr>
+
                         <tr>
                             <td></td>
                             <td></td>
@@ -133,7 +149,7 @@
 @*                            <td></td>
                             <td></td>
                             <td></td>*@
-                            <td><b>Tổng số tiền</b></td>
+                            <td><b>@ViewBag.CartTotal</b></td>
                             <td id="cart-total">
                                 <b>@String.Format("{0:N0}",@Model.Total)</b>
                             </td>
