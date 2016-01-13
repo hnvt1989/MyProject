@@ -237,7 +237,11 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Images\Email.JPG" />
+    <Content Include="Content\Images\Facebook.JPG" />
     <Content Include="Content\Images\MainSiteProfile.jpg" />
+    <Content Include="Content\Images\PageHeader.jpg" />
+    <Content Include="Content\Images\Phone.JPG" />
     <Content Include="Content\Images\ProductDefault.png" />
     <Content Include="Content\Images\Profile1.jpg" />
     <Content Include="Content\Images\DefaultProfile.jpg" />
