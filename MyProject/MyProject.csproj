@@ -202,8 +202,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\Helper.cs" />
-    <Compile Include="Migrations\Configuration_ShoppingCart.cs" />
     <Compile Include="Migrations\Configuration_IdentityDb.cs" />
+    <Compile Include="Migrations\Configuration_ShoppingCart.cs" />
     <Compile Include="Models\Account\AccountAddress.cs" />
     <Compile Include="Models\Core\AppSetting.cs" />
     <Compile Include="Models\Core\Sequence.cs" />

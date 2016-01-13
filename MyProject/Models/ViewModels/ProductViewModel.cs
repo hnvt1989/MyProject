@@ -23,6 +23,9 @@ namespace MyProject.Models.ViewModels
         [Display(Name = "Enter description")]
         public string Description { get; set; }
 
+        [Display(Name = "Active")]
+        public bool Active { get; set; }
+
         [Required]
         [Display(Name = "Enter detail description")]
         public string DetailDescription { get; set; }

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
-using System.Web.Hosting;
 using MyProject.Models.Account;
 using MyProject.Models.Core;
 using MyProject.Models.ShoppingCart;
@@ -17,50 +16,52 @@ namespace MyProject.Migrations
         public Configuration_ShoppingCart()
         {
             AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(MyProject.DAL.ShoppingCartContext cContext)
         {
-            //set up account address
 
-            AddressFlow.AddNewAddress("huynguyenvt1989@gmail.com", new Address()
+            if (false)
             {
-                AddressType = new AddressType() { Code = "Primary", Description = "Primary address" },
-                Code = Guid.NewGuid().ToString(),
-                Line1 = "1508 duong 30 thang 4",
-                Line2 = "F12, Tp Vung tau",
-                Line3 = "Viet Nam",
-                Primary = true
-            });
+                //set up account address
+                AddressFlow.AddNewAddress("huynguyenvt1989@gmail.com", new Address()
+                {
+                    AddressType = new AddressType() { Code = "Primary", Description = "Primary address" },
+                    Code = Guid.NewGuid().ToString(),
+                    Line1 = "1508 duong 30 thang 4",
+                    Line2 = "F12, Tp Vung tau",
+                    Line3 = "Viet Nam",
+                    Primary = true
+                });
 
-            AddressFlow.AddNewAddress("huynguyenvt1989@gmail.com", new Address()
-            {
-                AddressType = new AddressType() { Code = "Alternative", Description = "Alternative address" },
-                Code = Guid.NewGuid().ToString(),
-                Line1 = "17000 duong Phan Chau Trinh",
-                Line2 = "F11, Tp Vung tau",
-                Line3 = "Viet Nam",
-                Primary = false
-            });
-
-            var sequences = new List<Sequence>
+                AddressFlow.AddNewAddress("huynguyenvt1989@gmail.com", new Address()
+                {
+                    AddressType = new AddressType() { Code = "Alternative", Description = "Alternative address" },
+                    Code = Guid.NewGuid().ToString(),
+                    Line1 = "17000 duong Phan Chau Trinh",
+                    Line2 = "F11, Tp Vung tau",
+                    Line3 = "Viet Nam",
+                    Primary = false
+                });
+                var sequences = new List<Sequence>
                 {
                     new Sequence(){Code = "Order", StartValue = 10000, CurrentValue = 10000},
                     new Sequence(){Code = "Item", StartValue = 20000, CurrentValue = 20004},
                     new Sequence(){Code = "Category", StartValue = 30000, CurrentValue = 30001}
                 };
 
-            cContext.Sequences.AddRange(sequences);
-            cContext.SaveChanges();
+                cContext.Sequences.AddRange(sequences);
+                cContext.SaveChanges();
 
-            cContext.Categories.AddRange(new List<Category>
+                cContext.Categories.AddRange(new List<Category>
                 {
                     new Category {Code = "30000", Description = "Female-Winter-Collection"},
                     new Category {Code = "30001", Description = "Female-Casual-Collection"},
                 });
-            cContext.SaveChanges();
+                cContext.SaveChanges();
 
-            var products = new List<Product>
+                var products = new List<Product>
                 {
                     new Product
                     {
@@ -244,10 +245,10 @@ namespace MyProject.Migrations
                     }
                 };
 
-            products.ForEach(s => cContext.Products.Add(s));
-            cContext.SaveChanges();
+                products.ForEach(s => cContext.Products.Add(s));
+                cContext.SaveChanges();
 
-            cContext.PriceTypes.AddRange(new List<PriceType>()
+                cContext.PriceTypes.AddRange(new List<PriceType>()
                 {
                     new PriceType()
                     {
@@ -260,10 +261,10 @@ namespace MyProject.Migrations
                         Description = "Whole Sale",
                     }
                 });
-            cContext.SaveChanges();
+                cContext.SaveChanges();
 
 
-            cContext.ProductOffers.AddRange(new List<ProductOffer>()
+                cContext.ProductOffers.AddRange(new List<ProductOffer>()
                 {
                     new ProductOffer()
                     {
@@ -347,10 +348,10 @@ namespace MyProject.Migrations
                     },
                 });
 
-            cContext.SaveChanges();
+                cContext.SaveChanges();
 
-            //promotion
-            cContext.Promotions.AddRange(new List<Promotion>()
+                //promotion
+                cContext.Promotions.AddRange(new List<Promotion>()
                 {
                     new Promotion()
                     {
@@ -415,39 +416,39 @@ namespace MyProject.Migrations
                     },
 
                 });
-            cContext.SaveChanges();
+                cContext.SaveChanges();
 
-            //cContext.CartLineItems.AddRange(new List<CartLineItem>
-            //{
-            //    new CartLineItem()
-            //    {
-            //        Code = Guid.NewGuid().ToString(),
-            //        DiscountAmount = 0m,
-            //        Quantity = 5,
-            //        OriginalPrice = 0m,
-            //        ShippingCost = 0m,
-            //        DiscountedPrice = 0m,
-            //        ProductCode = "1001",
-            //        PriceType = "R",
-            //        DateCreated = DateTime.Now
-            //    },
-            //    new CartLineItem()
-            //    {
-            //        Code = Guid.NewGuid().ToString(),
-            //        DiscountAmount = 0m,
-            //        Quantity = 5,
-            //        OriginalPrice = 0m,
-            //        ShippingCost = 0m,
-            //        DiscountedPrice = 0m,
-            //        ProductCode = "1002",
-            //        PriceType = "W",
-            //        DateCreated = DateTime.Now
-            //    },
-            //});
+                //cContext.CartLineItems.AddRange(new List<CartLineItem>
+                //{
+                //    new CartLineItem()
+                //    {
+                //        Code = Guid.NewGuid().ToString(),
+                //        DiscountAmount = 0m,
+                //        Quantity = 5,
+                //        OriginalPrice = 0m,
+                //        ShippingCost = 0m,
+                //        DiscountedPrice = 0m,
+                //        ProductCode = "1001",
+                //        PriceType = "R",
+                //        DateCreated = DateTime.Now
+                //    },
+                //    new CartLineItem()
+                //    {
+                //        Code = Guid.NewGuid().ToString(),
+                //        DiscountAmount = 0m,
+                //        Quantity = 5,
+                //        OriginalPrice = 0m,
+                //        ShippingCost = 0m,
+                //        DiscountedPrice = 0m,
+                //        ProductCode = "1002",
+                //        PriceType = "W",
+                //        DateCreated = DateTime.Now
+                //    },
+                //});
 
-            //cContext.SaveChanges();
+                //cContext.SaveChanges();
 
-            var paymentStatuses = new List<PaymentStatus>
+                var paymentStatuses = new List<PaymentStatus>
                 {
                     new PaymentStatus() { Code = "Hold", Description = "On Hold"},
                     new PaymentStatus() { Code = "Processing", Description = "Processing"},
@@ -455,18 +456,18 @@ namespace MyProject.Migrations
                     new PaymentStatus() { Code = "Completed", Description = "Completed"}
                 };
 
-            cContext.PaymentStatuses.AddRange(paymentStatuses);
-            cContext.SaveChanges();
+                cContext.PaymentStatuses.AddRange(paymentStatuses);
+                cContext.SaveChanges();
 
 
-            cContext.PaymentTypes.AddRange(new List<PaymentType>
+                cContext.PaymentTypes.AddRange(new List<PaymentType>
                 {
                     new PaymentType() {Code = "Bank", Description = "Chuyển tiền qua tài khoản"},
                     new PaymentType() {Code = "Cash", Description = "Gởi tiền mặt"},
                 });
-            cContext.SaveChanges();
+                cContext.SaveChanges();
 
-            cContext.PaymentTransactions.AddRange(new List<PaymentTransaction>
+                cContext.PaymentTransactions.AddRange(new List<PaymentTransaction>
                 {
                     new PaymentTransaction()
                     {
@@ -481,9 +482,9 @@ namespace MyProject.Migrations
                 });
 
 
-            var paymentTransactionId = cContext.SaveChanges();
+                var paymentTransactionId = cContext.SaveChanges();
 
-            cContext.Carts.AddRange(new List<Cart>
+                cContext.Carts.AddRange(new List<Cart>
                 {
                     new Cart()
                     {
@@ -495,7 +496,7 @@ namespace MyProject.Migrations
                 });
 
 
-            cContext.Orders.AddRange(new List<Order>
+                cContext.Orders.AddRange(new List<Order>
                 {
                     new Order()
                     {
@@ -519,7 +520,7 @@ namespace MyProject.Migrations
                     }
                 });
 
-            cContext.AppSettings.AddRange(new List<AppSetting>
+                cContext.AppSettings.AddRange(new List<AppSetting>
                 {
                     new AppSetting()
                     {
@@ -541,10 +542,40 @@ namespace MyProject.Migrations
                         Description = "Send order notification to email 2",
                         Value = "huynguyenvt1989@gmail.com",
                         ValueType = "string"
+                    },
+                    new AppSetting()
+                    {
+                        Code = "EmailFrom_EmailAddress",
+                        Description = "Email address to send email from",
+                        Value = "jashopvn.2016@gmail.com",
+                        ValueType = "string"
+                    },
+                    new AppSetting()
+                    {
+                        Code = "EmailFrom_UserName",
+                        Description = "UserName of Email address to send email from",
+                        Value = "jashopvn.2016",
+                        ValueType = "string"
+                    },
+                    new AppSetting()
+                    {
+                        Code = "EmailFrom_Password",
+                        Description = "Password of Email address to send email from",
+                        Value = "vungtau1989",
+                        ValueType = "string"
+                    },
+                    new AppSetting()
+                    {
+                        Code = "EmailFrom_Host",
+                        Description = "Host of Email address to send email from",
+                        Value = "email-smtp.us-west-2.amazonaws.com",
+                        ValueType = "string"
                     }
                 });
 
-            cContext.SaveChanges();
+                cContext.SaveChanges();
+            }
+
         }
 
         public byte[] ImageToByteArray(Image x)

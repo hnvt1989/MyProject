@@ -20,7 +20,7 @@ namespace MyProject.Controllers
 
             using (var pContext = new ShoppingCartContext())
             {
-                var prods = pContext.Products.Where(p => p.FeatureProduct == true);
+                var prods = pContext.Products.Where(p => p.FeatureProduct == true && p.Active);
                 var offers = pContext.ProductOffers.ToList();
                 foreach (var p in prods)
                 {
@@ -50,7 +50,7 @@ namespace MyProject.Controllers
                 {
                     prods = (from p in context.Products
                         where p.Categories.Any(c => c.Code == code)
-                        select p).Take(24).ToList();
+                        select p).Where(p=> p.Active).Take(24).ToList();
                 }
                 using (var context = new ShoppingCartContext())
                 {

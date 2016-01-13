@@ -35,7 +35,8 @@ namespace MyProject.Controllers
                         Code = prod.Code,
                         Description = prod.Description,
                         Image = prod.Image,
-                        Id = prod.Id
+                        Id = prod.Id,
+                        Active = prod.Active
                     });
                 }
 
@@ -73,7 +74,8 @@ namespace MyProject.Controllers
                             Code = prod.Code,
                             Description = prod.Description,
                             Image = prod.Image,
-                            Id = prod.Id
+                            Id = prod.Id,
+                            Active = prod.Active
                         });
                     }
                     return View(productCategories);
@@ -102,7 +104,8 @@ namespace MyProject.Controllers
                             Description = "Description",
                             DetailDescription = "Detail description",
                             BuyInPrice = 0m,
-                            Categories = new List<Category>()
+                            Categories = new List<Category>(),
+                            Active = true
                         },
                         Categories = new List<CategoryViewModel>(),
                         Offers = new List<ProductOffer>(),
@@ -140,7 +143,8 @@ namespace MyProject.Controllers
                             Image = product.Image,
                             Id = product.Id,
                             Categories = new List<Category>(),
-                            BuyInPrice = product.BuyInPrice
+                            BuyInPrice = product.BuyInPrice,
+                            Active = product.Active
                         },
                         Categories = new List<CategoryViewModel>(),
                         Offers = new List<ProductOffer>(),
@@ -242,6 +246,7 @@ namespace MyProject.Controllers
                             {
                                 context.Categories.SingleOrDefault(c => c.Code == "1001")
                             },
+                            Active = model.ProductView.Active
                         };
 
                         if (model.ProductView.ProductImage != null)
@@ -316,6 +321,7 @@ namespace MyProject.Controllers
                         //product.Code = model.ProductView.Code;
                         product.DetailDescription = model.ProductView.DetailDescription;
                         product.BuyInPrice = model.ProductView.BuyInPrice;
+                        product.Active = model.ProductView.Active;
 
                         if (model.ProductView.ProductImage != null)
                         {

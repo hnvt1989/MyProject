@@ -56,6 +56,7 @@ namespace MyProject.Controllers
                 if(User != null)
                     order.UserName = User.Identity.GetUserName();
                 var orderNumber = ShoppingCart.GetCart(this).CreateOrder(order);
+                int i = await EmailSender.SendMail(orderNumber.ToString(), m);
                 return RedirectToAction("Index", "OrderSummary", new {orderNumber = orderNumber});
             }
 
