@@ -46,8 +46,10 @@
                 <div class="large-4 small-12 columns">
                     <img src="~/Content/Images/MainSiteProfile.jpg">
                     <div class="hide-for-small panel">
-                        <h3>Header</h3>
-                        <h5 class="subheader">Chúng tôi nhận đặt hàng ở Mỹ</h5>
+@*                        <h3>Header</h3>*@
+                        <h5>* Chúng tôi chuyên cung cấp sản phẩm chất lượng từ Mỹ. </h5>
+                        <h5>* Uy tín, chất lượng, giá cả hợp lý trên từng mặt hàng. </h5>
+                        <h5>* Chúng tôi luôn đặt chữ tín lên hàng đầu để hài lòng quý khách.</h5>
                     </div>
                     <a href="#">
                         <div class="panel callout radius">
@@ -74,8 +76,9 @@
                 </div>
 
                 <div class="large-8 columns">
-                    @Html.LabelFor(x => x.CategoryList)
-                    @Html.DropDownListFor(x => x.SelectedCategory, Model.CategoryList, new { id = "categorySelection", onchange = "document.location.href = '/Home/FilterByCategory?code=' + this.options[this.selectedIndex].value;" })
+                    <span><b>Danh mục sản phẩm</b></span>
+                    @*                    @Html.LabelFor(x => x.CategoryList)*@
+                    @Html.DropDownListFor(x => x.SelectedCategory, Model.CategoryList, new {id = "categorySelection", onchange = "document.location.href = '/Home/FilterByCategory?code=' + this.options[this.selectedIndex].value;"})
                     <div class="row">
 
                         @foreach (var product in Model.ProductViewModels)
@@ -87,16 +90,16 @@
                                     var base64 = Convert.ToBase64String(@product.Image);
                                     var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
                                     <img src="@imgSrc"/>
-                            
+
                                 }
                                 else
                                 {
-                                    <img src="~/Content/Images/ProductDefault.png" height="400" width="400" />
+                                    <img src="~/Content/Images/ProductDefault.png" height="400" width="400"/>
                                 }
 
 
                                 <div class="panel">
-                                    <h5><a>@Html.ActionLink(@product.Description, "Details", "Store", new { id = product.Id }, new { @style = "color: #4169e1" })</a></h5>
+                                    <h5><a>@Html.ActionLink(@product.Description, "Details", "Store", new {id = product.Id}, new {@style = "color: #4169e1"})</a></h5>
                                     <h6 class="subheader">@product.Price.ToString("N0") đ</h6>
                                 </div>
                             </div>

@@ -10,7 +10,7 @@ namespace MyProject.Models.ViewModels
 {
     public class HomeViewModel
     {
-        [DisplayName("Categories")]
+        [DisplayName("Danh muc sản phẩm")]
         public SelectList CategoryList
         {
             get
