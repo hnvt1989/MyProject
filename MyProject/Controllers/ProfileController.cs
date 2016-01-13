@@ -1,7 +1,6 @@
 ﻿using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using MyProject.DataContext;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using MyProject.DAL;

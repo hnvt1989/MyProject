@@ -5,7 +5,6 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using MyProject.DataContext;
 using MyProject.DAL;
 
 namespace MyProject
@@ -30,10 +29,10 @@ namespace MyProject
             //    uContext.Database.Initialize(true);
             //}
 
-            using (var dContext = new DatabaseMasterContext())
-            {
-                dContext.Database.Initialize(true);
-            }
+            //using (var dContext = new DatabaseMasterContext())
+            //{
+            //    dContext.Database.Initialize(true);
+            //}
         }
     }
 }

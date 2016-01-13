@@ -10,7 +10,6 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
-using MyProject.DataContext;
 using MyProject.DAL;
 using MyProject.Models;
 using MyProject.Models.Account;

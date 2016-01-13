@@ -40,7 +40,7 @@ namespace MyProject.Controllers
                 productModel.DetailDescription = prod.DetailDescription;
                 productModel.ShippingCost = prod.Weight*shippingRate;
             }
-            return View("ProductDetails", productModel);
+            return View("Detail", productModel);
         }
 
         public ActionResult ContinueToCart(int id)

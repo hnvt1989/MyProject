@@ -5,7 +5,6 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
-using MyProject.DataContext;
 using MyProject.DAL;
 using MyProject.Models;
 using MyProject.Models.Account;

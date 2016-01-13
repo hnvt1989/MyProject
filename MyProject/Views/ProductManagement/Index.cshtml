@@ -12,8 +12,8 @@
 <div class="row">
     <div class="large-12 columns">
         <h3>Product Management</h3>
-         @Html.LabelFor(x => x.CategoryList)
-         @Html.DropDownListFor(x => x.SelectedCategory, Model.CategoryList, new { id = "categorySelection",   onchange = "document.location.href = '/ProductManagement/FilterByCategory?code=' + this.options[this.selectedIndex].value;" })
+        @Html.LabelFor(x => x.CategoryList)
+        @Html.DropDownListFor(x => x.SelectedCategory, Model.CategoryList, new { id = "categorySelection", onchange = "document.location.href = '/ProductManagement/FilterByCategory?code=' + this.options[this.selectedIndex].value;" })
 
         <section id="ProfileForm">
             @using (Html.BeginForm("SearchProduct", "ProductManagement", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
@@ -24,8 +24,8 @@
 
                 <div align="left">
                     <b>Find product</b>
-                    @Html.KTextBoxFor(m => m.SearchProductId, new {style = "width:150px"})
-                    <input id="searchBtn" type="submit" class="button" value="Search"/>
+                    @Html.KTextBoxFor(m => m.SearchProductId, new { style = "width:150px" })
+                    <input id="searchBtn" type="submit" class="button" value="Search" />
                 </div>
                 <span>@ViewBag.Status</span>
 
@@ -35,11 +35,19 @@
             @foreach (var product in Model.Products)
             {
 
-                var base64 = Convert.ToBase64String(@product.Image);
-                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-
                 <div class="large-3 small-6 columns">
-                    <img src="@imgSrc"/>
+
+                    @if (@product.Image != null)
+                    {
+                        var base64 = Convert.ToBase64String(@product.Image);
+                        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                        <img src="@imgSrc"/>
+                            
+                    }
+                    else
+                    {
+                        <img src="~/Content/Images/ProductDefault.png" height="400" width="400" />
+                    }
                     <div><span><b>Item #</b>@product.Code</span></div>
                     @*                    <a>@product.Description</a>*@
                     <a>@Html.ActionLink(@product.Description, "EditProduct", "ProductManagement", new { id = product.Id }, "")</a>

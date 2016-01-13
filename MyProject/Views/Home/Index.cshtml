@@ -5,17 +5,17 @@
 
 
 <body>
-<br/>
-<div class="row">
-    <div class="large-12 columns">
+    <br />
+    <div class="row">
+        <div class="large-12 columns">
 
 
 
 
-        <div class="row">
+            <div class="row">
 
-            <!-- Off Canvas Menu -->
-            @*                <aside class="left-off-canvas-menu">
+                <!-- Off Canvas Menu -->
+                @*                <aside class="left-off-canvas-menu">
 
                     <div class="icon-bar vertical five-up">
                         <a class="item">
@@ -43,18 +43,18 @@
                 </aside>*@
 
 
-            <div class="large-4 small-12 columns">
-                <img src="~/Content/Images/MainSiteProfile.jpg">
-                <div class="hide-for-small panel">
-                    <h3>Header</h3>
-                    <h5 class="subheader">Chúng tôi nhận đặt hàng ở Mỹ</h5>
-                </div>
-                <a href="#">
-                    <div class="panel callout radius">
-                        <h6>@Html.ActionLink("Giỏ hàng của bạn", "Index", "ShoppingCart")</h6>
+                <div class="large-4 small-12 columns">
+                    <img src="~/Content/Images/MainSiteProfile.jpg">
+                    <div class="hide-for-small panel">
+                        <h3>Header</h3>
+                        <h5 class="subheader">Chúng tôi nhận đặt hàng ở Mỹ</h5>
                     </div>
-                </a>
-@*                <div class="row">
+                    <a href="#">
+                        <div class="panel callout radius">
+                            <h6>@Html.ActionLink("Giỏ hàng của bạn", "Index", "ShoppingCart")</h6>
+                        </div>
+                    </a>
+                    @*                <div class="row">
                     <div class="large-12 columns">
                         <div class="panel">
                             <div class="row">
@@ -71,32 +71,41 @@
                     </div>
                 </div>*@
 
-            </div>
+                </div>
 
-            <div class="large-8 columns">
-                @Html.LabelFor(x => x.CategoryList)
-                @Html.DropDownListFor(x => x.SelectedCategory, Model.CategoryList, new {id = "categorySelection", onchange = "document.location.href = '/Home/FilterByCategory?code=' + this.options[this.selectedIndex].value;"})
-                <div class="row">
+                <div class="large-8 columns">
+                    @Html.LabelFor(x => x.CategoryList)
+                    @Html.DropDownListFor(x => x.SelectedCategory, Model.CategoryList, new { id = "categorySelection", onchange = "document.location.href = '/Home/FilterByCategory?code=' + this.options[this.selectedIndex].value;" })
+                    <div class="row">
 
-                    @foreach (var product in Model.ProductViewModels)
-                    {
-                        var base64 = Convert.ToBase64String(@product.Image);
-                        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                        @foreach (var product in Model.ProductViewModels)
+                        {
+                            <div class="large-4 small-6 columns">
 
-                        <div class="large-4 small-6 columns">
+                                @if (@product.Image != null)
+                                {
+                                    var base64 = Convert.ToBase64String(@product.Image);
+                                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                                    <img src="@imgSrc"/>
+                            
+                                }
+                                else
+                                {
+                                    <img src="~/Content/Images/ProductDefault.png" height="400" width="400" />
+                                }
 
-                            <img src="@imgSrc"/>
-                            <div class="panel">
-                                <h5><a>@Html.ActionLink(@product.Description, "Details", "Store", new {id = product.Id}, new {@style = "color: #4169e1"})</a></h5>
-                                <h6 class="subheader">@product.Price.ToString("N0") đ</h6>
+
+                                <div class="panel">
+                                    <h5><a>@Html.ActionLink(@product.Description, "Details", "Store", new { id = product.Id }, new { @style = "color: #4169e1" })</a></h5>
+                                    <h6 class="subheader">@product.Price.ToString("N0") đ</h6>
+                                </div>
                             </div>
-                        </div>
-                    }
+                        }
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </body>
 
 

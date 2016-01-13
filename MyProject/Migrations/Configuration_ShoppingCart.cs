@@ -1,98 +1,66 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Data.Entity.Migrations;
+﻿using System.Collections.Generic;
 using System.Drawing;
-using System.Dynamic;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Web;
 using System.Web.Hosting;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using MyProject.Models;
 using MyProject.Models.Account;
 using MyProject.Models.Core;
 using MyProject.Models.ShoppingCart;
 
-namespace MyProject.DAL
+namespace MyProject.Migrations
 {
-    public class DatabaseMasterInitializer : DropCreateDatabaseIfModelChanges<DatabaseMasterContext>
+    using System;
+    using System.Data.Entity;
+    using System.Data.Entity.Migrations;
+    using System.Linq;
+
+    internal sealed class Configuration_ShoppingCart : DbMigrationsConfiguration<MyProject.DAL.ShoppingCartContext>
     {
-        protected override void Seed(DatabaseMasterContext context)
+        public Configuration_ShoppingCart()
         {
-            using (var idc = new IdentityContext())
+            AutomaticMigrationsEnabled = true;
+        }
+
+        protected override void Seed(MyProject.DAL.ShoppingCartContext cContext)
+        {
+            //set up account address
+
+            AddressFlow.AddNewAddress("huynguyenvt1989@gmail.com", new Address()
             {
-                var userStore = new UserStore<ApplicationUser>(idc);
-                var userManager = new UserManager<ApplicationUser>(userStore);
-                var userToInsert = new ApplicationUser
-                {
-                    Email = "huynguyenvt1989@gmail.com",
-                    UserName = "huynguyenvt1989@gmail.com",
-                    PhoneNumber = "503-984-5029",
-                    FirstName = "Jason",
-                    LastName = "Nguyen",
-                    ProfilePicture = ImageToByteArray(Image.FromFile(HostingEnvironment.MapPath(@"~/Content/Images/Profile1.jpg"))),
-                };
-                userManager.Create(userToInsert, "vt1989");
+                AddressType = new AddressType() { Code = "Primary", Description = "Primary address" },
+                Code = Guid.NewGuid().ToString(),
+                Line1 = "1508 duong 30 thang 4",
+                Line2 = "F12, Tp Vung tau",
+                Line3 = "Viet Nam",
+                Primary = true
+            });
 
-                userToInsert = new ApplicationUser
-                {
-                    Email = "muctim308@gmail.com",
-                    UserName = "muctim308@gmail.com",
-                    FirstName = "Amy",
-                    LastName = "Vo",
-                    ProfilePicture = ImageToByteArray(Image.FromFile(HostingEnvironment.MapPath(@"~/Content/Images/Profile2.jpg"))),
-                };
-                userManager.Create(userToInsert, "vt1989");
-            }
-
-
-
-            //set up products 
-            using (var cContext = new ShoppingCartContext())
+            AddressFlow.AddNewAddress("huynguyenvt1989@gmail.com", new Address()
             {
+                AddressType = new AddressType() { Code = "Alternative", Description = "Alternative address" },
+                Code = Guid.NewGuid().ToString(),
+                Line1 = "17000 duong Phan Chau Trinh",
+                Line2 = "F11, Tp Vung tau",
+                Line3 = "Viet Nam",
+                Primary = false
+            });
 
-                //set up account address
-
-                AddressFlow.AddNewAddress("huynguyenvt1989@gmail.com", new Address()
-                {
-                    AddressType = new AddressType() { Code = "Primary", Description = "Primary address" },
-                    Code = Guid.NewGuid().ToString(),
-                    Line1 = "1508 duong 30 thang 4",
-                    Line2 = "F12, Tp Vung tau",
-                    Line3 = "Viet Nam",
-                    Primary = true
-                });
-
-                AddressFlow.AddNewAddress("huynguyenvt1989@gmail.com", new Address()
-                {
-                    AddressType = new AddressType() { Code = "Alternative", Description = "Alternative address" },
-                    Code = Guid.NewGuid().ToString(),
-                    Line1 = "17000 duong Phan Chau Trinh",
-                    Line2 = "F11, Tp Vung tau",
-                    Line3 = "Viet Nam",
-                    Primary = false
-                });
-
-                var sequences = new List<Sequence>
+            var sequences = new List<Sequence>
                 {
                     new Sequence(){Code = "Order", StartValue = 10000, CurrentValue = 10000},
                     new Sequence(){Code = "Item", StartValue = 20000, CurrentValue = 20004},
                     new Sequence(){Code = "Category", StartValue = 30000, CurrentValue = 30001}
                 };
 
-                cContext.Sequences.AddRange(sequences);
-                cContext.SaveChanges();
+            cContext.Sequences.AddRange(sequences);
+            cContext.SaveChanges();
 
-                cContext.Categories.AddRange(new List<Category>
+            cContext.Categories.AddRange(new List<Category>
                 {
                     new Category {Code = "30000", Description = "Female-Winter-Collection"},
                     new Category {Code = "30001", Description = "Female-Casual-Collection"},
                 });
-                cContext.SaveChanges();
+            cContext.SaveChanges();
 
-                var products = new List<Product>
+            var products = new List<Product>
                 {
                     new Product
                     {
@@ -100,8 +68,8 @@ namespace MyProject.DAL
                         Code = "20000",
                         BuyInPrice = 150000,
                         Description = "Heathered Knit Drawstring Jumpsuit",
-                        Image =
-                            ImageToByteArray(Image.FromFile(HostingEnvironment.MapPath(@"~/Content/Images/Image1.jpg"))),
+                        //Image =
+                        //    ImageToByteArray(Image.FromFile(HostingEnvironment.MapPath(@"~/Content/Images/Image1.jpg"))),
                         FeatureProduct = true,
                         Weight = 1,
                         QuantityOnHand = 29,
@@ -136,8 +104,8 @@ namespace MyProject.DAL
                         Code = "20001",
                         BuyInPrice = 150000,
                         Description = "Two-pocket Gingham Shirt",
-                        Image =
-                            ImageToByteArray(Image.FromFile(HostingEnvironment.MapPath(@"~/Content/Images/Image2.jpg"))),
+                        //Image =
+                        //    ImageToByteArray(Image.FromFile(HostingEnvironment.MapPath(@"~/Content/Images/Image2.jpg"))),
                         FeatureProduct = true,
                         Weight = 0.5m,
                         QuantityOnHand = 22,
@@ -172,8 +140,8 @@ namespace MyProject.DAL
                         Code = "20002",
                         BuyInPrice = 150000,
                         Description = "Upside-Down Eiffei Tower Tee",
-                        Image =
-                            ImageToByteArray(Image.FromFile(HostingEnvironment.MapPath(@"~/Content/Images/Image3.jpg"))),
+                        //Image =
+                        //    ImageToByteArray(Image.FromFile(HostingEnvironment.MapPath(@"~/Content/Images/Image3.jpg"))),
                         FeatureProduct = true,
                         Weight = 0.25m,
                         QuantityOnHand = 40,
@@ -209,8 +177,8 @@ namespace MyProject.DAL
                         BuyInPrice = 150000,
                         Description = "Perforated Faux Leather Loafers",
                         DetailDescription = "this is a good product , Heathered Knit Drawstring Jumpsuit. Ship from USA.",
-                        Image =
-                            ImageToByteArray(Image.FromFile(HostingEnvironment.MapPath(@"~/Content/Images/Image4.jpg"))),
+                        //Image =
+                        //    ImageToByteArray(Image.FromFile(HostingEnvironment.MapPath(@"~/Content/Images/Image4.jpg"))),
                         FeatureProduct = true,
                         Weight = .125m,
                         QuantityOnHand = 15,
@@ -245,8 +213,8 @@ namespace MyProject.DAL
                         BuyInPrice = 150000,
                         Description = "Faux Leather Skinny Pants",
                         DetailDescription = "this is a good product , Heathered Knit Drawstring Jumpsuit. Ship from USA.",
-                        Image =
-                            ImageToByteArray(Image.FromFile(HostingEnvironment.MapPath(@"~/Content/Images/Image5.jpg"))),
+                        //Image =
+                        //    ImageToByteArray(Image.FromFile(HostingEnvironment.MapPath(@"~/Content/Images/Image5.jpg"))),
                         FeatureProduct = false,
                         Weight = 1m,
                         QuantityOnHand = 20,
@@ -276,10 +244,10 @@ namespace MyProject.DAL
                     }
                 };
 
-                products.ForEach(s => cContext.Products.Add(s));
-                cContext.SaveChanges();
+            products.ForEach(s => cContext.Products.Add(s));
+            cContext.SaveChanges();
 
-                cContext.PriceTypes.AddRange(new List<PriceType>()
+            cContext.PriceTypes.AddRange(new List<PriceType>()
                 {
                     new PriceType()
                     {
@@ -292,10 +260,10 @@ namespace MyProject.DAL
                         Description = "Whole Sale",
                     }
                 });
-                cContext.SaveChanges();
+            cContext.SaveChanges();
 
 
-                cContext.ProductOffers.AddRange(new List<ProductOffer>()
+            cContext.ProductOffers.AddRange(new List<ProductOffer>()
                 {
                     new ProductOffer()
                     {
@@ -379,10 +347,10 @@ namespace MyProject.DAL
                     },
                 });
 
-                cContext.SaveChanges();
+            cContext.SaveChanges();
 
-                //promotion
-                cContext.Promotions.AddRange(new List<Promotion>()
+            //promotion
+            cContext.Promotions.AddRange(new List<Promotion>()
                 {
                     new Promotion()
                     {
@@ -447,39 +415,39 @@ namespace MyProject.DAL
                     },
 
                 });
-                cContext.SaveChanges();
+            cContext.SaveChanges();
 
-                //cContext.CartLineItems.AddRange(new List<CartLineItem>
-                //{
-                //    new CartLineItem()
-                //    {
-                //        Code = Guid.NewGuid().ToString(),
-                //        DiscountAmount = 0m,
-                //        Quantity = 5,
-                //        OriginalPrice = 0m,
-                //        ShippingCost = 0m,
-                //        DiscountedPrice = 0m,
-                //        ProductCode = "1001",
-                //        PriceType = "R",
-                //        DateCreated = DateTime.Now
-                //    },
-                //    new CartLineItem()
-                //    {
-                //        Code = Guid.NewGuid().ToString(),
-                //        DiscountAmount = 0m,
-                //        Quantity = 5,
-                //        OriginalPrice = 0m,
-                //        ShippingCost = 0m,
-                //        DiscountedPrice = 0m,
-                //        ProductCode = "1002",
-                //        PriceType = "W",
-                //        DateCreated = DateTime.Now
-                //    },
-                //});
+            //cContext.CartLineItems.AddRange(new List<CartLineItem>
+            //{
+            //    new CartLineItem()
+            //    {
+            //        Code = Guid.NewGuid().ToString(),
+            //        DiscountAmount = 0m,
+            //        Quantity = 5,
+            //        OriginalPrice = 0m,
+            //        ShippingCost = 0m,
+            //        DiscountedPrice = 0m,
+            //        ProductCode = "1001",
+            //        PriceType = "R",
+            //        DateCreated = DateTime.Now
+            //    },
+            //    new CartLineItem()
+            //    {
+            //        Code = Guid.NewGuid().ToString(),
+            //        DiscountAmount = 0m,
+            //        Quantity = 5,
+            //        OriginalPrice = 0m,
+            //        ShippingCost = 0m,
+            //        DiscountedPrice = 0m,
+            //        ProductCode = "1002",
+            //        PriceType = "W",
+            //        DateCreated = DateTime.Now
+            //    },
+            //});
 
-                //cContext.SaveChanges();
+            //cContext.SaveChanges();
 
-                var paymentStatuses = new List<PaymentStatus>
+            var paymentStatuses = new List<PaymentStatus>
                 {
                     new PaymentStatus() { Code = "Hold", Description = "On Hold"},
                     new PaymentStatus() { Code = "Processing", Description = "Processing"},
@@ -487,18 +455,18 @@ namespace MyProject.DAL
                     new PaymentStatus() { Code = "Completed", Description = "Completed"}
                 };
 
-                cContext.PaymentStatuses.AddRange(paymentStatuses);
-                cContext.SaveChanges();
+            cContext.PaymentStatuses.AddRange(paymentStatuses);
+            cContext.SaveChanges();
 
 
-                cContext.PaymentTypes.AddRange(new List<PaymentType>
+            cContext.PaymentTypes.AddRange(new List<PaymentType>
                 {
                     new PaymentType() {Code = "Bank", Description = "Chuyển tiền qua tài khoản"},
                     new PaymentType() {Code = "Cash", Description = "Gởi tiền mặt"},
                 });
-                cContext.SaveChanges();
+            cContext.SaveChanges();
 
-                cContext.PaymentTransactions.AddRange(new List<PaymentTransaction>
+            cContext.PaymentTransactions.AddRange(new List<PaymentTransaction>
                 {
                     new PaymentTransaction()
                     {
@@ -513,9 +481,9 @@ namespace MyProject.DAL
                 });
 
 
-                var paymentTransactionId = cContext.SaveChanges();
+            var paymentTransactionId = cContext.SaveChanges();
 
-                cContext.Carts.AddRange(new List<Cart>
+            cContext.Carts.AddRange(new List<Cart>
                 {
                     new Cart()
                     {
@@ -527,7 +495,7 @@ namespace MyProject.DAL
                 });
 
 
-                cContext.Orders.AddRange(new List<Order>
+            cContext.Orders.AddRange(new List<Order>
                 {
                     new Order()
                     {
@@ -551,7 +519,7 @@ namespace MyProject.DAL
                     }
                 });
 
-                cContext.AppSettings.AddRange(new List<AppSetting>
+            cContext.AppSettings.AddRange(new List<AppSetting>
                 {
                     new AppSetting()
                     {
@@ -576,9 +544,7 @@ namespace MyProject.DAL
                     }
                 });
 
-                cContext.SaveChanges();
-
-            }
+            cContext.SaveChanges();
         }
 
         public byte[] ImageToByteArray(Image x)

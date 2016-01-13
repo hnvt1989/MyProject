@@ -198,24 +198,12 @@
     <Compile Include="DAL\DatabaseMasterInitializerForTest.cs" />
     <Compile Include="DAL\IdentityContext.cs" />
     <Compile Include="DAL\ShoppingCartContext.cs" />
-    <Compile Include="DataContext\IdentityMigrations\201412302033055_InitialCreate.cs" />
-    <Compile Include="DataContext\IdentityMigrations\201412302033055_InitialCreate.Designer.cs">
-      <DependentUpon>201412302033055_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DataContext\IdentityMigrations\Configuration.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\Helper.cs" />
-    <Compile Include="Migrations\201412301706206_InitialCreate.cs" />
-    <Compile Include="Migrations\201412301706206_InitialCreate.Designer.cs">
-      <DependentUpon>201412301706206_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201412301738242_FirstName.cs" />
-    <Compile Include="Migrations\201412301738242_FirstName.Designer.cs">
-      <DependentUpon>201412301738242_FirstName.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Migrations\Configuration_ShoppingCart.cs" />
+    <Compile Include="Migrations\Configuration_IdentityDb.cs" />
     <Compile Include="Models\Account\AccountAddress.cs" />
     <Compile Include="Models\Core\AppSetting.cs" />
     <Compile Include="Models\Core\Sequence.cs" />
@@ -470,7 +458,8 @@
     <Content Include="Views\CategoryManagment\EditCategory.cshtml" />
     <Content Include="Views\AppSetting\Index.cshtml" />
     <Content Include="Views\AppSetting\EditAppSetting.cshtml" />
-    <None Include="Views\Store\ProductDetails.cshtml" />
+    <Content Include="Views\Store\Detail.cshtml" />
+    <None Include="Views\Store\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -482,18 +471,6 @@
       <SubType>Designer</SubType>
     </Content>
     <None Include="Project_Readme.html" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="DataContext\IdentityMigrations\201412302033055_InitialCreate.resx">
-      <DependentUpon>201412302033055_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201412301706206_InitialCreate.resx">
-      <DependentUpon>201412301706206_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201412301738242_FirstName.resx">
-      <DependentUpon>201412301738242_FirstName.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -42,7 +42,8 @@ namespace MyProject.Controllers
                 //{
                 //    model.PaymentTransaction.PaymentType =  context.PaymentTypes.SingleOrDefault(t => t.Id == model.PaymentTransaction.PaymentTypeId);
                 //}
-                await EmailSender.Send(model);
+                //todo: this shouldnt' be here, should be right after we created an order
+                //await EmailSender.Send(model);
 
                 return View(model);
             }
