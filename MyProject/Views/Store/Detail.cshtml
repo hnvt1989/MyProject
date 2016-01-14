@@ -1,4 +1,5 @@
-﻿@model MyProject.Models.ViewModels.ProductViewModel
+﻿@using MyProject.AppLogic
+@model MyProject.Models.ViewModels.ProductViewModel
 
 @{
     ViewBag.Title = "ProductDetails";
@@ -19,17 +20,20 @@
                 else
                 {
                     //default image
-                    <img src="~/Content/Images/ProductDefault.png" height="40" width="40"/>
+                    <img src="~/Content/Images/ProductDefault.png" height="400" width="400"/>
                 }
         </div>
         <div class="large-5 columns">
-            <h4>@Model.Description</h4>
-            <p> @Model.DetailDescription</p>
+            <h4><span style="color:darkslategrey">@Model.Description</span></h4>
+            @*            <h4>@Model.Description</h4>
+            <p> @Model.DetailDescription</p>*@
+            @Html.DisplayWithBreaksFor(m=> @Model.DetailDescription)
+@*            @Html.Raw("<pre>" + Html.Encode(@Model.DetailDescription).Replace(" ", "&nbsp;") + "</pre>");*@
             <div class="panel">
                 <h5><b><em>Giá tiền: </em> @Model.Price.ToString("N0") đ</b></h5>
-                <h6 class="subheader">Cước vận chuyển:   @Model.ShippingCost.ToString("N0") đ </h6>
-                 <p class="button">
-                    @Html.ActionLink("Thêm vào giỏ hàng", "ContinueToCart", "Store", new {id = @Model.Id}, new {@style="color: #FFFFFF"})
+                <h6 class="subheader">Cước vận chuyển: @Model.ShippingCost.ToString("N0") đ </h6>
+                <p class="button">
+                    @Html.ActionLink("Thêm vào giỏ hàng", "ContinueToCart", "Store", new {id = @Model.Id}, new {@style = "color: #FFFFFF"})
                 </p>
             </div>
         </div>

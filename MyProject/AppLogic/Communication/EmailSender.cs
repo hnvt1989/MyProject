@@ -83,12 +83,13 @@ namespace MyProject.AppLogic.Communication
                 SMTP_USERNAME = context.AppSettings.Single(a => a.Code == "EmailFrom_UserName").Value;
                 SMTP_PASSWORD = context.AppSettings.Single(a => a.Code == "EmailFrom_Password").Value;
                 HOST = context.AppSettings.Single(a => a.Code == "EmailFrom_Host").Value;// Amazon SES SMTP host name. This example uses the US West (Oregon) region.
-                TO = context.AppSettings.Single(a => a.Code == "NotificationEmail1").Value; 
+                TO = context.AppSettings.Single(a => a.Code == "NotificationEmail1").Value;
+                TO = context.AppSettings.Single(a => a.Code == "NotificationEmail2").Value;
             }
 
 
             var SUBJECT = "An order has placed !";
-            var BODY = string.Format("<p>Order number: {0} from customer {1} </p><p>Order Total:</p><p>{2}</p>", orderNumber, order.CheckOutInfo.Name, order.CheckOutInfo.CartTotal.ToString("N0"));
+            var BODY = string.Format("<p>Order number: {0} from customer {1} </p><p>Order Total:</p><p>{2}</p>", orderNumber, order.CheckOutInfo.Name, order.CartViewModel.CartTotal.ToString("N0"));
 
             //const String FROM = "SENDER@EXAMPLE.COM";   // Replace with your "From" address. This address must be verified.
             //const String TO = "RECIPIENT@EXAMPLE.COM";  // Replace with a "To" address. If your account is still in the
