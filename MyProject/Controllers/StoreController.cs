@@ -37,6 +37,8 @@ namespace MyProject.Controllers
                 productModel.Price = offers.Single(po => po.ProductId == prod.Id && po.PriceTypeId == 1).Price;
                 productModel.FeatureProduct = prod.FeatureProduct;
                 productModel.Image = prod.Image;
+                productModel.ImageAlt0 = prod.ImageAlt0;
+                productModel.ImageAlt1 = prod.ImageAlt1;
                 productModel.DetailDescription = prod.DetailDescription;
                 productModel.ShippingCost = prod.Weight*shippingRate;
             }

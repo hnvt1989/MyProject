@@ -40,6 +40,10 @@ namespace MyProject.Models.ShoppingCart
 
         public byte[] Image { get; set; }
 
+        public byte[] ImageAlt0 { get; set; }
+
+        public byte[] ImageAlt1 { get; set; }
+
         [ForeignKey("Category")]
         public ICollection<Category> Categories { get; set; }
 

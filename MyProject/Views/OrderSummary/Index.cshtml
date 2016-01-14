@@ -64,8 +64,8 @@
 
                     <table>
                         <tr>
-                            <th>
-                            </th>
+@*                            <th>
+                            </th>*@
                             <th>Tên sản phẩm
                             </th>
                             <th>Giá tiền
@@ -85,7 +85,7 @@
                         @foreach (var item in Model.OrderDetails)
                         {
                             <tr id="row-@item.Product.Id">
-                                <td>
+@*                                <td>
                                     @{
                                         if (@item.Product.Image != null)
                                         {
@@ -99,7 +99,7 @@
                                             <img src="~/Content/Images/ProductDefault.png" height="40" width="40"/>
                                         }
                                     }
-                                </td>
+                                </td>*@
                                 <td>
                                     @item.Product.Description
                                 </td>

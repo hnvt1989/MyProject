@@ -35,6 +35,8 @@
                 </li>
             </ul>
         </li>
+
+
         <li class="has-dropdown">
             @Html.ActionLink("App Setting", "Index", "AppSetting", routeValues: null, htmlAttributes: new {title = "Manage"})
             <ul class="dropdown">
@@ -66,6 +68,8 @@ else
     <ul class="top-bar-items right">
         <li>@Html.ActionLink("Trang chủ", "Index", "Home", routeValues: null, htmlAttributes: new { id = "homeLink" })</li>
         @*        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new {id = "registerLink"})</li>*@
-        <li>@Html.ActionLink("Đăng nhập", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+        <li>@Html.ActionLink("Đăng nhập", "Login", "Account", routeValues: null, htmlAttributes: new {id = "loginLink"})</li>
+
+        <li>@Html.ActionLink("Index1", "Index1", "ProductManagement", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     </ul>
 }

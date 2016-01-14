@@ -1,165 +1,211 @@
-﻿<!DOCTYPE html>
-<!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
+﻿
+@{
+    ViewBag.Title = "Index1";
+}
+
+
+<!doctype html>
 <html class="no-js" lang="en">
+
+    <script>
+
+        function changeDefaultImage(data) {
+            var img = document.getElementById("defaultImage");
+            img.src = data.src;
+            return false;
+        }
+
+</script>
+
+
 <head>
-    <meta charset="utf-8">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Foundation 5</title>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.3/css/normalize.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.3/css/foundation.min.css">
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Foundation | Welcome</title>
+    <link rel="stylesheet" href="http://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.min.css">
     <link href='http://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css' rel='stylesheet' type='text/css'>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
 </head>
 <body>
-    <nav class="top-bar" data-topbar>
-        <ul class="title-area">
-            <li class="name">
-                <h1>
-                    <a href="#">Top Bar Title
-                    </a>
-                </h1>
-            </li>
-            <li class="toggle-topbar menu-icon"><a href="#"><span>menu</span></a></li>
-        </ul>
-        <section class="top-bar-section">
-            <ul class="right">
-                <li class="divider"></li>
-                <li class="has-dropdown">
-                    <a href="#">Main Item 1</a>
-                    <ul class="dropdown">
-                        <li>
-                            <label>Section Name</label></li>
-                        <li class="has-dropdown">
-                            <a href="#" class="">Has Dropdown, Level 1</a>
-                            <ul class="dropdown">
-                                <li><a href="#">Dropdown Options</a></li>
-                                <li><a href="#">Dropdown Options</a></li>
-                                <li><a href="#">Level 2</a></li>
-                                <li><a href="#">Subdropdown Option</a></li>
-                                <li><a href="#">Subdropdown Option</a></li>
-                                <li><a href="#">Subdropdown Option</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#">Dropdown Option</a></li>
-                        <li><a href="#">Dropdown Option</a></li>
-                        <li class="divider"></li>
-                        <li>
-                            <label>Section Name</label></li>
-                        <li><a href="#">Dropdown Option</a></li>
-                        <li><a href="#">Dropdown Option</a></li>
-                        <li><a href="#">Dropdown Option</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">See all →</a></li>
+
+<div class="top-bar">
+    <div class="row">
+        <div class="top-bar-left">
+            <ul class="dropdown menu" data-dropdown-menu>
+                <li class="menu-text">Yeti Store</li>
+                <li class="has-submenu">
+                    <a href="#">One</a>
+                    <ul class="submenu menu vertical" data-submenu>
+                        <li><a href="#">One</a></li>
+                        <li><a href="#">Two</a></li>
+                        <li><a href="#">Three</a></li>
                     </ul>
                 </li>
-                <li class="divider"></li>
-                <li><a href="#">Main Item 2</a></li>
-                <li class="divider"></li>
-                <li class="has-dropdown">
-                    <a href="#">Main Item 3</a>
-                    <ul class="dropdown">
-                        <li><a href="#">Dropdown Option</a></li>
-                        <li><a href="#">Dropdown Option</a></li>
-                        <li><a href="#">Dropdown Option</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">See all →</a></li>
-                    </ul>
-                </li>
+                <li><a href="#">Two</a></li>
+                <li><a href="#">Three</a></li>
             </ul>
-        </section>
+        </div>
+        <div class="top-bar-right">
+            <ul class="menu">
+                <li><input type="search" placeholder="Search"></li>
+                <li><button type="button" class="button">Search</button></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<br>
+
+<div class="row columns">
+    <nav aria-label="You are here:" role="navigation">
+        <ul class="breadcrumbs">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Features</a></li>
+            <li class="disabled">Gene Splicing</li>
+            <li>
+                <span class="show-for-sr">Current: </span> Cloning
+            </li>
+        </ul>
     </nav>
-
-
-    <div class="row">
-        <div class="large-3 columns">
-            <h1>
-                <img src="http://placehold.it/400x100&text=Logo"></h1>
-        </div>
-        <div class="large-9 columns right">
-            <form>
-                <div class="row collapse">
-                    <div class="large-10 small-8 columns">
-                        <input type="text" />
-                    </div>
-                    <div class="large-2 small-4 columns">
-                        <a href="#" class="postfix button expand">Search</a>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <div class="row">
-        <hr>
-        <div class="large-2 columns">
-            <img src="http://placehold.it/400x300&text=[img]">
-            <br>
-            <img src="http://placehold.it/400x300&text=[img]">
-            <br>
-            <img src="http://placehold.it/400x300&text=[img]">
-            <br>
-            <img src="http://placehold.it/400x300&text=[img]">
-        </div>
-        <div class="large-5 columns">
-            <img src="http://placehold.it/400x500">
-        </div>
-        <div class="large-5 columns">
-            <h4>This is a content section.</h4>
-            <p>Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit, dolore aliqua non est magna in labore pig pork biltong. Eiusmod swine spare ribs reprehenderit culpa. Boudin aliqua adipisicing rump corned beef.</p>
-            <div class="panel">
-                <h5>Header</h5>
-                <h6 class="subheader">Praesent placerat dui tincidunt elit suscipit sed.</h6>
-                <a href="#" class="small button">Add to Cart</a>
+</div>
+<div class="row">
+    <div class="medium-6 columns">
+        <img id="defaultImage" class="thumbnail" src="~/Content/Images/ProductDefault.png" height="400" width="400">
+        <div class="row small-up-4">
+            <div class="column">
+                <img class="thumbnail" src="~/Content/Images/DefaultProfile.jpg" onclick=" changeDefaultImage(this); ">
+            </div>
+            <div class="column">
+                <img class="thumbnail" src="http://placehold.it/250x200">
+            </div>
+            <div class="column">
+                <img class="thumbnail" src="http://placehold.it/250x200">
+            </div>
+            <div class="column">
+                <img class="thumbnail" src="http://placehold.it/250x200">
             </div>
         </div>
     </div>
-    <div class="row">
-        <hr />
-        <div class="large-6 columns">
-            <h4>This is a content section.</h4>
-            <p>Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit, dolore aliqua non est magna in labore pig pork biltong. Eiusmod swine spare ribs reprehenderit culpa. Boudin aliqua adipisicing rump corned beef.</p>
+    <div class="medium-6 large-5 columns">
+        <h3>hey</h3>
+        <p>Nunc eu ullamcorper orci. Quisque eget odio ac lectus vestibulum faucibus eget in metus. In pellentesque faucibus vestibulum. Nulla at nulla justo, eget luctus tortor. Nulla facilisi. Duis aliquet egestas purus in.</p>
+        <label>Size
+            <select>
+                <option value="husker">Small</option>
+                <option value="starbuck">Medium</option>
+                <option value="hotdog">Large</option>
+                <option value="apollo">Yeti</option>
+            </select>
+        </label>
+        <div class="row">
+            <div class="small-3 columns">
+                <label for="middle-label" class="middle">Quantity</label>
+            </div>
+            <div class="small-9 columns">
+                <input type="text" id="middle-label" placeholder="One fish two fish">
+            </div>
         </div>
-        <div class="large-6 columns">
-            <h4>This is a content section.</h4>
-            <p>Pork drumstick turkey fugiat. Tri-tip elit turducken pork chop in. Swine short ribs meatball irure bacon nulla pork belly cupidatat meatloaf cow. Nulla corned beef sunt ball tip, qui bresaola enim jowl. Capicola short ribs minim salami nulla nostrud pastrami.</p>
+        <a href="#" class="button large expanded">Buy Now</a>
+        <div class="small secondary expanded button-group">
+            <a class="button">Facebook</a>
+            <a class="button">Twitter</a>
+            <a class="button">Yo</a>
         </div>
     </div>
-    <div class="row">
-        <hr>
-        <div class="large-12 columns">
-            <h4>You might also like:</h4>
-            <img src="http://placehold.it/200x150&text=[img]">
-            <img src="http://placehold.it/200x150&text=[img]">
-            <img src="http://placehold.it/200x150&text=[img]">
-            <img src="http://placehold.it/200x150&text=[img]">
-        </div>
-    </div>
-    <footer class="row">
-        <div class="large-12 columns">
-            <hr>
-            <div class="row">
-                <div class="large-6 columns">
-                    <p>© Copyright no one at all. Go to town.</p>
+</div>
+<div class="column row">
+    <hr>
+    <ul class="tabs" data-tabs id="example-tabs">
+        <li class="tabs-title is-active"><a href="#panel1" aria-selected="true">Reviews</a></li>
+        <li class="tabs-title"><a href="#panel2">Similar Products</a></li>
+    </ul>
+    <div class="tabs-content" data-tabs-content="example-tabs">
+        <div class="tabs-panel is-active" id="panel1">
+            <h4>Reviews</h4>
+            <div class="media-object stack-for-small">
+                <div class="media-object-section">
+                    <img class="thumbnail" src="http://placehold.it/200x200">
                 </div>
-                <div class="large-6 columns">
-                    <ul class="inline-list right">
-                        <li><a href="#">Link 1</a></li>
-                        <li><a href="#">Link 2</a></li>
-                        <li><a href="#">Link 3</a></li>
-                        <li><a href="#">Link 4</a></li>
-                    </ul>
+                <div class="media-object-section">
+                    <h5>Mike Stevenson</h5>
+                    <p>I'm going to improvise. Listen, there's something you should know about me... about inception. An idea is like a virus, resilient, highly contagious. The smallest seed of an idea can grow. It can grow to define or destroy you.</p>
+                </div>
+            </div>
+            <div class="media-object stack-for-small">
+                <div class="media-object-section">
+                    <img class="thumbnail" src="http://placehold.it/200x200">
+                </div>
+                <div class="media-object-section">
+                    <h5>Mike Stevenson</h5>
+                    <p>I'm going to improvise. Listen, there's something you should know about me... about inception. An idea is like a virus, resilient, highly contagious. The smallest seed of an idea can grow. It can grow to define or destroy you</p>
+                </div>
+            </div>
+            <div class="media-object stack-for-small">
+                <div class="media-object-section">
+                    <img class="thumbnail" src="http://placehold.it/200x200">
+                </div>
+                <div class="media-object-section">
+                    <h5>Mike Stevenson</h5>
+                    <p>I'm going to improvise. Listen, there's something you should know about me... about inception. An idea is like a virus, resilient, highly contagious. The smallest seed of an idea can grow. It can grow to define or destroy you</p>
+                </div>
+            </div>
+            <label>
+                My Review
+                <textarea placeholder="None"></textarea>
+            </label>
+            <button class="button">Submit Review</button>
+        </div>
+        <div class="tabs-panel" id="panel2">
+            <div class="row medium-up-3 large-up-5">
+                <div class="column">
+                    <img class="thumbnail" src="http://placehold.it/350x200">
+                    <h5>Other Product <small>$22</small></h5>
+                    <p>In condimentum facilisis porta. Sed nec diam eu diam mattis viverra. Nulla fringilla, orci ac euismod semper, magna diam.</p>
+                    <a href="#" class="button hollow tiny expanded">Buy Now</a>
+                </div>
+                <div class="column">
+                    <img class="thumbnail" src="http://placehold.it/350x200">
+                    <h5>Other Product <small>$22</small></h5>
+                    <p>In condimentum facilisis porta. Sed nec diam eu diam mattis viverra. Nulla fringilla, orci ac euismod semper, magna diam.</p>
+                    <a href="#" class="button hollow tiny expanded">Buy Now</a>
+                </div>
+                <div class="column">
+                    <img class="thumbnail" src="http://placehold.it/350x200">
+                    <h5>Other Product <small>$22</small></h5>
+                    <p>In condimentum facilisis porta. Sed nec diam eu diam mattis viverra. Nulla fringilla, orci ac euismod semper, magna diam.</p>
+                    <a href="#" class="button hollow tiny expanded">Buy Now</a>
+                </div>
+                <div class="column">
+                    <img class="thumbnail" src="http://placehold.it/350x200">
+                    <h5>Other Product <small>$22</small></h5>
+                    <p>In condimentum facilisis porta. Sed nec diam eu diam mattis viverra. Nulla fringilla, orci ac euismod semper, magna diam.</p>
+                    <a href="#" class="button hollow tiny expanded">Buy Now</a>
+                </div>
+                <div class="column">
+                    <img class="thumbnail" src="http://placehold.it/350x200">
+                    <h5>Other Product <small>$22</small></h5>
+                    <p>In condimentum facilisis porta. Sed nec diam eu diam mattis viverra. Nulla fringilla, orci ac euismod semper, magna diam.</p>
+                    <a href="#" class="button hollow tiny expanded">Buy Now</a>
                 </div>
             </div>
         </div>
-    </footer>
-    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.3/js/foundation.min.js"></script>
-    <script>
-        $(document).foundation();
-    </script>
+    </div>
+</div>
+<div class="row column">
+    <hr>
+    <ul class="menu">
+        <li>Yeti Store</li>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+        <li class="float-right">Copyright 2016</li>
+    </ul>
+</div>
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="http://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.js"></script>
+<script>
+    $(document).foundation();
+</script>
 </body>
 </html>
 

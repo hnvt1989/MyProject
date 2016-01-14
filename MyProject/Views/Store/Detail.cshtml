@@ -5,37 +5,82 @@
     ViewBag.Title = "ProductDetails";
 }
 
+<script>
 
-<body>
+    function changeDefaultImage(data) {
+        var img = document.getElementById("defaultImage");
+        var temp = data.src;
+        data.src = img.src;
+        img.src = temp;
 
-    <div class="row">
-        <hr>
-        <div class="large-5 columns">
-                @if (@Model.Image != null)
-                {
-                    var base64 = Convert.ToBase64String(@Model.Image);
-                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-                            <img src="@imgSrc" height="400" width="400"/>
-                }
-                else
-                {
-                    //default image
-                    <img src="~/Content/Images/ProductDefault.png" height="400" width="400"/>
-                }
+        return false;
+    }
+
+</script>
+
+<br/>
+
+<div class="row">
+        <div class="medium-6 columns">
+            @if (@Model.Image != null)
+            {
+                var base64 = Convert.ToBase64String(@Model.Image);
+                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                <img class = "thumbnail" id="defaultImage" src="@imgSrc"  height="400" width="400"/>
+            }
+            else
+            {
+                //default image
+                <img id="defaultImage" class="thumbnail" src="~/Content/Images/ProductDefault.png" height="400" width="400">
+            }
+            <ul class="small-block-grid-3">
+                <li>
+                    @if (@Model.ImageAlt0 != null)
+                    {
+                        var base64 = Convert.ToBase64String(@Model.ImageAlt0);
+                        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                        <img class = "thumbnail" src="@imgSrc"  height="100" width="100" onclick="changeDefaultImage(this);"/>
+                    }
+                </li>
+                <li>
+                    @if (@Model.ImageAlt1 != null)
+                    {
+                        var base64 = Convert.ToBase64String(@Model.ImageAlt1);
+                        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                        <img class = "thumbnail" src="@imgSrc"  height="100" width="100" onclick="changeDefaultImage(this);"/>
+                    }
+                </li>
+            </ul>
         </div>
-        <div class="large-5 columns">
-            <h4><span style="color:darkslategrey">@Model.Description</span></h4>
+    @*        <div class="large-5 columns">
+            @if (@Model.Image != null)
+            {
+                var base64 = Convert.ToBase64String(@Model.Image);
+                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                <img src="@imgSrc" height="400" width="400"/>
+            }
+            else
+            {
+                //default image
+                <img src="~/Content/Images/ProductDefault.png" height="400" width="400" />
+            }
+        </div>*@
+ 
+        <div class="medium-6 large-5 columns">
+            <h4><span style="color: darkslategrey">@Model.Description</span></h4>
             @*            <h4>@Model.Description</h4>
             <p> @Model.DetailDescription</p>*@
-            @Html.DisplayWithBreaksFor(m=> @Model.DetailDescription)
-@*            @Html.Raw("<pre>" + Html.Encode(@Model.DetailDescription).Replace(" ", "&nbsp;") + "</pre>");*@
+            @Html.DisplayWithBreaksFor(m => @Model.DetailDescription)
+            @*            @Html.Raw("<pre>" + Html.Encode(@Model.DetailDescription).Replace(" ", "&nbsp;") + "</pre>");*@
             <div class="panel">
-                <h5><b><em>Giá tiền: </em> @Model.Price.ToString("N0") đ</b></h5>
+                <h5><b><em>Giá tiền: </em>@Model.Price.ToString("N0") đ</b></h5>
                 <h6 class="subheader">Cước vận chuyển: @Model.ShippingCost.ToString("N0") đ </h6>
                 <p class="button">
-                    @Html.ActionLink("Thêm vào giỏ hàng", "ContinueToCart", "Store", new {id = @Model.Id}, new {@style = "color: #FFFFFF"})
+                    @Html.ActionLink("Thêm vào giỏ hàng", "ContinueToCart", "Store", new { id = @Model.Id }, new { @style = "color: #FFFFFF" })
                 </p>
             </div>
         </div>
-    </div>
-</body>
+</div>
+
+
+

@@ -53,7 +53,15 @@ namespace MyProject.Models.ViewModels
 
         public byte[] Image { get; set; }
 
+        public byte[] ImageAlt0 { get; set; }
+
+        public byte[] ImageAlt1 { get; set; }
+
         public HttpPostedFileBase ProductImage { get; set; }
+
+        public HttpPostedFileBase ProductImageAlt0 { get; set; }
+
+        public HttpPostedFileBase ProductImageAlt1 { get; set; }
 
         public List<Category> Categories { get; set; }
     }

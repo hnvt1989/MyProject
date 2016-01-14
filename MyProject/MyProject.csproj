@@ -238,6 +238,8 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\foundation\foundation.mvc.css" />
+    <Content Include="Content\foundation\normalize.css" />
     <Content Include="Content\Images\Email.JPG" />
     <Content Include="Content\Images\Facebook.JPG" />
     <Content Include="Content\Images\MainSiteProfile.jpg" />
@@ -247,8 +249,6 @@
     <Content Include="Content\Images\Profile1.jpg" />
     <Content Include="Content\Images\DefaultProfile.jpg" />
     <Content Include="Content\foundation\foundation.css" />
-    <Content Include="Content\foundation\foundation.mvc.css" />
-    <Content Include="Content\foundation\normalize.css" />
     <Content Include="Content\ie.css" />
     <Content Include="Content\Images\Image5.jpg" />
     <Content Include="Content\Images\Profile2.jpg" />
@@ -260,7 +260,6 @@
     <Content Include="Content\Site.css" />
     <Content Include="App_Readme\Foundation for Sites\readme.md" />
     <Content Include="config.rb" />
-    <Content Include="App_Readme\Foundation_readme.md" />
     <Content Include="Content\Images\Image4.jpg" />
     <Content Include="Content\Images\Image1.jpg" />
     <Content Include="Content\Images\Image2.jpg" />
@@ -455,8 +454,6 @@
     <Content Include="Views\Shared\OrderNotFound.cshtml" />
     <Content Include="Views\OrderSummary\OrderNotFound.cshtml" />
     <Content Include="Views\ProductManagement\Index.cshtml" />
-    <Content Include="Views\ProductManagement\Index1.cshtml" />
-    <Content Include="Views\ProductManagement\Index2.cshtml" />
     <Content Include="Views\ProductManagement\EditProduct.cshtml" />
     <Content Include="Views\ProductManagement\ProductNotFound.cshtml" />
     <Content Include="Views\CategoryManagment\Index.cshtml" />
@@ -464,6 +461,7 @@
     <Content Include="Views\AppSetting\Index.cshtml" />
     <Content Include="Views\AppSetting\EditAppSetting.cshtml" />
     <Content Include="Views\Store\Detail.cshtml" />
+    <Content Include="Views\ProductManagement\Index1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

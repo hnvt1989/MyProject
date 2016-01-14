@@ -74,6 +74,8 @@ namespace MyProject.Controllers
                             Code = prod.Code,
                             Description = prod.Description,
                             Image = prod.Image,
+                            //ImageAlt0 = prod.ImageAlt0,
+                            //ImageAlt1 = prod.ImageAlt1,
                             Id = prod.Id,
                             Active = prod.Active
                         });
@@ -81,6 +83,11 @@ namespace MyProject.Controllers
                     return View(productCategories);
                 }
             }
+            return View();
+        }
+
+        public ActionResult Index1()
+        {
             return View();
         }
 
@@ -141,6 +148,8 @@ namespace MyProject.Controllers
                             Description = product.Description,
                             DetailDescription = product.DetailDescription,
                             Image = product.Image,
+                            ImageAlt0 = product.ImageAlt0,
+                            ImageAlt1 = product.ImageAlt1,
                             Id = product.Id,
                             Categories = new List<Category>(),
                             BuyInPrice = product.BuyInPrice,
@@ -269,6 +278,51 @@ namespace MyProject.Controllers
 
                             newProd.Image = data;
                         }
+
+                        //alt image 0
+                        if (model.ProductView.ProductImageAlt0 != null)
+                        {
+                            if (model.ProductView.ProductImageAlt0.ContentLength > (4 * 1024 * 1024))
+                            {
+                                ModelState.AddModelError("CustomError", "Image can not be lager than 4MB.");
+                                return View();
+                            }
+                            if (
+                                !(model.ProductView.ProductImageAlt0.ContentType == "image/jpeg" ||
+                                  model.ProductView.ProductImageAlt0.ContentType == "image/gif"))
+                            {
+                                ModelState.AddModelError("CustomError", "Image must be in jpeg or gif format.");
+                            }
+
+                            byte[] data = new byte[model.ProductView.ProductImageAlt0.ContentLength];
+                            model.ProductView.ProductImageAlt0.InputStream.Read(data, 0,
+                                model.ProductView.ProductImageAlt0.ContentLength);
+
+                            newProd.ImageAlt0 = data;
+                        }
+
+                        //alt image 1
+                        if (model.ProductView.ProductImageAlt1 != null)
+                        {
+                            if (model.ProductView.ProductImageAlt1.ContentLength > (4 * 1024 * 1024))
+                            {
+                                ModelState.AddModelError("CustomError", "Image can not be lager than 4MB.");
+                                return View();
+                            }
+                            if (
+                                !(model.ProductView.ProductImageAlt1.ContentType == "image/jpeg" ||
+                                  model.ProductView.ProductImageAlt1.ContentType == "image/gif"))
+                            {
+                                ModelState.AddModelError("CustomError", "Image must be in jpeg or gif format.");
+                            }
+
+                            byte[] data = new byte[model.ProductView.ProductImageAlt1.ContentLength];
+                            model.ProductView.ProductImageAlt1.InputStream.Read(data, 0,
+                                model.ProductView.ProductImageAlt1.ContentLength);
+
+                            newProd.ImageAlt1 = data;
+                        }
+
                         context.Products.Add(newProd);
                         await context.SaveChangesAsync();
                         int productId = newProd.Id;
@@ -342,6 +396,50 @@ namespace MyProject.Controllers
                                 model.ProductView.ProductImage.ContentLength);
 
                             product.Image = data;
+                        }
+
+                        //alt image 0
+                        if (model.ProductView.ProductImageAlt0 != null)
+                        {
+                            if (model.ProductView.ProductImageAlt0.ContentLength > (4 * 1024 * 1024))
+                            {
+                                ModelState.AddModelError("CustomError", "Image can not be lager than 4MB.");
+                                return View();
+                            }
+                            if (
+                                !(model.ProductView.ProductImageAlt0.ContentType == "image/jpeg" ||
+                                  model.ProductView.ProductImageAlt0.ContentType == "image/gif"))
+                            {
+                                ModelState.AddModelError("CustomError", "Image must be in jpeg or gif format.");
+                            }
+
+                            byte[] data = new byte[model.ProductView.ProductImageAlt0.ContentLength];
+                            model.ProductView.ProductImageAlt0.InputStream.Read(data, 0,
+                                model.ProductView.ProductImageAlt0.ContentLength);
+
+                            product.ImageAlt0 = data;
+                        }
+
+                        //alt image 1
+                        if (model.ProductView.ProductImageAlt1 != null)
+                        {
+                            if (model.ProductView.ProductImageAlt1.ContentLength > (4 * 1024 * 1024))
+                            {
+                                ModelState.AddModelError("CustomError", "Image can not be lager than 4MB.");
+                                return View();
+                            }
+                            if (
+                                !(model.ProductView.ProductImageAlt1.ContentType == "image/jpeg" ||
+                                  model.ProductView.ProductImageAlt1.ContentType == "image/gif"))
+                            {
+                                ModelState.AddModelError("CustomError", "Image must be in jpeg or gif format.");
+                            }
+
+                            byte[] data = new byte[model.ProductView.ProductImageAlt1.ContentLength];
+                            model.ProductView.ProductImageAlt1.InputStream.Read(data, 0,
+                                model.ProductView.ProductImageAlt1.ContentLength);
+
+                            product.ImageAlt1 = data;
                         }
 
                         //update pricing

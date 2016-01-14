@@ -18,18 +18,18 @@
 
             <div class="row">
                 <hr>
-                <div class="large-5 columns">
+                <div class="medium-6 columns">
                     @{
-            if (Model.ProductView.Image != null)
-            {
-                var base64 = Convert.ToBase64String(@Model.ProductView.Image);
-                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-                        <img alt="@Model.ProductView.Description" src="@imgSrc" height="400" width="400"/>
-            }
-            else
-            {
-                        <img src="~/Content/Images/ProductDefault.png" height="400" width="400" />
-            }}
+                        if (Model.ProductView.Image != null)
+                        {
+                            var base64 = Convert.ToBase64String(@Model.ProductView.Image);
+                            var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                                    <img alt="@Model.ProductView.Description" src="@imgSrc" height="400" width="400"/>
+                        }
+                        else
+                        {
+                                    <img src="~/Content/Images/ProductDefault.png" height="400" width="400" />
+                        }}
                     <div class="form-group">
                         @*                        @Html.LabelFor(m => m.UserProfilePicture, new {@class = "col-md-2 control-label"})*@
                         <div class="col-md-10">
@@ -37,6 +37,51 @@
                             @Html.ValidationMessage("CustomMessage")
                         </div>
                     </div>
+                    <ul class="small-block-grid-3">
+                        <li>
+
+                            @{
+                                if (Model.ProductView.ImageAlt0 != null)
+                                {
+                                    var base64 = Convert.ToBase64String(@Model.ProductView.ImageAlt0);
+                                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                                    <img alt="@Model.ProductView.Description" src="@imgSrc" height="400" width="400"/>
+                                }
+                                else
+                                {
+                                    <img src="~/Content/Images/ProductDefault.png" height="100" width="100"/>
+                                }}
+                            <div class="form-group">
+                                @*                        @Html.LabelFor(m => m.UserProfilePicture, new {@class = "col-md-2 control-label"})*@
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.ProductView.ProductImageAlt0, new {type = "file"})
+                                    @Html.ValidationMessage("CustomMessage")
+                                </div>
+                            </div>
+                        </li>
+
+                         <li>
+
+                            @{
+                            if (Model.ProductView.ImageAlt1 != null)
+                            {
+                                var base64 = Convert.ToBase64String(@Model.ProductView.ImageAlt1);
+                                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                                                <img alt="@Model.ProductView.Description" src="@imgSrc" height="400" width="400"/>
+                            }
+                            else
+                            {
+                                                <img src="~/Content/Images/ProductDefault.png" height="100" width="100" />
+                            }}
+                            <div class="form-group">
+                                @*                        @Html.LabelFor(m => m.UserProfilePicture, new {@class = "col-md-2 control-label"})*@
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.ProductView.ProductImageAlt1, new { type = "file" })
+                                    @Html.ValidationMessage("CustomMessage")
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
 
 
