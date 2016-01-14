@@ -20,16 +20,16 @@
                 <hr>
                 <div class="large-5 columns">
                     @{
-                        if (Model.ProductView.Image != null)
-                        {
-                            var base64 = Convert.ToBase64String(@Model.ProductView.Image);
-                            var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-                            <img alt="@Model.ProductView.Description" src="@imgSrc" height="400" width="400"/>
-                        }
-                        else
-                        {
-                            <img src="~/Content/Images/ProductDefault.png" height="400" width="400"/>
-                        }}
+            if (Model.ProductView.Image != null)
+            {
+                var base64 = Convert.ToBase64String(@Model.ProductView.Image);
+                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                        <img alt="@Model.ProductView.Description" src="@imgSrc" height="400" width="400"/>
+            }
+            else
+            {
+                        <img src="~/Content/Images/ProductDefault.png" height="400" width="400" />
+            }}
                     <div class="form-group">
                         @*                        @Html.LabelFor(m => m.UserProfilePicture, new {@class = "col-md-2 control-label"})*@
                         <div class="col-md-10">
@@ -41,119 +41,129 @@
 
 
                 <div class="large-5 columns">
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.ProductView.Code, new { @class = "col-md-2 control-label" })
-                        @Html.DisplayTextFor(m => m.ProductView.Code)
-@*                        <div class="col-md-10">
+
+                    <ul class="tabs" data-tab>
+                        <li class="tab-title active"><a href="#panel1">Details</a></li>
+                        <li class="tab-title"><a href="#panel2">Pricing</a></li>
+                        <li class="tab-title"><a href="#panel3">Stock/Weight</a></li>
+                    </ul>
+                    <div class="tabs-content">
+                        <div class="content active" id="panel1">
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.ProductView.Code, new { @class = "col-md-2 control-label" })
+                                @Html.DisplayTextFor(m => m.ProductView.Code)
+                                @*                        <div class="col-md-10">
                             @Html.TextBoxFor(m => m.ProductView.Code, ViewBag.DisabledProductCode ? (object)new { disabled="disabled" } : new {})
                             @Html.ValidationMessageFor(m => m.ProductView.Code, "", new { @class = "text-danger" })
                         </div>*@
-                    </div>
+                            </div>
 
-                    <div class="form-group">
-                        @Html.LabelFor(m=> m.ProductView.Active)
-                        @Html.CheckBoxFor(m => m.ProductView.Active)
-                        @Html.HiddenFor(m => m.ProductView.Active)
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.ProductView.Description, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
-                            @Html.TextBoxFor(m => m.ProductView.Description)
-                            @Html.ValidationMessageFor(m => m.ProductView.Description, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.ProductView.DetailDescription, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
-                            @Html.TextAreaFor(m => m.ProductView.DetailDescription, new { id = "detailDescriptionTextBox", Value = Model.ProductView.DetailDescription, @class = "fill" })
-                            @Html.ValidationMessageFor(m => m.ProductView.DetailDescription, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="panel">
-                        <h5><b><em>Pricing: </em></b></h5>
-
-                        @for (int i = 0; i < Model.Offers.Count; i++)
-                        {
-                            var priceType = (Model.Offers[i].PriceTypeId == 1) ? "Retail" : "Whole Sale";
                             <div class="form-group">
-                                <h6>@priceType</h6>
+                                @Html.LabelFor(m => m.ProductView.Active)
+                                @Html.CheckBoxFor(m => m.ProductView.Active)
+                                @Html.HiddenFor(m => m.ProductView.Active)
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.ProductView.Description, new { @class = "col-md-2 control-label" })
                                 <div class="col-md-10">
-                                    @Html.EditorFor(m => m.Offers[i].Price)
-                                    @Html.HiddenFor(m => m.Offers[i].Price)
-                                    @Html.HiddenFor(m => m.Offers[i].PriceTypeId)
-                                    @*                                    @Html.ValidationMessageFor(m => Model.Offers[i].Price, "", new { @class = "text-danger" })*@
+                                    @Html.TextBoxFor(m => m.ProductView.Description)
+                                    @Html.ValidationMessageFor(m => m.ProductView.Description, "", new { @class = "text-danger" })
                                 </div>
                             </div>
-                        }
-                        @*                <h5><b><em>Giá tiền: </em> @Model.Price.ToString("N0") đ</b></h5>
-                <h6 class="subheader">Cước vận chuyển:   50.00 đ (ước lượng)</h6>
-                 <p class="button">
-                    @Html.ActionLink("Thêm vào giỏ hàng", "ContinueToCart", "Store", new {id = @Model.Id}, new {@style="color: #FFFFFF"})
-                </p>*@
-                    </div>
 
-                    <div class="panel">
-                        <h5><b><em>Purchase Price: </em></b></h5>
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.ProductView.BuyInPrice, new {@class = "col-md-2 control-label"})
-                            <div class="col-md-10">
-                                @Html.TextBoxFor(m => m.ProductView.BuyInPrice)
-                                @Html.ValidationMessageFor(m => m.ProductView.BuyInPrice, "", new {@class = "text-danger"})
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="panel">
-                        <h5><b><em>Weight: </em></b></h5>
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.ProductView.WeightPounds, new {@class = "col-md-2 control-label"})
-                            <div class="col-md-10">
-                                @Html.TextBoxFor(m => m.ProductView.WeightPounds)
-                                @Html.ValidationMessageFor(m => m.ProductView.WeightPounds, "", new {@class = "text-danger"})
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.ProductView.DetailDescription, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextAreaFor(m => m.ProductView.DetailDescription, new { id = "detailDescriptionTextBox", Value = Model.ProductView.DetailDescription, @class = "fill" })
+                                    @Html.ValidationMessageFor(m => m.ProductView.DetailDescription, "", new { @class = "text-danger" })
+                                </div>
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.ProductView.WeightOunce, new {@class = "col-md-2 control-label"})
-                            <div class="col-md-10">
-                                @Html.TextBoxFor(m => m.ProductView.WeightOunce)
-                                @Html.ValidationMessageFor(m => m.ProductView.WeightOunce, "", new {@class = "text-danger"})
+
+                        <div class="content" id="panel2">
+                            <div class="panel">
+                                <h5><b><em>Pricing: </em></b></h5>
+
+                                @for (int i = 0; i < Model.Offers.Count; i++)
+                                {
+                                    var priceType = (Model.Offers[i].PriceTypeId == 1) ? "Retail" : "Whole Sale";
+                                    <div class="form-group">
+                                        <h6>@priceType</h6>
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(m => m.Offers[i].Price)
+                                            @Html.HiddenFor(m => m.Offers[i].Price)
+                                            @Html.HiddenFor(m => m.Offers[i].PriceTypeId)
+                                            @*                                    @Html.ValidationMessageFor(m => Model.Offers[i].Price, "", new { @class = "text-danger" })*@
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+
+                            <div class="panel">
+                                <h5><b><em>Purchase Price: </em></b></h5>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.ProductView.BuyInPrice, new { @class = "col-md-2 control-label" })
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(m => m.ProductView.BuyInPrice)
+                                        @Html.ValidationMessageFor(m => m.ProductView.BuyInPrice, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                        <div class="content" id="panel3">
+                            <div class="panel">
+                                <h5><b><em>Weight: </em></b></h5>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.ProductView.WeightPounds, new { @class = "col-md-2 control-label" })
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(m => m.ProductView.WeightPounds)
+                                        @Html.ValidationMessageFor(m => m.ProductView.WeightPounds, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
 
-                    <div class="panel">
-                        <h5><b><em>Quantity: </em></b></h5>
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.ProductView.QuantityOnHand, new {@class = "col-md-2 control-label"})
-                            <div class="col-md-10">
-                                @Html.TextBoxFor(m => m.ProductView.QuantityOnHand)
-                                @Html.ValidationMessageFor(m => m.ProductView.QuantityOnHand, "", new {@class = "text-danger"})
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.ProductView.WeightOunce, new { @class = "col-md-2 control-label" })
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(m => m.ProductView.WeightOunce)
+                                        @Html.ValidationMessageFor(m => m.ProductView.WeightOunce, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel">
+                                <h5><b><em>Quantity: </em></b></h5>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.ProductView.QuantityOnHand, new { @class = "col-md-2 control-label" })
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(m => m.ProductView.QuantityOnHand)
+                                        @Html.ValidationMessageFor(m => m.ProductView.QuantityOnHand, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel">
+                                <h5><b><em>Category: </em></b></h5>
+                                @for (int i = 0; i < Model.Categories.Count; i++)
+                                {
+                                    @Html.CheckBoxFor(m => m.Categories[i].IsChecked)<span>@Model.Categories[i].Description</span>
+                                    @Html.HiddenFor(m => m.Categories[i].IsChecked)
+                                    @Html.HiddenFor(m => m.Categories[i].Code)
+                                    <br />
+
+                                }
                             </div>
                         </div>
-                    </div>
 
-                    <div class="panel">
-                        <h5><b><em>Category: </em></b></h5>
-                        @for(int i = 0 ; i < Model.Categories.Count; i++)
-                        {
-                            @Html.CheckBoxFor(m => m.Categories[i].IsChecked)<span>@Model.Categories[i].Description</span>
-                            @Html.HiddenFor(m => m.Categories[i].IsChecked)
-                            @Html.HiddenFor(m => m.Categories[i].Code)
-                            <br/>
-                            
-                        }
                     </div>
 
                     <div>
                         <input type="submit" class="medium success button" value="Save" />
                     </div>
                 </div>
-        @*    <div class="row">
+                @*    <div class="row">
         <hr>
         <div class="large-12 columns">
             <h4>You might also like:</h4>
@@ -163,7 +173,7 @@
             <img src="http://placehold.it/200x150&text=[img]">
         </div>
     </div>*@
-                </div>
+            </div>
         }
     </section>
 
