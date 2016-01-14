@@ -77,6 +77,7 @@ namespace MyProject.AppLogic.Communication
             var TO = "";
             var SMTP_USERNAME = "";
             var SMTP_PASSWORD = "";
+            var TO2 = "";
             using (var context = new ShoppingCartContext())
             {
                 FROM = context.AppSettings.Single(a => a.Code == "EmailFrom_EmailAddress").Value;
@@ -84,7 +85,7 @@ namespace MyProject.AppLogic.Communication
                 SMTP_PASSWORD = context.AppSettings.Single(a => a.Code == "EmailFrom_Password").Value;
                 HOST = context.AppSettings.Single(a => a.Code == "EmailFrom_Host").Value;// Amazon SES SMTP host name. This example uses the US West (Oregon) region.
                 TO = context.AppSettings.Single(a => a.Code == "NotificationEmail1").Value;
-                TO = context.AppSettings.Single(a => a.Code == "NotificationEmail2").Value;
+                TO2 = context.AppSettings.Single(a => a.Code == "NotificationEmail2").Value;
             }
 
 
@@ -124,7 +125,10 @@ namespace MyProject.AppLogic.Communication
                 {
                     //Console.WriteLine("Attempting to send an email through the Amazon SES SMTP interface...");
                     await client.SendMailAsync(FROM, TO, SUBJECT, BODY);
-                    //Console.WriteLine("Email sent!");
+                    
+
+                    //send to 2nd email:
+                    await client.SendMailAsync(FROM, TO2, SUBJECT, BODY);
 
                     if (!string.IsNullOrEmpty(order.CheckOutInfo.Email))
                     {
