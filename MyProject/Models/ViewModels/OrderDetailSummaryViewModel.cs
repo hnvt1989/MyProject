@@ -8,6 +8,10 @@ namespace MyProject.Models.ViewModels
 {
     public class OrderDetailSummaryViewModel
     {
+        public OrderDetailSummaryViewModel()
+        {
+            this.OrderDetails = new List<LineOrderDetail>();
+        }
         public long OrderNumber { get; set; }
 
         public string FullName { get; set; }

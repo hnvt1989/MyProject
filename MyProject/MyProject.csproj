@@ -245,6 +245,7 @@
   <ItemGroup>
     <Content Include="Content\foundation\foundation.mvc.css" />
     <Content Include="Content\foundation\normalize.css" />
+    <Content Include="Content\Images\arrow-right.JPG" />
     <Content Include="Content\Images\Email.JPG" />
     <Content Include="Content\Images\Facebook.JPG" />
     <Content Include="Content\Images\MainSiteProfile.jpg" />

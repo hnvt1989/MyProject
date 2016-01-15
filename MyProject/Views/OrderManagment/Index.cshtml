@@ -1,4 +1,5 @@
-﻿@model List<MyProject.Models.ViewModels.OrderQuickSummaryViewModel>
+﻿@using System.Web.UI.WebControls
+@model List<MyProject.Models.ViewModels.OrderQuickSummaryViewModel>
 
 @{
     ViewBag.Title = "Đơn đặt hàng";
@@ -24,7 +25,8 @@
                 {
                     <tr id="row-@o.Code">
                         <td>
-                            <p class="right-arrow">@Html.ActionLink("Chọn", "ViewOrder", "OrderManagment", new {id = o.Id}, new {@style = "color: #2f4f4f"})</p>
+
+                            <p >@Html.ActionLink("=>>", "ViewOrder", "OrderManagment", new {id = o.Id}, new {@style = "color: #2f4f4f"})</p>
                         </td>
                         <td>@o.Code</td>
                         <td>@o.CustomerName</td>
