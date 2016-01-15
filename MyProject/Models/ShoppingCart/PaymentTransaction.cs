@@ -22,7 +22,7 @@ namespace MyProject.Models.ShoppingCart
         [Display(Name = "Tổng số tiền")]
         public decimal Amount { get; set; }
 
-        public decimal PostedAmount { get; set; }
+        //public decimal PostedAmount { get; set; }
 
         [ForeignKey("PaymentType")]
         public int PaymentTypeId { get; set; }

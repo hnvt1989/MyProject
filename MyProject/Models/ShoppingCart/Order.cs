@@ -27,6 +27,8 @@ namespace MyProject.Models.ShoppingCart
         public decimal Total { get; set; }
         public decimal ShippingCost { get; set; }
         public decimal Discount { get; set; }
+        public decimal PostedAmount { get; set; }//deposit
+        public decimal ActualSoldAmount { get; set; } //the amount we actually sold.
 
         public System.DateTime OrderDate { get; set; }
         public List<LineOrderDetail> OrderDetails { get; set; }

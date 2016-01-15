@@ -56,36 +56,37 @@
                         @Html.LabelFor(m => m.Phone, new Dictionary<string, Object> {{"class", "col-md-2 control-label"}})
                         <div class="col-md-10">
                             @Html.KTextBoxFor(m => m.Phone, new {@class = "fill"})
-@*                            @Html.ValidationMessageFor(m => m.Phone, "", new {@class = "text-danger"})*@
+                            @*                            @Html.ValidationMessageFor(m => m.Phone, "", new {@class = "text-danger"})*@
                         </div>
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(m => m.ShippingAddress.Line1, new Dictionary<string, Object> { { "class", "col-md-2 control-label" } })
+                        @Html.LabelFor(m => m.ShippingAddress.Line1, new Dictionary<string, Object> {{"class", "col-md-2 control-label"}})
                         <div class="col-md-10">
-                            @Html.KTextBoxFor(m => m.ShippingAddress.Line1, new { @class = "fill" })
-@*                            @Html.ValidationMessageFor(m => m.ShippingAddress.Line1, "", new { @class = "text-danger" })*@
+                            @Html.KTextBoxFor(m => m.ShippingAddress.Line1, new {@class = "fill"})
+                            @*                            @Html.ValidationMessageFor(m => m.ShippingAddress.Line1, "", new { @class = "text-danger" })*@
                         </div>
                     </div>
                     <div class="form-group">
-@*                        @Html.LabelFor(m => m.ShippingAddress.Line2, new Dictionary<string, Object> { { "class", "col-md-2 control-label" } })*@
+                        @*                        @Html.LabelFor(m => m.ShippingAddress.Line2, new Dictionary<string, Object> { { "class", "col-md-2 control-label" } })*@
                         <div class="col-md-10">
-                            @Html.KTextBoxFor(m => m.ShippingAddress.Line2, new { @class = "fill" })
-                            @Html.ValidationMessageFor(m => m.ShippingAddress.Line2, "", new { @class = "text-danger" })
+                            @Html.KTextBoxFor(m => m.ShippingAddress.Line2, new {@class = "fill"})
+                            @Html.ValidationMessageFor(m => m.ShippingAddress.Line2, "", new {@class = "text-danger"})
                         </div>
 
                     </div>
 
                     <div class="form-group">
-@*                        @Html.LabelFor(m => m.ShippingAddress.Line3, new Dictionary<string, Object> { { "class", "col-md-2 control-label" } })*@
+                        @*                        @Html.LabelFor(m => m.ShippingAddress.Line3, new Dictionary<string, Object> { { "class", "col-md-2 control-label" } })*@
                         <div class="col-md-10">
-                            @Html.KTextBoxFor(m => m.ShippingAddress.Line3, new { @class = "fill" })
-                            @Html.ValidationMessageFor(m => m.ShippingAddress.Line3, "", new { @class = "text-danger" })
+                            @Html.KTextBoxFor(m => m.ShippingAddress.Line3, new {@class = "fill"})
+                            @Html.ValidationMessageFor(m => m.ShippingAddress.Line3, "", new {@class = "text-danger"})
                         </div>
 
                     </div>
                 </fieldset>
-
+                
+@* 
                 <fieldset>
                     <legend>
                         <h4>Thanh toán</h4>
@@ -93,16 +94,16 @@
 
                     <div class="form-group">
                         @Html.LabelFor(m => m.PaymentTransaction.PaymentType, new Dictionary<string, Object> {{"class", "col-md-2 control-label"}})
-@*                        <select name="paymentType" onchange=" java_script_:show(this.options[this.selectedIndex].value) ">
+                       <select name="paymentType" onchange=" java_script_:show(this.options[this.selectedIndex].value) ">
                             <option value="Cash">Cash</option>
                             <option value="PayPal">PayPal</option>
-                        </select>*@
+                        </select>
                         @Html.DropDownList("paymentType", Model.PaymentTypesList, new { onchange = ""})
                     </div>
 
 
                     <div class="form-group">
-@*                        @Html.LabelFor(m => m.PaymentTransaction.Amount, new Dictionary<string, Object> {{"class", "col-md-2 control-label"}})*@
+                        @Html.LabelFor(m => m.PaymentTransaction.Amount, new Dictionary<string, Object> {{"class", "col-md-2 control-label"}})
                         <b>Tổng số tiền: @Model.CartTotal.ToString("N0") đ</b>
                         <div class="col-md-10">
                             @Html.KTextBoxFor(m => m.PaymentTransaction.Amount, new { id = "amountTextBox", Value= Model.PaymentAmount, @class = "fill" , disabled="disabled", @style = "display:none;"})
@@ -110,10 +111,10 @@
                         </div>
                     </div>
                     <div class="amount-due">
-@*                        <b>Còn lại: <span>0.00</span></b>*@
+                        <b>Còn lại: <span>0.00</span></b>
                     </div>
                 </fieldset>
-                
+              *@
         <p class="button success">
             @Html.ActionLink("Quay lại giỏ hàng","Index", "ShoppingCart", new {}, new {@style="color: #FFFFFF"})
         </p>

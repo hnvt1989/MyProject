@@ -121,12 +121,15 @@ namespace MyProject.Controllers
                 //update the cart code to the user id if they are logged in
                 //viewModel.CartItems.ForEach(c => c.Code = cart.GetCartId(HttpContext));
 
-                string paymentTypeValue = Request.Form["paymentType"].ToString();
+                //string paymentTypeValue = Request.Form["paymentType"].ToString();
                 PaymentType paymentType;
+                PaymentStatus paymentStatus;
 
                 using (var context = new ShoppingCartContext())
                 {
-                    paymentType  = context.PaymentTypes.Single(t => t.Description == paymentTypeValue);
+                    //paymentType  = context.PaymentTypes.Single(t => t.Description == paymentTypeValue);
+                    paymentType = context.PaymentTypes.Single(t => t.Code == "PayLater");
+                    paymentStatus = context.PaymentStatuses.Single(p => p.Code == "NotPaid");
                 }
 
                 var m = new OrderConfirmViewModel()
@@ -141,16 +144,16 @@ namespace MyProject.Controllers
                             //todo: when amount text box is enabled, uncomment this line to get the entered amount value
                             //Amount = model.PaymentTransaction.Amount,
 
-
-                            Amount = viewModel.CartTotal,
+                            Amount = 0m,
+                            //Amount = viewModel.CartTotal,
                             Code = Guid.NewGuid().ToString(),
-                            PartialPayment = false,
+                            PartialPayment = true,
                             //PartialPayment = (model.PaymentTransaction.Amount < viewModel.CartTotal),
                             //todo:
-                            PaymentStatusId = 1, //1 = on hold, 2 = processing, 3 = processed, 4 = complete
+                            PaymentStatusId = paymentStatus.Id, //1 = on hold, 2 = processing, 3 = processed, 4 = complete
                             PaymentTypeId = paymentType.Id,
                             PaymentTypeDescription =  paymentType.Description,
-                            PostedAmount = 0m
+                            //PostedAmount = 0m
 
                         },
                         Name = model.Name,

@@ -1,0 +1,21 @@
+﻿@model List<MyProject.Models.ViewModels.PromotionSettingViewModel>
+
+@{
+    ViewBag.Title = "Promotion Settings";
+}
+
+<div class="row">
+    <div class="large-12 columns">
+        <h3>@ViewBag.Title</h3>
+        
+        <div class="row">
+            @foreach (var promotion in Model)
+            {
+                <div class="large-3 small-6 columns">
+                    <a>@Html.ActionLink(promotion.Code, "EditPromotionDetails", "PromotionSetting", new { id = promotion.Id }, "")</a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+

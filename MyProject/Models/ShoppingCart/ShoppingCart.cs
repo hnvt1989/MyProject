@@ -300,7 +300,7 @@ namespace MyProject.Models.ShoppingCart
                     ShippingCost = item.ShippingCost,
                     Net = item.NetBeforeDiscount,
                     TotalDiscount = item.TotalDiscountAmount,
-                    Total = item.Sum
+                    Total = item.Sum,
                 };
                 // Set the order total of the shopping cart
                 orderTotal += item.Sum;
@@ -312,6 +312,9 @@ namespace MyProject.Models.ShoppingCart
             // Set the order's total to the orderTotal count
             order.Total = orderTotal + shippingCost;
             order.ShippingCost = shippingCost;
+
+            order.PostedAmount = 0m;
+            order.ActualSoldAmount = order.Total;
 
             soContext.Orders.Add(order);
             // Save the order

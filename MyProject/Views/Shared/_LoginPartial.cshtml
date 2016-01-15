@@ -5,8 +5,12 @@
     {
     @Html.AntiForgeryToken()
     <ul class="top-bar-items right">
-        <li>
+@*        <li>
             @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Home", routeValues: null, htmlAttributes: new {title = "Manage"})
+        </li>*@
+
+        <li>
+            @Html.ActionLink("Home", "Index", "Home", routeValues: null, htmlAttributes: new {title = "Manage"})
         </li>
 
         <li class="has-dropdown">
@@ -14,6 +18,9 @@
             <ul class="dropdown">
                 <li class="has-dropdown">
                     @Html.ActionLink("Search Orders", "Index", "OrderSummary", new {orderNumber = 10000}, new {@style = "color: #FFFFFF"})
+                </li>
+                <li class="has-dropdown">
+                    @Html.ActionLink("Đơn đặt hàng", "Index", "OrderManagment", new {orderNumber = 10000}, new {@style = "color: #FFFFFF"})
                 </li>
             </ul>
         </li>
@@ -51,6 +58,16 @@
 
         </li>
 
+        <li class="has-dropdown">
+            @Html.ActionLink("Promotions Setting", "Index", "PromotionSetting", routeValues: null, htmlAttributes: new {title = "Manage"})
+            <ul class="dropdown">
+                <li class="has-dropdown">
+                    @Html.ActionLink("All Promotions", "Index", "PromotionSetting", routeValues: null, htmlAttributes: new {title = "Manage"})
+                </li>
+            </ul>
+
+        </li>
+
         <li>
             @Html.ActionLink("Profile", "ViewProfile", "Profile", routeValues: null, htmlAttributes: new { title = "Manage" })
         </li>
@@ -69,7 +86,5 @@ else
         <li>@Html.ActionLink("Trang chủ", "Index", "Home", routeValues: null, htmlAttributes: new { id = "homeLink" })</li>
         @*        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new {id = "registerLink"})</li>*@
         <li>@Html.ActionLink("Đăng nhập", "Login", "Account", routeValues: null, htmlAttributes: new {id = "loginLink"})</li>
-
-        <li>@Html.ActionLink("Index1", "Index1", "ProductManagement", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     </ul>
 }

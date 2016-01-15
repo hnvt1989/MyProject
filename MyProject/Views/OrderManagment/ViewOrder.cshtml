@@ -1,29 +1,10 @@
-﻿@using MyProject.Helper
-@model MyProject.Models.ViewModels.OrderSummaryViewModel
+﻿@model MyProject.Models.ViewModels.OrderDetailSummaryViewModel
 
 @{
-    ViewBag.Title = "Order Summary";
-    ViewBag.CartTotal = "Tổng số tiền";
-    ViewBag.TotalShippingCost = "Cước vận chuyển";
+    ViewBag.Title = "Xem đơn đặt hàng";
 }
-
 <div class="row">
     <div class="large-12 columns">
-        
-        <section id="ProfileForm">
-            @using (Html.BeginForm("Index", "OrderSummary", FormMethod.Post, new {@class = "form-horizontal", role = "form", enctype = "multipart/form-data"}))
-            {
-                @Html.AntiForgeryToken()
-                <hr/>
-                @Html.ValidationSummary(true, "", new {@class = "text-danger"})
-                if (Request.IsAuthenticated)
-                 {
-                     <div align="left">
-                         <b>Find order</b>
-                         @Html.KTextBoxFor(m => m.OrderNumber, new {style = "width:150px"})
-                         <input id="searchBtn" type="submit" class="button" value="Search"/>
-                     </div>
-                 }
                 <div align="center"><h3>Đơn đặt hàng</h3></div>
                 <fieldset>
                     <legend>
@@ -155,7 +136,7 @@
                             </td>
                         </tr>
                     </table>
-                </fieldset>@*
+                </fieldset>
 
                 <fieldset>
                     <h4>Thanh toán</h4>
@@ -165,19 +146,20 @@
                             </th>
                             <th>Tổng
                             </th>
+                            <th>Tình trạng
+                            </th>
                         </tr>
                         <tr>
                             <td>@Model.PaymentTransaction.PaymentType.Description
                             </td>
-                            <td>@String.Format("{0:N0}",@Model.PaymentTransaction.Amount)
+                            <td>@String.Format("{0:N0}", @Model.PaymentTransaction.Amount)
+                            </td>
+                            <td>@Model.PaymentTransaction.PaymentStatus.Description
                             </td>
                         </tr>
                     </table>
-                </fieldset>*@
-            }
-        </section>
+                </fieldset>
     </div>
 </div>
-
 
 

@@ -1,0 +1,39 @@
+﻿@model List<MyProject.Models.ViewModels.OrderQuickSummaryViewModel>
+
+@{
+    ViewBag.Title = "Đơn đặt hàng";
+}
+
+<br />
+<div class="row">
+    <div class="large-12 columns">
+        <h3>Danh sách đơn đặt hàng</h3>
+        <table id="orderLists" class="display" cellspacing="0" width="100%">
+            <thead>
+            <tr>
+                <th></th>
+                <th width="200">Mã số</th>
+                <th>Tên</th>
+                <th width="150">Tổng tiền</th>
+                <th width="150">Đặt cọc</th>
+                <th width="150">Ngày đặt</th>
+            </tr>
+            </thead>
+            <tbody>
+                @foreach (var o in Model)
+                {
+                    <tr id="row-@o.Code">
+                        <td>
+                            <p class="right-arrow">@Html.ActionLink("Chọn", "ViewOrder", "OrderManagment", new {id = o.Id}, new {@style = "color: #2f4f4f"})</p>
+                        </td>
+                        <td>@o.Code</td>
+                        <td>@o.CustomerName</td>
+                        <td>@o.OrderTotal</td>
+                        <td>@o.PostedAmount</td>
+                        <td>@o.OrderDate</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

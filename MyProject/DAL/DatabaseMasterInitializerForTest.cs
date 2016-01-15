@@ -398,7 +398,7 @@ namespace MyProject.DAL
                         PartialPayment = true,
                         PaymentStatus = cContext.PaymentStatuses.Single(ps => ps.Code == "Completed"),
                         PaymentTypeId = 1,
-                        PostedAmount = 6.66m,
+                        //PostedAmount = 6.66m,
                         
                     }
                 });

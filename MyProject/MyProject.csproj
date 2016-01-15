@@ -189,9 +189,11 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OrderConfirmController.cs" />
+    <Compile Include="Controllers\OrderManagmentController.cs" />
     <Compile Include="Controllers\OrderSummaryController.cs" />
     <Compile Include="Controllers\ProductManagementController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Controllers\PromotionSettingController.cs" />
     <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="DAL\DatabaseMasterContext.cs" />
@@ -227,10 +229,13 @@
     <Compile Include="Models\ShoppingCart\Product.cs" />
     <Compile Include="Models\ShoppingCart\ShoppingCart.cs" />
     <Compile Include="Models\ViewModels\OrderConfirmViewModel.cs" />
+    <Compile Include="Models\ViewModels\OrderDetailSummaryViewModel.cs" />
+    <Compile Include="Models\ViewModels\OrderQuickSummaryViewModel.cs" />
     <Compile Include="Models\ViewModels\OrderSummaryViewModel.cs" />
     <Compile Include="Models\ViewModels\EditProductViewModel.cs" />
     <Compile Include="Models\ViewModels\ProductManagementViewModel.cs" />
     <Compile Include="Models\ViewModels\ProductViewModel.cs" />
+    <Compile Include="Models\ViewModels\PromotionSettingViewModel.cs" />
     <Compile Include="Models\ViewModels\ShoppingCartAddViewModel.cs" />
     <Compile Include="Models\ViewModels\ShoppingCartRemoveViewModel.cs" />
     <Compile Include="Models\ViewModels\ShoppingCartViewModel.cs" />
@@ -462,6 +467,9 @@
     <Content Include="Views\AppSetting\EditAppSetting.cshtml" />
     <Content Include="Views\Store\Detail.cshtml" />
     <Content Include="Views\ProductManagement\Index1.cshtml" />
+    <Content Include="Views\PromotionSetting\Index.cshtml" />
+    <Content Include="Views\OrderManagment\Index.cshtml" />
+    <Content Include="Views\OrderManagment\ViewOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
