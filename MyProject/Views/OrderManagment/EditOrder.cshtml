@@ -1,0 +1,222 @@
+﻿@using MyProject.Helper
+@model MyProject.Models.ViewModels.OrderDetailSummaryViewModel
+
+@{
+    ViewBag.Title = "Xem đơn đặt hàng";
+    ViewBag.CartTotal = "Tổng số tiền";
+    ViewBag.TotalShippingCost = "Cước vận chuyển";
+}
+
+<script src="/Scripts/jquery-1.10.2.min.js"
+    type="text/javascript"></script>
+<script type="text/javascript">
+    //if amount value is changed update the Amount due
+    $(function() {
+        $('#amountTextBox').on('input', function() {
+            var dueAmount = @Model.Total  - parseFloat($('#amountTextBox').val()).toFixed(2);
+            if (isNaN(dueAmount)) {
+                dueAmount = 0;
+            }
+            //$('#amount-due').text(dueAmount.toFixed());
+            $('.amount-due span').html(dueAmount.formatMoney(0,'.', ','));
+        });
+    });
+
+    $(function() {
+        Number.prototype.formatMoney = function(c, d, t){
+            var n = this, 
+                c = isNaN(c = Math.abs(c)) ? 2 : c, 
+                d = d == undefined ? "." : d, 
+                t = t == undefined ? "," : t, 
+                s = n < 0 ? "-" : "", 
+                i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", 
+                j = (j = i.length) > 3 ? j % 3 : 0;
+            return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+        };
+    });
+</script>
+
+<div class="row">
+    <div class="large-12 columns">
+        <div align="center">
+            <h3>Đơn đặt hàng</h3>
+            </div>
+            <div>
+            <section id="ProfileForm">
+                @using (Html.BeginForm("EditOrder", "OrderManagment", FormMethod.Post, new {@class = "form-horizontal", role = "form", enctype = "multipart/form-data"}))
+                {
+                    @Html.AntiForgeryToken()
+                    <hr/>
+                    @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+                    <fieldset>
+                        <legend>
+                            <h4>Thông tin khách hàng</h4>
+                        </legend>
+
+                        <div>
+                            <div>
+                                <span><b>Mã số đơn đặt hàng: </b>&nbsp;&nbsp;&nbsp;&nbsp;@Model.OrderNumber</span>
+                                @Html.HiddenFor(m => m.OrderNumber)
+                            </div>
+                            <div>
+                                <span><b>Tên khách hàng: </b>&nbsp;&nbsp;@Model.FullName</span>
+                            </div>
+                            <div>
+                                <span><b>Địa chỉ Email: </b>&nbsp;&nbsp;@Model.Email</span>
+                            </div>
+                            <div>
+                                <span><b>Số phone: </b>&nbsp;@Model.Phone</span>
+                            </div>
+                            <div>
+                                <span><b>Địa chỉ: </b></span>
+                            </div>
+                            <div>
+                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Model.ShippingAddress.Line1</span>
+                            </div>
+                            <div>
+                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Model.ShippingAddress.Line2</span>
+                            </div>
+                            <div>
+                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Model.ShippingAddress.Line3</span>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>
+                            <h4>Sản phẩm</h4>
+                        </legend>
+
+                        <table>
+                            <tr>
+                                @*                            <th>
+                            </th>*@
+                                <th>Tên sản phẩm
+                                </th>
+                                <th>Giá tiền
+                                </th>
+                                <th>Số lượng
+                                </th>
+                                @*                            <th>Net
+                            </th>
+                            <th>Discount
+                            </th>
+                            <th>Shipping
+                            </th>*@
+                                <th>Tổng
+                                </th>
+                                <th></th>
+                            </tr>
+                            @foreach (var item in Model.OrderDetails)
+                            {
+                                <tr id="row-@item.Product.Id">
+                                    @*                                <td>
+                                    @{
+                                        if (@item.Product.Image != null)
+                                        {
+                                            var base64 = Convert.ToBase64String(@item.Product.Image);
+                                            var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                                            <img src="@imgSrc" height="40" width="40"/>
+                                        }
+                                        else
+                                        {
+                                            //default image
+                                            <img src="~/Content/Images/ProductDefault.png" height="40" width="40"/>
+                                        }
+                                    }
+                                </td>*@
+                                    <td>
+                                        @item.Product.Description
+                                    </td>
+                                    <td>
+                                        @String.Format("{0:N0}", @item.UnitPrice)
+
+                                    </td>
+                                    <td id="item-count-@item.Product.Id">
+                                        @item.Quantity
+                                    </td>
+                                    @*                                <td id="item-net-@item.Product.Id">
+                                    @String.Format("{0:N}",@item.Net)
+                        
+                                </td>
+                                <td id="item-discount-@item.Product.Id">
+                                    @String.Format("{0:N}",@item.TotalDiscount)
+                        
+                                </td>
+                                <td id="item-shippingcost-@item.Product.Id">
+                                    @String.Format("{0:N}",@item.ShippingCost)
+                        
+                                </td>*@
+                                    <td id="item-sum-@item.Product.Id">
+                                        @String.Format("{0:N0}", @item.Total)
+
+                                    </td>
+                                </tr>
+                            }
+
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                @*                            <td></td>
+                           <td></td>
+                            <td></td>
+                            <td></td>*@
+                                <td><b>@ViewBag.TotalShippingCost</b></td>
+                                <td id="cart-total">
+                                    <b>@String.Format("{0:N0}", @Model.ShippingCost)</b>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                @*                         <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>*@
+                                <td><b>@ViewBag.CartTotal</b></td>
+                                <td id="cart-total">
+                                    <b>@String.Format("{0:N0}", @Model.Total)</b>
+                                </td>
+                            </tr>
+                        </table>
+                    </fieldset>
+
+                <fieldset>
+                    <legend>
+                        <h4>Thanh toán</h4>
+                    </legend>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.PaymentTransaction.PaymentType, new Dictionary<string, Object> {{"class", "col-md-2 control-label"}})
+                        @Html.DropDownList("paymentType", Model.PaymentTypesList, new { onchange = ""})
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.PaymentTransaction.PaymentStatus, new Dictionary<string, Object> {{"class", "col-md-2 control-label"}})
+                        @Html.DropDownList("paymentStatus", Model.PaymentStatusList, new {onchange = ""})
+                    </div>
+
+                    <div class="form-group">
+@*                        @Html.LabelFor(m => m.PaymentTransaction.Amount, new Dictionary<string, Object> {{"class", "col-md-2 control-label"}})*@
+                        @*                        <b>Tổng số tiền:</b>
+                        @{
+                            var outstanding = @Model.Total - @Model.PaymentTransaction.Amount;
+                            <span><b>@outstanding.ToString("N0") đ </b></span>
+                        }*@
+                        <b>Tiền đã trả:</b>
+                        <div class="col-md-10">
+                            @Html.KTextBoxFor(m => m.PaymentTransaction.Amount, new { id = "amountTextBox", Value= Model.PaymentTransaction.Amount, @class = "fill" })
+                            @Html.HiddenFor( m => m.PaymentTransaction.Amount)
+                            @Html.ValidationMessageFor(m => m.PaymentTransaction.Amount, "", new {@class = "text-danger"})
+                        </div>
+                    </div>
+                    <div class="amount-due">
+                        <b>Còn lại: <span>0.00</span></b>
+                    </div>
+                </fieldset>
+                <input type="submit" class="small button" value="Lưu lại" />
+                }
+            </section>
+        </div>
+    </div>
+</div>

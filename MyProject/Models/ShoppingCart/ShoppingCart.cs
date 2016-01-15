@@ -314,7 +314,7 @@ namespace MyProject.Models.ShoppingCart
             order.ShippingCost = shippingCost;
 
             order.PostedAmount = 0m;
-            order.ActualSoldAmount = order.Total;
+            //order.ActualSoldAmount = order.Total;
 
             soContext.Orders.Add(order);
             // Save the order

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
+using MyProject.DAL;
 using MyProject.Models.ShoppingCart;
 
 namespace MyProject.Models.ViewModels
@@ -22,7 +24,7 @@ namespace MyProject.Models.ViewModels
         public decimal Total { get; set; }
         public decimal ShippingCost { get; set; }
         public decimal PostedAmount { get; set; }
-        public decimal ActualSoldAmount { get; set; }
+        //public decimal ActualSoldAmount { get; set; }
 
 
         public System.DateTime OrderDate { get; set; }
@@ -30,5 +32,30 @@ namespace MyProject.Models.ViewModels
 
         public Address ShippingAddress { get; set; }
         public PaymentTransaction PaymentTransaction { get; set; }
+
+        public SelectList PaymentTypesList
+        {
+            get
+            {
+                using (var context = new ShoppingCartContext())
+                {
+                    return new SelectList(context.PaymentTypes.ToList().Select(c => c.Description), "Bank");
+                };
+
+            }
+        }
+
+        public SelectList PaymentStatusList
+        {
+            get
+            {
+                using (var context = new ShoppingCartContext())
+                {
+                    return new SelectList(context.PaymentStatuses.ToList().Select(c => c.Description), "NotPaid");
+                };
+
+            }
+        }
+
     }
 }

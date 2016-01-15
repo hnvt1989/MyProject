@@ -16,7 +16,7 @@
                 <th width="200">Mã số</th>
                 <th>Tên</th>
                 <th width="150">Tổng tiền</th>
-                <th width="150">Đặt cọc</th>
+                <th width="150">Tiền đã trả</th>
                 <th width="150">Ngày đặt</th>
             </tr>
             </thead>
@@ -31,7 +31,16 @@
                         <td>@o.Code</td>
                         <td>@o.CustomerName</td>
                         <td>@o.OrderTotal</td>
-                        <td>@o.PostedAmount</td>
+                        <td>
+                            @if (@o.PostedAmount == @o.OrderTotal)
+                            {
+                                <span style="color: green">@o.PostedAmount</span>
+                            }
+                            else
+                            {
+                                <span style="color: Red">@o.PostedAmount</span>
+                            }
+                        </td>
                         <td>@o.OrderDate</td>
                     </tr>
                 }

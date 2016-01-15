@@ -36,6 +36,7 @@ namespace MyProject.Models.ShoppingCart
         [Display(Name = "Cách thanh toán tiền")]
         public virtual PaymentType PaymentType { get; set; }
 
+        [Display(Name= "Tình trạng")]
         public virtual PaymentStatus PaymentStatus { get; set; }
 
         public string PaymentTypeDescription { get; set; }

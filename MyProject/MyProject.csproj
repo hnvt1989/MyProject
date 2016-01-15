@@ -471,6 +471,7 @@
     <Content Include="Views\PromotionSetting\Index.cshtml" />
     <Content Include="Views\OrderManagment\Index.cshtml" />
     <Content Include="Views\OrderManagment\ViewOrder.cshtml" />
+    <Content Include="Views\OrderManagment\EditOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

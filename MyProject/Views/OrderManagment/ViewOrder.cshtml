@@ -7,7 +7,12 @@
 }
 <div class="row">
     <div class="large-12 columns">
-                <div align="center"><h3>Đơn đặt hàng</h3></div>
+        <div align="center">
+            <h3>Đơn đặt hàng</h3>
+        </div>
+        <p class="small button">
+            @Html.ActionLink("Thay đổi", "EditOrder", "OrderManagment", new { number = @Model.OrderNumber}, new {@style = "color: #f5fffa"})
+        </p>
                 <fieldset>
                     <legend>
                         <h4>Thông tin khách hàng</h4>
