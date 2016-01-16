@@ -14,30 +14,30 @@
         </li>
 
         <li class="has-dropdown">
-            @Html.ActionLink("Order Managment", "Index", "OrderSummary", new {orderNumber = 10000}, new {@style = "color: #FFFFFF"})
+            @Html.ActionLink("Đơn đặt hàng", "Index", "OrderSummary", new {orderNumber = 10000}, new {@style = "color: #FFFFFF"})
             <ul class="dropdown">
-                <li class="has-dropdown">
-                    @Html.ActionLink("Search Orders", "Index", "OrderSummary", new {orderNumber = 10000}, new {@style = "color: #FFFFFF"})
+                <li>
+                    @Html.ActionLink("Tìm kiếm", "Index", "OrderSummary", new {orderNumber = 10000}, new {@style = "color: #FFFFFF"})
                 </li>
-                <li class="has-dropdown">
-                    @Html.ActionLink("Đơn đặt hàng", "Index", "OrderManagment", new {orderNumber = 10000}, new {@style = "color: #FFFFFF"})
+                <li>
+                    @Html.ActionLink("Xem tất cả", "Index", "OrderManagment", new {orderNumber = 10000}, new {@style = "color: #FFFFFF"})
                 </li>
             </ul>
         </li>
 
         <li class="has-dropdown">
-            @Html.ActionLink("Product Managment", "Index", "ProductManagement", routeValues: null, htmlAttributes: new {title = "Manage"})
+            @Html.ActionLink("Product Mgt", "Index", "ProductManagement", routeValues: null, htmlAttributes: new {title = "Manage"})
             <ul class="dropdown">
-                <li class="has-dropdown">
-                    @Html.ActionLink("View Products", "Index", "ProductManagement", routeValues: null, htmlAttributes: new {title = "Manage"})
+                <li>
+                    @Html.ActionLink("All Products", "Index", "ProductManagement", routeValues: null, htmlAttributes: new {title = "Manage"})
                 </li>
-                <li class="has-dropdown">
+                <li>
                     @Html.ActionLink("Add Product", "EditProduct", "ProductManagement", new {id = -1}, new {@style = "color: #FFFFFF"})
                 </li>
-                <li class="has-dropdown">
-                    @Html.ActionLink("View Categories", "Index", "CategoryManagment", routeValues: null, htmlAttributes: new {title = "Manage"})
+                <li>
+                    @Html.ActionLink("All Categories", "Index", "CategoryManagment", routeValues: null, htmlAttributes: new {title = "Manage"})
                 </li>
-                <li class="has-dropdown">
+                <li>
                     @Html.ActionLink("Add Category", "EditCategory", "CategoryManagment", new {id = -1}, new {@style = "color: #FFFFFF"})
                 </li>
             </ul>
@@ -45,13 +45,30 @@
 
 
         <li class="has-dropdown">
-            @Html.ActionLink("App Setting", "Index", "AppSetting", routeValues: null, htmlAttributes: new {title = "Manage"})
+            @Html.ActionLink("AppSetting", "Index", "AppSetting", routeValues: null, htmlAttributes: new {title = "Manage"})
             <ul class="dropdown">
                 <li class="has-dropdown">
-                    @Html.ActionLink("View AppSettings", "Index", "AppSetting", routeValues: null, htmlAttributes: new {title = "Manage"})
+                    @Html.ActionLink("Config", "Index", "AppSetting", routeValues: null, htmlAttributes: new {title = "Manage"})
+                    <ul class="dropdown">
+                        <li>
+                            @Html.ActionLink("View All", "Index", "AppSetting", routeValues: null, htmlAttributes: new {title = "Manage"})
+                        </li>
+                        <li>
+                            @Html.ActionLink("Add New", "EditAppSetting", "AppSetting", new {id = -1}, new {@style = "color: #FFFFFF"})
+                        </li>
+                    </ul>
                 </li>
+
                 <li class="has-dropdown">
-                    @Html.ActionLink("Add AppSetting", "EditAppSetting", "AppSetting", new {id = -1}, new {@style = "color: #FFFFFF"})
+                    @Html.ActionLink("Content Mgt", "Index", "AppSetting", routeValues: null, htmlAttributes: new {title = "Manage"})
+                    <ul class="dropdown">
+                        <li>
+                            @Html.ActionLink("View All", "Index", "AppSetting", routeValues: null, htmlAttributes: new {title = "Manage"})
+                        </li>
+                        <li>
+                            @Html.ActionLink("Add New", "EditAppSetting", "AppSetting", new {id = -1}, new {@style = "color: #FFFFFF"})
+                        </li>
+                    </ul>
                 </li>
 
             </ul>
@@ -59,10 +76,10 @@
         </li>
 
         <li class="has-dropdown">
-            @Html.ActionLink("Promotions Setting", "Index", "PromotionSetting", routeValues: null, htmlAttributes: new {title = "Manage"})
+            @Html.ActionLink("Promo Settings", "Index", "PromotionSetting", routeValues: null, htmlAttributes: new {title = "Manage"})
             <ul class="dropdown">
-                <li class="has-dropdown">
-                    @Html.ActionLink("All Promotions", "Index", "PromotionSetting", routeValues: null, htmlAttributes: new {title = "Manage"})
+                <li>
+                    @Html.ActionLink("All Promo", "Index", "PromotionSetting", routeValues: null, htmlAttributes: new {title = "Manage"})
                 </li>
             </ul>
 
