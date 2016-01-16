@@ -102,6 +102,18 @@ namespace MyProject.Controllers
                     var homeView = new HomeViewModel {ProductViewModels = products};
                     homeView.SelectedCategory = code;
 
+                    var ret = new HeaderAdvertisementViewModel();
+                    var id = context.ContentTypes.Single(p => p.Code == "Ad").Id;
+
+                    context.Contents.Where(c => c.ContentTypeId == id).ForEach(c => ret.Ads.Add(new HeaderAd()
+                    {
+                        Image = c.Image,
+                        Url = c.ImageUrl
+                    }));
+                    ret.Ads = ret.Ads.OrderBy(o => o.DisplayOrder).ToList();
+
+                    homeView.Advertisement = ret;
+
                     return View("Index", homeView);
                 }
             }
