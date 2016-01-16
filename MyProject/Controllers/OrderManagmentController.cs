@@ -43,6 +43,58 @@ namespace MyProject.Controllers
             return View(ret);
         }
 
+        //[HttpPost]
+        //public ActionResult Index([ModelBinder(typeof(DataTablesBinder))] IDataTablesRequest requestParameters)
+        //{
+        //    var totalCount = myDbContext.Set<Something>().Count();
+        //    var filteredDataSet = myDbContext.Set<Something>().Where(_s => _s.ToLower().Contains(requestParameters.Search.Value));
+
+        //    foreach(var column in requestParameters.Columns.GetFilteredColumns())
+        //    {
+        //        // Apply individual filters to each column.
+        //        // You can try Dynamic Linq to help here or you can use if statements.
+
+        //        // DynamicLinq will be slower but code will be cleaner.
+        //    }
+
+        //    var isSorted = false;
+        //    IOrderedEnumerable<Something> ordered = null;
+        //    foreach(var column in requestParameters.Columns.GetSortedColumns())
+        //    {
+        //        // If you choose to use Dynamic Linq, you can apply all sorting at once.
+        //        // If not, you have to apply each sort manually, as follows.
+
+        //        if (!isSorted)
+        //        {
+        //            // Apply first sort.
+        //            if (column.SortDirection == Column.SortDirection.Ascendant)
+        //                ordered.OrderBy(...);
+        //            else
+        //                ordered.OrderByDescending(...);
+
+        //            isSorted = true;
+        //        }
+        //        else
+        //        {
+        //            if (column.SortDirection == Column.SortDirection.Ascendant)
+        //                ordered.ThanBy(...);
+        //            else
+        //                ordered.ThanByDescending(...);
+        //        }
+        //    }
+
+        //    var pagedData = ordered.Skip(requestParameters.Start).Take(requestParameters.Length);
+
+        //    var dataTablesResult = new DataTablesResult(
+        //        requestParameters.Draw,
+        //        pagedData,
+        //        filteredDataSet.Count(),
+        //        totalCount
+        //    );
+
+        //    return View(dataTablesResult);
+        //}
+
         [HttpGet]
         public ActionResult ViewOrder(int id)
         {
@@ -78,7 +130,7 @@ namespace MyProject.Controllers
             return View(ret);
         }
 
-        
+
         public ActionResult EditOrder(long number)
         {
             var ret = new OrderDetailSummaryViewModel();
@@ -132,7 +184,7 @@ namespace MyProject.Controllers
                     _context.PaymentTypes.Single(p => p.Description == paymentType).Id;
 
                 await _context.SaveChangesAsync();
-                return RedirectToAction("ViewOrder", new {id});
+                return RedirectToAction("ViewOrder", new { id });
             }
 
             return View();

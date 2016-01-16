@@ -5,30 +5,46 @@
     ViewBag.Title = "Đơn đặt hàng";
 }
 
+
+
+<head>
+    <link href="/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/DataTables/css/dataTables.foundation.min.css" rel="stylesheet" type="text/css" />
+    @*    <link href="/Content/foundation/foundation.css" rel="stylesheet" type="text/css"/>*@
+    <script src="/Scripts/jquery-2.2.0.min.js" type="text/javascript"></script>
+    <script src="/Scripts/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script src="/Scripts/dataTables.foundation.min.js" type="text/javascript"></script>
+</head>
+
+
+
+<script type="text/javascript">
+    $("orderLists").DataTable({
+        "paging": true,
+        "ordering": true,
+        "info": true
+    });
+</script>
+
 <br />
 <div class="row">
     <div class="large-12 columns">
         <h3>Danh sách đơn đặt hàng</h3>
         <table id="orderLists" class="display" cellspacing="0" width="100%">
             <thead>
-            <tr>
-                <th></th>
-                <th width="200">Mã số</th>
-                <th>Tên</th>
-                <th width="150">Tổng tiền</th>
-                <th width="150">Tiền đã trả</th>
-                <th width="150">Ngày đặt</th>
-            </tr>
+                <tr>
+                    <th>Mã số</th>
+                    <th>Tên</th>
+                    <th>Tổng tiền</th>
+                    <th>Tiền đã trả</th>
+                    <th>Ngày đặt</th>
+                </tr>
             </thead>
             <tbody>
                 @foreach (var o in Model)
                 {
-                    <tr id="row-@o.Code">
-                        <td>
-
-                            <p >@Html.ActionLink("=>>", "ViewOrder", "OrderManagment", new {id = o.Id}, new {@style = "color: #2f4f4f"})</p>
-                        </td>
-                        <td>@o.Code</td>
+                    <tr>
+                        <td>@Html.ActionLink(@o.Code, "ViewOrder", "OrderManagment", new { id = o.Id }, new { @style = "color: #0000cd" })</td>
                         <td>@o.CustomerName</td>
                         <td>@o.OrderTotal</td>
                         <td>
@@ -48,3 +64,6 @@
         </table>
     </div>
 </div>
+
+
+
