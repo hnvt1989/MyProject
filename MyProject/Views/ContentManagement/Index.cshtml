@@ -1,0 +1,23 @@
+﻿@model MyProject.Models.ViewModels.ContentManagement.ContentManagmentViewModel
+
+@{
+    ViewBag.Title = "Content Management";
+}
+
+<div class="row">
+    <div class="large-12 columns">
+        <h3>@ViewBag.Title</h3>
+        <div class="row">
+            @Html.ActionLink("Add new", "AddNewContent", "ContentManagement")
+            @foreach (var content in Model.Contents)
+            {
+                <div class="large-3 small-6 columns">
+                    <div><span><b>Code #</b>@content.Code</span></div>
+                    <div><span style="color: blueviolet">@content.ContentType</span></div>
+                    <a>@Html.ActionLink(content.Description, "EditContent", "ContentManagement", new {id = content.Id, contentType = content.ContentType}, "")</a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+

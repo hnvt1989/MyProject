@@ -7,6 +7,7 @@ using System.Security.Permissions;
 using System.Security.Policy;
 using System.Web;
 using MyProject.Models.Account;
+using MyProject.Models.Content;
 using MyProject.Models.Core;
 using MyProject.Models.ShoppingCart;
 
@@ -39,6 +40,9 @@ namespace MyProject.DAL
         public DbSet<Promotion> Promotions { get; set; }
         public DbSet<PromotionLineItem> PromotionLineItems { get; set; }
         public DbSet<AppSetting> AppSettings { get; set; }
+
+        public DbSet<Content> Contents { get; set; }
+        public DbSet<ContentType> ContentTypes { get; set; }
         //public DbSet<CartLineItem> CartLineItems { get; set; }
 
 

@@ -63,10 +63,10 @@
                     @Html.ActionLink("Content Mgt", "Index", "AppSetting", routeValues: null, htmlAttributes: new {title = "Manage"})
                     <ul class="dropdown">
                         <li>
-                            @Html.ActionLink("View All", "Index", "AppSetting", routeValues: null, htmlAttributes: new {title = "Manage"})
+                            @Html.ActionLink("View All", "Index", "ContentManagement", routeValues: null, htmlAttributes: new {title = "Manage"})
                         </li>
                         <li>
-                            @Html.ActionLink("Add New", "EditAppSetting", "AppSetting", new {id = -1}, new {@style = "color: #FFFFFF"})
+                            @Html.ActionLink("Add New", "AddNewContent", "ContentManagement", routeValues: null, htmlAttributes:new {@style = "color: #FFFFFF"})
                         </li>
                     </ul>
                 </li>

@@ -187,6 +187,7 @@
     <Compile Include="Controllers\AppSettingController.cs" />
     <Compile Include="Controllers\CategoryManagmentController.cs" />
     <Compile Include="Controllers\CheckoutController.cs" />
+    <Compile Include="Controllers\ContentManagementController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OrderConfirmController.cs" />
@@ -209,6 +210,8 @@
     <Compile Include="Migrations\Configuration_IdentityDb.cs" />
     <Compile Include="Migrations\Configuration_ShoppingCart.cs" />
     <Compile Include="Models\Account\AccountAddress.cs" />
+    <Compile Include="Models\Content\Content.cs" />
+    <Compile Include="Models\Content\ContentType.cs" />
     <Compile Include="Models\Core\AppSetting.cs" />
     <Compile Include="Models\Core\Sequence.cs" />
     <Compile Include="Models\ShoppingCart\Address.cs" />
@@ -223,6 +226,7 @@
     <Compile Include="Models\ViewModels\CategoryManagementViewModel.cs" />
     <Compile Include="Models\ViewModels\CategoryViewModel.cs" />
     <Compile Include="Models\ViewModels\CheckoutViewModel.cs" />
+    <Compile Include="Models\ViewModels\ContentManagement\ContentManagmentViewModel.cs" />
     <Compile Include="Models\ViewModels\HomeViewModel.cs" />
     <Compile Include="Models\ViewModels\ManageViewModels.cs" />
     <Compile Include="Models\ShoppingCart\LineOrderDetail.cs" />
@@ -345,10 +349,10 @@
     <Content Include="Content\DataTables\swf\flashExport.swf" />
     <Content Include="Content\foundation\foundation.mvc.css" />
     <Content Include="Content\foundation\normalize.css" />
-    <Content Include="Content\Images\arrow-right.JPG" />
     <Content Include="Content\Images\Email.JPG" />
     <Content Include="Content\Images\Facebook.JPG" />
     <Content Include="Content\Images\favicon.ico" />
+    <Content Include="Content\Images\favicon.JPG" />
     <Content Include="Content\Images\MainSiteProfile.jpg" />
     <Content Include="Content\Images\PageHeader.jpg" />
     <Content Include="Content\Images\Phone.JPG" />
@@ -379,7 +383,6 @@
     <Content Include="Content\Images\Image1.jpg" />
     <Content Include="Content\Images\Image2.jpg" />
     <Content Include="Content\Images\Image3.jpg" />
-    <Content Include="Content\Images\Slide1.jpg" />
     <Content Include="sass\Site.scss">
       <Compile>True</Compile>
       <Minify>True</Minify>
@@ -645,6 +648,9 @@
     <Content Include="Views\OrderManagment\Index.cshtml" />
     <Content Include="Views\OrderManagment\ViewOrder.cshtml" />
     <Content Include="Views\OrderManagment\EditOrder.cshtml" />
+    <Content Include="Views\ContentManagement\Index.cshtml" />
+    <Content Include="Views\ContentManagement\EditContent.cshtml" />
+    <Content Include="Views\Home\RenderHeaderAdvertisement.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

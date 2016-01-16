@@ -7,6 +7,7 @@ using MyProject.DAL;
 using MyProject.Models;
 using MyProject.Models.ShoppingCart;
 using MyProject.Models.ViewModels;
+using WebGrease.Css.Extensions;
 
 namespace MyProject.Controllers
 {
@@ -34,11 +35,41 @@ namespace MyProject.Controllers
                         Image = p.Image
                     });
                 }
+
+                var ret = new HeaderAdvertisementViewModel();
+                var id = pContext.ContentTypes.Single(p => p.Code == "Ad").Id;
+
+                pContext.Contents.Where(c => c.ContentTypeId == id).ForEach(c => ret.Ads.Add(new HeaderAd()
+                {
+                    Image = c.Image,
+                    Url = c.ImageUrl
+                }));
+                ret.Ads = ret.Ads.OrderBy(o => o.DisplayOrder).ToList();
+
+                homeView.Advertisement = ret;
+
             }
 
             homeView.ProductViewModels = products;
             return View(homeView);
         }
+
+        //public ActionResult RenderHeaderAdvertisement()
+        //{
+        //    var ret = new HeaderAdvertisementViewModel();
+        //    using (var context = new ShoppingCartContext())
+        //    {
+        //        var id = context.ContentTypes.Single(p => p.Code == "Ad").Id;
+
+        //        context.Contents.Where( c => c.ContentTypeId == id).ForEach( c=> ret.Ads.Add(new HeaderAd()
+        //        {
+        //            Image = c.Image,
+        //            Url = c.ImageUrl
+        //        }));
+        //    }
+        //    ret.Ads = ret.Ads.OrderBy(o => o.DisplayOrder).ToList();
+        //    return View(ret);
+        //}
 
         public ActionResult FilterByCategory(string code, FormCollection collection)
         {

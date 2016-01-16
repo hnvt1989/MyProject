@@ -26,5 +26,24 @@ namespace MyProject.Models.ViewModels
 
         public string SelectedCategory { get; set; }
         public List<MyProject.Models.ViewModels.ProductViewModel> ProductViewModels { get; set; }
+
+        public HeaderAdvertisementViewModel Advertisement { get; set; }
     }
+
+    public class HeaderAdvertisementViewModel
+    {
+        public HeaderAdvertisementViewModel()
+        {
+            this.Ads = new List<HeaderAd>();
+        }
+        public List<HeaderAd> Ads { get; set; } 
+    }
+
+    public class HeaderAd
+    {
+        public string Url { get; set; }
+        public byte[] Image { get; set; }
+        public int DisplayOrder { get; set; }
+    }
+
 }

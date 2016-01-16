@@ -65,9 +65,9 @@ namespace MyProject.AppLogic.Communication
         public static string CreateEmailTemplate(OrderConfirmViewModel order, string orderNumber)
         {
 
-            var text = "<p>Tin nhắn từ: {0} </p><p>Nội dung:</p><p>{1}</p><p>{2}</p>";
-            return string.Format(text, "H.A Shop",
-                "Cảm ơn bạn đã đặt hàng ở H.A Shop. Số đơn đặt hàng của bạn là: " + orderNumber, "Xin vui lòng liên lạc với chúng tôi qua số điện thoại :");
+            var text = "Tin nhắn từ: {0}. Nội dung: {1}. {2}";
+            return string.Format(text, "J.A Shop",
+                "Cảm ơn bạn đã đặt hàng ở J.A Shop. Số đơn đặt hàng của bạn là: " + orderNumber, "Xin vui lòng liên lạc với chúng tôi qua số điện thoại :");
         }
 
         public static async Task<int> SendMail(string orderNumber, OrderConfirmViewModel order)
@@ -90,7 +90,7 @@ namespace MyProject.AppLogic.Communication
 
 
             var SUBJECT = "An order has placed !";
-            var BODY = string.Format("<p>Order number: {0} from customer {1} </p><p>Order Total:</p><p>{2}</p>", orderNumber, order.CheckOutInfo.Name, order.CartViewModel.CartTotal.ToString("N0"));
+            var BODY = string.Format("Order number: {0} from customer {1} . Order Total: {2}", orderNumber, order.CheckOutInfo.Name, order.CartViewModel.CartTotal.ToString("N0"));
 
             //const String FROM = "SENDER@EXAMPLE.COM";   // Replace with your "From" address. This address must be verified.
             //const String TO = "RECIPIENT@EXAMPLE.COM";  // Replace with a "To" address. If your account is still in the
