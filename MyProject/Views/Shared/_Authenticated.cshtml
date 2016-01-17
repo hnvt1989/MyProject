@@ -1,0 +1,32 @@
+﻿    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+    @Html.AntiForgeryToken()
+        <ul class="top-bar-items right">
+            @*        <li>
+            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Home", routeValues: null, htmlAttributes: new {title = "Manage"})
+        </li>*@
+
+            <li>
+                @Html.ActionLink("Home", "Index", "Home", routeValues: null, htmlAttributes: new {title = "Manage"})
+            </li>
+            @if (User.IsInRole("Consultant") || User.IsInRole("Admin"))
+            {
+                <li class="has-dropdown">
+                    @Html.ActionLink("Đơn đặt hàng", "Index", "OrderSummary", new {orderNumber = 10000}, new {@style = "color: #FFFFFF"})
+                    <ul class="dropdown">
+                        <li>
+                            @Html.ActionLink("Tìm kiếm", "Index", "OrderSummary", new {orderNumber = 10000}, new {@style = "color: #FFFFFF"})
+                        </li>
+                        <li>
+                            @Html.ActionLink("Xem tất cả", "Index", "OrderManagment", new {orderNumber = 10000}, new {@style = "color: #FFFFFF"})
+                        </li>
+                    </ul>
+                </li>
+            }
+            <li>
+                @Html.ActionLink("Profile", "ViewProfile", "Profile", routeValues: null, htmlAttributes: new {title = "Manage"})
+            </li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+        </ul>
+    }
+

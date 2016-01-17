@@ -1,0 +1,69 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    if (User.IsInRole("Admin"))
+    {
+        <ul class="top-bar-items right">
+            <li class="has-dropdown">
+                @Html.ActionLink("Product Mgt", "Index", "ProductManagement", routeValues: null, htmlAttributes: new {title = "Manage"})
+                <ul class="dropdown">
+                    <li>
+                        @Html.ActionLink("All Products", "Index", "ProductManagement", routeValues: null, htmlAttributes: new {title = "Manage"})
+                    </li>
+                    <li>
+                        @Html.ActionLink("Add Product", "EditProduct", "ProductManagement", new {id = -1}, new {@style = "color: #FFFFFF"})
+                    </li>
+                    <li>
+                        @Html.ActionLink("All Categories", "Index", "CategoryManagment", routeValues: null, htmlAttributes: new {title = "Manage"})
+                    </li>
+                    <li>
+                        @Html.ActionLink("Add Category", "EditCategory", "CategoryManagment", new {id = -1}, new {@style = "color: #FFFFFF"})
+                    </li>
+                </ul>
+            </li>
+
+
+            <li class="has-dropdown">
+                @Html.ActionLink("AppSetting", "Index", "AppSetting", routeValues: null, htmlAttributes: new {title = "Manage"})
+                <ul class="dropdown">
+                    <li class="has-dropdown">
+                        @Html.ActionLink("Config", "Index", "AppSetting", routeValues: null, htmlAttributes: new {title = "Manage"})
+                        <ul class="dropdown">
+                            <li>
+                                @Html.ActionLink("View All", "Index", "AppSetting", routeValues: null, htmlAttributes: new {title = "Manage"})
+                            </li>
+                            <li>
+                                @Html.ActionLink("Add New", "EditAppSetting", "AppSetting", new {id = -1}, new {@style = "color: #FFFFFF"})
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="has-dropdown">
+                        @Html.ActionLink("Content Mgt", "Index", "AppSetting", routeValues: null, htmlAttributes: new {title = "Manage"})
+                        <ul class="dropdown">
+                            <li>
+                                @Html.ActionLink("View All", "Index", "ContentManagement", routeValues: null, htmlAttributes: new {title = "Manage"})
+                            </li>
+                            <li>
+                                @Html.ActionLink("Add New", "AddNewContent", "ContentManagement", routeValues: null, htmlAttributes: new {@style = "color: #FFFFFF"})
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+
+            </li>
+
+            <li class="has-dropdown">
+                @Html.ActionLink("Promo Settings", "Index", "PromotionSetting", routeValues: null, htmlAttributes: new {title = "Manage"})
+                <ul class="dropdown">
+                    <li>
+                        @Html.ActionLink("All Promo", "Index", "PromotionSetting", routeValues: null, htmlAttributes: new {title = "Manage"})
+                    </li>
+                </ul>
+
+            </li>
+        </ul>
+    }
+}
+
