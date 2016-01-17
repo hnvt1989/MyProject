@@ -51,6 +51,7 @@ namespace MyProject.Controllers
                     ret.Image = content.Image;
                 ret.Id = id;
                 ret.RouteTo = content.ImageUrl;
+                ret.ItemCode = content.ItemCode;
                 ret.DisplayOrder = content.DisplayOrder;
             }
             return View(ret);
@@ -65,13 +66,46 @@ namespace MyProject.Controllers
             using (var context = new ShoppingCartContext())
             {
                 string contentTypeSelected = Request.Form["contentTypeSelection"].ToString();
+
+                if (contentTypeSelected == "None")
+                {
+                    ModelState.AddModelError("ContentType", "Please select content type");
+                    return View("EditContent", model);
+                }
                 string contentType = context.ContentTypes.Single(t => t.Code == contentTypeSelected).Code;
 
                 //edit existing
                 if (model.Id > 0)
                 {
+                    int itemId = context.Products.Single(p => p.Code == model.ItemCode).Id;
                     var content = context.Contents.Single(c => c.Id == model.Id);
                     content.Description = model.Description;
+
+                    content.ContentTypeId = context.ContentTypes.Single(ct => ct.Code == contentType).Id;
+                    content.ImageUrl = string.Format("/Store/Details/{0}", itemId);
+                    content.ItemCode = model.ItemCode;
+                    content.DisplayOrder = model.DisplayOrder;
+
+                    if (contentType == "Ad" && model.ContentImage != null)
+                    {
+                        if (model.ContentImage.ContentLength > (4 * 1024 * 1024))
+                        {
+                            ModelState.AddModelError("CustomError", "Image can not be lager than 4MB.");
+                        }
+                        if (
+                            !(model.ContentImage.ContentType == "image/jpeg" ||
+                              model.ContentImage.ContentType == "image/gif"))
+                        {
+                            ModelState.AddModelError("CustomError", "Image must be in jpeg or gif format.");
+                        }
+
+                        byte[] data = new byte[model.ContentImage.ContentLength];
+                        model.ContentImage.InputStream.Read(data, 0,
+                            model.ContentImage.ContentLength);
+
+                        content.Image = data;
+                    }
+
                     await context.SaveChangesAsync();
                 }
                 else
@@ -84,6 +118,7 @@ namespace MyProject.Controllers
                         Description = model.Description,
                         ContentTypeId = context.ContentTypes.Single(ct => ct.Code == contentType).Id,
                         ImageUrl = string.Format("/Store/Details/{0}", itemId ),
+                        ItemCode = model.ItemCode,
                         DisplayOrder = model.DisplayOrder
                     };
 

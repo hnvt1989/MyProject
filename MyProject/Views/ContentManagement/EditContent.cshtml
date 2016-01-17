@@ -37,7 +37,7 @@
                 <hr>
 
                 @Html.DropDownList("contentTypeSelection", Model.ContentTypes, new { id = "contentTypeSelection", onchange = "hideFieldBasedOnType(this.options[this.selectedIndex].value);" })
-                
+                 @Html.ValidationMessage("ContentType")
                 <div class="medium-6 columns" id="contentImage" style="display: none">
                     <div class="row">
                         @{
@@ -81,10 +81,17 @@
                             </div>
                         </div>
                         <div class="form-group" id="routeItem">
+                            @Html.LabelFor(m => m.ItemCode, new {@class = "col-md-2 control-label"})
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.ItemCode)
+                                @Html.ValidationMessageFor(m => m.ItemCode, "", new {@class = "text-danger"})
+                            </div>
+                        </div>
+
+                        <div class="form-group">
                             @Html.LabelFor(m => m.RouteTo, new {@class = "col-md-2 control-label"})
                             <div class="col-md-10">
-                                @Html.TextBoxFor(m => m.RouteTo)
-                                @Html.ValidationMessageFor(m => m.RouteTo, "", new {@class = "text-danger"})
+                                @Html.DisplayTextFor(m => m.RouteTo)
                             </div>
                         </div>
 

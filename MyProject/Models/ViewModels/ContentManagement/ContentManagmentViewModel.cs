@@ -41,14 +41,18 @@ namespace MyProject.Models.ViewModels.ContentManagement
         public string Code { get; set; }
 
         [RegularExpression("([1-9 .&'-]+)", ErrorMessage = "Only digit 1-9") ]
+        [Required]
         public int DisplayOrder { get; set; }
 
         public string Description { get; set; }
         public string ContentType { get; set; }
 
         //the URL will route to, right now just the product #
-        [DisplayName("Item")]
         public string RouteTo { get; set; }
+
+        [Required]
+        [DisplayName("Item Code")]
+        public string ItemCode { get; set; }
 
         public HttpPostedFileBase ContentImage { get; set; }
         public byte[] Image { get; set; }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -7,6 +8,7 @@ using MyProject.DAL;
 using MyProject.Models;
 using MyProject.Models.ShoppingCart;
 using MyProject.Models.ViewModels;
+using RTE;
 using WebGrease.Css.Extensions;
 
 namespace MyProject.Controllers
@@ -21,7 +23,7 @@ namespace MyProject.Controllers
 
             using (var pContext = new ShoppingCartContext())
             {
-                var prods = pContext.Products.Where(p => p.FeatureProduct == true && p.Active);
+                var prods = pContext.Products.Where(p => p.FeatureProduct && p.Active);
                 var offers = pContext.ProductOffers.ToList();
                 foreach (var p in prods)
                 {
@@ -42,9 +44,12 @@ namespace MyProject.Controllers
                 pContext.Contents.Where(c => c.ContentTypeId == id).ForEach(c => ret.Ads.Add(new HeaderAd()
                 {
                     Image = c.Image,
-                    Url = c.ImageUrl
+                    Url = c.ImageUrl,
+                    DisplayOrder = c.DisplayOrder
                 }));
                 ret.Ads = ret.Ads.OrderBy(o => o.DisplayOrder).ToList();
+
+                //ret.Ads.Sort((x,y) => x.DisplayOrder.CompareTo(y.DisplayOrder));
 
                 homeView.Advertisement = ret;
 
@@ -124,7 +129,6 @@ namespace MyProject.Controllers
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
-
             return View();
         }
 
