@@ -16,12 +16,31 @@
                 <hr>
 
                 <div class="large-5 columns">
-                     <div class="form-group">
-                        @Html.LabelFor(m => m.Code, new { @class = "col-md-2 control-label" })
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Code, new {@class = "col-md-2 control-label"})
                         <div class="col-md-10">
                             @Html.DisplayTextFor(m => m.Code)
                         </div>
                     </div>
+                    @{
+                        if (Model.Icon != null)
+                         {
+                             var base64 = Convert.ToBase64String(@Model.Icon);
+                             var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                             <img  src="@imgSrc" height="50" width="50"/>
+                         }
+                         else
+                         {
+                             <img src="~/Content/Images/ProductDefault.png" height="50" width="50"/>
+                         }
+                    }
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.IconImage, new {type = "file"})
+                            @Html.ValidationMessage("CustomMessage")
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         @Html.LabelFor(m => m.Description, new {@class = "col-md-2 control-label"})
                         <div class="col-md-10">

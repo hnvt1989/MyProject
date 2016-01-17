@@ -16,5 +16,9 @@ namespace MyProject.Models.ViewModels
         public string Description { get; set; }
 
         public bool IsChecked { get; set; }
+
+        public byte[] Icon { get; set; }
+
+        public HttpPostedFileBase IconImage { get; set; }
     }
 }

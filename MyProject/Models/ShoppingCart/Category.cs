@@ -16,6 +16,8 @@ namespace MyProject.Models.ShoppingCart
 
         [ForeignKey("Product")]
         public virtual ICollection<Product> Products { get; set; } 
+
+        public byte[] Icon { get; set; }
     }
     
 }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MyProject.DAL;
+using WebGrease.Css.Extensions;
 
 namespace MyProject.Models.ViewModels
 {
@@ -23,6 +24,26 @@ namespace MyProject.Models.ViewModels
 
             }
         }
+
+        public List<CategoryViewModel> CategoryViews
+        {
+            get
+            {
+                using (var context = new ShoppingCartContext())
+                {
+                    var ret = new List<CategoryViewModel>();
+                    context.Categories.ForEach( c => ret.Add(new CategoryViewModel()
+                    {
+                        Id = c.Id,
+                        Code = c.Code,
+                        Description = c.Description,
+                        Icon = c.Icon
+                    }));
+
+                    return ret;
+                };
+            }
+        } 
 
         public string SelectedCategory { get; set; }
         public List<MyProject.Models.ViewModels.ProductViewModel> ProductViewModels { get; set; }

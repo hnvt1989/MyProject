@@ -28,7 +28,8 @@ namespace MyProject.Controllers
                     {
                         Code = c.Code,
                         Description = c.Description,
-                        Id = c.Id
+                        Id = c.Id,
+                        Icon = c.Icon
                     }));
                     return View(ret);
                 }
@@ -47,6 +48,7 @@ namespace MyProject.Controllers
 
                     cat.Code = "";
                     cat.Description = "Description";
+                    cat.Icon = null;
                 }
                 else
                 {
@@ -56,6 +58,7 @@ namespace MyProject.Controllers
                         cat.Id = oCat.Id;
                         cat.Code = oCat.Code;
                         cat.Description = oCat.Description;
+                        cat.Icon = oCat.Icon;
                     }
                 }
                 return View(cat);
@@ -75,7 +78,29 @@ namespace MyProject.Controllers
                         var cat = context.Categories.Single(c => c.Id == id);
                         cat.Description = model.Description;
 
+                        if (model.IconImage != null)
+                        {
+                            if (model.IconImage.ContentLength > (4 * 1024 * 1024))
+                            {
+                                ModelState.AddModelError("CustomError", "Image can not be lager than 4MB.");
+                                return View();
+                            }
+                            if (
+                                !(model.IconImage.ContentType == "image/jpeg" ||
+                                  model.IconImage.ContentType == "image/gif"))
+                            {
+                                ModelState.AddModelError("CustomError", "Image must be in jpeg or gif format.");
+                            }
+
+                            byte[] data = new byte[model.IconImage.ContentLength];
+                            model.IconImage.InputStream.Read(data, 0,
+                                model.IconImage.ContentLength);
+
+                            cat.Icon = data;
+                        }
+
                         await context.SaveChangesAsync();
+                        return RedirectToAction("EditCategory", cat.Id);
                     }
                     else
                     {
@@ -83,9 +108,31 @@ namespace MyProject.Controllers
                         ret.Code = SeqHelper.Next("Category").ToString();
                         ret.Description = model.Description;
 
+                        if (model.IconImage != null)
+                        {
+                            if (model.IconImage.ContentLength > (4 * 1024 * 1024))
+                            {
+                                ModelState.AddModelError("CustomError", "Image can not be lager than 4MB.");
+                                return View();
+                            }
+                            if (
+                                !(model.IconImage.ContentType == "image/jpeg" ||
+                                  model.IconImage.ContentType == "image/gif"))
+                            {
+                                ModelState.AddModelError("CustomError", "Image must be in jpeg or gif format.");
+                            }
+
+                            byte[] data = new byte[model.IconImage.ContentLength];
+                            model.IconImage.InputStream.Read(data, 0,
+                                model.IconImage.ContentLength);
+
+                            ret.Icon = data;
+                        }
+
                         context.Categories.Add(ret);
 
                         await context.SaveChangesAsync();
+                        return RedirectToAction("EditCategory", ret.Id);
                     }
                 }
             }

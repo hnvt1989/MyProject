@@ -3,9 +3,6 @@
     ViewBag.Title = "Trang chủ";
 }
 
-
-<body>
-<br/>
 <div class="row">
     
     <div class="large-12 columns">
@@ -84,9 +81,8 @@
                 </aside>*@
 
 
-            <div class="large-4 small-12 columns">
-                @*                    <img src="~/Content/Images/MainSiteProfile.jpg">*@
-                <div class="hide-for-small panel">
+            <div class="large-4 small-12 columns" >
+                <div class="hide-for-small panel" style="background: #FFFFFF">
                     @*                        <h3>Header</h3>*@
                     <h4><b>Thông tin liên lạc:</b></h4>
                     <h6>&#9743; +1 503-740-7206 (Viber)</h6>
@@ -97,57 +93,61 @@
 
 
                 </div>
-                <a href="#">
-                    <div class="panel callout radius">
-                        <h6>@Html.ActionLink("Giỏ hàng của bạn", "Index", "ShoppingCart")</h6>
-                    </div>
-                </a>
-                @*                <div class="row">
-                    <div class="large-12 columns">
-                        <div class="panel">
-                            <div class="row">
-                                <div class="large-2 small-6 columns">
-                                    <img src="~/Content/Images/SiteOwner.jpg">
-                                </div>
-                                <div class="large-10 small-6 columns">
-                                    <strong>Trang Web này được điều hành bởi:</strong>
-                                    <hr>
-                                    Aí Võ & Huy Nguyễn,
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>*@
+                <div class="hide-for-small panel" style="background: #FFFFFF">
+                    <h4><b>Danh mục sản phẩm</b></h4>
+                    <ul class="side-nav">
+                    @foreach (var c in Model.CategoryViews)
+                    {
+
+                        <li>
+                            <a href="/Home/FilterByCategory?code=@c.Code">
+                            @if (c.Icon != null)
+                            {
+                                var base64 = Convert.ToBase64String(@c.Icon);
+                                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                                <img src="@imgSrc" height="20" width="20"/>
+                                @c.Description
+
+                            }
+                            else
+                            {
+                                 @c.Description
+                            }
+                            </a>
+                        </li>                        
+                    }
+                        </ul>
+                </div>
 
             </div>
 
             <div class="large-8 columns">
-                <span><b>Danh mục sản phẩm</b></span>
-                @*                    @Html.LabelFor(x => x.CategoryList)*@
-                @Html.DropDownListFor(x => x.SelectedCategory, Model.CategoryList, new { id = "categorySelection", onchange = "document.location.href = '/Home/FilterByCategory?code=' + this.options[this.selectedIndex].value;" })
-                <div class="row">
+                <div class="row hide-for-large">
+                 <span><b>Danh mục sản phẩm</b></span>
+                @Html.DropDownListFor(x => x.SelectedCategory, Model.CategoryList, new { id = "categorySelection", onchange = "document.location.href = '/Home/FilterByCategory?code=' + this.options[this.selectedIndex].value;" })                   
+                </div>
+
+                <div class="row" data-equalizer="foo" data-options="equalize_on_stack: true">
 
                     @foreach (var product in Model.ProductViewModels)
                     {
-                        <div class="large-4 small-6 columns">
+
+                        <div class="large-4 columns panel" data-equalizer-watch="foo" style="background: #FFFFFF">
 
                             @if (@product.Image != null)
                             {
                                 var base64 = Convert.ToBase64String(@product.Image);
                                 var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-                                <img src="@imgSrc"/>
+                                <img src="@imgSrc" height="200" width="200"/>
 
                             }
                             else
                             {
-                                <img src="~/Content/Images/ProductDefault.png" height="400" width="400"/>
+                                <img src="~/Content/Images/ProductDefault.png" height="200" width="200"/>
                             }
 
-
-                            <div class="panel">
                                 <h5><a>@Html.ActionLink(@product.Description, "Details", "Store", new { id = product.Id }, new { @style = "color: #4169e1" })</a></h5>
                                 <h6 class="subheader">@product.Price.ToString("N0") đ</h6>
-                            </div>
                         </div>
                     }
                 </div>
@@ -155,7 +155,3 @@
         </div>
     </div>
 </div>
-</body>
-
-
-
