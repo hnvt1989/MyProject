@@ -4,10 +4,58 @@
     ViewBag.Title = "Content Management";
 }
 
+<link href="/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+<link href="/Content/DataTables/css/dataTables.foundation.min.css" rel="stylesheet" type="text/css" />
+
+
+<script src="/Scripts/jquery-2.2.0.js" type="text/javascript"></script>
+<script src="/Scripts/jquery-2.2.0.min.js" type="text/javascript"></script>
+<script src="/Scripts/jquery.dataTables.min.js" type="text/javascript"></script>
+
+
+
+
+
+<script type="text/javascript">
+    jQuery(document).ready(function($) {
+        $('#contents').dataTable();
+    });
+</script>
+
 <div class="row">
     <div class="large-12 columns">
         <h3>@ViewBag.Title</h3>
-        <div class="row">
+
+        <table id="contents" class="display" cellspacing="0" width="100%">
+            <thead>
+            <tr>
+                <th>Code</th>
+                <th>Description</th>
+                <th>Content type</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var content in Model.Contents)
+            {
+                <tr>
+                    <td>@Html.ActionLink(content.Code, "EditContent", "ContentManagement", new {id = content.Id, contentType = content.ContentType}, "")</td>
+                    <td>@content.Description</td>
+                    <td>@content.ContentType</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+
+        <p class="button">
+            @Html.ActionLink("Add new", "AddNewContent", "ContentManagement", new {id = -1}, new {@style = "color: #FFFFFF"})
+        </p>
+
+
+
+
+
+
+@*        <div class="row">
             @Html.ActionLink("Add new", "AddNewContent", "ContentManagement")
             @foreach (var content in Model.Contents)
             {
@@ -17,7 +65,7 @@
                     <a>@Html.ActionLink(content.Description, "EditContent", "ContentManagement", new {id = content.Id, contentType = content.ContentType}, "")</a>
                 </div>
             }
-        </div>
+        </div>*@
     </div>
 </div>
 

@@ -4,17 +4,60 @@
     ViewBag.Title = "Application Setting";
 }
 
+<link href="/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+<link href="/Content/DataTables/css/dataTables.foundation.min.css" rel="stylesheet" type="text/css" />
+
+
+<script src="/Scripts/jquery-2.2.0.js" type="text/javascript"></script>
+<script src="/Scripts/jquery-2.2.0.min.js" type="text/javascript"></script>
+<script src="/Scripts/jquery.dataTables.min.js" type="text/javascript"></script>
+
+
+
+
+
+<script type="text/javascript">
+    jQuery(document).ready(function($) {
+        $('#appSettings').dataTable();
+    });
+</script>
+
 
 
 <div class="row">
     <div class="large-12 columns">
         <h3>@ViewBag.Title</h3>
-        @foreach (var appSetting in Model)
+@*        @foreach (var appSetting in Model)
         {
             <div class="large-3 small-6 columns">
                 <div><span><b>Code:</b>@appSetting.Code</span></div>
                 <a>@Html.ActionLink(@appSetting.Description, "EditAppSetting", "AppSetting", new {id = appSetting.Id}, "")</a>
             </div>
-        }
+        }*@
+
+        <table id="appSettings" class="display" cellspacing="0" width="100%">
+            <thead>
+            <tr>
+                <th>Code</th>
+                <th>Description</th>
+                <th>Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var appSetting in Model)
+            {
+                <tr>
+                    <td>@Html.ActionLink(@appSetting.Code, "EditAppSetting", "AppSetting", new {id = appSetting.Id}, "")</td>
+                    <td>@appSetting.Description</td>
+                    <td>@appSetting.Value</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+
+        <p class="button">
+            @Html.ActionLink("Add New", "EditAppSetting", "AppSetting", new {id = -1}, new {@style = "color: #FFFFFF"})
+        </p>
+
     </div>
 </div>

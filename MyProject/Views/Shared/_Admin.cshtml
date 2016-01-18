@@ -24,21 +24,17 @@
 
 
             <li class="has-dropdown">
-                @Html.ActionLink("AppSetting", "Index", "AppSetting", routeValues: null, htmlAttributes: new {title = "Manage"})
+                @Html.ActionLink("WebSite Config", "Index", "AppSetting", routeValues: null, htmlAttributes: new {title = "Manage"})
                 <ul class="dropdown">
-                    <li class="has-dropdown">
-                        @Html.ActionLink("Config", "Index", "AppSetting", routeValues: null, htmlAttributes: new {title = "Manage"})
-                        <ul class="dropdown">
-                            <li>
-                                @Html.ActionLink("View All", "Index", "AppSetting", routeValues: null, htmlAttributes: new {title = "Manage"})
-                            </li>
-                            <li>
-                                @Html.ActionLink("Add New", "EditAppSetting", "AppSetting", new {id = -1}, new {@style = "color: #FFFFFF"})
-                            </li>
-                        </ul>
+                    <li>
+                        @Html.ActionLink("AppSetting", "Index", "AppSetting", routeValues: null, htmlAttributes: new {title = "Manage"})
                     </li>
 
-                    <li class="has-dropdown">
+                    <li>
+                        @Html.ActionLink("Content", "Index", "ContentManagement", routeValues: null, htmlAttributes: new {title = "Manage"})
+                    </li>
+
+@*                    <li class="has-dropdown">
                         @Html.ActionLink("Content Mgt", "Index", "AppSetting", routeValues: null, htmlAttributes: new {title = "Manage"})
                         <ul class="dropdown">
                             <li>
@@ -48,7 +44,7 @@
                                 @Html.ActionLink("Add New", "AddNewContent", "ContentManagement", routeValues: null, htmlAttributes: new {@style = "color: #FFFFFF"})
                             </li>
                         </ul>
-                    </li>
+                    </li>*@
 
                 </ul>
 
