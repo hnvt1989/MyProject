@@ -38,6 +38,8 @@ namespace MyProject.Models.ShoppingCart
 
         public decimal BuyInPrice { get; set; }
 
+        public string Notes { get; set; }
+
         public byte[] Image { get; set; }
 
         public byte[] ImageAlt0 { get; set; }

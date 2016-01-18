@@ -1,0 +1,22 @@
+﻿@model MyProject.Models.ViewModels.PurchaseInstruction
+
+@{
+    ViewBag.Title = "PurchaseInstruction";
+}
+
+<div class="row">
+    <div class="large-12 columns">
+
+        <fieldset>
+            <div class="content">
+                <h4><span>@Html.Raw(HttpUtility.HtmlDecode(Model.Header))</span></h4>
+            </div>
+            <div class="content">
+                <h6><span>@Html.Raw(HttpUtility.HtmlDecode(Model.Content))</span></h6>
+            </div>
+
+
+        </fieldset>
+    </div>
+</div>
+

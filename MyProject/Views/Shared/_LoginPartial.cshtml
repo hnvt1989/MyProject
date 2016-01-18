@@ -1,11 +1,17 @@
 ﻿@using Microsoft.AspNet.Identity
 @if (Request.IsAuthenticated)
 {
+    <ul class="top-bar-items left">
+        <li>@Html.ActionLink("Cách mua hàng", "PurchaseInstruction", "Home", routeValues: null, htmlAttributes: new {id = "homeLink"})</li>
+    </ul>
+    
     @Html.Partial("_Authenticated")
 }
 else
 {
-
+    <ul class="top-bar-items left">
+        <li>@Html.ActionLink("Cách mua hàng", "PurchaseInstruction", "Home", routeValues: null, htmlAttributes: new { id = "homeLink" })</li>
+    </ul>
 
     <ul class="top-bar-items right">
         <li>@Html.ActionLink("Trang chủ", "Index", "Home", routeValues: null, htmlAttributes: new { id = "homeLink" })</li>

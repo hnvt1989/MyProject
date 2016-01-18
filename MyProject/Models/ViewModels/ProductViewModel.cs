@@ -47,6 +47,9 @@ namespace MyProject.Models.ViewModels
 
         public bool FeatureProduct { get; set; }
 
+        [AllowHtml]
+        public string Notes { get; set; }
+
         [Display(Name = "Pound")]
         public decimal WeightPounds { get; set; }
 
@@ -66,5 +69,7 @@ namespace MyProject.Models.ViewModels
         public HttpPostedFileBase ProductImageAlt1 { get; set; }
 
         public List<Category> Categories { get; set; }
+
+        public string CategoriesString { get; set; } 
     }
 }

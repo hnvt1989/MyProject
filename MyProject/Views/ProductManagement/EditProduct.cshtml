@@ -9,8 +9,9 @@
 }
 
 <script type="text/javascript">
-    window.onload = function() {
+    window.onload = function () {
         CKEDITOR.replace('detailDescriptionTextBox');
+        CKEDITOR.replace('noteTextArea');
     };
 </script>
 
@@ -24,71 +25,73 @@
 
             <div class="row">
                 <hr>
-                <div class="medium-6 columns">
-                    @{
-                        if (Model.ProductView.Image != null)
-                        {
-                            var base64 = Convert.ToBase64String(@Model.ProductView.Image);
-                            var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-                                    <img alt="@Model.ProductView.Description" src="@imgSrc" height="400" width="400"/>
-                        }
-                        else
-                        {
-                                    <img src="~/Content/Images/ProductDefault.png" height="400" width="400" />
-                        }}
-                    <div class="form-group">
-                        @*                        @Html.LabelFor(m => m.UserProfilePicture, new {@class = "col-md-2 control-label"})*@
-                        <div class="col-md-10">
-                            @Html.TextBoxFor(m => m.ProductView.ProductImage, new { type = "file" })
-                            @Html.ValidationMessage("CustomMessage")
-                        </div>
+            <div class="medium-6 columns">
+                 @Html.ActionLink("<<< Back", "Index", "ProductManagement", new {id = -1}, new {@style = "color: #32cd32"})
+                <br/>
+                @{
+                    if (Model.ProductView.Image != null)
+                    {
+                        var base64 = Convert.ToBase64String(@Model.ProductView.Image);
+                        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                        <img alt="@Model.ProductView.Description" src="@imgSrc" height="400" width="400"/>
+                    }
+                    else
+                    {
+                        <img src="~/Content/Images/ProductDefault.png" height="400" width="400"/>
+                    }}
+                <div class="form-group">
+                    @*                        @Html.LabelFor(m => m.UserProfilePicture, new {@class = "col-md-2 control-label"})*@
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.ProductView.ProductImage, new {type = "file"})
+                        @Html.ValidationMessage("CustomMessage")
                     </div>
-                    <ul class="small-block-grid-3">
-                        <li>
+                </div>
+                <ul class="small-block-grid-3">
+                    <li>
 
-                            @{
-                                if (Model.ProductView.ImageAlt0 != null)
-                                {
-                                    var base64 = Convert.ToBase64String(@Model.ProductView.ImageAlt0);
-                                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-                                    <img alt="@Model.ProductView.Description" src="@imgSrc" height="400" width="400"/>
-                                }
-                                else
-                                {
-                                    <img src="~/Content/Images/ProductDefault.png" height="100" width="100"/>
-                                }}
-                            <div class="form-group">
-                                @*                        @Html.LabelFor(m => m.UserProfilePicture, new {@class = "col-md-2 control-label"})*@
-                                <div class="col-md-10">
-                                    @Html.TextBoxFor(m => m.ProductView.ProductImageAlt0, new {type = "file"})
-                                    @Html.ValidationMessage("CustomMessage")
-                                </div>
+                        @{
+                            if (Model.ProductView.ImageAlt0 != null)
+                            {
+                                var base64 = Convert.ToBase64String(@Model.ProductView.ImageAlt0);
+                                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                                <img alt="@Model.ProductView.Description" src="@imgSrc" height="400" width="400"/>
+                            }
+                            else
+                            {
+                                <img src="~/Content/Images/ProductDefault.png" height="100" width="100"/>
+                            }}
+                        <div class="form-group">
+                            @*                        @Html.LabelFor(m => m.UserProfilePicture, new {@class = "col-md-2 control-label"})*@
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.ProductView.ProductImageAlt0, new {type = "file"})
+                                @Html.ValidationMessage("CustomMessage")
                             </div>
-                        </li>
+                        </div>
+                    </li>
 
-                         <li>
+                    <li>
 
-                            @{
+                        @{
                             if (Model.ProductView.ImageAlt1 != null)
                             {
                                 var base64 = Convert.ToBase64String(@Model.ProductView.ImageAlt1);
                                 var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-                                                <img alt="@Model.ProductView.Description" src="@imgSrc" height="400" width="400"/>
+                                <img alt="@Model.ProductView.Description" src="@imgSrc" height="400" width="400"/>
                             }
                             else
                             {
-                                                <img src="~/Content/Images/ProductDefault.png" height="100" width="100" />
+                                <img src="~/Content/Images/ProductDefault.png" height="100" width="100"/>
                             }}
-                            <div class="form-group">
-                                @*                        @Html.LabelFor(m => m.UserProfilePicture, new {@class = "col-md-2 control-label"})*@
-                                <div class="col-md-10">
-                                    @Html.TextBoxFor(m => m.ProductView.ProductImageAlt1, new { type = "file" })
-                                    @Html.ValidationMessage("CustomMessage")
-                                </div>
+                        <div class="form-group">
+                            @*                        @Html.LabelFor(m => m.UserProfilePicture, new {@class = "col-md-2 control-label"})*@
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.ProductView.ProductImageAlt1, new {type = "file"})
+                                @Html.ValidationMessage("CustomMessage")
                             </div>
-                        </li>
-                    </ul>
-                </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
 
 
                 <div class="large-5 columns">
@@ -97,6 +100,7 @@
                         <li class="tab-title active"><a href="#panel1">Details</a></li>
                         <li class="tab-title"><a href="#panel2">Pricing</a></li>
                         <li class="tab-title"><a href="#panel3">Stock/Weight</a></li>
+                        <li class="tab-title"><a href="#panel4">Additional Info</a></li>
                     </ul>
                     <div class="tabs-content">
                         <div class="content active" id="panel1">
@@ -164,6 +168,8 @@
                                 </div>
                             </div>
                         </div>
+
+
                         <div class="content" id="panel3">
                             <div class="panel">
                                 <h5><b><em>Weight: </em></b></h5>
@@ -208,22 +214,22 @@
                             </div>
                         </div>
 
+                        <div class="content" id="panel4">
+                            <div class="panel">
+                                <h5><b><em>Note: </em></b></h5>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.ProductView.Notes, new { @class = "col-md-2 control-label" })
+                                    <div class="col-md-10">
+                                        @Html.TextAreaFor(m => m.ProductView.Notes, new { id = "noteTextArea" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
                     <div>
                         <input type="submit" class="medium success button" value="Save" />
                     </div>
                 </div>
-                @*    <div class="row">
-        <hr>
-        <div class="large-12 columns">
-            <h4>You might also like:</h4>
-            <img src="http://placehold.it/200x150&text=[img]">
-            <img src="http://placehold.it/200x150&text=[img]">
-            <img src="http://placehold.it/200x150&text=[img]">
-            <img src="http://placehold.it/200x150&text=[img]">
-        </div>
-    </div>*@
             </div>
         }
     </section>

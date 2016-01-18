@@ -11,6 +11,7 @@ namespace MyProject.Models.ViewModels
         {
             CategoryViewModels = new List<CategoryViewModel>();
         }
-        public List<CategoryViewModel> CategoryViewModels { get; set; } 
+        public List<CategoryViewModel> CategoryViewModels { get; set; }
+
     }
 }

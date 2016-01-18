@@ -78,4 +78,9 @@ namespace MyProject.Models.ViewModels
         public string ContactInfo { get;set; }
     }
 
+    public class PurchaseInstruction
+    {
+        public string Header { get; set; }
+        public string Content { get; set; }
+    }
 }

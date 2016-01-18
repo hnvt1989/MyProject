@@ -963,9 +963,9 @@
     <Content Include="Views\OrderManagment\EditOrder.cshtml" />
     <Content Include="Views\ContentManagement\Index.cshtml" />
     <Content Include="Views\ContentManagement\EditContent.cshtml" />
-    <Content Include="Views\Home\RenderHeaderAdvertisement.cshtml" />
     <Content Include="Views\Shared\_Authenticated.cshtml" />
     <Content Include="Views\Shared\_Admin.cshtml" />
+    <Content Include="Views\Home\PurchaseInstruction.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

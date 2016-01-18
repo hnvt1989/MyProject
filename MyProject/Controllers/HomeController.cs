@@ -139,10 +139,34 @@ namespace MyProject.Controllers
         }
 
 
-        public ActionResult About()
+        public ActionResult PurchaseInstruction()
         {
-            ViewBag.Message = "Your application description page.";
-            return View();
+            ViewBag.Message = "Hướng dẫn cách mua hàng";
+
+            var content = "";
+            var header = "";
+
+            using (var context = new ShoppingCartContext())
+            {
+                var contentObj = context.Contents.SingleOrDefault(c => c.TextLocation == "Home.Purchase.Content");
+                if (contentObj != null)
+                {
+                    content = contentObj.TextValue;
+                }
+                var headerObj = context.Contents.SingleOrDefault(c => c.TextLocation == "Home.Purchase.Header");
+                if (headerObj != null)
+                {
+                    header = headerObj.TextValue;
+                }
+
+            }
+
+            var ret = new PurchaseInstruction()
+            {
+                Content = content,
+                Header = header
+            };
+            return View(ret);
         }
 
         public ActionResult Contact()

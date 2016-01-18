@@ -12,6 +12,7 @@ namespace MyProject.Models.ViewModels
 
         public string Code { get; set; }
 
+        public int ProductsCount { get; set; }
         [Display(Name = "Category Description")]
         public string Description { get; set; }
 

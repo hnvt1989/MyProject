@@ -148,9 +148,9 @@
                             {
                                 <img src="~/Content/Images/ProductDefault.png" height="200" width="200"/>
                             }
-
-                                <h5><a>@Html.ActionLink(@product.Description, "Details", "Store", new { id = product.Id }, new { @style = "color: #4169e1" })</a></h5>
-                                <h6 class="subheader">@product.Price.ToString("N0") đ</h6>
+                                
+                            <h5><a>@Html.ActionLink(@product.Description, "Details", "Store", new { id = product.Id }, new { @style = "color: #4169e1" })</a></h5>
+                            <h6 class="subheader">@product.Price.ToString("N0") đ</h6>
                         </div>
                     }
                 </div>

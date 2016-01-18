@@ -20,9 +20,11 @@ namespace MyProject.Controllers
         {
             if (ModelState.IsValid)
             {
+                var ret = new CategoryManagementViewModel();
+
                 using (var context = new ShoppingCartContext())
                 {
-                    var ret = new CategoryManagementViewModel();
+                    
 
                     context.Categories.ForEach(c => ret.CategoryViewModels.Add(new CategoryViewModel()
                     {
@@ -31,8 +33,20 @@ namespace MyProject.Controllers
                         Id = c.Id,
                         Icon = c.Icon
                     }));
-                    return View(ret);
+                    
                 }
+
+                using (var context = new ShoppingCartContext())
+                {
+
+                    foreach (var cat in ret.CategoryViewModels)
+                    {
+                        cat.ProductsCount = (from p in context.Products
+                            where p.Categories.Any(c => c.Code == cat.Code)
+                            select p).Count();
+                    }
+                }
+                return View(ret);
             }
             return View();
         }

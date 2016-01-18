@@ -23,14 +23,16 @@ namespace MyProject.Models.ViewModels
 
         public string SelectedCategory { get; set; }
 
-        [DisplayName("Category")]
+        [DisplayName("Sort by Category")]
         public SelectList CategoryList
         {
             get
             {
                 using (var context = new ShoppingCartContext())
                 {
-                    var cat = context.Categories.ToList();
+                    var cat = new List<Category>();
+                    cat.Add(new Category(){ Code = "All", Description = "All Categories"});
+                    cat.AddRange(context.Categories.ToList());
                     return new SelectList(cat, "Code", "Description");
                 };
 

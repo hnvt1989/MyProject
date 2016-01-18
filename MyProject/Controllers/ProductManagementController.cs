@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mime;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -10,6 +11,7 @@ using MyProject.Models.Account;
 using MyProject.Models.Core;
 using MyProject.Models.ShoppingCart;
 using MyProject.Models.ViewModels;
+using WebGrease.Css.Extensions;
 
 namespace MyProject.Controllers
 {
@@ -17,16 +19,22 @@ namespace MyProject.Controllers
     {
         public ActionResult FilterByCategory(string code)
         {
-             var prods = new List<Product>();
+            if(code == "All")
+                return RedirectToAction("Index");
 
-                using (var context = new ShoppingCartContext())
-                {
-                    prods = (from p in context.Products
-                        where p.Categories.Any(c => c.Code == code)
-                             select p).Take(24).ToList();
-                }
+            var catDescription = "";
+            var prods = new List<Product>();
+
             using (var context = new ShoppingCartContext())
             {
+                prods = (from p in context.Products
+                         where p.Categories.Any(c => c.Code == code)
+                         select p).ToList();
+                catDescription = context.Categories.Single(c => c.Code == code).Description;
+            }
+            using (var context = new ShoppingCartContext())
+            {
+
                 var productCategories = new ProductManagementViewModel();
                 foreach (var prod in prods)
                 {
@@ -36,11 +44,14 @@ namespace MyProject.Controllers
                         Description = prod.Description,
                         Image = prod.Image,
                         Id = prod.Id,
-                        Active = prod.Active
+                        Active = prod.Active,
+                        QuantityOnHand = prod.QuantityOnHand,
+                        CategoriesString = catDescription
                     });
                 }
 
                 productCategories.SelectedCategory = code;
+
                 return View("Index", productCategories);
             }
 
@@ -63,7 +74,7 @@ namespace MyProject.Controllers
                     //            where p.Categories.Any(c => c.Code == defaultCat.Code)
                     //            select p;
 
-                    var prods = context.Products.Take(12);
+                    var prods = context.Products;
                     //productCategories.Products.AddRange(prods);
                     //                  where cartItems.Code == ShoppingCartId
                     foreach (var prod in prods)
@@ -77,9 +88,22 @@ namespace MyProject.Controllers
                             //ImageAlt0 = prod.ImageAlt0,
                             //ImageAlt1 = prod.ImageAlt1,
                             Id = prod.Id,
-                            Active = prod.Active
+                            Active = prod.Active,
+                            QuantityOnHand = prod.QuantityOnHand
                         });
+
                     }
+
+                    foreach (var product in productCategories.Products)
+                    {
+                        product.CategoriesString =
+                            context.Products.Where(p => p.Id == product.Id)
+                                .SelectMany(prod => prod.Categories)
+                                .Select(c => c.Description)
+                                .ToList()
+                                .Aggregate((i, j) => i + "," + j);
+                    }
+
                     return View(productCategories);
                 }
             }
@@ -102,7 +126,7 @@ namespace MyProject.Controllers
                     var priceTypes = context.PriceTypes.ToList();
                     var categories = context.Categories.ToList();
                     var offers = new List<ProductOffer>();
-                    priceTypes.ForEach(pt => offers.Add(new ProductOffer(){PriceTypeId = pt.Id,Price = 0m}));
+                    priceTypes.ForEach(pt => offers.Add(new ProductOffer() { PriceTypeId = pt.Id, Price = 0m }));
                     var ret = new EditProductViewModel()
                     {
                         ProductView = new ProductViewModel()
@@ -118,13 +142,15 @@ namespace MyProject.Controllers
                         Offers = new List<ProductOffer>(),
                         PriceTypes = new List<PriceType>(),
                     };
-                    categories.ForEach(c => ret.Categories.Add(new CategoryViewModel(){Code = c.Code,Description = c.Description, IsChecked = false}));
+                    categories.ForEach(c => ret.Categories.Add(new CategoryViewModel() { Code = c.Code, Description = c.Description, IsChecked = false }));
                     ret.PriceTypes.AddRange(priceTypes);
                     ret.Offers.AddRange(offers);
 
                     ret.ProductView.WeightOunce = 0m;
                     ret.ProductView.WeightPounds = 0m;
                     ret.ProductView.QuantityOnHand = 0;
+
+                    ret.ProductView.Notes = "";
 
                     TempData["ProductEditId"] = id;
                     return View(ret);
@@ -165,9 +191,9 @@ namespace MyProject.Controllers
 
                     TempData["ProductEditId"] = id;
 
-                    var weightInOunce = product.Weight*16;
-                    ret.ProductView.WeightOunce = weightInOunce%16;
-                    ret.ProductView.WeightPounds = (weightInOunce - ret.ProductView.WeightOunce)/16;
+                    var weightInOunce = product.Weight * 16;
+                    ret.ProductView.WeightOunce = weightInOunce % 16;
+                    ret.ProductView.WeightPounds = (weightInOunce - ret.ProductView.WeightOunce) / 16;
 
                     //quantity on hand
                     ret.ProductView.QuantityOnHand = product.QuantityOnHand;
@@ -184,10 +210,11 @@ namespace MyProject.Controllers
                         }
                     }
 
+                    ret.ProductView.Notes = product.Notes;
 
                     return View(ret);
                 }
-                
+
                 return View();
             }
         }
@@ -201,7 +228,7 @@ namespace MyProject.Controllers
                     return RedirectToAction("Index");
                 }
                 var prods = context.Products.Where(p => productCategories.SearchProductId.Contains(p.Code) || productCategories.SearchProductId.Contains(p.Description));
-                
+
 
                 var categories = context.Categories.ToList();
                 var defaultCat = categories.First();
@@ -224,12 +251,12 @@ namespace MyProject.Controllers
 
                 }
                 return View("Index", productCategories);
-                
+
             }
-            
+
         }
 
-        
+
         [HttpPost]
         public async Task<ActionResult> EditProduct(EditProductViewModel model)
         {
@@ -255,12 +282,13 @@ namespace MyProject.Controllers
                             {
                                 context.Categories.SingleOrDefault(c => c.Code == "1001")
                             },
-                            Active = model.ProductView.Active
+                            Active = model.ProductView.Active,
+                            Notes = model.ProductView.Notes
                         };
 
                         if (model.ProductView.ProductImage != null)
                         {
-                            if (model.ProductView.ProductImage.ContentLength > (4*1024*1024))
+                            if (model.ProductView.ProductImage.ContentLength > (4 * 1024 * 1024))
                             {
                                 ModelState.AddModelError("CustomError", "Image can not be lager than 4MB.");
                                 return View();
@@ -335,7 +363,7 @@ namespace MyProject.Controllers
                                 ProductId = productId,
                                 PriceTypeId = p.PriceTypeId,
                                 Price = p.Price
-                                
+
                             });
                         }
 
@@ -376,10 +404,11 @@ namespace MyProject.Controllers
                         product.DetailDescription = model.ProductView.DetailDescription;
                         product.BuyInPrice = model.ProductView.BuyInPrice;
                         product.Active = model.ProductView.Active;
+                        product.Notes = model.ProductView.Notes;
 
                         if (model.ProductView.ProductImage != null)
                         {
-                            if (model.ProductView.ProductImage.ContentLength > (4*1024*1024))
+                            if (model.ProductView.ProductImage.ContentLength > (4 * 1024 * 1024))
                             {
                                 ModelState.AddModelError("CustomError", "Image can not be lager than 4MB.");
                                 return View();
@@ -453,7 +482,7 @@ namespace MyProject.Controllers
                         //weight
                         decimal ounces = model.ProductView.WeightOunce;
                         decimal lbs = model.ProductView.WeightPounds;
-                        decimal weight = lbs + (ounces/16);
+                        decimal weight = lbs + (ounces / 16);
                         product.Weight = weight;
 
 
@@ -478,7 +507,7 @@ namespace MyProject.Controllers
                             }
                             if (!cat.IsChecked && setCat.Select(c => c.Code).ToList().Contains(cat.Code))
                             {
-                                                        
+
 
                                 product.Categories.Remove(context.Categories.Single(c => c.Code == cat.Code));
                             }
@@ -488,7 +517,7 @@ namespace MyProject.Controllers
                     }
                     return RedirectToAction("EditProduct", model.ProductView.Id);
                 }
-                
+
             }
             return View();
         }
