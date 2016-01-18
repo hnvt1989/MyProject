@@ -68,7 +68,7 @@ namespace MyProject.AppLogic.Communication
         public static string CreateEmailTemplate(OrderConfirmViewModel order, string orderNumber)
         {
 
-            var text = "Tin nhắn từ: {0}. Nội dung: {1}. {2}";
+            //var text = "Tin nhắn từ: {0}. Nội dung: {1}. {2}";
 
             var contact = "";
 
@@ -82,7 +82,8 @@ namespace MyProject.AppLogic.Communication
                 }
             }
 
-            return string.Format(text, "J.A Shop", "Cảm ơn bạn đã đặt hàng ở J.A Shop. Số đơn đặt hàng của bạn là: " + orderNumber, contact);
+            return "Cảm ơn bạn đã đặt hàng ở J.A Shop. Số đơn đặt hàng của bạn là: " + orderNumber +  contact;
+            //return string.Format(text, "J.A Shop", "Cảm ơn bạn đã đặt hàng ở J.A Shop. Số đơn đặt hàng của bạn là: " + orderNumber, contact);
 
         }
 

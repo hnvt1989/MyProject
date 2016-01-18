@@ -125,6 +125,13 @@ namespace MyProject.Controllers
 
                     homeView.Advertisement = ret;
 
+                    var contactInfo = context.Contents.SingleOrDefault(c => c.TextLocation == "Home.ContactInfo");
+
+                    if (contactInfo != null)
+                    {
+                        homeView.Info.ContactInfo = contactInfo.TextValue;
+                    }
+
                     return View("Index", homeView);
                 }
             }
