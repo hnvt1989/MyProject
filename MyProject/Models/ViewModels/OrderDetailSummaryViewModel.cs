@@ -46,7 +46,8 @@ namespace MyProject.Models.ViewModels
             {
                 using (var context = new ShoppingCartContext())
                 {
-                    return new SelectList(context.PaymentTypes.ToList().Select(c => c.Description), "Bank");
+                    var de = this.PaymentTransaction.PaymentType.Description;
+                    return new SelectList(context.PaymentTypes.ToList().Select(c => c.Description), de);
                 };
 
             }
@@ -58,7 +59,9 @@ namespace MyProject.Models.ViewModels
             {
                 using (var context = new ShoppingCartContext())
                 {
-                    return new SelectList(context.PaymentStatuses.ToList().Select(c => c.Description), "NotPaid");
+                    var de = this.PaymentTransaction.PaymentStatus.Description;
+
+                    return new SelectList(context.PaymentStatuses.ToList().Select(c => c.Description), de);
                 };
 
             }
@@ -71,7 +74,7 @@ namespace MyProject.Models.ViewModels
             {
                 using (var context = new ShoppingCartContext())
                 {
-                    return new SelectList(context.OrderStatuses.ToList().Select(c => c.Description), "Processing");
+                    return new SelectList(context.OrderStatuses.ToList().Select(c => c.Description), this.OrderStatus);
                 };
 
             }

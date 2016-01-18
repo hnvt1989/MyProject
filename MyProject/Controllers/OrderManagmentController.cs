@@ -151,7 +151,7 @@ namespace MyProject.Controllers
             return View(ret);
         }
 
-
+        [HttpGet]
         public ActionResult EditOrder(long number)
         {
             var ret = new OrderDetailSummaryViewModel();
@@ -165,7 +165,6 @@ namespace MyProject.Controllers
             ret.Email = order.Email;
             ret.FullName = order.FullName;
             ret.OrderDate = order.OrderDate;
-
             ret.OrderDetails = _context.LineOrderDetails.Where(p => p.OrderId == order.Id).ToList();
 
             ret.OrderStatusId = order.OrderStatusId;
