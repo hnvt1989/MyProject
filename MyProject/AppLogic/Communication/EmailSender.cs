@@ -156,6 +156,7 @@ namespace MyProject.AppLogic.Communication
                             Subject = "Cảm ơn bạn đã đặt hàng ở H.A Shop !",
                             From = new MailAddress(FROM, "J.A shop")
                         };
+                        TO = order.CheckOutInfo.Email;
                         message.To.Add(TO);
                         message.AlternateViews.Add(htmlView);
                         await client.SendMailAsync(message);
