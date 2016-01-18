@@ -16,6 +16,16 @@
                 @Html.AntiForgeryToken()
                 <hr/>
                 @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+
+                <fieldset>
+                    <h4>Thank you !</h4>
+                    <div class="content">
+                        <h4><span style="color: #dc143c">@Html.Raw(HttpUtility.HtmlDecode(Model.PaymentInfo))</span></h4>
+                    </div>
+
+
+                </fieldset>
+                               
                 <div align="center"><h3>Đơn đặt hàng</h3></div>
                 <fieldset>
                     <legend>

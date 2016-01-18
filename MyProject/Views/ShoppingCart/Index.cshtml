@@ -175,11 +175,11 @@
         <p class="button success" id="checkoutBtn">
             @if (Model.CartItems.Count > 0)
             {
-                @Html.ActionLink("Thanh toán tiền", "Index", "Checkout", new { cartCode = Model.CartItems.FirstOrDefault().Code, cartTotal = Model.CartTotal }, new { @style = "color: #FFFFFF" })
+                @Html.ActionLink("Tiếp tục", "Index", "Checkout", new { cartCode = Model.CartItems.FirstOrDefault().Code, cartTotal = Model.CartTotal }, new { @style = "color: #FFFFFF" })
             }
             else
             {
-                @Html.ActionLink("Thanh toán tiền", "Index", "Checkout", new { cartCode = "", cartTotal = Model.CartTotal }, new { onclick = "javascript:return false;", @style = "color: #FFFFFF" })
+                @Html.ActionLink("Tiếp tục", "Index", "Checkout", new { cartCode = "", cartTotal = Model.CartTotal }, new { onclick = "javascript:return false;", @style = "color: #FFFFFF" })
             }
         </p>
 

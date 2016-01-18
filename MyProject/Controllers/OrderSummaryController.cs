@@ -36,7 +36,15 @@ namespace MyProject.Controllers
                                       where lineItems.OrderId == order.Id
                                       select lineItems).ToList();
 
+                var paymentInfoObj =
+                    _soCartContext.Contents.FirstOrDefault(c => c.TextLocation == "Summary.Order.PaymentInfo");
+                var paymentInfo = "";
 
+                if (paymentInfoObj != null)
+                {
+                    paymentInfo = paymentInfoObj.TextValue;
+                }
+                model.PaymentInfo = paymentInfo;
                 ////payment transaction detail:
                 //using (var context = new ShoppingCartContext())
                 //{
