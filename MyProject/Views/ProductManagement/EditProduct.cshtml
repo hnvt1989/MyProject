@@ -8,6 +8,12 @@
     ViewBag.DisabledProductCode = true;
 }
 
+<script type="text/javascript">
+    window.onload = function() {
+        CKEDITOR.replace('detailDescriptionTextBox');
+    };
+</script>
+
 <body>
     <section id="ProductForm">
         @using (Html.BeginForm("EditProduct", "ProductManagement", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))

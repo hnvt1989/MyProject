@@ -3,7 +3,6 @@
     ViewBag.Title = "Trang chủ";
 }
 
-
 <div class="row">
     
     <div class="large-12 columns">
@@ -110,13 +109,15 @@
                 </div>
 
                 <div class="hide-for-small panel" style="background: #FFFFFF">
-                    @*                        <h3>Header</h3>*@
-                    <h4><b>Thông tin liên lạc:</b></h4>
+                    <div class="content">
+                        @Html.Raw(HttpUtility.HtmlDecode(Model.Info.ContactInfo))
+                    </div>
+                    @*                    <h4><b>Thông tin liên lạc:</b></h4>
                     <h6>&#9743; +1 503-740-7206 (Viber)</h6>
                     <h6>&#9743; +1 503-984-5026 (Viber)</h6>
                     <h6>&#64; <a href="https://www.facebook.com/profile.php?id=100010965467446&fref=ts">Nắng Hoa</a> (facebook)</h6>
                     <h6>&#9993; muctim308@gmail.com</h6>
-                    <h6>&#9993; huynguyenvt1989@gmail.com</h6>
+                    <h6>&#9993; huynguyenvt1989@gmail.com</h6>*@
 
 
                 </div>
@@ -124,7 +125,7 @@
             </div>
 
             <div class="large-8 columns">
-                <div class="row hide-for-large">
+                <div class="row hide-for-large hide-for-landscape">
                  <span><b>Danh mục sản phẩm</b></span>
                 @Html.DropDownListFor(x => x.SelectedCategory, Model.CategoryList, new { id = "categorySelection", onchange = "document.location.href = '/Home/FilterByCategory?code=' + this.options[this.selectedIndex].value;" })                   
                 </div>

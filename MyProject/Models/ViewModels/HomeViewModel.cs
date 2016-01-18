@@ -11,6 +11,10 @@ namespace MyProject.Models.ViewModels
 {
     public class HomeViewModel
     {
+        public HomeViewModel()
+        {
+            this.Info = new HomePageInfo();
+        }
         [DisplayName("Danh muc sản phẩm")]
         public SelectList CategoryList
         {
@@ -49,6 +53,8 @@ namespace MyProject.Models.ViewModels
         public List<MyProject.Models.ViewModels.ProductViewModel> ProductViewModels { get; set; }
 
         public HeaderAdvertisementViewModel Advertisement { get; set; }
+
+        public HomePageInfo Info { get; set; }
     }
 
     public class HeaderAdvertisementViewModel
@@ -65,6 +71,11 @@ namespace MyProject.Models.ViewModels
         public string Url { get; set; }
         public byte[] Image { get; set; }
         public int DisplayOrder { get; set; }
+    }
+
+    public class HomePageInfo
+    {
+        public string ContactInfo { get;set; }
     }
 
 }

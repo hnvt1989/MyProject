@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using MyProject.Models.ShoppingCart;
 
 namespace MyProject.Models.ViewModels
@@ -27,6 +28,7 @@ namespace MyProject.Models.ViewModels
         public bool Active { get; set; }
 
         [Required]
+        [AllowHtml]
         [Display(Name = "Enter detail description")]
         public string DetailDescription { get; set; }
 

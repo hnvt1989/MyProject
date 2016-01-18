@@ -8,7 +8,6 @@ using MyProject.DAL;
 using MyProject.Models;
 using MyProject.Models.ShoppingCart;
 using MyProject.Models.ViewModels;
-using RTE;
 using WebGrease.Css.Extensions;
 
 namespace MyProject.Controllers
@@ -50,6 +49,13 @@ namespace MyProject.Controllers
                 ret.Ads = ret.Ads.OrderBy(o => o.DisplayOrder).ToList();
 
                 //ret.Ads.Sort((x,y) => x.DisplayOrder.CompareTo(y.DisplayOrder));
+
+                var contactInfo = pContext.Contents.SingleOrDefault(c => c.TextLocation == "Home.ContactInfo");
+
+                if (contactInfo != null)
+                {
+                    homeView.Info.ContactInfo = contactInfo.TextValue;
+                }
 
                 homeView.Advertisement = ret;
 

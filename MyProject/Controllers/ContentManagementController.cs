@@ -53,6 +53,8 @@ namespace MyProject.Controllers
                 ret.RouteTo = content.ImageUrl;
                 ret.ItemCode = content.ItemCode;
                 ret.DisplayOrder = content.DisplayOrder;
+                ret.TextValue = content.TextValue;
+                ret.TextLocation = content.TextLocation;
             }
             return View(ret);
         }
@@ -77,70 +79,95 @@ namespace MyProject.Controllers
                 //edit existing
                 if (model.Id > 0)
                 {
-                    int itemId = context.Products.Single(p => p.Code == model.ItemCode).Id;
                     var content = context.Contents.Single(c => c.Id == model.Id);
                     content.Description = model.Description;
-
                     content.ContentTypeId = context.ContentTypes.Single(ct => ct.Code == contentType).Id;
-                    content.ImageUrl = string.Format("/Store/Details/{0}", itemId);
-                    content.ItemCode = model.ItemCode;
-                    content.DisplayOrder = model.DisplayOrder;
 
-                    if (contentType == "Ad" && model.ContentImage != null)
+                    if (contentType == "Ad")
                     {
-                        if (model.ContentImage.ContentLength > (4 * 1024 * 1024))
+                        int itemId = context.Products.Single(p => p.Code == model.ItemCode).Id;
+                        content.ImageUrl = string.Format("/Store/Details/{0}", itemId);
+                        content.ItemCode = model.ItemCode;
+                        content.DisplayOrder = model.DisplayOrder;
+
+                        if (model.ContentImage != null)
                         {
-                            ModelState.AddModelError("CustomError", "Image can not be lager than 4MB.");
-                        }
-                        if (
-                            !(model.ContentImage.ContentType == "image/jpeg" ||
-                              model.ContentImage.ContentType == "image/gif"))
-                        {
-                            ModelState.AddModelError("CustomError", "Image must be in jpeg or gif format.");
+                            if (model.ContentImage.ContentLength > (4 * 1024 * 1024))
+                            {
+                                ModelState.AddModelError("CustomError", "Image can not be lager than 4MB.");
+                            }
+                            if (
+                                !(model.ContentImage.ContentType == "image/jpeg" ||
+                                  model.ContentImage.ContentType == "image/gif"))
+                            {
+                                ModelState.AddModelError("CustomError", "Image must be in jpeg or gif format.");
+                            }
+
+                            byte[] data = new byte[model.ContentImage.ContentLength];
+                            model.ContentImage.InputStream.Read(data, 0,
+                                model.ContentImage.ContentLength);
+
+                            content.Image = data;
                         }
 
-                        byte[] data = new byte[model.ContentImage.ContentLength];
-                        model.ContentImage.InputStream.Read(data, 0,
-                            model.ContentImage.ContentLength);
+                    }
 
-                        content.Image = data;
+
+                    if (contentType == "Text")
+                    {
+                        content.TextLocation = model.TextLocation;
+                        content.TextValue = model.TextValue;
                     }
 
                     await context.SaveChangesAsync();
                 }
                 else
                 {
-
-                    int itemId = context.Products.Single(p => p.Code == model.RouteTo).Id;
                     var newContent = new Content()
                     {
                         Code = SeqHelper.Next("Content").ToString(),
                         Description = model.Description,
                         ContentTypeId = context.ContentTypes.Single(ct => ct.Code == contentType).Id,
-                        ImageUrl = string.Format("/Store/Details/{0}", itemId ),
-                        ItemCode = model.ItemCode,
-                        DisplayOrder = model.DisplayOrder
+
                     };
 
-                    if (contentType == "Ad" && model.ContentImage != null)
+
+                    if (contentType == "Ad")
                     {
-                        if (model.ContentImage.ContentLength > (4 * 1024 * 1024))
+                        int itemId = context.Products.Single(p => p.Code == model.ItemCode).Id;
+                        newContent.ImageUrl = string.Format("/Store/Details/{0}", itemId);
+                        newContent.ItemCode = model.ItemCode;
+                        newContent.DisplayOrder = model.DisplayOrder;
+
+                        if (model.ContentImage != null)
                         {
-                            ModelState.AddModelError("CustomError", "Image can not be lager than 4MB.");
-                        }
-                        if (
-                            !(model.ContentImage.ContentType == "image/jpeg" ||
-                              model.ContentImage.ContentType == "image/gif"))
-                        {
-                            ModelState.AddModelError("CustomError", "Image must be in jpeg or gif format.");
+                            if (model.ContentImage.ContentLength > (4 * 1024 * 1024))
+                            {
+                                ModelState.AddModelError("CustomError", "Image can not be lager than 4MB.");
+                            }
+                            if (
+                                !(model.ContentImage.ContentType == "image/jpeg" ||
+                                  model.ContentImage.ContentType == "image/gif"))
+                            {
+                                ModelState.AddModelError("CustomError", "Image must be in jpeg or gif format.");
+                            }
+
+                            byte[] data = new byte[model.ContentImage.ContentLength];
+                            model.ContentImage.InputStream.Read(data, 0,
+                                model.ContentImage.ContentLength);
+
+                            newContent.Image = data;
                         }
 
-                        byte[] data = new byte[model.ContentImage.ContentLength];
-                        model.ContentImage.InputStream.Read(data, 0,
-                            model.ContentImage.ContentLength);
-
-                        newContent.Image = data;
                     }
+
+                    if (contentType == "Text")
+                    {
+                        newContent.TextLocation = model.TextLocation;
+                        newContent.TextValue = model.TextValue;
+                    }
+
+
                     context.Contents.Add(newContent);
                     await context.SaveChangesAsync();
                     var newId = newContent.Id;

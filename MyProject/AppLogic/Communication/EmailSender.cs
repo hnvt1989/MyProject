@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
+using System.Net.Mime;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using Microsoft.Ajax.Utilities;
@@ -65,46 +67,19 @@ namespace MyProject.AppLogic.Communication
 
         public static string CreateEmailTemplate(OrderConfirmViewModel order, string orderNumber)
         {
-            var person1_Name = "";
-            var person1_Phone = "";
 
-            var person2_Name = "";
-            var person2_Phone = "";
+            var text = "Tin nhắn từ: {0}. Nội dung: {1}. {2}";
+
+            var contact = "";
 
             using (var context = new ShoppingCartContext())
             {
-                var person1_n = context.AppSettings.First(a => a.Code == "ContactVietnam_Name_1");
-                if (person1_n != null)
-                {
-                    person1_Name = person1_n.Value;
-                }
-                var person1_p = context.AppSettings.First(a => a.Code == "ContactVietnam_Phone_1");
-                if (person1_p != null)
-                {
-                    person1_Phone = person1_p.Value;
-                }
+                var contactInfo = context.Contents.SingleOrDefault(c => c.TextLocation == "Order.Email.ContactInfo");
 
-                var person2_n = context.AppSettings.First(a => a.Code == "ContactVietnam_Name_2");
-                if (person2_n != null)
+                if (contactInfo != null)
                 {
-                    person2_Name = person2_n.Value;
+                    contact = contactInfo.TextValue;
                 }
-                var person2_p = context.AppSettings.First(a => a.Code == "ContactVietnam_Phone_2");
-                if (person2_p != null)
-                {
-                    person2_Phone = person2_p.Value;
-                }
-            }
-
-            var text = "Tin nhắn từ: {0}. Nội dung: {1}. {2}";
-            string contact = ".";
-            if (!person1_Name.IsNullOrWhiteSpace() && !person1_Phone.IsNullOrWhiteSpace())
-            {
-                contact =  "Xin vui lòng liên lạc với chúng tôi để biết cách thanh toán tiền và nhận sản phẩm: " +
-                              person1_Name + " ( " + person1_Phone + " ).";
-                if (!person2_Name.IsNullOrWhiteSpace() && !person2_Phone.IsNullOrWhiteSpace())
-                    contact += " Hoặc: " + person2_Name + " ( " + person2_Phone + " ).";
-
             }
 
             return string.Format(text, "J.A Shop", "Cảm ơn bạn đã đặt hàng ở J.A Shop. Số đơn đặt hàng của bạn là: " + orderNumber, contact);
@@ -171,12 +146,23 @@ namespace MyProject.AppLogic.Communication
                     //send to 2nd email:
                     await client.SendMailAsync(FROM, TO2, SUBJECT, BODY);
 
+                    //send email to the customer !
                     if (!string.IsNullOrEmpty(order.CheckOutInfo.Email))
                     {
-                        BODY = CreateEmailTemplate(order, orderNumber);
-                        TO = order.CheckOutInfo.Email;
+                        var htmlView = AlternateView.CreateAlternateViewFromString(CreateEmailTemplate(order, orderNumber), Encoding.UTF8, MediaTypeNames.Text.Html);
 
-                        SUBJECT = "Cảm ơn bạn đã đặt hàng ở H.A Shop !";
+                        var message = new MailMessage
+                        {
+                            Subject = "Cảm ơn bạn đã đặt hàng ở H.A Shop !",
+                            From = new MailAddress(FROM, "J.A shop")
+                        };
+                        message.To.Add(TO);
+                        message.AlternateViews.Add(htmlView);
+                        await client.SendMailAsync(message);
+                        //BODY = ;
+                        //TO = order.CheckOutInfo.Email;
+
+                        //SUBJECT = "Cảm ơn bạn đã đặt hàng ở H.A Shop !";
                         //message.Body = body;
                         //message.IsBodyHtml = true;
                         //using (var smtp = new SmtpClient())
@@ -185,7 +171,7 @@ namespace MyProject.AppLogic.Communication
 
                         //}
 
-                        await client.SendMailAsync(FROM, TO, SUBJECT, BODY);
+                        //await client.SendMailAsync(FROM, TO, SUBJECT, BODY);
                     }
 
                 }

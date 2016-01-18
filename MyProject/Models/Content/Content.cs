@@ -16,6 +16,10 @@ namespace MyProject.Models.Content
 
         public string Code { get; set; }
 
+        public string TextLocation { get; set; }
+
+        public string TextValue { get; set; }
+
         public string Description { get; set; }
 
         public int DisplayOrder { get; set; }

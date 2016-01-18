@@ -40,8 +40,8 @@ namespace MyProject.Models.ViewModels.ContentManagement
         public int Id { get; set; }
         public string Code { get; set; }
 
-        [RegularExpression("([1-9 .&'-]+)", ErrorMessage = "Only digit 1-9") ]
-        [Required]
+        //[RegularExpression("([1-9 .&'-]+)", ErrorMessage = "Only digit 1-9") ]
+        //[Required]
         public int DisplayOrder { get; set; }
 
         public string Description { get; set; }
@@ -50,9 +50,15 @@ namespace MyProject.Models.ViewModels.ContentManagement
         //the URL will route to, right now just the product #
         public string RouteTo { get; set; }
 
-        [Required]
         [DisplayName("Item Code")]
         public string ItemCode { get; set; }
+
+        [DisplayName("Location of the text")]
+        public string TextLocation { get; set; }
+
+        [DisplayName("Text value. **** DO NOT ENTER IF THIS IS AN AD")]
+        [AllowHtml]
+        public string TextValue { get; set; }
 
         public HttpPostedFileBase ContentImage { get; set; }
         public byte[] Image { get; set; }

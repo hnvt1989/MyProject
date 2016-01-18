@@ -14,20 +14,44 @@
         if (selectedValue == "Ad") {
             document.getElementById('contentImage').style.display = "block";
             document.getElementById('routeItem').style.display = "block";
+            document.getElementById('routeTo').style.display = "block";
             document.getElementById('displayOrder').style.display = "block";
-        }
-        if (selectedValue == "None") {
+
+            document.getElementById('textLocation').style.display = "none";
+
+
+            var instance = CKEDITOR.instances['textValue'];
+            if (instance) {
+                instance.destroy(true);
+            }
+        } else if (selectedValue == "None") {
             document.getElementById('contentImage').style.display = "none";
             document.getElementById('routeItem').style.display = "none";
             document.getElementById('displayOrder').style.display = "none";
+            document.getElementById('routeTo').style.display = "none";
+
+
+            var instance = CKEDITOR.instances['textValue'];
+            if (instance) {
+                instance.destroy(true);
+            }
+        } else if (selectedValue == "Text") {
+            document.getElementById('contentImage').style.display = "none";
+            document.getElementById('routeItem').style.display = "none";
+            document.getElementById('displayOrder').style.display = "none";
+            document.getElementById('routeTo').style.display = "none";
+
+            document.getElementById('textLocation').style.display = "block";
+
+            CKEDITOR.replace('textValue');
         }
-    }
-    //});
+    };
+
 </script>
 
 <body>
     <section id="ProductForm">
-        @using (Html.BeginForm("EditContent", "ContentManagement", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" , model = Model}))
+        @using (Html.BeginForm("EditContent", "ContentManagement", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data", model = Model }))
         {
             @Html.AntiForgeryToken()
             <hr />
@@ -37,20 +61,20 @@
                 <hr>
 
                 @Html.DropDownList("contentTypeSelection", Model.ContentTypes, new { id = "contentTypeSelection", onchange = "hideFieldBasedOnType(this.options[this.selectedIndex].value);" })
-                 @Html.ValidationMessage("ContentType")
+                @Html.ValidationMessage("ContentType")
                 <div class="medium-6 columns" id="contentImage" style="display: none">
                     <div class="row">
                         @{
-                            if (Model.Image != null)
-                            {
-                                var base64 = Convert.ToBase64String(@Model.Image);
-                                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-                                            <img alt="@Model.Description" src="@imgSrc" height="400" width="400"/>
-                            }
-                            else
-                            {
-                                            <img src="~/Content/Images/ProductDefault.png" height="400" width="400" />
-                            }}
+            if (Model.Image != null)
+            {
+                var base64 = Convert.ToBase64String(@Model.Image);
+                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                            <img alt="@Model.Description" src="@imgSrc" height="400" width="400"/>
+            }
+            else
+            {
+                            <img src="~/Content/Images/ProductDefault.png" height="400" width="400" />
+            }}
                         <div class="form-group">
                             <div class="col-md-10">
                                 @Html.TextBoxFor(m => m.ContentImage, new { type = "file" })
@@ -74,32 +98,49 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(m => m.Description, new {@class = "col-md-2 control-label"})
+                            @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" })
                             <div class="col-md-10">
                                 @Html.TextBoxFor(m => m.Description)
-                                @Html.ValidationMessageFor(m => m.Description, "", new {@class = "text-danger"})
+                                @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                        <div class="form-group" id="routeItem">
-                            @Html.LabelFor(m => m.ItemCode, new {@class = "col-md-2 control-label"})
+                        <div class="form-group" id="routeItem" style="display: none">
+                            @Html.LabelFor(m => m.ItemCode, new { @class = "col-md-2 control-label"})
                             <div class="col-md-10">
                                 @Html.TextBoxFor(m => m.ItemCode)
-                                @Html.ValidationMessageFor(m => m.ItemCode, "", new {@class = "text-danger"})
+                                @Html.ValidationMessageFor(m => m.ItemCode, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.RouteTo, new {@class = "col-md-2 control-label"})
+                        <div class="form-group" id="textLocation" style="display: none">
+                            @Html.LabelFor(m => m.TextLocation, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.TextLocation)
+                                @Html.ValidationMessageFor(m => m.TextLocation, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+@*                        <div class="form-group" style="display: none">*@
+                            @Html.LabelFor(m => m.TextValue, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10" >
+                                @Html.TextAreaFor(m => m.TextValue, new { id = "textValue", Value = Model.TextValue, @class = "fill" })
+                            </div>
+@*                        </div>*@
+
+
+
+                        <div class="form-group" id="routeTo" style="display: none">
+                            @Html.LabelFor(m => m.RouteTo, new { @class = "col-md-2 control-label" })
                             <div class="col-md-10">
                                 @Html.DisplayTextFor(m => m.RouteTo)
                             </div>
                         </div>
 
-                        <div class="form-group" id="displayOrder">
-                            @Html.LabelFor(m => m.DisplayOrder, new {@class = "col-md-2 control-label"})
+                        <div class="form-group" id="displayOrder" style="display: none">
+                            @Html.LabelFor(m => m.DisplayOrder, new { @class = "col-md-2 control-label" })
                             <div class="col-md-10">
                                 @Html.TextBoxFor(m => m.DisplayOrder)
-                                @Html.ValidationMessageFor(m => m.DisplayOrder, "", new {@class = "text-danger"})
+                                @Html.ValidationMessageFor(m => m.DisplayOrder, "", new { @class = "text-danger" })
                             </div>
                         </div>
 

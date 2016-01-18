@@ -3,3 +3,12 @@
 }
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
+
+<script type="text/javascript">
+    window.onload = function() {
+        CKEDITOR.replace('editor1');
+    };
+</script>
+
+
+<textarea id="editor1" name="editor1">&lt;p&gt;Initial value.&lt;/p&gt;</textarea>
