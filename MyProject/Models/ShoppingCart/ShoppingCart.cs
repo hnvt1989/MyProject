@@ -309,6 +309,28 @@ namespace MyProject.Models.ShoppingCart
                 order.OrderDetails.Add(lineOrderDetail);
 
             }
+
+            //determine if this order is going to be back ordered or not
+            using (var context = new ShoppingCartContext())
+            {
+                var backOrderStatusId = context.OrderStatuses.Single(s => s.Code == "BackOrder").Id;
+                var processingOrderStatusId = context.OrderStatuses.Single(s => s.Code == "Processing").Id;
+
+                foreach (var prod in order.OrderDetails)
+                {
+                    var product = context.Products.SingleOrDefault(p => p.Id == prod.ProductId);
+                    if (product != null)
+                    {
+                        if (product.QuantityOnHand < prod.Quantity)
+                            order.OrderStatusId = backOrderStatusId;
+                    }
+                }
+
+                if (order.OrderStatusId != backOrderStatusId && order.OrderStatusId != processingOrderStatusId)
+                {
+                    order.OrderStatusId = processingOrderStatusId;
+                }
+            }
             // Set the order's total to the orderTotal count
             order.Total = orderTotal + shippingCost;
             order.ShippingCost = shippingCost;

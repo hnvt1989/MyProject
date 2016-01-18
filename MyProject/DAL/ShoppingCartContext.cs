@@ -28,6 +28,7 @@ namespace MyProject.DAL
         public DbSet<PaymentStatus> PaymentStatuses { get; set; }
         public DbSet<Cart> Carts { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderStatus> OrderStatuses { get; set; }
 
         public DbSet<Sequence> Sequences { get; set; }
 

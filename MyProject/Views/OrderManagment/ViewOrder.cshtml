@@ -145,23 +145,41 @@
                     </table>
                 </fieldset>
 
+        <fieldset>
+            <h4>Thanh toán</h4>
+            <table>
+                <tr>
+                    <th>Cách thanh toán
+                    </th>
+                    <th>Tổng
+                    </th>
+                    <th>Tình trạng
+                    </th>
+                </tr>
+                <tr>
+                    <td>@Model.PaymentTransaction.PaymentType.Description
+                    </td>
+                    <td>@String.Format("{0:N0}", @Model.PaymentTransaction.Amount)
+                    </td>
+                    <td>@Model.PaymentTransaction.PaymentStatus.Description
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+
                 <fieldset>
-                    <h4>Thanh toán</h4>
+                    <h4>Tình trạng đơn đặt hàng</h4>
                     <table>
                         <tr>
-                            <th>Cách thanh toán
-                            </th>
-                            <th>Tổng
-                            </th>
                             <th>Tình trạng
+                            </th>
+                            <th>Ghi chú
                             </th>
                         </tr>
                         <tr>
-                            <td>@Model.PaymentTransaction.PaymentType.Description
+                            <td>@Model.OrderStatus
                             </td>
-                            <td>@String.Format("{0:N0}", @Model.PaymentTransaction.Amount)
-                            </td>
-                            <td>@Model.PaymentTransaction.PaymentStatus.Description
+                            <td>@Model.OrderStatusNote
                             </td>
                         </tr>
                     </table>

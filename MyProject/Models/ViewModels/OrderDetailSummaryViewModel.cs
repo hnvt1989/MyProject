@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -15,6 +16,12 @@ namespace MyProject.Models.ViewModels
             this.OrderDetails = new List<LineOrderDetail>();
         }
         public long OrderNumber { get; set; }
+
+        public int OrderStatusId { get; set; }
+        public string OrderStatus { get; set; }
+
+        [AllowHtml]
+        public string OrderStatusNote { get; set; }
 
         public string FullName { get; set; }
 
@@ -52,6 +59,19 @@ namespace MyProject.Models.ViewModels
                 using (var context = new ShoppingCartContext())
                 {
                     return new SelectList(context.PaymentStatuses.ToList().Select(c => c.Description), "NotPaid");
+                };
+
+            }
+        }
+
+        [DisplayName("Chọn tình trạng đơn đặt hàng:")]
+        public SelectList OrderStatusList
+        {
+            get
+            {
+                using (var context = new ShoppingCartContext())
+                {
+                    return new SelectList(context.OrderStatuses.ToList().Select(c => c.Description), "Processing");
                 };
 
             }

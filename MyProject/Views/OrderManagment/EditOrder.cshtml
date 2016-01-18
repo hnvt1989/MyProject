@@ -43,11 +43,11 @@
             </div>
             <div>
             <section id="ProfileForm">
-                @using (Html.BeginForm("EditOrder", "OrderManagment", FormMethod.Post, new {@class = "form-horizontal", role = "form", enctype = "multipart/form-data"}))
+                @using (Html.BeginForm("EditOrder", "OrderManagment", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
                 {
                     @Html.AntiForgeryToken()
                     <hr/>
-                    @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <fieldset>
                         <legend>
                             <h4>Thông tin khách hàng</h4>
@@ -181,39 +181,60 @@
                         </table>
                     </fieldset>
 
-                <fieldset>
-                    <legend>
-                        <h4>Thanh toán</h4>
-                    </legend>
+                    <fieldset>
+                        <legend>
+                            <h4>Thanh toán</h4>
+                        </legend>
 
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.PaymentTransaction.PaymentType, new Dictionary<string, Object> {{"class", "col-md-2 control-label"}})
-                        @Html.DropDownList("paymentType", Model.PaymentTypesList, new { onchange = ""})
-                    </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.PaymentTransaction.PaymentType, new Dictionary<string, Object> { { "class", "col-md-2 control-label" } })
+                            @Html.DropDownList("paymentType", Model.PaymentTypesList, new { onchange = "" })
+                        </div>
 
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.PaymentTransaction.PaymentStatus, new Dictionary<string, Object> {{"class", "col-md-2 control-label"}})
-                        @Html.DropDownList("paymentStatus", Model.PaymentStatusList, new {onchange = ""})
-                    </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.PaymentTransaction.PaymentStatus, new Dictionary<string, Object> { { "class", "col-md-2 control-label" } })
+                            @Html.DropDownList("paymentStatus", Model.PaymentStatusList, new { onchange = "" })
+                        </div>
 
-                    <div class="form-group">
-@*                        @Html.LabelFor(m => m.PaymentTransaction.Amount, new Dictionary<string, Object> {{"class", "col-md-2 control-label"}})*@
-                        @*                        <b>Tổng số tiền:</b>
+                        <div class="form-group">
+                            @*                        @Html.LabelFor(m => m.PaymentTransaction.Amount, new Dictionary<string, Object> {{"class", "col-md-2 control-label"}})*@
+                            @*                        <b>Tổng số tiền:</b>
                         @{
                             var outstanding = @Model.Total - @Model.PaymentTransaction.Amount;
                             <span><b>@outstanding.ToString("N0") đ </b></span>
                         }*@
-                        <b>Tiền đã trả:</b>
+                            <b>Tiền đã trả:</b>
+                            <div class="col-md-10">
+                                @Html.KTextBoxFor(m => m.PaymentTransaction.Amount, new { id = "amountTextBox", Value = Model.PaymentTransaction.Amount, @class = "fill" })
+                                @Html.HiddenFor(m => m.PaymentTransaction.Amount)
+                                @Html.ValidationMessageFor(m => m.PaymentTransaction.Amount, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="amount-due">
+                            <b>Còn lại: <span>0.00</span></b>
+                        </div>
+                    </fieldset>
+                    
+                <fieldset>
+                    <legend>
+                        <h4>Tình trạng đơn đặt hàng</h4>
+                    </legend>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.OrderStatusList, new Dictionary<string, Object> { { "class", "col-md-2 control-label" } })
+                        @Html.DropDownList("orderStatus", Model.OrderStatusList, new { onchange = "" })
+                    </div>
+
+
+                    <div class="form-group">
+                        <b>Ghi chú:</b>
                         <div class="col-md-10">
-                            @Html.KTextBoxFor(m => m.PaymentTransaction.Amount, new { id = "amountTextBox", Value= Model.PaymentTransaction.Amount, @class = "fill" })
-                            @Html.HiddenFor( m => m.PaymentTransaction.Amount)
-                            @Html.ValidationMessageFor(m => m.PaymentTransaction.Amount, "", new {@class = "text-danger"})
+                            @Html.KTextBoxFor(m => m.OrderStatusNote, new { id = "orderStatusNote", Value = Model.OrderStatusNote, @class = "fill" })
+                            @Html.HiddenFor(m => m.OrderStatusNote)
                         </div>
                     </div>
-                    <div class="amount-due">
-                        <b>Còn lại: <span>0.00</span></b>
-                    </div>
-                </fieldset>
+                </fieldset>                    
+                    
                 <input type="submit" class="small button" value="Lưu lại" />
                 }
             </section>

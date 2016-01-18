@@ -28,6 +28,7 @@ namespace MyProject.Controllers
                     CustomerName = o.FullName,
                     OrderTotal = o.Total,
                     Id = o.Id,
+                    OrderStatusId =  o.OrderStatusId
                 }));
 
             }
@@ -37,6 +38,15 @@ namespace MyProject.Controllers
                 foreach (var r in ret)
                 {
                     r.PostedAmount = context.Orders.Single(o => o.Id == r.Id).PaymentTransaction.Amount;
+                    if (r.OrderStatusId > 0)
+                    {
+                        r.OrderStatus = context.OrderStatuses.Single(s => s.Id == r.OrderStatusId).Description;
+                    }
+                    else
+                    {
+                        r.OrderStatus = "Unknown";
+                    }
+
                 }
             }
 
@@ -109,8 +119,19 @@ namespace MyProject.Controllers
             ret.Email = order.Email;
             ret.FullName = order.FullName;
             ret.OrderDate = order.OrderDate;
-
+            ret.OrderStatusId = order.OrderStatusId;
             ret.OrderDetails = _context.LineOrderDetails.Where(p => p.OrderId == id).ToList();
+
+            if (ret.OrderStatusId > 0)
+            {
+                ret.OrderStatus = _context.OrderStatuses.Single(s => s.Id == ret.OrderStatusId).Description;
+            }
+            else
+            {
+                ret.OrderStatus = "Unknown";
+            }
+            ret.OrderStatusNote = order.Notes;
+
             //context.LineOrderDetails.Where(o => o.OrderId == id).ForEach(p => ret.OrderDetails.Add(new LineOrderDetail()
             //{
             //    Product = p.Product,
@@ -146,13 +167,19 @@ namespace MyProject.Controllers
             ret.OrderDate = order.OrderDate;
 
             ret.OrderDetails = _context.LineOrderDetails.Where(p => p.OrderId == order.Id).ToList();
-            //context.LineOrderDetails.Where(o => o.OrderId == id).ForEach(p => ret.OrderDetails.Add(new LineOrderDetail()
-            //{
-            //    Product = p.Product,
-            //    UnitPrice = p.UnitPrice,
-            //    Quantity = p.Quantity,
-            //    Total = p.Total
-            //}));
+
+            ret.OrderStatusId = order.OrderStatusId;
+
+            if (ret.OrderStatusId > 0)
+            {
+                ret.OrderStatus = _context.OrderStatuses.Single(s => s.Id == ret.OrderStatusId).Description;
+            }
+            else
+            {
+                ret.OrderStatus = "Unknown";
+            }
+            ret.OrderStatusNote = order.Notes;
+
             ret.Total = order.Total;
             ret.ShippingCost = order.ShippingCost;
             ret.PaymentTransaction = order.PaymentTransaction;
@@ -173,6 +200,7 @@ namespace MyProject.Controllers
             {
                 string paymentStatus = Request.Form["paymentStatus"].ToString();
                 string paymentType = Request.Form["paymentType"].ToString();
+                string orderStatus = Request.Form["orderStatus"].ToString();
 
                 var order = _context.Orders.Single(o => o.OrderNumber == model.OrderNumber);
                 var id = TempData["OrderId"];
@@ -182,6 +210,9 @@ namespace MyProject.Controllers
 
                 order.PaymentTransaction.PaymentTypeId =
                     _context.PaymentTypes.Single(p => p.Description == paymentType).Id;
+
+                order.OrderStatusId = _context.OrderStatuses.Single(s => s.Description == orderStatus).Id;
+                order.Notes = model.OrderStatusNote;
 
                 await _context.SaveChangesAsync();
                 return RedirectToAction("ViewOrder", new { id });

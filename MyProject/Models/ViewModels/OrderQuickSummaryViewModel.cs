@@ -22,5 +22,8 @@ namespace MyProject.Models.ViewModels
         public decimal OrderTotal { get; set; }
 
         public decimal PostedAmount { get; set; }
+
+        public string OrderStatus { get; set; }
+        public int OrderStatusId { get; set; }
     }
 }
