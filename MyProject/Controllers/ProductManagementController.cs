@@ -19,7 +19,7 @@ namespace MyProject.Controllers
     {
         public ActionResult FilterByCategory(string code)
         {
-            if(code == "All")
+            if (code == "All")
                 return RedirectToAction("Index");
 
             var catDescription = "";
@@ -28,8 +28,8 @@ namespace MyProject.Controllers
             using (var context = new ShoppingCartContext())
             {
                 prods = (from p in context.Products
-                         where p.Categories.Any(c => c.Code == code)
-                         select p).ToList();
+                    where p.Categories.Any(c => c.Code == code)
+                    select p).ToList();
                 catDescription = context.Categories.Single(c => c.Code == code).Description;
             }
             using (var context = new ShoppingCartContext())
@@ -56,6 +56,7 @@ namespace MyProject.Controllers
             }
 
         }
+
         public ActionResult Index()
         {
 
@@ -110,11 +111,6 @@ namespace MyProject.Controllers
             return View();
         }
 
-        public ActionResult Index1()
-        {
-            return View();
-        }
-
         [HttpGet]
         public ActionResult EditProduct(int id)
         {
@@ -126,7 +122,7 @@ namespace MyProject.Controllers
                     var priceTypes = context.PriceTypes.ToList();
                     var categories = context.Categories.ToList();
                     var offers = new List<ProductOffer>();
-                    priceTypes.ForEach(pt => offers.Add(new ProductOffer() { PriceTypeId = pt.Id, Price = 0m }));
+                    priceTypes.ForEach(pt => offers.Add(new ProductOffer() {PriceTypeId = pt.Id, Price = 0m}));
                     var ret = new EditProductViewModel()
                     {
                         ProductView = new ProductViewModel()
@@ -142,7 +138,14 @@ namespace MyProject.Controllers
                         Offers = new List<ProductOffer>(),
                         PriceTypes = new List<PriceType>(),
                     };
-                    categories.ForEach(c => ret.Categories.Add(new CategoryViewModel() { Code = c.Code, Description = c.Description, IsChecked = false }));
+                    categories.ForEach(
+                        c =>
+                            ret.Categories.Add(new CategoryViewModel()
+                            {
+                                Code = c.Code,
+                                Description = c.Description,
+                                IsChecked = false
+                            }));
                     ret.PriceTypes.AddRange(priceTypes);
                     ret.Offers.AddRange(offers);
 
@@ -191,16 +194,25 @@ namespace MyProject.Controllers
 
                     TempData["ProductEditId"] = id;
 
-                    var weightInOunce = product.Weight * 16;
-                    ret.ProductView.WeightOunce = weightInOunce % 16;
-                    ret.ProductView.WeightPounds = (weightInOunce - ret.ProductView.WeightOunce) / 16;
+                    var weightInOunce = product.Weight*16;
+                    ret.ProductView.WeightOunce = weightInOunce%16;
+                    ret.ProductView.WeightPounds = (weightInOunce - ret.ProductView.WeightOunce)/16;
 
                     //quantity on hand
                     ret.ProductView.QuantityOnHand = product.QuantityOnHand;
 
                     //categories
-                    categories.ForEach(c => ret.Categories.Add(new CategoryViewModel() { Id = c.Id, Code = c.Code, Description = c.Description, IsChecked = false }));
-                    ret.ProductView.Categories.AddRange(context.Products.Where(p => p.Id == id).SelectMany(prod => prod.Categories));
+                    categories.ForEach(
+                        c =>
+                            ret.Categories.Add(new CategoryViewModel()
+                            {
+                                Id = c.Id,
+                                Code = c.Code,
+                                Description = c.Description,
+                                IsChecked = false
+                            }));
+                    ret.ProductView.Categories.AddRange(
+                        context.Products.Where(p => p.Id == id).SelectMany(prod => prod.Categories));
 
                     foreach (var cat in ret.Categories)
                     {
@@ -227,7 +239,11 @@ namespace MyProject.Controllers
                 {
                     return RedirectToAction("Index");
                 }
-                var prods = context.Products.Where(p => productCategories.SearchProductId.Contains(p.Code) || productCategories.SearchProductId.Contains(p.Description));
+                var prods =
+                    context.Products.Where(
+                        p =>
+                            productCategories.SearchProductId.Contains(p.Code) ||
+                            productCategories.SearchProductId.Contains(p.Description));
 
 
                 var categories = context.Categories.ToList();
@@ -260,7 +276,7 @@ namespace MyProject.Controllers
         [HttpPost]
         public async Task<ActionResult> EditProduct(EditProductViewModel model)
         {
-            var id = (int)TempData["ProductEditId"];
+            var id = (int) TempData["ProductEditId"];
             if (ModelState.IsValid)
             {
                 using (var context = new ShoppingCartContext())
@@ -288,7 +304,7 @@ namespace MyProject.Controllers
 
                         if (model.ProductView.ProductImage != null)
                         {
-                            if (model.ProductView.ProductImage.ContentLength > (4 * 1024 * 1024))
+                            if (model.ProductView.ProductImage.ContentLength > (4*1024*1024))
                             {
                                 ModelState.AddModelError("CustomError", "Image can not be lager than 4MB.");
                                 return View();
@@ -310,7 +326,7 @@ namespace MyProject.Controllers
                         //alt image 0
                         if (model.ProductView.ProductImageAlt0 != null)
                         {
-                            if (model.ProductView.ProductImageAlt0.ContentLength > (4 * 1024 * 1024))
+                            if (model.ProductView.ProductImageAlt0.ContentLength > (4*1024*1024))
                             {
                                 ModelState.AddModelError("CustomError", "Image can not be lager than 4MB.");
                                 return View();
@@ -332,7 +348,7 @@ namespace MyProject.Controllers
                         //alt image 1
                         if (model.ProductView.ProductImageAlt1 != null)
                         {
-                            if (model.ProductView.ProductImageAlt1.ContentLength > (4 * 1024 * 1024))
+                            if (model.ProductView.ProductImageAlt1.ContentLength > (4*1024*1024))
                             {
                                 ModelState.AddModelError("CustomError", "Image can not be lager than 4MB.");
                                 return View();
@@ -370,7 +386,7 @@ namespace MyProject.Controllers
                         //weight
                         decimal ounces = model.ProductView.WeightOunce;
                         decimal lbs = model.ProductView.WeightPounds;
-                        decimal weight = lbs + (ounces / 16);
+                        decimal weight = lbs + (ounces/16);
                         newProd.Weight = weight;
 
                         //quantity on hand
@@ -408,7 +424,7 @@ namespace MyProject.Controllers
 
                         if (model.ProductView.ProductImage != null)
                         {
-                            if (model.ProductView.ProductImage.ContentLength > (4 * 1024 * 1024))
+                            if (model.ProductView.ProductImage.ContentLength > (4*1024*1024))
                             {
                                 ModelState.AddModelError("CustomError", "Image can not be lager than 4MB.");
                                 return View();
@@ -430,7 +446,7 @@ namespace MyProject.Controllers
                         //alt image 0
                         if (model.ProductView.ProductImageAlt0 != null)
                         {
-                            if (model.ProductView.ProductImageAlt0.ContentLength > (4 * 1024 * 1024))
+                            if (model.ProductView.ProductImageAlt0.ContentLength > (4*1024*1024))
                             {
                                 ModelState.AddModelError("CustomError", "Image can not be lager than 4MB.");
                                 return View();
@@ -452,7 +468,7 @@ namespace MyProject.Controllers
                         //alt image 1
                         if (model.ProductView.ProductImageAlt1 != null)
                         {
-                            if (model.ProductView.ProductImageAlt1.ContentLength > (4 * 1024 * 1024))
+                            if (model.ProductView.ProductImageAlt1.ContentLength > (4*1024*1024))
                             {
                                 ModelState.AddModelError("CustomError", "Image can not be lager than 4MB.");
                                 return View();
@@ -482,7 +498,7 @@ namespace MyProject.Controllers
                         //weight
                         decimal ounces = model.ProductView.WeightOunce;
                         decimal lbs = model.ProductView.WeightPounds;
-                        decimal weight = lbs + (ounces / 16);
+                        decimal weight = lbs + (ounces/16);
                         product.Weight = weight;
 
 
@@ -491,7 +507,8 @@ namespace MyProject.Controllers
 
 
                         //categories
-                        model.ProductView.Categories.AddRange(context.Products.Where(p => p.Id == id).SelectMany(prod => prod.Categories));
+                        model.ProductView.Categories.AddRange(
+                            context.Products.Where(p => p.Id == id).SelectMany(prod => prod.Categories));
 
                         var setCat = model.ProductView.Categories;
 
@@ -523,5 +540,41 @@ namespace MyProject.Controllers
         }
 
 
+        [HttpGet]
+        public ActionResult ViewProductLessDetail(int id)
+        {
+            var ret = new ProductViewLessDetail();
+
+            using (var context = new ShoppingCartContext())
+            {
+                //existing product
+                var product = context.Products.Single(p => p.Id == id);
+                if (product != null)
+                {
+                    //query for available price type and categories, also product offers for this product
+                    //var priceTypes = context.PriceTypes.ToList();
+                    //var categories = context.Categories.ToList();
+                    var retailpriceTypeid = context.PriceTypes.Single(pt => pt.Code == "R").Id;
+                    ret.Price =
+                        context.ProductOffers.Single(o => o.ProductId == id && o.PriceTypeId == retailpriceTypeid).Price;
+
+                    ret.Code = product.Code;
+                    ret.Description = product.Description;
+                    ret.DetailDescription = product.DetailDescription;
+                    ret.Image = product.Image;
+                    ret.ImageAlt0 = product.ImageAlt0;
+                    ret.ImageAlt1 = product.ImageAlt1;
+                    ret.Id = product.Id;
+                    ret.BuyInPrice = product.BuyInPrice;
+                    ret.Active = product.Active;
+                    ret.QuantityOnHand = product.QuantityOnHand;
+
+                    TempData["ProductEditId"] = id;
+
+                    
+                }
+            }
+            return View(ret);
+        }
     }
 }

@@ -1,0 +1,114 @@
+﻿@model MyProject.Models.ViewModels.ProductViewLessDetail
+
+@{
+    ViewBag.Title = "Xem sản phẩm chi tiết";
+}
+
+<div class="row">
+    <hr>
+    <div class="medium-6 columns">
+        @Html.ActionLink("<<< Back", "Index", "ProductManagement", new { id = -1 }, new { @style = "color: #32cd32" })
+        <br />
+        @{
+            if (Model.Image != null)
+            {
+                var base64 = Convert.ToBase64String(@Model.Image);
+                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+            <img alt="@Model.Description" src="@imgSrc" height="400" width="400"/>
+            }
+            else
+            {
+            <img src="~/Content/Images/ProductDefault.png" height="400" width="400" />
+            }}
+        <ul class="small-block-grid-3">
+            <li>
+
+                @{
+                    if (Model.ImageAlt0 != null)
+                    {
+                        var base64 = Convert.ToBase64String(@Model.ImageAlt0);
+                        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                    <img alt="@Model.Description" src="@imgSrc" height="400" width="400"/>
+                    }
+                    else
+                    {
+                    <img src="~/Content/Images/ProductDefault.png" height="100" width="100" />
+                    }}
+            </li>
+
+            <li>
+
+                @{
+                    if (Model.ImageAlt1 != null)
+                    {
+                        var base64 = Convert.ToBase64String(@Model.ImageAlt1);
+                        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                    <img alt="@Model.Description" src="@imgSrc" height="400" width="400"/>
+                    }
+                    else
+                    {
+                    <img src="~/Content/Images/ProductDefault.png" height="100" width="100" />
+                    }}
+            </li>
+        </ul>
+    </div>
+
+
+    <div class="large-5 columns">
+
+        <ul class="tabs" data-tab>
+            <li class="tab-title active"><a href="#panel1">Details</a></li>
+        </ul>
+        <div class="tabs-content">
+            <div class="content active" id="panel1">
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Code, new { @class = "col-md-2 control-label" })
+                    @Html.DisplayTextFor(m => m.Code)
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Active)
+                    @Html.CheckBoxFor(m => m.Active)
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.DisplayTextFor(m => m.Description)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.DetailDescription, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.DisplayTextFor(m => m.DetailDescription)
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <h5><b><em>Purchase Price: </em></b></h5>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.BuyInPrice, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.DisplayTextFor(m => m.BuyInPrice)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="panel">
+                <h5><b><em>Quantity: </em></b></h5>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.QuantityOnHand, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.DisplayTextFor(m => m.QuantityOnHand)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+

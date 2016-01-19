@@ -21,7 +21,9 @@ namespace MyProject.Controllers
 
             using (var context = new ShoppingCartContext())
             {
-                context.Orders.ForEach(o => ret.Add(new OrderQuickSummaryViewModel()
+                var count = context.Orders.Count();
+                //take last 200 order
+                context.Orders.OrderBy(o => o.OrderDate).Skip(Math.Max(0, count - 200)).ForEach(o => ret.Add(new OrderQuickSummaryViewModel()
                 {
                     Code = o.OrderNumber.ToString(),
                     OrderDate = o.OrderDate.ToString("dd-MM-yyyy"),

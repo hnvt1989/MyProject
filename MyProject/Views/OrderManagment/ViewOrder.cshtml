@@ -165,6 +165,14 @@
                     </td>
                 </tr>
             </table>
+            <div class="amount-due">
+                @{
+                    var amountDue = Model.Total - Model.PaymentTransaction.Amount;
+                    <b>Còn lại: <span> @amountDue.ToString("N0") đ</span></b>
+                }
+                
+            </div>
+
         </fieldset>
 
                 <fieldset>

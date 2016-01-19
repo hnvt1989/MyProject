@@ -956,7 +956,6 @@
     <Content Include="Views\AppSetting\Index.cshtml" />
     <Content Include="Views\AppSetting\EditAppSetting.cshtml" />
     <Content Include="Views\Store\Detail.cshtml" />
-    <Content Include="Views\ProductManagement\Index1.cshtml" />
     <Content Include="Views\PromotionSetting\Index.cshtml" />
     <Content Include="Views\OrderManagment\Index.cshtml" />
     <Content Include="Views\OrderManagment\ViewOrder.cshtml" />
@@ -966,6 +965,7 @@
     <Content Include="Views\Shared\_Authenticated.cshtml" />
     <Content Include="Views\Shared\_Admin.cshtml" />
     <Content Include="Views\Home\PurchaseInstruction.cshtml" />
+    <Content Include="Views\ProductManagement\ViewProductLessDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

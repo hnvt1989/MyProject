@@ -72,4 +72,34 @@ namespace MyProject.Models.ViewModels
 
         public string CategoriesString { get; set; } 
     }
+
+    public class ProductViewLessDetail
+    {
+        public int Id { get; set; }
+
+        public string Code { get; set; }
+
+        public string Description { get; set; }
+
+        [Display(Name = "Active")]
+        public bool Active { get; set; }
+
+        public string DetailDescription { get; set; }
+
+        public decimal Price { get; set; }
+
+        [DisplayName("Giá mua vào")]
+        public decimal BuyInPrice { get; set; }
+
+        public decimal ShippingCost { get; set; }
+
+        [Display(Name = "Số lượng đang có")]
+        public int QuantityOnHand { get; set; }
+
+        public byte[] Image { get; set; }
+
+        public byte[] ImageAlt0 { get; set; }
+
+        public byte[] ImageAlt1 { get; set; }   
+    }
 }

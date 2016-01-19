@@ -48,7 +48,14 @@
                 @foreach (var o in Model.Products)
                 {
                     <tr>
-                        <td>@Html.ActionLink(@o.Code, "EditProduct", "ProductManagement", new { id = o.Id }, new { @style = "color: #0000cd" })</td>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <td>@Html.ActionLink(@o.Code, "EditProduct", "ProductManagement", new {id = o.Id}, new {@style = "color: #0000cd"})</td>
+                        }
+                        else if (User.IsInRole("Consultant"))
+                        {
+                            <td>@Html.ActionLink(@o.Code, "ViewProductLessDetail", "ProductManagement", new {id = o.Id}, new {@style = "color: #0000cd"})</td>
+                        }
                         <td>@o.Description</td>
                         <td>@o.CategoriesString</td>
                         <td>@o.QuantityOnHand</td>
