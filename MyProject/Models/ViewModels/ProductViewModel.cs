@@ -77,15 +77,20 @@ namespace MyProject.Models.ViewModels
     {
         public int Id { get; set; }
 
+        [DisplayName("Mã số")]
         public string Code { get; set; }
 
+        [DisplayName("Thông tin")]
         public string Description { get; set; }
 
+        [DisplayName("Đang bán")]
         [Display(Name = "Active")]
         public bool Active { get; set; }
 
+        [DisplayName("Thông tin chi tiết")]
         public string DetailDescription { get; set; }
 
+        [DisplayName("Giá rao bán")]
         public decimal Price { get; set; }
 
         [DisplayName("Giá mua vào")]

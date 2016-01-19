@@ -55,11 +55,8 @@
 
 
     <div class="large-5 columns">
-
-        <ul class="tabs" data-tab>
-            <li class="tab-title active"><a href="#panel1">Details</a></li>
-        </ul>
-        <div class="tabs-content">
+        <h4> Thông tin</h4>
+        <fieldset>
             <div class="content active" id="panel1">
 
                 <div class="form-group">
@@ -81,13 +78,20 @@
 
                 <div class="form-group">
                     @Html.LabelFor(m => m.DetailDescription, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.DisplayTextFor(m => m.DetailDescription)
+
+                    <div class="content">
+                        @Html.Raw(HttpUtility.HtmlDecode(Model.DetailDescription))
                     </div>
                 </div>
 
                 <div class="panel">
-                    <h5><b><em>Purchase Price: </em></b></h5>
+                    <h5><b><em>Giá cả: </em></b></h5>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Price, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.DisplayTextFor(m => m.Price)
+                        </div>
+                    </div>
                     <div class="form-group">
                         @Html.LabelFor(m => m.BuyInPrice, new { @class = "col-md-2 control-label" })
                         <div class="col-md-10">
@@ -98,16 +102,17 @@
             </div>
 
 
-            <div class="panel">
-                <h5><b><em>Quantity: </em></b></h5>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.QuantityOnHand, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.DisplayTextFor(m => m.QuantityOnHand)
-                    </div>
+        <div class="panel">
+            <h5><b><em>Quantity: </em></b></h5>
+            <div class="form-group">
+                @Html.LabelFor(m => m.QuantityOnHand, new {@class = "col-md-2 control-label"})
+                <div class="col-md-10">
+                    @Html.DisplayTextFor(m => m.QuantityOnHand)
                 </div>
             </div>
         </div>
+            </fieldset>
+
 
     </div>
 </div>

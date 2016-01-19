@@ -97,12 +97,19 @@ namespace MyProject.Controllers
 
                     foreach (var product in productCategories.Products)
                     {
-                        product.CategoriesString =
+
+                            var catList = 
                             context.Products.Where(p => p.Id == product.Id)
-                                .SelectMany(prod => prod.Categories)
-                                .Select(c => c.Description)
-                                .ToList()
-                                .Aggregate((i, j) => i + "," + j);
+                                .SelectMany(prod => prod.Categories);
+                        if (catList.Count() > 0)
+                        {
+                            product.CategoriesString =
+                                catList.Select(c => c.Description).ToList().Aggregate((i, j) => i + "," + j);
+                        }
+                        else
+                        {
+                            product.CategoriesString = "";
+                        }
                     }
 
                     return View(productCategories);
