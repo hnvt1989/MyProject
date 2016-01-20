@@ -17,7 +17,7 @@ namespace MyProject.Controllers
         ShoppingCartContext _soCartContext = new ShoppingCartContext();
 
         //[Authorize(Roles = "Consultant, Admin")]
-        public ActionResult Index(long orderNumber, string guid)
+        public ActionResult Index(long orderNumber, string guid, bool firstTime = false)
         {
             Order order = null;
             if (User.Identity.IsAuthenticated)
@@ -52,7 +52,8 @@ namespace MyProject.Controllers
                     FullName = order.FullName,
                     ShippingAddress = order.Address,
                     Phone = order.Phone,
-                    Total = order.Total
+                    Total = order.Total,
+                    FirstTime = firstTime
                 };
                 model.OrderDetails = (from lineItems in _soCartContext.LineOrderDetails
                                       where lineItems.OrderId == order.Id

@@ -9,14 +9,16 @@
 
 <div class="row">
     <div class="large-12 columns">
-        
+
         <section id="ProfileForm">
-            @using (Html.BeginForm("Index", "OrderSummary", FormMethod.Post, new {@class = "form-horizontal", role = "form", enctype = "multipart/form-data"}))
+            @using (Html.BeginForm("Index", "OrderSummary", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
             {
                 @Html.AntiForgeryToken()
-                <hr/>
-                @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
+                if (Model.FirstTime)
+                {
                 <fieldset>
                     <h4>Thank you !</h4>
                     <div class="content">
@@ -25,8 +27,10 @@
 
 
                 </fieldset>
-                               
-                <div align="center"><h3>Đơn đặt hàng</h3></div>
+                }
+                <div align="center">
+                    <h3>Đơn đặt hàng</h3>
+                </div>
                 <fieldset>
                     <legend>
                         <h4>Thông tin khách hàng</h4>
@@ -66,7 +70,7 @@
 
                     <table>
                         <tr>
-@*                            <th>
+                            @*                            <th>
                             </th>*@
                             <th>Tên sản phẩm
                             </th>
@@ -74,7 +78,7 @@
                             </th>
                             <th>Số lượng
                             </th>
-@*                            <th>Net
+                            @*                            <th>Net
                             </th>
                             <th>Discount
                             </th>
@@ -87,7 +91,7 @@
                         @foreach (var item in Model.OrderDetails)
                         {
                             <tr id="row-@item.Product.Id">
-@*                                <td>
+                                @*                                <td>
                                     @{
                                         if (@item.Product.Image != null)
                                         {
@@ -106,13 +110,13 @@
                                     @item.Product.Description
                                 </td>
                                 <td>
-                                    @String.Format("{0:N0}",@item.UnitPrice)
-                                    
+                                    @String.Format("{0:N0}", @item.UnitPrice)
+
                                 </td>
                                 <td id="item-count-@item.Product.Id">
                                     @item.Quantity
                                 </td>
-@*                                <td id="item-net-@item.Product.Id">
+                                @*                                <td id="item-net-@item.Product.Id">
                                     @String.Format("{0:N}",@item.Net)
                         
                                 </td>
@@ -125,8 +129,8 @@
                         
                                 </td>*@
                                 <td id="item-sum-@item.Product.Id">
-                                    @String.Format("{0:N0}",@item.Total)
-                        
+                                    @String.Format("{0:N0}", @item.Total)
+
                                 </td>
                             </tr>
                         }
@@ -134,7 +138,7 @@
                         <tr>
                             <td></td>
                             <td></td>
-                             @*                            <td></td>
+                            @*                            <td></td>
                            <td></td>
                             <td></td>
                             <td></td>*@
@@ -147,18 +151,48 @@
                         <tr>
                             <td></td>
                             <td></td>
-   @*                         <td></td>
+                            @*                         <td></td>
                             <td></td>
                             <td></td>
                             <td></td>*@
                             <td><b>@ViewBag.CartTotal</b></td>
                             <td id="cart-total">
-                                <b>@String.Format("{0:N0}",@Model.Total)</b>
+                                <b>@String.Format("{0:N0}", @Model.Total)</b>
                             </td>
                         </tr>
                     </table>
-                </fieldset>@*
+                </fieldset>
 
+                <fieldset>
+                    <h4>Thanh toán</h4>
+                    <table>
+                        <tr>
+                            <th>Cách thanh toán
+                            </th>
+                            <th>Tổng
+                            </th>
+                            <th>Tình trạng
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>@Model.PaymentTransaction.PaymentType.Description
+                            </td>
+                            <td>@String.Format("{0:N0}", @Model.PaymentTransaction.Amount)
+                            </td>
+                            <td>@Model.PaymentTransaction.PaymentStatus.Description
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="amount-due">
+                        @{
+                        var amountDue = Model.Total - Model.PaymentTransaction.Amount;
+                            <b>Còn lại: <span>@amountDue.ToString("N0") đ</span></b>
+                        }
+
+                    </div>
+
+                </fieldset>
+@*
                 <fieldset>
                     <h4>Thanh toán</h4>
                     <table>

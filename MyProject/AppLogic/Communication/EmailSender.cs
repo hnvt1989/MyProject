@@ -92,8 +92,7 @@ namespace MyProject.AppLogic.Communication
             }
             ret += "<p><b>Cước vận chuyển:</b> " + order.CartViewModel.CartTotalShippingCost.ToString("N0") + "đ </p>";
             ret += "<p><b>Tổng tiền của đơn đặt hàng:</b>" + order.CartViewModel.CartTotal.ToString("N0") + "đ </p>";
-            ret += "<p> Bạn có thể theo dõi đơn đặt hàng ở đây:</p>";
-            ret += "<p> <a href=" + rootUrl + "/OrderSummary?orderNumber=" + orderNumber + "&guid=" + order.OrderGuid + "</a></p>";
+            ret += string.Format("<p> <a href=\"{0}/OrderSummary?orderNumber={1}&guid={2}&firstTime=False\">Theo dõi đơn đặt hàng của bạn</a></p>", rootUrl, orderNumber, order.OrderGuid);
             ret += "<p> ================================================================= </p>";
             ret += contact;
             return ret;

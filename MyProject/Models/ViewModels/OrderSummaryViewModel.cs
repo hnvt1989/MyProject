@@ -9,7 +9,7 @@ namespace MyProject.Models.ViewModels
     public class OrderSummaryViewModel
     {
         public long OrderNumber { get; set; }
-
+        public bool FirstTime { get; set; }
         public string FullName { get; set; }
 
         public string Phone { get; set; }

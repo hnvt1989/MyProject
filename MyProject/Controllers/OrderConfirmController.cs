@@ -63,10 +63,10 @@ namespace MyProject.Controllers
                 {
                     if (User.IsInRole("Admin") || User.IsInRole("Consultant"))
                     {
-                        return RedirectToAction("Index", "OrderSummary", new {orderNumber = orderNumber, guid = ""});
+                        return RedirectToAction("Index", "OrderSummary", new {orderNumber = orderNumber, guid = "", firstTime = true});
                     }
                 }
-                return RedirectToAction("Index", "OrderSummary", new { orderNumber = orderNumber, guid = order.Guid});
+                return RedirectToAction("Index", "OrderSummary", new { orderNumber = orderNumber, guid = order.Guid, firstTime = true });
             }
 
             //TempData["OrderInfo"] = m;
