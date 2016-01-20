@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MyProject.DAL;
 using MyProject.Models.ShoppingCart;
 
 namespace MyProject.Models.ViewModels
@@ -37,6 +38,23 @@ namespace MyProject.Models.ViewModels
         public decimal BuyInPrice { get; set; }
 
         public decimal Price { get; set; }
+
+        public decimal ConversionRate
+        {
+            get
+            {
+                using (var context = new ShoppingCartContext())
+                {
+                    var rate = context.AppSettings.SingleOrDefault(a => a.Code == "ConversionRate");
+                    var ret = 1m;
+                    if (rate != null)
+                    {
+                        ret = Convert.ToDecimal(rate.Value);
+                    }
+                    return ret;
+                }
+            }
+        }
 
         public string PriceType { get; set; }
 
@@ -83,8 +101,7 @@ namespace MyProject.Models.ViewModels
         [DisplayName("Thông tin")]
         public string Description { get; set; }
 
-        [DisplayName("Đang bán")]
-        [Display(Name = "Active")]
+        [Display(Name = "Đang bán")]
         public bool Active { get; set; }
 
         [DisplayName("Thông tin chi tiết")]

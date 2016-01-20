@@ -13,6 +13,37 @@
         CKEDITOR.replace('detailDescriptionTextBox');
         CKEDITOR.replace('noteTextArea');
     };
+
+
+    function convertToVND() {
+        var rate = $('#currencyRate').text();
+        var nodes = document.getElementsByClassName('amountPricing');
+        var convertRate = parseFloat(rate).toFixed(2);
+            for (var i = 0; i < nodes.length; i++) {
+                //console.log(nodes[i].value);
+                //console.log();
+                var vnd = convertRate * nodes[i].value;
+                nodes[i].value = vnd;
+            }
+        var buyInAmount = document.getElementById('buyIn').value;
+        document.getElementById('buyIn').value = buyInAmount * convertRate;
+
+    }
+    function convertToUSD() {
+        var rate = $('#currencyRate').text();
+        var nodes = document.getElementsByClassName('amountPricing');
+        var convertRate = parseFloat(rate).toFixed(2);
+        for (var i = 0; i < nodes.length; i++) {
+            //console.log(nodes[i].value);
+            //console.log();
+            var vnd = nodes[i].value / convertRate;
+            nodes[i].value = vnd;
+        }
+        var buyInAmount = document.getElementById('buyIn').value;
+        document.getElementById('buyIn').value = buyInAmount / convertRate;
+
+    }
+
 </script>
 
 <body>
@@ -139,33 +170,52 @@
 
 
                         <div class="content" id="panel2">
-                            <div class="panel">
-                                <h5><b><em>Pricing: </em></b></h5>
+                            <div class="panel" >
+                                <h5><b><em>Pricing (Save in VND !!) </em></b></h5>
 
                                 @for (int i = 0; i < Model.Offers.Count; i++)
                                 {
                                     var priceType = (Model.Offers[i].PriceTypeId == 1) ? "Retail" : "Whole Sale";
-                                    <div class="form-group">
+                                    <div class="form-group" id="price">
                                         <h6>@priceType</h6>
-                                        <div class="col-md-10">
-                                            @Html.EditorFor(m => m.Offers[i].Price)
+                                            @Html.TextBoxFor(m => m.Offers[i].Price, new { @class = "amountPricing"})
                                             @Html.HiddenFor(m => m.Offers[i].Price)
                                             @Html.HiddenFor(m => m.Offers[i].PriceTypeId)
-                                            @*                                    @Html.ValidationMessageFor(m => Model.Offers[i].Price, "", new { @class = "text-danger" })*@
-                                        </div>
+                                            @*@Html.ValidationMessageFor(m => Model.Offers[i].Price, "", new { @class = "text-danger" })*@
+@*                                        <div class="col-md-10" id="priceVal">
+
+                                        </div>*@
                                     </div>
                                 }
                             </div>
 
                             <div class="panel">
-                                <h5><b><em>Purchase Price: </em></b></h5>
+                                <h5><b><em>Purchase Price (Save in VND !!) </em></b></h5>
                                 <div class="form-group">
-                                    @Html.LabelFor(m => m.ProductView.BuyInPrice, new { @class = "col-md-2 control-label" })
+                                    @Html.LabelFor(m => m.ProductView.BuyInPrice, new {@class = "col-md-2 control-label"})
                                     <div class="col-md-10">
-                                        @Html.TextBoxFor(m => m.ProductView.BuyInPrice)
-                                        @Html.ValidationMessageFor(m => m.ProductView.BuyInPrice, "", new { @class = "text-danger" })
+                                        @Html.TextBoxFor(m => m.ProductView.BuyInPrice, new {@id = "buyIn"})
+                                        @Html.ValidationMessageFor(m => m.ProductView.BuyInPrice, "", new {@class = "text-danger"})
                                     </div>
                                 </div>
+                            </div>
+
+                            <div class="panel">
+                                <h5><b><em>Currency Conversion</em></b></h5>
+                                <div >
+                                    Rate: 1usd = <span style="color: #800000" id="currencyRate">@Model.ProductView.ConversionRate </span> vnd
+                                </div>
+
+                                <br/>
+                                <div>
+                                    <input class="small button" value="Convert to VND" id="toVND" onclick=" convertToVND() "/>
+                                    <input class="small button" value="Convert to USD" id="toUSD" onclick="convertToUSD()"/>
+                                </div>
+@*                                <div class="switch">
+                                    <h6>Switch on to convert to VND</h6>
+                                    <input id="currencyConversion" type="checkbox" onclick='convertBoxCheck(this);'>
+                                    <label for="currencyConversion"></label>
+                                </div> *@
                             </div>
                         </div>
 

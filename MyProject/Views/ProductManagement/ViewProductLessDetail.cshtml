@@ -7,7 +7,7 @@
 <div class="row">
     <hr>
     <div class="medium-6 columns">
-        @Html.ActionLink("<<< Back", "Index", "ProductManagement", new { id = -1 }, new { @style = "color: #32cd32" })
+        @Html.ActionLink("<<< Quay lại", "Index", "ProductManagement", new { id = -1 }, new { @style = "color: #32cd32" })
         <br />
         @{
             if (Model.Image != null)
@@ -59,55 +59,43 @@
         <fieldset>
             <div class="content active" id="panel1">
 
+                <h5><b><em>Mã số sản phẩm: </em></b></h5>
                 <div class="form-group">
-                    @Html.LabelFor(m => m.Code, new { @class = "col-md-2 control-label" })
                     @Html.DisplayTextFor(m => m.Code)
                 </div>
 
+                 <h5><b><em>Đang bán: </em></b></h5>
                 <div class="form-group">
-                    @Html.LabelFor(m => m.Active)
-                    @Html.CheckBoxFor(m => m.Active)
+                    @Html.CheckBoxFor(m => m.Active, new {disabled = true})
                 </div>
 
+                <h5><b><em>Thông tin: </em></b></h5>
                 <div class="form-group">
-                    @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.DisplayTextFor(m => m.Description)
-                    </div>
+                   @Html.DisplayTextFor(m => m.Description)
                 </div>
 
+@*                 <h5><b><em>Thông tin chi tiết: </em></b></h5>
                 <div class="form-group">
-                    @Html.LabelFor(m => m.DetailDescription, new { @class = "col-md-2 control-label" })
-
-                    <div class="content">
-                        @Html.Raw(HttpUtility.HtmlDecode(Model.DetailDescription))
-                    </div>
-                </div>
+                    @Html.Raw(HttpUtility.HtmlDecode(Model.DetailDescription))
+                </div>*@
 
                 <div class="panel">
                     <h5><b><em>Giá cả: </em></b></h5>
                     <div class="form-group">
-                        @Html.LabelFor(m => m.Price, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
-                            @Html.DisplayTextFor(m => m.Price)
-                        </div>
+                        <span>Giá rao bán: </span><span style="color: #b22222"><b>@Model.Price.ToString("N0")</b></span> đ
                     </div>
                     <div class="form-group">
-                        @Html.LabelFor(m => m.BuyInPrice, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
-                            @Html.DisplayTextFor(m => m.BuyInPrice)
-                        </div>
-                    </div>
+                        <span>Giá mua vào: </span><span style="color: #b22222"><b>@Model.BuyInPrice.ToString("N0")</b></span> đ
+                    </div> 
                 </div>
             </div>
 
 
         <div class="panel">
-            <h5><b><em>Quantity: </em></b></h5>
+            <h5><b><em>Số lượng: </em></b></h5>
             <div class="form-group">
-                @Html.LabelFor(m => m.QuantityOnHand, new {@class = "col-md-2 control-label"})
                 <div class="col-md-10">
-                    @Html.DisplayTextFor(m => m.QuantityOnHand)
+                    <span>Số lượng đang có trong tay: </span><span style="color: #b22222"><b>@Model.QuantityOnHand </b></span> sản phẩm
                 </div>
             </div>
         </div>

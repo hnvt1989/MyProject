@@ -100,8 +100,8 @@ namespace MyProject.Controllers
 
                             var catList = 
                             context.Products.Where(p => p.Id == product.Id)
-                                .SelectMany(prod => prod.Categories);
-                        if (catList.Count() > 0)
+                                .SelectMany(prod => prod.Categories).ToList();
+                        if (catList.Any())
                         {
                             product.CategoriesString =
                                 catList.Select(c => c.Description).ToList().Aggregate((i, j) => i + "," + j);

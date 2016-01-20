@@ -29,18 +29,19 @@
 
 <div class="row">
     <div class="large-12 columns">
-        <h3>Product Management</h3>
-        @Html.LabelFor(x => x.CategoryList)
+        <h3>Danh sách Sản phẩm</h3>
+        @*        @Html.LabelFor(x => x.CategoryList)*@
+        <h6>Tìm kiếm theo danh mục</h6>
         @Html.DropDownListFor(x => x.SelectedCategory, Model.CategoryList, new { id = "categorySelection", onchange = "document.location.href = '/ProductManagement/FilterByCategory?code=' + this.options[this.selectedIndex].value;" })
 
 
         <table id="products" class="display" cellspacing="0" width="100%">
             <thead>
                 <tr>
-                    <th>Item #</th>
-                    <th>Item Name</th>
-                    <th>Category</th>
-                    <th>Quantity On Hand</th>
+                    <th>Mã số</th>
+                    <th>Tên</th>
+                    <th>Danh mục sản phẩm</th>
+                    <th>Số lượng đang có</th>
                     <th>Active</th>
                 </tr>
             </thead>
@@ -50,11 +51,11 @@
                     <tr>
                         @if (User.IsInRole("Admin"))
                         {
-                            <td>@Html.ActionLink(@o.Code, "EditProduct", "ProductManagement", new {id = o.Id}, new {@style = "color: #0000cd"})</td>
+                            <td>@Html.ActionLink(@o.Code, "EditProduct", "ProductManagement", new { id = o.Id }, new { @style = "color: #0000cd" })</td>
                         }
                         else if (User.IsInRole("Consultant"))
                         {
-                            <td>@Html.ActionLink(@o.Code, "ViewProductLessDetail", "ProductManagement", new {id = o.Id}, new {@style = "color: #0000cd"})</td>
+                            <td>@Html.ActionLink(@o.Code, "ViewProductLessDetail", "ProductManagement", new { id = o.Id }, new { @style = "color: #0000cd" })</td>
                         }
                         <td>@o.Description</td>
                         <td>@o.CategoriesString</td>
@@ -65,12 +66,17 @@
             </tbody>
         </table>
 
-        <p class="button">
-            @Html.ActionLink("Add Product", "EditProduct", "ProductManagement", new { id = -1 }, new { @style = "color: #FFFFFF" })
-        </p>
+        @if (User.IsInRole("Admin"))
+        {
+            <p class="button">
+                @Html.ActionLink("Add Product", "EditProduct", "ProductManagement", new { id = -1 }, new { @style = "color: #FFFFFF" })
+            </p>
+        }
 
 
-        @*        <section id="ProfileForm">
+
+
+@*        <section id="ProfileForm">
             @using (Html.BeginForm("SearchProduct", "ProductManagement", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
             {
                 @Html.AntiForgeryToken()

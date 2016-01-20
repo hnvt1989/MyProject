@@ -23,7 +23,7 @@ namespace MyProject.Models.ViewModels
 
         public string SelectedCategory { get; set; }
 
-        [DisplayName("Sort by Category")]
+        [DisplayName("Theo danh mục")]
         public SelectList CategoryList
         {
             get
@@ -31,7 +31,7 @@ namespace MyProject.Models.ViewModels
                 using (var context = new ShoppingCartContext())
                 {
                     var cat = new List<Category>();
-                    cat.Add(new Category(){ Code = "All", Description = "All Categories"});
+                    cat.Add(new Category(){ Code = "All", Description = "Tất cả"});
                     cat.AddRange(context.Categories.ToList());
                     return new SelectList(cat, "Code", "Description");
                 };
