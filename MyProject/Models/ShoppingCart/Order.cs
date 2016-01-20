@@ -12,6 +12,8 @@ namespace MyProject.Models.ShoppingCart
 
         public long OrderNumber { get; set; }
 
+        public string Guid { get; set; }
+
         public string UserName { get; set; }
         public string FullName { get; set; }
 

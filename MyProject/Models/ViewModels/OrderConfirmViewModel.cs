@@ -10,5 +10,7 @@ namespace MyProject.Models.ViewModels
         public CheckoutViewModel CheckOutInfo { get; set; }
 
         public ShoppingCartViewModel CartViewModel { get; set; }
+
+        public string OrderGuid { get; set; }
     }
 }

@@ -71,7 +71,7 @@ namespace MyProject.AppLogic.Communication
             //var text = "Tin nhắn từ: {0}. Nội dung: {1}. {2}";
 
             var contact = "";
-
+            var rootUrl = "";
             using (var context = new ShoppingCartContext())
             {
                 var contactInfo = context.Contents.SingleOrDefault(c => c.TextLocation == "Order.Email.ContactInfo");
@@ -80,6 +80,7 @@ namespace MyProject.AppLogic.Communication
                 {
                     contact = contactInfo.TextValue;
                 }
+                rootUrl = context.AppSettings.Single(a => a.Code == "RootUrl").Value;
             }
 
             var ret = "Cảm ơn bạn đã đặt hàng ở J.A Shop. Số đơn đặt hàng của bạn là: " + orderNumber;
@@ -91,6 +92,8 @@ namespace MyProject.AppLogic.Communication
             }
             ret += "<p><b>Cước vận chuyển:</b> " + order.CartViewModel.CartTotalShippingCost.ToString("N0") + "đ </p>";
             ret += "<p><b>Tổng tiền của đơn đặt hàng:</b>" + order.CartViewModel.CartTotal.ToString("N0") + "đ </p>";
+            ret += "<p> Bạn có thể theo dõi đơn đặt hàng ở đây:</p>";
+            ret += "<p> <a href=" + rootUrl + "/OrderSummary?orderNumber=" + orderNumber + "&guid=" + order.OrderGuid + "</a></p>";
             ret += "<p> ================================================================= </p>";
             ret += contact;
             return ret;

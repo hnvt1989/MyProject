@@ -55,9 +55,18 @@ namespace MyProject.Controllers
 
                 if(User != null)
                     order.UserName = User.Identity.GetUserName();
+                order.Guid = Guid.NewGuid().ToString();
                 var orderNumber = ShoppingCart.GetCart(this).CreateOrder(order);
+                m.OrderGuid = order.Guid;
                 int i = await EmailSender.SendMail(orderNumber.ToString(), m);
-                return RedirectToAction("Index", "OrderSummary", new {orderNumber = orderNumber});
+                if (User.Identity.IsAuthenticated)
+                {
+                    if (User.IsInRole("Admin") || User.IsInRole("Consultant"))
+                    {
+                        return RedirectToAction("Index", "OrderSummary", new {orderNumber = orderNumber, guid = ""});
+                    }
+                }
+                return RedirectToAction("Index", "OrderSummary", new { orderNumber = orderNumber, guid = order.Guid});
             }
 
             //TempData["OrderInfo"] = m;
