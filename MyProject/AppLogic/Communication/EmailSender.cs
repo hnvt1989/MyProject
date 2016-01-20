@@ -82,7 +82,18 @@ namespace MyProject.AppLogic.Communication
                 }
             }
 
-            return "Cảm ơn bạn đã đặt hàng ở J.A Shop. Số đơn đặt hàng của bạn là: " + orderNumber +  contact;
+            var ret = "Cảm ơn bạn đã đặt hàng ở J.A Shop. Số đơn đặt hàng của bạn là: " + orderNumber;
+            ret += "<p> ================================================================= </p>";
+            ret += "<p><b>                        ĐƠN ĐẶT HÀNG  " + orderNumber + "</b></p>";
+            foreach (var p in order.CartViewModel.CartItems)
+            {
+                ret += "<p> #" + p.Product.Code + " . <b>Tên sản phẩm:</b> " + p.Product.Description + "                   <b>Giá tiền/1 sản phẩm:</b>" + p.OriginalPrice.ToString("N0") + "đ    . <b>Số lượng:</b>     " + p.Quantity + " </p>";
+            }
+            ret += "<p><b>Cước vận chuyển:</b> " + order.CartViewModel.CartTotalShippingCost.ToString("N0") + "đ </p>";
+            ret += "<p><b>Tổng tiền của đơn đặt hàng:</b>" + order.CartViewModel.CartTotal.ToString("N0") + "đ </p>";
+            ret += "<p> ================================================================= </p>";
+            ret += contact;
+            return ret;
             //return string.Format(text, "J.A Shop", "Cảm ơn bạn đã đặt hàng ở J.A Shop. Số đơn đặt hàng của bạn là: " + orderNumber, contact);
 
         }
@@ -101,8 +112,8 @@ namespace MyProject.AppLogic.Communication
                 SMTP_USERNAME = context.AppSettings.Single(a => a.Code == "EmailFrom_UserName").Value;
                 SMTP_PASSWORD = context.AppSettings.Single(a => a.Code == "EmailFrom_Password").Value;
                 HOST = context.AppSettings.Single(a => a.Code == "EmailFrom_Host").Value;// Amazon SES SMTP host name. This example uses the US West (Oregon) region.
-                TO = context.AppSettings.Single(a => a.Code == "NotificationEmail1").Value;
-                TO2 = context.AppSettings.Single(a => a.Code == "NotificationEmail2").Value;
+                TO = context.AppSettings.Single(a => a.Code == "NotificationEmails").Value;
+                //TO2 = context.AppSettings.Single(a => a.Code == "NotificationEmail2").Value;
             }
 
 
@@ -140,27 +151,43 @@ namespace MyProject.AppLogic.Communication
                 // Send the email. 
                 try
                 {
-                    //Console.WriteLine("Attempting to send an email through the Amazon SES SMTP interface...");
-                    await client.SendMailAsync(FROM, TO, SUBJECT, BODY);
+                    var orderDetails = CreateEmailTemplate(order, orderNumber);
+                    
+                    var htmlView = AlternateView.CreateAlternateViewFromString(BODY + orderDetails, Encoding.UTF8, MediaTypeNames.Text.Html);
+
+                    var message = new MailMessage
+                    {
+                        Subject = "New order!",
+                        From = new MailAddress(FROM, "J.A shop")
+                    };
+                    message.To.Add(TO);
+                    //message.To.Add(TO2);
+                    message.AlternateViews.Add(htmlView);
+
+                    await client.SendMailAsync(message);
+
+                    ////send to 1st email
+                    //await client.SendMailAsync(FROM, TO, SUBJECT, BODY);
                     
 
-                    //send to 2nd email:
-                    await client.SendMailAsync(FROM, TO2, SUBJECT, BODY);
+                    ////send to 2nd email:
+                    //await client.SendMailAsync(FROM, TO2, SUBJECT, BODY);
 
                     //send email to the customer !
                     if (!string.IsNullOrEmpty(order.CheckOutInfo.Email))
                     {
-                        var htmlView = AlternateView.CreateAlternateViewFromString(CreateEmailTemplate(order, orderNumber), Encoding.UTF8, MediaTypeNames.Text.Html);
 
-                        var message = new MailMessage
+                        var htmlView2 = AlternateView.CreateAlternateViewFromString(orderDetails, Encoding.UTF8, MediaTypeNames.Text.Html);
+
+                        var messageToCustomer = new MailMessage
                         {
                             Subject = "Cảm ơn bạn đã đặt hàng ở H.A Shop !",
                             From = new MailAddress(FROM, "J.A shop")
                         };
                         TO = order.CheckOutInfo.Email;
-                        message.To.Add(TO);
-                        message.AlternateViews.Add(htmlView);
-                        await client.SendMailAsync(message);
+                        messageToCustomer.To.Add(TO);
+                        messageToCustomer.AlternateViews.Add(htmlView2);
+                        await client.SendMailAsync(messageToCustomer);
                         //BODY = ;
                         //TO = order.CheckOutInfo.Email;
 
