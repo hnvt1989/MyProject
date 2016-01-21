@@ -2,7 +2,7 @@
 @if (Request.IsAuthenticated)
 {
     <ul class="top-bar-items left">
-        <li>@Html.ActionLink("Cách mua hàng", "PurchaseInstruction", "Home", routeValues: null, htmlAttributes: new {id = "homeLink"})</li>
+        <li>@Html.ActionLink("Cách mua hàng", "PurchaseInstruction", "Home", routeValues: null, htmlAttributes: new {id = "homeLink" , style="font-weight:bold;color:#32cd32;font-size: 15px"})</li>
     </ul>
     
     @Html.Partial("_Authenticated")

@@ -37,6 +37,12 @@ namespace MyProject.Controllers
                     });
                 }
 
+                foreach (var prod in products)
+                {
+                    var origPrice = offers.SingleOrDefault(po => po.ProductId == prod.Id && po.PriceTypeId == 3);
+                    prod.OriginalPrice = origPrice != null ? origPrice.Price : 0m;
+                }
+
                 var ret = new HeaderAdvertisementViewModel();
                 var id = pContext.ContentTypes.Single(p => p.Code == "Ad").Id;
 
@@ -110,6 +116,13 @@ namespace MyProject.Controllers
                             Image = p.Image
                         });
                     }
+
+                    foreach (var prod in products)
+                    {
+                        var origPrice = offers.SingleOrDefault(po => po.ProductId == prod.Id && po.PriceTypeId == 3);
+                        prod.OriginalPrice = origPrice != null ? origPrice.Price : 0m;
+                    }
+
                     var homeView = new HomeViewModel {ProductViewModels = products};
                     homeView.SelectedCategory = code;
 

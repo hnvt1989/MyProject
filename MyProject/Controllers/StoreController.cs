@@ -34,7 +34,21 @@ namespace MyProject.Controllers
                 productModel.Code = prod.Code;
                 productModel.Id = prod.Id;
                 productModel.Description = prod.Description;
-                productModel.Price = offers.Single(po => po.ProductId == prod.Id && po.PriceTypeId == 1).Price;
+                var origPrice = offers.SingleOrDefault(po => po.ProductId == prod.Id && po.PriceTypeId == 3);
+                var curPrice = offers.SingleOrDefault(po => po.ProductId == prod.Id && po.PriceTypeId == 1);
+
+                if (origPrice != null)
+                {
+                    if (origPrice.Price > 0)
+                    {
+                        productModel.OriginalPrice = origPrice.Price;
+                    }
+                }
+                if (curPrice != null)
+                {
+                    productModel.Price = curPrice.Price;
+                }
+                //productModel.Price = offers.Single(po => po.ProductId == prod.Id && po.PriceTypeId == 1).Price;
                 productModel.FeatureProduct = prod.FeatureProduct;
                 productModel.Image = prod.Image;
                 productModel.ImageAlt0 = prod.ImageAlt0;

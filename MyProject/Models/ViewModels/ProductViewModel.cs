@@ -39,6 +39,8 @@ namespace MyProject.Models.ViewModels
 
         public decimal Price { get; set; }
 
+        public decimal OriginalPrice { get; set; }
+
         public decimal ConversionRate
         {
             get

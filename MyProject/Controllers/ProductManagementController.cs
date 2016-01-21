@@ -175,6 +175,15 @@ namespace MyProject.Controllers
                     var priceTypes = context.PriceTypes.ToList();
                     var categories = context.Categories.ToList();
                     var offers = context.ProductOffers.Where(o => o.ProductId == id).ToList();
+                    var newPriceTypes = priceTypes.Where(p => offers.All(o2 => o2.PriceTypeId != p.Id));
+                    newPriceTypes.ForEach(p => offers.Add(new ProductOffer()
+                    {
+                        Code = product.Code + "-" + p.Code,
+                        ProductId = product.Id,
+                        PriceTypeId = p.Id,
+                        Price = 0m,
+                        Discountable = true
+                    }));
 
                     var ret = new EditProductViewModel()
                     {
@@ -497,9 +506,23 @@ namespace MyProject.Controllers
                         //update pricing
                         foreach (var p in model.Offers)
                         {
-                            context.ProductOffers.Single(
-                                po => po.ProductId == product.Id && p.PriceTypeId == po.PriceTypeId)
-                                .Price = p.Price;
+                            var update = context.ProductOffers.SingleOrDefault(
+                                po => po.ProductId == product.Id && p.PriceTypeId == po.PriceTypeId);
+                            if (update != null)
+                            {
+                                update.Price = p.Price;
+                            }
+                            else
+                            {
+                                context.ProductOffers.Add(new ProductOffer()
+                                {
+                                    ProductId = product.Id,
+                                    PriceTypeId = p.PriceTypeId,
+                                    Discountable = true,
+                                    Price = p.Price,
+                                    Code = product.Code + "-" + "O"
+                                });
+                            }
                         }
 
                         //weight

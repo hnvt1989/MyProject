@@ -60,10 +60,14 @@
             @Html.Raw(HttpUtility.HtmlDecode(Model.DetailDescription))
         </div>
         <div class="panel">
-            <h5><b><em>Giá tiền: </em>@Model.Price.ToString("N0") đ</b></h5>
+            @if (@Model.OriginalPrice > 0m)
+            {
+                <b>GIÁ CŨ :<span><del>@Model.OriginalPrice.ToString("N0") đ </del></span></b>
+            }
+            <h4><b>SALE: <span style="color: #dc143c">@Model.Price.ToString("N0") đ </span></b></h4>
             <h6 class="subheader">Cước vận chuyển: @Model.ShippingCost.ToString("N0") đ </h6>
             <p class="button">
-                @Html.ActionLink("Thêm vào giỏ hàng", "ContinueToCart", "Store", new { id = @Model.Id }, new { @style = "color: #FFFFFF" })
+                @Html.ActionLink("Thêm vào giỏ hàng", "ContinueToCart", "Store", new {id = @Model.Id}, new {@style = "color: #FFFFFF"})
             </p>
         </div>
     </div>
