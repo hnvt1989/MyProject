@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MyProject.DAL;
+using MyProject.Models.ShoppingCart;
 using WebGrease.Css.Extensions;
 
 namespace MyProject.Models.ViewModels
@@ -22,8 +23,16 @@ namespace MyProject.Models.ViewModels
             {
                 using (var context = new ShoppingCartContext())
                 {
-                    var cat = context.Categories.ToList();
-                    return new SelectList(cat, "Code", "Description");
+
+                    var cat = new List<Category>();
+                    cat.Add(new Category()
+                    {
+                        Id = 0,
+                        Code = "All",
+                        Description = "Tất cả"
+                    });
+                    cat.AddRange(context.Categories.Where(c => c.Active).ToList());
+                    return new SelectList(cat, "Code", "Description", "All");
                 };
 
             }
@@ -36,7 +45,7 @@ namespace MyProject.Models.ViewModels
                 using (var context = new ShoppingCartContext())
                 {
                     var ret = new List<CategoryViewModel>();
-                    context.Categories.ForEach( c => ret.Add(new CategoryViewModel()
+                    context.Categories.Where(c => c.Active).ForEach( c => ret.Add(new CategoryViewModel()
                     {
                         Id = c.Id,
                         Code = c.Code,

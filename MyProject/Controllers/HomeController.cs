@@ -92,13 +92,15 @@ namespace MyProject.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (code == "All")
+                    return RedirectToAction("Index");
                 var prods = new List<Product>();
 
                 using (var context = new ShoppingCartContext())
                 {
                     prods = (from p in context.Products
                         where p.Categories.Any(c => c.Code == code)
-                        select p).Where(p=> p.Active).Take(24).ToList();
+                        select p).Where(p=> p.Active).Take(48).ToList();
                 }
                 using (var context = new ShoppingCartContext())
                 {

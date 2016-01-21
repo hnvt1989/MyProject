@@ -31,7 +31,8 @@ namespace MyProject.Controllers
                         Code = c.Code,
                         Description = c.Description,
                         Id = c.Id,
-                        Icon = c.Icon
+                        Icon = c.Icon,
+                        Active = c.Active
                     }));
                     
                 }
@@ -63,6 +64,7 @@ namespace MyProject.Controllers
                     cat.Code = "";
                     cat.Description = "Description";
                     cat.Icon = null;
+                    cat.Active = true;
                 }
                 else
                 {
@@ -73,6 +75,7 @@ namespace MyProject.Controllers
                         cat.Code = oCat.Code;
                         cat.Description = oCat.Description;
                         cat.Icon = oCat.Icon;
+                        cat.Active = oCat.Active;
                     }
                 }
                 return View(cat);
@@ -113,6 +116,8 @@ namespace MyProject.Controllers
                             cat.Icon = data;
                         }
 
+                        cat.Active = model.Active;
+
                         await context.SaveChangesAsync();
                         return RedirectToAction("EditCategory", cat.Id);
                     }
@@ -142,6 +147,7 @@ namespace MyProject.Controllers
 
                             ret.Icon = data;
                         }
+                        ret.Active = model.Active;
 
                         context.Categories.Add(ret);
 

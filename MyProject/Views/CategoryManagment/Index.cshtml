@@ -32,6 +32,7 @@
                 <th>Category #</th>
                 <th>Description</th>
                 <th># of products in this category</th>
+                <th>Active</th>
             </tr>
             </thead>
             <tbody>
@@ -41,6 +42,7 @@
                     <td>@Html.ActionLink(@category.Code, "EditCategory", "CategoryManagment", new {id = category.Id}, "")</td>
                     <td>@category.Description</td>
                     <td>@category.ProductsCount</td>
+                    <td>@category.Active</td>
                 </tr>
             }
             </tbody>
