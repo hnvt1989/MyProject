@@ -357,6 +357,7 @@
     <Content Include="Content\Images\Facebook.JPG" />
     <Content Include="Content\Images\favicon.ico" />
     <Content Include="Content\Images\favicon.JPG" />
+    <Content Include="Content\Images\header.jpg" />
     <Content Include="Content\Images\MainSiteProfile.jpg" />
     <Content Include="Content\Images\PageHeader.jpg" />
     <Content Include="Content\Images\Phone.JPG" />

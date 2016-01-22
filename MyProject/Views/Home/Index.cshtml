@@ -16,37 +16,38 @@
 
     //});
 </script>
-
-<ul class="example-orbit" data-orbit>
-    @for (int i = 0; i < Model.Advertisement.Ads.Count; i++)
-    {
-        
-        if (i == 0)
+@if (Model.Advertisement.Ads.Count > 0)
+{
+    <ul class="example-orbit" data-orbit>
+        @for (int i = 0; i < Model.Advertisement.Ads.Count; i++)
         {
-            <li class="active">
-                @{
-                    if (Model.Advertisement.Ads[i].Image != null)
-                    {
-                        var base64 = Convert.ToBase64String(Model.Advertisement.Ads[i].Image);
-                        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-                        //var style = "color: #ffffff; background: #dc143c; font-size: 35px; display: block; text-align: center";
-                        var text = Model.Advertisement.Ads[i].AdText;
-                        var style = Model.Advertisement.Ads[i].AdTextStyle;
-                        <a href="@Model.Advertisement.Ads[i].Url">
-                            <span style="@style">@text</span>
-                            <img alt="slide" src="@imgSrc" height="150" width="1500"/>
-                        </a>
-                    }
-                }
 
-                @*                <div class="orbit-caption">
+            if (i == 0)
+            {
+                <li class="active">
+                    @{
+                        if (Model.Advertisement.Ads[i].Image != null)
+                        {
+                            var base64 = Convert.ToBase64String(Model.Advertisement.Ads[i].Image);
+                            var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                            //var style = "color: #ffffff; background: #dc143c; font-size: 35px; display: block; text-align: center";
+                            var text = Model.Advertisement.Ads[i].AdText;
+                            var style = Model.Advertisement.Ads[i].AdTextStyle;
+                            <a href="@Model.Advertisement.Ads[i].Url">
+                                <span style="@style">@text</span>
+                                <img alt="slide" src="@imgSrc" height="150" width="1500"/>
+                            </a>
+                        }
+                    }
+
+                    @*                <div class="orbit-caption">
                     Caption Two.
                 </div>*@
-            </li>
-        }
-        else
-        {
-            <li>
+                </li>
+            }
+            else
+            {
+                <li>
                     @if (Model.Advertisement.Ads[i].Image != null)
                     {
                         var base64 = Convert.ToBase64String(Model.Advertisement.Ads[i].Image);
@@ -59,11 +60,12 @@
                             <img alt="slide" src="@imgSrc" height="150" width="1500"/>
                         </a>
                     }
-            </li>
-        }
+                </li>
+            }
 
-    }
-</ul>
+        }
+    </ul>
+}
 
 @*<div class="row">
 

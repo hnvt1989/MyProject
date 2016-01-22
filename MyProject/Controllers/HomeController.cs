@@ -131,19 +131,23 @@ namespace MyProject.Controllers
                     var homeView = new HomeViewModel {ProductViewModels = products};
                     homeView.SelectedCategory = code;
 
-                    var ret = new HeaderAdvertisementViewModel();
-                    var id = context.ContentTypes.Single(p => p.Code == "Ad").Id;
+                    //var ret = new HeaderAdvertisementViewModel();
+                    //var id = context.ContentTypes.Single(p => p.Code == "Ad").Id;
 
-                    context.Contents.Where(c => c.ContentTypeId == id).ForEach(c => ret.Ads.Add(new HeaderAd()
+                    //context.Contents.Where(c => c.ContentTypeId == id).ForEach(c => ret.Ads.Add(new HeaderAd()
+                    //{
+                    //    Image = c.Image,
+                    //    Url = c.ImageUrl,
+                    //    AdText = c.AdText,
+                    //    AdTextStyle = c.AdTextStyle
+                    //}));
+                    //ret.Ads = ret.Ads.OrderBy(o => o.DisplayOrder).ToList();
+
+                    //homeView.Advertisement = ret;
+                    homeView.Advertisement = new HeaderAdvertisementViewModel()
                     {
-                        Image = c.Image,
-                        Url = c.ImageUrl,
-                        AdText = c.AdText,
-                        AdTextStyle = c.AdTextStyle
-                    }));
-                    ret.Ads = ret.Ads.OrderBy(o => o.DisplayOrder).ToList();
-
-                    homeView.Advertisement = ret;
+                        Ads = new List<HeaderAd>()
+                    };
 
                     var contactInfo = context.Contents.SingleOrDefault(c => c.TextLocation == "Home.ContactInfo");
 

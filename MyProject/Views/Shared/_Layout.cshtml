@@ -1,5 +1,5 @@
 ﻿﻿<!DOCTYPE html>
-<html class="no-js" lang="en">
+<html class="no-js" lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#">
 <head>
     <meta charset="utf-8" />
 
@@ -16,40 +16,43 @@
 
     <script type="text/javascript" src="/Scripts/ckeditor/ckeditor.js"></script>
 
+    <meta property="og:image" content="http://jashopvn.com/Content/Images/header.jpg" />
 </head>
 
 <body>
-    <h1>J.A shop <span style="color: darkorange">&#9996;</span></h1>
-    <nav class="top-bar" data-topbar role="navigation">
+<img alt="slide" src="/Content/Images/header.jpg" height="150" width="1500"/>
+<p></p>
+@*    <h1>J.A shop <span style="color: darkorange">&#9996;</span></h1>*@
+<nav class="top-bar" data-topbar role="navigation">
 
-        <ul class="title-area">
+    <ul class="title-area">
 
-            <li class="name">
-                <h1></h1>
-            </li>
-            <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+        <li class="name">
+            <h1></h1>
+        </li>
+        <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
 
+    </ul>
+
+
+    <section class="top-bar-section">
+        <ul class="top-bar-items right">
+            <li>@Html.ActionLink("Giỏ hàng", "Index", "ShoppingCart")</li>
         </ul>
 
-
-        <section class="top-bar-section">
-            <ul class="top-bar-items right">
-                <li>@Html.ActionLink("Giỏ hàng", "Index", "ShoppingCart")</li>
-            </ul>
-
-            @Html.Partial("_LoginPartial")
-            @Html.Partial("_Admin")
-        </section>
-    </nav>
-    @RenderBody()
+        @Html.Partial("_LoginPartial")
+        @Html.Partial("_Admin")
+    </section>
+</nav>
+@RenderBody()
 
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/foundation")
-    <script>
-        $(document).foundation();
-    </script>
-    @*Use the Scripts section to define page specific scripts*@
-    @RenderSection("scripts", required: false)
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/foundation")
+<script>
+    $(document).foundation();
+</script>
+@*Use the Scripts section to define page specific scripts*@
+@RenderSection("scripts", required: false)
 </body>
 </html>
