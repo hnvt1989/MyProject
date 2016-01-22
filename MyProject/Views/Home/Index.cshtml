@@ -151,7 +151,14 @@
                     @foreach (var product in Model.ProductViewModels)
                     {
 
+                       
                         <div class="large-4 columns panel" data-equalizer-watch="foo" style="background: #FFFFFF">
+
+                             @if (product.OriginalPrice > 0)
+                             {
+                                 var percent = 100 - (product.Price/product.OriginalPrice)*100;
+                                <span style="font-size: 18px; font-family: Arial; background: #ff4500; color:#ffffff"><b>Giảm @percent %</b></span>
+                            }
 
                             @if (@product.Image != null)
                             {

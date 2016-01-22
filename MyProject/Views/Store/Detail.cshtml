@@ -54,7 +54,7 @@
     </div>
 
     <div class="medium-6 large-5 columns">
-        <h4><span style="color: darkslategrey">@Model.Description</span></h4>
+        <h4><span style="color: #ff4500; font-family: Arial"><b>@Model.Description &#10025;</b></span></h4>
         <b>Mã số sản phẩm: @Model.Code</b>
         <div class="content">
             @Html.Raw(HttpUtility.HtmlDecode(Model.DetailDescription))
@@ -62,12 +62,17 @@
         <div class="panel">
             @if (@Model.OriginalPrice > 0m)
             {
+
                 <b>GIÁ CŨ :<span><del>@Model.OriginalPrice.ToString("N0") đ </del></span></b>
+                    var percent = 100 - (Model.Price / Model.OriginalPrice) * 100;
+                    <div>
+                        <span style="font-size: 18px; font-family: Arial; color: #ff4500"><b>GIẢM  :  @percent %</b></span>
+                    </div>                
             }
             <h4><b>SALE: <span style="color: #dc143c">@Model.Price.ToString("N0") đ </span></b></h4>
             <h6 class="subheader">Cước vận chuyển: @Model.ShippingCost.ToString("N0") đ </h6>
             <p class="button">
-                @Html.ActionLink("Thêm vào giỏ hàng", "ContinueToCart", "Store", new {id = @Model.Id}, new {@style = "color: #FFFFFF"})
+                @Html.ActionLink("Thêm vào giỏ hàng", "ContinueToCart", "Store", new { id = @Model.Id }, new { @style = "color: #FFFFFF" })
             </p>
         </div>
     </div>
