@@ -51,8 +51,10 @@ namespace MyProject.Controllers
                     ret.Image = content.Image;
                 ret.Id = id;
                 ret.RouteTo = content.ImageUrl;
-                ret.ItemCode = content.ItemCode;
+                //ret.ItemCode = content.ItemCode;
                 ret.DisplayOrder = content.DisplayOrder;
+                ret.AdText = content.AdText;
+                ret.AdTextStyle = content.AdTextStyle;
                 ret.TextValue = content.TextValue;
                 ret.TextLocation = content.TextLocation;
             }
@@ -85,10 +87,13 @@ namespace MyProject.Controllers
 
                     if (contentType == "Ad")
                     {
-                        int itemId = context.Products.Single(p => p.Code == model.ItemCode).Id;
-                        content.ImageUrl = string.Format("/Store/Details/{0}", itemId);
-                        content.ItemCode = model.ItemCode;
+                        //int itemId = context.Products.Single(p => p.Code == model.ItemCode).Id;
+                        //content.ImageUrl = string.Format("/Store/Details/{0}", itemId);
+                        content.ImageUrl = model.RouteTo;
+                        //content.ItemCode = model.ItemCode;
                         content.DisplayOrder = model.DisplayOrder;
+                        content.AdText = model.AdText;
+                        content.AdTextStyle = model.AdTextStyle;
 
                         if (model.ContentImage != null)
                         {
@@ -134,10 +139,13 @@ namespace MyProject.Controllers
 
                     if (contentType == "Ad")
                     {
-                        int itemId = context.Products.Single(p => p.Code == model.ItemCode).Id;
-                        newContent.ImageUrl = string.Format("/Store/Details/{0}", itemId);
-                        newContent.ItemCode = model.ItemCode;
+                        //int itemId = context.Products.Single(p => p.Code == model.ItemCode).Id;
+                        newContent.ImageUrl = model.RouteTo;
+                        //newContent.ImageUrl = string.Format("/Store/Details/{0}", itemId);
+                        //newContent.ItemCode = model.ItemCode;
                         newContent.DisplayOrder = model.DisplayOrder;
+                        newContent.AdText = model.AdText;
+                        newContent.AdTextStyle = model.AdTextStyle;
 
                         if (model.ContentImage != null)
                         {

@@ -50,7 +50,10 @@ namespace MyProject.Controllers
                 {
                     Image = c.Image,
                     Url = c.ImageUrl,
-                    DisplayOrder = c.DisplayOrder
+                    DisplayOrder = c.DisplayOrder,
+                    AdText = c.AdText,
+                    AdTextStyle = c.AdTextStyle
+
                 }));
                 ret.Ads = ret.Ads.OrderBy(o => o.DisplayOrder).ToList();
 
@@ -134,7 +137,9 @@ namespace MyProject.Controllers
                     context.Contents.Where(c => c.ContentTypeId == id).ForEach(c => ret.Ads.Add(new HeaderAd()
                     {
                         Image = c.Image,
-                        Url = c.ImageUrl
+                        Url = c.ImageUrl,
+                        AdText = c.AdText,
+                        AdTextStyle = c.AdTextStyle
                     }));
                     ret.Ads = ret.Ads.OrderBy(o => o.DisplayOrder).ToList();
 

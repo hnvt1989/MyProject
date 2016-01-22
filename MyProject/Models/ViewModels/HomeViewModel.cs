@@ -80,6 +80,8 @@ namespace MyProject.Models.ViewModels
         public string Url { get; set; }
         public byte[] Image { get; set; }
         public int DisplayOrder { get; set; }
+        public string AdText { get; set; }
+        public string AdTextStyle { get; set; }
     }
 
     public class HomePageInfo

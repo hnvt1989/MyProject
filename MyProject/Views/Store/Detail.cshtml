@@ -62,12 +62,16 @@
         <div class="panel">
             @if (@Model.OriginalPrice > 0m)
             {
-
+                var percent = 100 - (Model.Price / Model.OriginalPrice) * 100;
+                if (percent > 0)
+                {
                 <b>GIÁ CŨ :<span><del>@Model.OriginalPrice.ToString("N0") đ </del></span></b>
-                    var percent = 100 - (Model.Price / Model.OriginalPrice) * 100;
-                    <div>
-                        <span style="font-size: 18px; font-family: Arial; color: #ff4500"><b>GIẢM  :  @percent %</b></span>
-                    </div>                
+                    
+                <div>
+                    <span style="font-size: 18px; font-family: Arial; color: #ff4500"><b>GIẢM  :  @percent %</b></span>
+                </div>   
+                }
+
             }
             <h4><b>SALE: <span style="color: #dc143c">@Model.Price.ToString("N0") đ </span></b></h4>
             <h6 class="subheader">Cước vận chuyển: @Model.ShippingCost.ToString("N0") đ </h6>

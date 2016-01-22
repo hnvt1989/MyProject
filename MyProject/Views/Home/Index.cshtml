@@ -1,10 +1,11 @@
-﻿﻿@model MyProject.Models.ViewModels.HomeViewModel
+﻿@using System.IdentityModel
+﻿@model MyProject.Models.ViewModels.HomeViewModel
 @{
     ViewBag.Title = "Trang chủ";
 }
 
 <script src="/Scripts/jquery-2.2.0.min.js"
-        type="text/javascript"></script>
+    type="text/javascript"></script>
 
 <script type="text/javascript">
     //$(document).ready(function() {
@@ -16,27 +17,29 @@
     //});
 </script>
 
-
-<div class="row">
-    
-    <div class="large-12 columns">
-
-        <ul class="example-orbit" data-orbit>
+<ul class="example-orbit" data-orbit>
     @for (int i = 0; i < Model.Advertisement.Ads.Count; i++)
     {
+        
         if (i == 0)
         {
             <li class="active">
                 @{
-            if (Model.Advertisement.Ads[i].Image != null)
-            {
-                var base64 = Convert.ToBase64String(Model.Advertisement.Ads[i].Image);
-                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-                        <a href="@Model.Advertisement.Ads[i].Url"><img alt="slide" src="@imgSrc" height="150" width="1500"/></a>
-            }
+                    if (Model.Advertisement.Ads[i].Image != null)
+                    {
+                        var base64 = Convert.ToBase64String(Model.Advertisement.Ads[i].Image);
+                        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                        //var style = "color: #ffffff; background: #dc143c; font-size: 35px; display: block; text-align: center";
+                        var text = Model.Advertisement.Ads[i].AdText;
+                        var style = Model.Advertisement.Ads[i].AdTextStyle;
+                        <a href="@Model.Advertisement.Ads[i].Url">
+                            <span style="@style">@text</span>
+                            <img alt="slide" src="@imgSrc" height="150" width="1500"/>
+                        </a>
+                    }
                 }
 
-@*                <div class="orbit-caption">
+                @*                <div class="orbit-caption">
                     Caption Two.
                 </div>*@
             </li>
@@ -44,62 +47,34 @@
         else
         {
             <li>
-                @{
-            if (Model.Advertisement.Ads[i].Image != null)
-            {
-                var base64 = Convert.ToBase64String(Model.Advertisement.Ads[i].Image);
-                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-                        <a href="@Model.Advertisement.Ads[i].Url"><img alt="slide" src="@imgSrc" height="150" width="1500"/></a>
-            }
-                }
-
-@*                <div class="orbit-caption">
-                    Caption Two.
-                </div>*@
+                    @if (Model.Advertisement.Ads[i].Image != null)
+                    {
+                        var base64 = Convert.ToBase64String(Model.Advertisement.Ads[i].Image);
+                        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                        //var style = "color: #ffffff; background: #006400; font-size: 35px; display: block; text-align: center";
+                        var text = Model.Advertisement.Ads[i].AdText;
+                        var style = Model.Advertisement.Ads[i].AdTextStyle;
+                        <a href="@Model.Advertisement.Ads[i].Url">
+                            <span style="@style">@text</span>
+                            <img alt="slide" src="@imgSrc" height="150" width="1500"/>
+                        </a>
+                    }
             </li>
         }
 
     }
 </ul>
 
+@*<div class="row">
 
+    <div class="large-12 columns">*@
+@*        <div class="row">*@
 
-        <div class="row">
-
-            <!-- Off Canvas Menu -->
-            @*                <aside class="left-off-canvas-menu">
-
-                    <div class="icon-bar vertical five-up">
-                        <a class="item">
-                            <i class="fi-home"></i>
-                            <label>Home</label>
-                        </a>
-                        <a class="item">
-                            <i class="fi-home"></i>
-                            <label>Bookmark</label>
-                        </a>
-                        <a class="item">
-                            <i class="fi-home"></i>
-                            <label>Info</label>
-                        </a>
-                        <a class="item">
-                            <i class="fi-home"></i>
-                            <label>Mail</label>
-                        </a>
-                        <a class="item">
-                            <i class="fi-home"></i>
-                            <label>Like</label>
-                        </a>
-                    </div>
-
-                </aside>*@
-
-
-            <div class="large-4 small-12 columns" >
+            <div class="large-3 small-12 columns">
                 <div class="hide-for-small panel" style="background: #FFFFFF">
-                    <h3><b> <span style="color: #dc143c; text-align: center; display: block" id="catLabel">HOT DEALS </span></b></h3>
+                    <h3><b><span style="color: #dc143c; text-align: center; display: block" id="catLabel">HOT DEALS </span></b></h3>
 
-                    
+
                     <ul class="side-nav">
                         @foreach (var c in Model.CategoryViews)
                         {
@@ -142,8 +117,8 @@
 
             <div class="large-8 columns">
                 <div class="row hide-for-large hide-for-landscape">
-                 <span><b>Danh mục sản phẩm</b></span>
-                @Html.DropDownListFor(x => x.SelectedCategory, Model.CategoryList, new { id = "categorySelection", onchange = "document.location.href = '/Home/FilterByCategory?code=' + this.options[this.selectedIndex].value;" })                   
+                    <span><b>Danh mục sản phẩm</b></span>
+                    @Html.DropDownListFor(x => x.SelectedCategory, Model.CategoryList, new { id = "categorySelection", onchange = "document.location.href = '/Home/FilterByCategory?code=' + this.options[this.selectedIndex].value;" })
                 </div>
 
                 <div class="row" data-equalizer="foo" data-options="equalize_on_stack: true">
@@ -152,12 +127,16 @@
                     {
 
                        
-                        <div class="large-4 columns panel" data-equalizer-watch="foo" style="background: #FFFFFF">
+                        <div class="large-3 columns panel" data-equalizer-watch="foo" style="background: #FFFFFF">
 
-                             @if (product.OriginalPrice > 0)
-                             {
-                                 var percent = 100 - (product.Price/product.OriginalPrice)*100;
-                                <span style="font-size: 18px; font-family: Arial; background: #ff4500; color:#ffffff"><b>Giảm @percent %</b></span>
+                            @if (product.OriginalPrice > 0 && product.OriginalPrice > product.Price)
+                            {
+                                var percent = 100 - (product.Price/product.OriginalPrice)*100;
+                                <span style="font-size: 18px; font-family: Arial; background: #ff4500; color: #ffffff"><b>Giảm @percent.ToString("N0") %</b></span>
+                            }
+                            else
+                            {
+                                <span style="font-size: 18px; font-family: Arial; background: #ffffff; color: #ffffff"><b></b></span>
                             }
 
                             @if (@product.Image != null)
@@ -171,17 +150,17 @@
                             else
                             {
                                 <a href="/Store/Details/@product.Id">
-                                     <img src="~/Content/Images/ProductDefault.png" height="200" width="200"/>
+                                    <img src="~/Content/Images/ProductDefault.png" height="200" width="200" />
                                 </a>
                             }
 
 
                             <h5><span style="font-size: 14px; font-family: Arial;"><b>@product.Description</b></span></h5>
                             <h6>
-                            @if (product.OriginalPrice > 0)
-                            {
-                                <span style="font-size: 16px; font-family: Arial;"><del><b>@product.OriginalPrice.ToString("N0") đ</b></del></span>
-                            }
+                                @if (product.OriginalPrice > 0 && product.OriginalPrice > product.Price)
+                                {
+                                    <span style="font-size: 16px; font-family: Arial;"><del><b>@product.OriginalPrice.ToString("N0") đ</b></del></span>
+                                }
 
                                 <span style="color: #dc143c; font-family: Arial; font-size: 16px"><b>@product.Price.ToString("N0") đ </b></span>
                             </h6>
@@ -189,6 +168,6 @@
                     }
                 </div>
             </div>
-        </div>
-    </div>
-</div>
+@*        </div>*@
+@*    </div>
+</div>*@

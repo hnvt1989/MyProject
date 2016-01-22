@@ -14,58 +14,42 @@
     @RenderSection("head", required: false)
     @Scripts.Render("~/bundles/modernizr")
 
-	<script type="text/javascript" src="/Scripts/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript" src="/Scripts/ckeditor/ckeditor.js"></script>
 
 </head>
 
 <body>
-    <div class="row">
-        <div class="large-12 columns">
-            @*            <img src="~/Content/Images/PageHeader.jpg" height="150" width="1500"/>*@
-            <h1>J.A shop <span style="color: darkorange">&#9996;</span></h1>
-            <div class="container">
-                <nav class="top-bar" data-topbar role="navigation">
+    <h1>J.A shop <span style="color: darkorange">&#9996;</span></h1>
+    <nav class="top-bar" data-topbar role="navigation">
 
-                    <ul class="title-area">
+        <ul class="title-area">
 
-                        <li class="name">
-                            <h1>
-                            </h1>
-                        </li>
-                        <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+            <li class="name">
+                <h1></h1>
+            </li>
+            <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
 
-                    </ul>
+        </ul>
 
 
-                    <section class="top-bar-section">
-                        <ul class="top-bar-items right">
-                            <li>@Html.ActionLink("Giỏ hàng", "Index", "ShoppingCart")</li>
-                        </ul>
+        <section class="top-bar-section">
+            <ul class="top-bar-items right">
+                <li>@Html.ActionLink("Giỏ hàng", "Index", "ShoppingCart")</li>
+            </ul>
 
-                        @Html.Partial("_LoginPartial")
-                        @Html.Partial("_Admin")
-                    </section>
-                </nav>
+            @Html.Partial("_LoginPartial")
+            @Html.Partial("_Admin")
+        </section>
+    </nav>
+    @RenderBody()
 
-            </div>
 
-        </div>
-
-        </div>
-            <div class="container body-content">
-                @RenderBody()
-                <hr />
-@*                <footer>
-                    <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-                </footer>*@
-            </div>
-
-            @Scripts.Render("~/bundles/jquery")
-            @Scripts.Render("~/bundles/foundation")
-            <script>
-                $(document).foundation();
-            </script>
-            @*Use the Scripts section to define page specific scripts*@
-            @RenderSection("scripts", required: false)
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/foundation")
+    <script>
+        $(document).foundation();
+    </script>
+    @*Use the Scripts section to define page specific scripts*@
+    @RenderSection("scripts", required: false)
 </body>
 </html>

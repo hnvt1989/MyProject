@@ -24,11 +24,15 @@ namespace MyProject.Models.Content
 
         public int DisplayOrder { get; set; }
 
-        public string ItemCode { get; set; }
+        //public string ItemCode { get; set; }
 
         public byte[] Image { get; set; }
 
         public string ImageUrl { get; set; }
+
+        public string AdText { get; set; }
+
+        public string AdTextStyle { get; set; }
 
         [ForeignKey("ContentType")]
         public int ContentTypeId { get; set; }

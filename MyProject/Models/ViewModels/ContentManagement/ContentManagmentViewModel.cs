@@ -60,6 +60,13 @@ namespace MyProject.Models.ViewModels.ContentManagement
         [AllowHtml]
         public string TextValue { get; set; }
 
+        [DisplayName("Text display above Ad")]
+        public string AdText { get; set; }
+
+        [AllowHtml]
+        [DisplayName("Style of the text display above Ad")]
+        public string AdTextStyle { get; set; }
+
         public HttpPostedFileBase ContentImage { get; set; }
         public byte[] Image { get; set; }
 

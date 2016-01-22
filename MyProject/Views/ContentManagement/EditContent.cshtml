@@ -13,9 +13,11 @@
     function hideFieldBasedOnType(selectedValue) {
         if (selectedValue == "Ad") {
             document.getElementById('contentImage').style.display = "block";
-            document.getElementById('routeItem').style.display = "block";
+            //document.getElementById('routeItem').style.display = "block";
             document.getElementById('routeTo').style.display = "block";
             document.getElementById('displayOrder').style.display = "block";
+            document.getElementById('adText').style.display = "block";
+            document.getElementById('adTextStyle').style.display = "block";
 
             document.getElementById('textLocation').style.display = "none";
 
@@ -26,10 +28,11 @@
             }
         } else if (selectedValue == "None") {
             document.getElementById('contentImage').style.display = "none";
-            document.getElementById('routeItem').style.display = "none";
+            //document.getElementById('routeItem').style.display = "none";
             document.getElementById('displayOrder').style.display = "none";
             document.getElementById('routeTo').style.display = "none";
-
+            document.getElementById('adText').style.display = "none";
+            document.getElementById('adTextStyle').style.display = "none";
 
             var instance = CKEDITOR.instances['textValue'];
             if (instance) {
@@ -37,9 +40,11 @@
             }
         } else if (selectedValue == "Text") {
             document.getElementById('contentImage').style.display = "none";
-            document.getElementById('routeItem').style.display = "none";
+            //document.getElementById('routeItem').style.display = "none";
             document.getElementById('displayOrder').style.display = "none";
             document.getElementById('routeTo').style.display = "none";
+            document.getElementById('adText').style.display = "none";
+            document.getElementById('adTextStyle').style.display = "none";
 
             document.getElementById('textLocation').style.display = "block";
 
@@ -104,11 +109,11 @@
                                 @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                        <div class="form-group" id="routeItem" style="display: none">
-                            @Html.LabelFor(m => m.ItemCode, new { @class = "col-md-2 control-label"})
+                        <div class="form-group" id="routeTo" style="display: none">
+                            @Html.LabelFor(m => m.RouteTo, new { @class = "col-md-2 control-label"})
                             <div class="col-md-10">
-                                @Html.TextBoxFor(m => m.ItemCode)
-                                @Html.ValidationMessageFor(m => m.ItemCode, "", new { @class = "text-danger" })
+                                @Html.TextBoxFor(m => m.RouteTo)
+                                @Html.ValidationMessageFor(m => m.RouteTo, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
@@ -120,7 +125,23 @@
                             </div>
                         </div>
 
-@*                        <div class="form-group" style="display: none">*@
+                        <div class="form-group" id="adText" style="display: none">
+                            @Html.LabelFor(m => m.AdText, new {@class = "col-md-2 control-label"})
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.AdText)
+                                @Html.ValidationMessageFor(m => m.AdText, "", new {@class = "text-danger"})
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="adTextStyle" style="display: none">
+                            @Html.LabelFor(m => m.AdTextStyle, new {@class = "col-md-2 control-label"})
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.AdTextStyle)
+                                @Html.ValidationMessageFor(m => m.AdTextStyle, "", new {@class = "text-danger"})
+                            </div>
+                        </div>
+
+                        @*                        <div class="form-group" style="display: none">*@
                             @Html.LabelFor(m => m.TextValue, new { @class = "col-md-2 control-label" })
                             <div class="col-md-10" >
                                 @Html.TextAreaFor(m => m.TextValue, new { id = "textValue", Value = Model.TextValue, @class = "fill" })
@@ -129,12 +150,12 @@
 
 
 
-                        <div class="form-group" id="routeTo" style="display: none">
+@*                        <div class="form-group" id="routeTo" style="display: none">
                             @Html.LabelFor(m => m.RouteTo, new { @class = "col-md-2 control-label" })
                             <div class="col-md-10">
                                 @Html.DisplayTextFor(m => m.RouteTo)
                             </div>
-                        </div>
+                        </div>*@
 
                         <div class="form-group" id="displayOrder" style="display: none">
                             @Html.LabelFor(m => m.DisplayOrder, new { @class = "col-md-2 control-label" })
