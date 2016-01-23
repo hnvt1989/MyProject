@@ -44,6 +44,24 @@
 
     }
 
+    function calProfit() {
+        var nodes = document.getElementsByClassName('amountPricing');
+        var retailAmt = 0;
+        for (var i = 0; i < nodes.length; i++) {
+            if (nodes[i].id === "amount_1") {
+                retailAmt = parseFloat(nodes[i].value).toFixed(2);
+
+            }
+        }
+        var buyIn = parseFloat(document.getElementById('buyIn').value).toFixed(2);
+        var profit = retailAmt - buyIn;
+        //$('profit').text = profit.toFixed(2);
+        var rate = $('#currencyRate').text();
+        var convertRate = parseFloat(rate).toFixed(2);
+        profit = (profit / convertRate).toFixed(2);
+        $('.profit span').html(profit);
+    }
+
 </script>
 
 <body>
@@ -193,7 +211,7 @@
                                     }
                                     <div class="form-group" id="price">
                                         <h6>@priceType</h6>
-                                            @Html.TextBoxFor(m => m.Offers[i].Price, new { @class = "amountPricing"})
+                                            @Html.TextBoxFor(m => m.Offers[i].Price, new { @class = "amountPricing", id = "amount_" + Model.Offers[i].PriceTypeId, onchange = "calProfit();"})
                                             @Html.HiddenFor(m => m.Offers[i].Price)
                                             @Html.HiddenFor(m => m.Offers[i].PriceTypeId)
                                             @*@Html.ValidationMessageFor(m => Model.Offers[i].Price, "", new { @class = "text-danger" })*@
@@ -213,6 +231,11 @@
                                         @Html.ValidationMessageFor(m => m.ProductView.BuyInPrice, "", new {@class = "text-danger"})
                                     </div>
                                 </div>
+                            </div>
+
+                            <div class="panel profit">
+                                <h5><b><em>Profit (in USD)</em></b></h5>
+                                <b><span style="color: #ff4500">Unknown</span></b>
                             </div>
 
                             <div class="panel">

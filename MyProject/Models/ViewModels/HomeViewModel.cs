@@ -64,6 +64,7 @@ namespace MyProject.Models.ViewModels
         public HeaderAdvertisementViewModel Advertisement { get; set; }
 
         public HomePageInfo Info { get; set; }
+
     }
 
     public class HeaderAdvertisementViewModel
@@ -87,6 +88,7 @@ namespace MyProject.Models.ViewModels
     public class HomePageInfo
     {
         public string ContactInfo { get;set; }
+        public string Annoucment { get; set; }
     }
 
     public class PurchaseInstruction

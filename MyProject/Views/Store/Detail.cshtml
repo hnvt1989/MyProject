@@ -26,12 +26,12 @@
         {
             var base64 = Convert.ToBase64String(@Model.Image);
             var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-            <img class = "thumbnail" id="defaultImage" src="@imgSrc"  height="400" width="400"/>
+            <img class = "thumbnail" id="defaultImage" src="@imgSrc"  height="300" width="300"/>
         }
         else
         {
             //default image
-            <img id="defaultImage" class="thumbnail" src="~/Content/Images/ProductDefault.png" height="400" width="400">
+            <img id="defaultImage" class="thumbnail" src="~/Content/Images/ProductDefault.png" height="300" width="300">
         }
         <ul class="small-block-grid-3">
             <li>

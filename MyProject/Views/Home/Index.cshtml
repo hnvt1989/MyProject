@@ -15,7 +15,16 @@
     //    }, 1000);
 
     //});
+
 </script>
+
+@if (Model.Info.Annoucment != null)
+{
+    <div class="content">
+        <span style="color: #dc143c; font-family: Arial"><b>@Html.Raw(HttpUtility.HtmlDecode(Model.Info.Annoucment))</b></span>
+    </div>
+}
+
 @if (Model.Advertisement.Ads.Count > 0)
 {
     <ul class="example-orbit" data-orbit>
@@ -24,43 +33,43 @@
 
             if (i == 0)
             {
-                <li class="active">
-                    @{
-                        if (Model.Advertisement.Ads[i].Image != null)
-                        {
-                            var base64 = Convert.ToBase64String(Model.Advertisement.Ads[i].Image);
-                            var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-                            //var style = "color: #ffffff; background: #dc143c; font-size: 35px; display: block; text-align: center";
-                            var text = Model.Advertisement.Ads[i].AdText;
-                            var style = Model.Advertisement.Ads[i].AdTextStyle;
-                            <a href="@Model.Advertisement.Ads[i].Url">
-                                <span style="@style">@text</span>
-                                <img alt="slide" src="@imgSrc" height="150" width="1500"/>
-                            </a>
-                        }
-                    }
+            <li class="active">
+                @{
+                if (Model.Advertisement.Ads[i].Image != null)
+                {
+                    var base64 = Convert.ToBase64String(Model.Advertisement.Ads[i].Image);
+                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                    //var style = "color: #ffffff; background: #dc143c; font-size: 35px; display: block; text-align: center";
+                    var text = Model.Advertisement.Ads[i].AdText;
+                    var style = Model.Advertisement.Ads[i].AdTextStyle;
+                    <a href="@Model.Advertisement.Ads[i].Url">
+                        <span style="@style">@text</span>
+                        <img alt="slide" src="@imgSrc" height="150" width="1500"/>
+                    </a>
+                }
+                }
 
-                    @*                <div class="orbit-caption">
+                @*                <div class="orbit-caption">
                     Caption Two.
                 </div>*@
-                </li>
+            </li>
             }
             else
             {
-                <li>
-                    @if (Model.Advertisement.Ads[i].Image != null)
-                    {
-                        var base64 = Convert.ToBase64String(Model.Advertisement.Ads[i].Image);
-                        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-                        //var style = "color: #ffffff; background: #006400; font-size: 35px; display: block; text-align: center";
-                        var text = Model.Advertisement.Ads[i].AdText;
-                        var style = Model.Advertisement.Ads[i].AdTextStyle;
-                        <a href="@Model.Advertisement.Ads[i].Url">
-                            <span style="@style">@text</span>
-                            <img alt="slide" src="@imgSrc" height="150" width="1500"/>
-                        </a>
-                    }
-                </li>
+            <li>
+                @if (Model.Advertisement.Ads[i].Image != null)
+                {
+                    var base64 = Convert.ToBase64String(Model.Advertisement.Ads[i].Image);
+                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                    //var style = "color: #ffffff; background: #006400; font-size: 35px; display: block; text-align: center";
+                    var text = Model.Advertisement.Ads[i].AdText;
+                    var style = Model.Advertisement.Ads[i].AdTextStyle;
+                    <a href="@Model.Advertisement.Ads[i].Url">
+                        <span style="@style">@text</span>
+                        <img alt="slide" src="@imgSrc" height="150" width="1500"/>
+                    </a>
+                }
+            </li>
             }
 
         }
@@ -70,42 +79,42 @@
 @*<div class="row">
 
     <div class="large-12 columns">*@
-@*        <div class="row">*@
+@*        <div class="row">*@<div class="large-3 small-12 columns">
 
-            <div class="large-3 small-12 columns">
-                <div class="hide-for-small panel" style="background: #FFFFFF">
-                    <h3><b><span style="color: #dc143c; text-align: center; display: block" id="catLabel">HOT DEALS </span></b></h3>
+    <div class="hide-for-small panel" style="background: #FFFFFF">
+        <h3><b><span style="color: #dc143c; text-align: center; display: block" id="catLabel">HOT DEALS </span></b>
+        </h3>
 
 
-                    <ul class="side-nav">
-                        @foreach (var c in Model.CategoryViews)
+        <ul class="side-nav">
+            @foreach (var c in Model.CategoryViews)
+            {
+
+                <li>
+                    <a href="/Home/FilterByCategory?code=@c.Code">
+                        @if (c.Icon != null)
                         {
+                            var base64 = Convert.ToBase64String(@c.Icon);
+                            var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                            <img src="@imgSrc" height="20" width="20"/>
+                            @c.Description
 
-                            <li>
-                                <a href="/Home/FilterByCategory?code=@c.Code">
-                                    @if (c.Icon != null)
-                                    {
-                                        var base64 = Convert.ToBase64String(@c.Icon);
-                                        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-                                        <img src="@imgSrc" height="20" width="20"/>
-                                        @c.Description
-
-                                    }
-                                    else
-                                    {
-                                        @c.Description
-                                    }
-                                </a>
-                            </li>
                         }
-                    </ul>
-                </div>
+                        else
+                        {
+                            @c.Description
+                        }
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
 
-                <div class="hide-for-small panel" style="background: #FFFFFF">
-                    <div class="content">
-                        @Html.Raw(HttpUtility.HtmlDecode(Model.Info.ContactInfo))
-                    </div>
-                    @*                    <h4><b>Thông tin liên lạc:</b></h4>
+    <div class="hide-for-small panel" style="background: #FFFFFF">
+        <div class="content">
+            @Html.Raw(HttpUtility.HtmlDecode(Model.Info.ContactInfo))
+        </div>
+        @*                    <h4><b>Thông tin liên lạc:</b></h4>
                     <h6>&#9743; +1 503-740-7206 (Viber)</h6>
                     <h6>&#9743; +1 503-984-5026 (Viber)</h6>
                     <h6>&#64; <a href="https://www.facebook.com/profile.php?id=100010965467446&fref=ts">Nắng Hoa</a> (facebook)</h6>
@@ -113,63 +122,63 @@
                     <h6>&#9993; huynguyenvt1989@gmail.com</h6>*@
 
 
-                </div>
+    </div>
 
-            </div>
+</div>
 
-            <div class="large-8 columns">
-                <div class="row hide-for-large hide-for-landscape">
-                    <span><b>Danh mục sản phẩm</b></span>
-                    @Html.DropDownListFor(x => x.SelectedCategory, Model.CategoryList, new { id = "categorySelection", onchange = "document.location.href = '/Home/FilterByCategory?code=' + this.options[this.selectedIndex].value;" })
-                </div>
+<div class="large-8 columns">
+    <div class="row hide-for-large hide-for-landscape">
+        <span><b>Danh mục sản phẩm</b></span>
+        @Html.DropDownListFor(x => x.SelectedCategory, Model.CategoryList, new { id = "categorySelection", onchange = "document.location.href = '/Home/FilterByCategory?code=' + this.options[this.selectedIndex].value;" })
+    </div>
 
-                <div class="row" data-equalizer="foo" data-options="equalize_on_stack: true">
+    <div class="row" data-equalizer="foo" data-options="equalize_on_stack: true">
 
-                    @foreach (var product in Model.ProductViewModels)
-                    {
+        @foreach (var product in Model.ProductViewModels)
+        {
 
                        
-                        <div class="large-3 columns panel" data-equalizer-watch="foo" style="background: #FFFFFF">
+            <div class="large-3 columns panel" data-equalizer-watch="foo" style="background: #FFFFFF">
 
-                            @if (product.OriginalPrice > 0 && product.OriginalPrice > product.Price)
-                            {
-                                var percent = 100 - (product.Price/product.OriginalPrice)*100;
-                                <span style="font-size: 18px; font-family: Arial; background: #ff4500; color: #ffffff"><b>Giảm @percent.ToString("N0") %</b></span>
-                            }
-                            else
-                            {
-                                <span style="font-size: 18px; font-family: Arial; background: #ffffff; color: #ffffff"><b></b></span>
-                            }
+                @if (product.OriginalPrice > 0 && product.OriginalPrice > product.Price)
+                {
+                    var percent = 100 - (product.Price / product.OriginalPrice) * 100;
+                    <span style="font-size: 18px; font-family: Arial; background: #ff4500; color: #ffffff"><b>Giảm @percent.ToString("N0") %</b></span>
+                }
+                else
+                {
+                    <span style="font-size: 18px; font-family: Arial; background: #ffffff; color: #ffffff"><b></b></span>
+                }
 
-                            @if (@product.Image != null)
-                            {
-                                var base64 = Convert.ToBase64String(@product.Image);
-                                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-                                <a href="/Store/Details/@product.Id">
-                                    <img src="@imgSrc" height="200" width="200"/>
-                                </a>
-                            }
-                            else
-                            {
-                                <a href="/Store/Details/@product.Id">
-                                    <img src="~/Content/Images/ProductDefault.png" height="200" width="200" />
-                                </a>
-                            }
+                @if (@product.Image != null)
+                {
+                    var base64 = Convert.ToBase64String(@product.Image);
+                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                    <a href="/Store/Details/@product.Id">
+                        <img src="@imgSrc" height="200" width="200"/>
+                    </a>
+                }
+                else
+                {
+                    <a href="/Store/Details/@product.Id">
+                        <img src="~/Content/Images/ProductDefault.png" height="200" width="200" />
+                    </a>
+                }
 
 
-                            <h5><span style="font-size: 14px; font-family: Arial;"><b>@product.Description</b></span></h5>
-                            <h6>
-                                @if (product.OriginalPrice > 0 && product.OriginalPrice > product.Price)
-                                {
-                                    <span style="font-size: 16px; font-family: Arial;"><del><b>@product.OriginalPrice.ToString("N0") đ</b></del></span>
-                                }
-
-                                <span style="color: #dc143c; font-family: Arial; font-size: 16px"><b>@product.Price.ToString("N0") đ </b></span>
-                            </h6>
-                        </div>
+                <h5><span style="font-size: 14px; font-family: Arial;"><b>@product.Description</b></span></h5>
+                <h6>
+                    @if (product.OriginalPrice > 0 && product.OriginalPrice > product.Price)
+                    {
+                        <span style="font-size: 16px; font-family: Arial;"><del><b>@product.OriginalPrice.ToString("N0") đ</b></del></span>
                     }
-                </div>
+
+                    <span style="color: #dc143c; font-family: Arial; font-size: 16px"><b>@product.Price.ToString("N0") đ </b></span>
+                </h6>
             </div>
+        }
+    </div>
+</div>
 @*        </div>*@
 @*    </div>
 </div>*@

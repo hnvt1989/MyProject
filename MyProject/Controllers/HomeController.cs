@@ -66,6 +66,12 @@ namespace MyProject.Controllers
                     homeView.Info.ContactInfo = contactInfo.TextValue;
                 }
 
+                var annoucement = pContext.Contents.SingleOrDefault(c => c.TextLocation == "Home.Announcement");
+                if (annoucement != null)
+                {
+                    homeView.Info.Annoucment = annoucement.TextValue;
+                }
+
                 homeView.Advertisement = ret;
 
             }
@@ -154,6 +160,12 @@ namespace MyProject.Controllers
                     if (contactInfo != null)
                     {
                         homeView.Info.ContactInfo = contactInfo.TextValue;
+                    }
+
+                    var annoucement = context.Contents.SingleOrDefault(c => c.TextLocation == "Home.Announcement");
+                    if (annoucement != null)
+                    {
+                        homeView.Info.Annoucment = annoucement.TextValue;
                     }
 
                     return View("Index", homeView);
