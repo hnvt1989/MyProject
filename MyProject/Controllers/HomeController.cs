@@ -18,15 +18,17 @@ namespace MyProject.Controllers
         {
             var homeView = new HomeViewModel();
 
-            List<ProductViewModel> products = new List<ProductViewModel>();
+            List<ProductViewModel> nProducts = new List<ProductViewModel>();
+            List<ProductViewModel> bestSellingProds = new List<ProductViewModel>();
 
             using (var pContext = new ShoppingCartContext())
             {
-                var prods = pContext.Products.Where(p => p.FeatureProduct && p.Active);
+                //new products
+                var newProds = pContext.Products.Where(p => p.FeatureProduct && p.Active).OrderByDescending(p => p.Id).Take(12);
                 var offers = pContext.ProductOffers.ToList();
-                foreach (var p in prods)
+                foreach (var p in newProds)
                 {
-                    products.Add(new ProductViewModel()
+                    nProducts.Add(new ProductViewModel()
                     {
                         Id = p.Id,
                         Code = p.Code,
@@ -37,11 +39,48 @@ namespace MyProject.Controllers
                     });
                 }
 
-                foreach (var prod in products)
+                foreach (var prod in nProducts)
                 {
                     var origPrice = offers.SingleOrDefault(po => po.ProductId == prod.Id && po.PriceTypeId == 3);
                     prod.OriginalPrice = origPrice != null ? origPrice.Price : 0m;
                 }
+
+                //best selling products
+                //new products
+                var startDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+                var endDate = startDate.AddYears(1).AddDays(-1);
+
+                var ordersThisYears = pContext.Orders.Where(o => o.OrderDate <= endDate && o.OrderDate >= startDate).Select(p => p.Id).ToList();
+
+                var bProds =
+                    pContext.LineOrderDetails.Where(o => ordersThisYears.Contains(o.OrderId))
+                        .OrderByDescending(ol => ol.Quantity)
+                        .Take(8).ToList();
+                bProds.ForEach(p => bestSellingProds.Add(new ProductViewModel()
+                {
+                    Id = p.Product.Id,
+                    Code = p.Product.Code,
+                    Description = p.Product.Description,
+                    Price = offers.Single(po => po.ProductId == p.Product.Id && po.PriceTypeId == 1).Price,
+                    FeatureProduct = p.Product.FeatureProduct,
+                    Image = p.Product.Image,
+                    BoughtQuantity = p.Quantity
+                }));
+                        //.Select(p => p.Product).Distinct()
+                        //.ToList();
+
+                //bestSellingProds.AddRange(bProds.Select(p => new ProductViewModel()
+                //{
+                //    Id = p.Id, Code = p.Code, Description = p.Description, Price = offers.Single(po => po.ProductId == p.Id && po.PriceTypeId == 1).Price, FeatureProduct = p.FeatureProduct, Image = p.Image
+                //}));
+
+                foreach (var prod in bestSellingProds)
+                {
+                    var origPrice = offers.SingleOrDefault(po => po.ProductId == prod.Id && po.PriceTypeId == 3);
+                    prod.OriginalPrice = origPrice != null ? origPrice.Price : 0m;
+                    //prod.Price = offers.Single(po => po.ProductId == prod.Id && po.PriceTypeId == 1).Price;
+                }
+                homeView.BestSellingProductsThisMonths = bestSellingProds;
 
                 var ret = new HeaderAdvertisementViewModel();
                 var id = pContext.ContentTypes.Single(p => p.Code == "Ad").Id;
@@ -76,7 +115,8 @@ namespace MyProject.Controllers
 
             }
 
-            homeView.ProductViewModels = products;
+            homeView.NewProducts = nProducts;
+            ViewBag.ProductHeader = "Sản phẩm mới nhất";
             return View(homeView);
         }
 
@@ -101,6 +141,7 @@ namespace MyProject.Controllers
         {
             if (ModelState.IsValid)
             {
+                
                 if (code == "All")
                     return RedirectToAction("Index");
                 var prods = new List<Product>();
@@ -109,7 +150,7 @@ namespace MyProject.Controllers
                 {
                     prods = (from p in context.Products
                         where p.Categories.Any(c => c.Code == code)
-                        select p).Where(p=> p.Active).Take(48).ToList();
+                        select p).Where(p=> p.Active).Take(48).OrderByDescending(o => o.Id).ToList();
                 }
                 using (var context = new ShoppingCartContext())
                 {
@@ -134,7 +175,7 @@ namespace MyProject.Controllers
                         prod.OriginalPrice = origPrice != null ? origPrice.Price : 0m;
                     }
 
-                    var homeView = new HomeViewModel {ProductViewModels = products};
+                    var homeView = new HomeViewModel {NewProducts = products};
                     homeView.SelectedCategory = code;
 
                     //var ret = new HeaderAdvertisementViewModel();
@@ -168,6 +209,7 @@ namespace MyProject.Controllers
                         homeView.Info.Annoucment = annoucement.TextValue;
                     }
 
+                    ViewBag.ProductHeader = string.Empty;
                     return View("Index", homeView);
                 }
             }

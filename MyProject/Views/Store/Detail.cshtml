@@ -1,4 +1,5 @@
-﻿@using MyProject.AppLogic
+﻿@using Microsoft.Ajax.Utilities
+@using MyProject.AppLogic
 @model MyProject.Models.ViewModels.ProductViewModel
 
 @{
@@ -22,35 +23,49 @@
 
 <div class="row">
     <div class="medium-6 columns">
-        @if (@Model.Image != null)
+        <div class="row">
+            @if (@Model.Image != null)
+            {
+                var base64 = Convert.ToBase64String(@Model.Image);
+                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                <img class="thumbnail" id="defaultImage" src="@imgSrc" height="300" width="300"/>
+            }
+            else
+            {
+                //default image
+                <img id="defaultImage" class="thumbnail" src="~/Content/Images/ProductDefault.png" height="300" width="300">
+            }
+            <ul class="small-block-grid-3">
+                <li>
+                    @if (@Model.ImageAlt0 != null)
+                    {
+                        var base64 = Convert.ToBase64String(@Model.ImageAlt0);
+                        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                        <img class="thumbnail" src="@imgSrc" height="100" width="100" onclick=" changeDefaultImage(this); "/>
+                    }
+                </li>
+                <li>
+                    @if (@Model.ImageAlt1 != null)
+                    {
+                        var base64 = Convert.ToBase64String(@Model.ImageAlt1);
+                        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                        <img class="thumbnail" src="@imgSrc" height="100" width="100" onclick=" changeDefaultImage(this); "/>
+                    }
+                </li>
+            </ul>
+        </div>
+
+
+        @if (!Model.ReviewVideoUrl.IsNullOrWhiteSpace())
         {
-            var base64 = Convert.ToBase64String(@Model.Image);
-            var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-            <img class = "thumbnail" id="defaultImage" src="@imgSrc"  height="300" width="300"/>
+            var url = Model.ReviewVideoUrl.Replace("watch?v=", "v/");
+            <div class="row">
+
+                <h4><span style="color: #dc143c; font-family: Arial"><b>- Video Tư vấn/đánh giá sản phẩm -</b></span></h4>
+
+                <iframe width="420" height="315" src="@url"></iframe>
+            </div>
         }
-        else
-        {
-            //default image
-            <img id="defaultImage" class="thumbnail" src="~/Content/Images/ProductDefault.png" height="300" width="300">
-        }
-        <ul class="small-block-grid-3">
-            <li>
-                @if (@Model.ImageAlt0 != null)
-                {
-                    var base64 = Convert.ToBase64String(@Model.ImageAlt0);
-                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-                    <img class = "thumbnail" src="@imgSrc"  height="100" width="100" onclick="changeDefaultImage(this);"/>
-                }
-            </li>
-            <li>
-                @if (@Model.ImageAlt1 != null)
-                {
-                    var base64 = Convert.ToBase64String(@Model.ImageAlt1);
-                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-                    <img class = "thumbnail" src="@imgSrc"  height="100" width="100" onclick="changeDefaultImage(this);"/>
-                }
-            </li>
-        </ul>
     </div>
 
     <div class="medium-6 large-5 columns">
@@ -68,7 +83,7 @@
                 <b>GIÁ CŨ :<span><del>@Model.OriginalPrice.ToString("N0") đ </del></span></b>
                     
                 <div>
-                    <span style="font-size: 18px; font-family: Arial; color: #ff4500"><b>GIẢM  :  @percent %</b></span>
+                    <span style="font-size: 18px; font-family: Arial; color: #ff4500"><b>GIẢM  :  @percent.ToString("N0") %</b></span>
                 </div>   
                 }
 

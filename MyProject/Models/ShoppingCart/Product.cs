@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Security.Policy;
+using System.Web.Mvc;
 using Microsoft.Ajax.Utilities;
 using WebGrease.Css.Extensions;
 
@@ -50,7 +51,9 @@ namespace MyProject.Models.ShoppingCart
         public ICollection<Category> Categories { get; set; }
 
         [ForeignKey("ProductOffer")]
-        public ICollection<ProductOffer> ProductOffers { get; set; } 
+        public ICollection<ProductOffer> ProductOffers { get; set; }
+
+        public string ReviewVideoUrl { get; set; }
     }
 
     public class ProductOffer

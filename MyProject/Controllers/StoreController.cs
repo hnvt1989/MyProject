@@ -34,6 +34,7 @@ namespace MyProject.Controllers
                 productModel.Code = prod.Code;
                 productModel.Id = prod.Id;
                 productModel.Description = prod.Description;
+                productModel.ReviewVideoUrl = prod.ReviewVideoUrl;
                 var origPrice = offers.SingleOrDefault(po => po.ProductId == prod.Id && po.PriceTypeId == 3);
                 var curPrice = offers.SingleOrDefault(po => po.ProductId == prod.Id && po.PriceTypeId == 1);
 

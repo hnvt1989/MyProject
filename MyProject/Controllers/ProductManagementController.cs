@@ -46,7 +46,7 @@ namespace MyProject.Controllers
                         Id = prod.Id,
                         Active = prod.Active,
                         QuantityOnHand = prod.QuantityOnHand,
-                        CategoriesString = catDescription
+                        CategoriesString = catDescription,
                     });
                 }
 
@@ -139,7 +139,8 @@ namespace MyProject.Controllers
                             DetailDescription = "Detail description",
                             BuyInPrice = 0m,
                             Categories = new List<Category>(),
-                            Active = true
+                            Active = true,
+                            ReviewVideoUrl = "Enter Youtube video Url here"
                         },
                         Categories = new List<CategoryViewModel>(),
                         Offers = new List<ProductOffer>(),
@@ -198,7 +199,8 @@ namespace MyProject.Controllers
                             Id = product.Id,
                             Categories = new List<Category>(),
                             BuyInPrice = product.BuyInPrice,
-                            Active = product.Active
+                            Active = product.Active,
+                            ReviewVideoUrl = product.ReviewVideoUrl
                         },
                         Categories = new List<CategoryViewModel>(),
                         Offers = new List<ProductOffer>(),
@@ -315,7 +317,8 @@ namespace MyProject.Controllers
                                 context.Categories.SingleOrDefault(c => c.Code == "1001")
                             },
                             Active = model.ProductView.Active,
-                            Notes = model.ProductView.Notes
+                            Notes = model.ProductView.Notes,
+                            ReviewVideoUrl = (model.ProductView.ReviewVideoUrl.IsNullOrWhiteSpace()) ? "" : model.ProductView.ReviewVideoUrl
                         };
 
                         if (model.ProductView.ProductImage != null)
@@ -437,6 +440,9 @@ namespace MyProject.Controllers
                         product.BuyInPrice = model.ProductView.BuyInPrice;
                         product.Active = model.ProductView.Active;
                         product.Notes = model.ProductView.Notes;
+                        product.ReviewVideoUrl = (model.ProductView.ReviewVideoUrl.IsNullOrWhiteSpace())
+                            ? ""
+                            : model.ProductView.ReviewVideoUrl;
 
                         if (model.ProductView.ProductImage != null)
                         {

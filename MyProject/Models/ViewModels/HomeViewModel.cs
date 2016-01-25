@@ -15,7 +15,10 @@ namespace MyProject.Models.ViewModels
         public HomeViewModel()
         {
             this.Info = new HomePageInfo();
+            this.BestSellingProductsThisMonths = new List<ProductViewModel>();
+            this.NewProducts = new List<ProductViewModel>();
         }
+
         [DisplayName("Danh muc sản phẩm")]
         public SelectList CategoryList
         {
@@ -59,7 +62,11 @@ namespace MyProject.Models.ViewModels
         } 
 
         public string SelectedCategory { get; set; }
-        public List<MyProject.Models.ViewModels.ProductViewModel> ProductViewModels { get; set; }
+
+        //list of feature products
+        public List<MyProject.Models.ViewModels.ProductViewModel> NewProducts { get; set; }
+
+        public List<MyProject.Models.ViewModels.ProductViewModel> BestSellingProductsThisMonths { get; set; }
 
         public HeaderAdvertisementViewModel Advertisement { get; set; }
 

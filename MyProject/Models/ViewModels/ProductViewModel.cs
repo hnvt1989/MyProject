@@ -28,6 +28,9 @@ namespace MyProject.Models.ViewModels
         [Display(Name = "Active")]
         public bool Active { get; set; }
 
+        [Display(Name = "Bought Quantity")]
+        public int BoughtQuantity { get; set; }
+
         [Required]
         [AllowHtml]
         [Display(Name = "Enter detail description")]
@@ -40,6 +43,10 @@ namespace MyProject.Models.ViewModels
         public decimal Price { get; set; }
 
         public decimal OriginalPrice { get; set; }
+
+        [AllowHtml]
+        [DisplayName("Url of the Review video (from youtube, etc)")]
+        public string ReviewVideoUrl { get; set; }
 
         public decimal ConversionRate
         {
