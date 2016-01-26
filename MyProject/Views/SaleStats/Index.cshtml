@@ -4,9 +4,55 @@
     ViewBag.Title = "Sales Statistics";
 }
 
+<script src="/Scripts/jquery-2.2.0.min.js"
+    type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(function () {
+        $("#period").change(function() {
+            var selectedPeriod = $('option:selected', this).text();
+            if (selectedPeriod != '') {
+                // Perform the ajax post
+                $.post("/SaleStats/QuickSummaryByPeriod", { "period": selectedPeriod },
+                    function (data) {
+                        $('#num-order-placed').text(data.NumberOfOrderPlaced);
+                        $('#num-items-sold').text(data.NumberOfItemSold);
+                        $('#total-sale').text(data.TotalSale);
+                        $('#estimated-profit').text(data.EstimatedProfit);
+                        $('#total-received').text(data.TotalReceived);
+                        $('#actual-profit').text(data.ActualProfit);
+                        $('#total-fee').text(data.Fee);
+                    });
+            }
+            }
+        );
+    })
+
+</script>
+
 <div>
     <div>
         <h4>Sales Quick Summary</h4>
+    </div>
+    <div>
+        @Html.LabelFor(m => m.AvailPeriods)
+        @Html.DropDownListFor(m => m.SelectedPeriod, Model.AvailPeriods, new {style = "width: 160px", @id = "period"})
+    </div>
+
+    <div>
+        Number of order placed: <span id="num-order-placed" style="color: #dc143c"></span>
+        <p></p>
+        Number of items sold: <span id="num-items-sold" style="color: #dc143c" ></span>
+        <p></p>
+        Total Sale    (in USD): <span id="total-sale" style="color: #dc143c" ></span>
+        <p></p>
+        Total received (in USD): <span id="total-received" style="color: #dc143c" ></span>
+        <p></p>
+        Total Fee (in USD): <span id="total-fee" style="color: #dc143c" ></span>
+        <p></p>
+        Est profit (in USD): <span id="estimated-profit" style="color: #dc143c" ></span>
+        <p></p>
+        Actual profit (in USD): <span id="actual-profit" style="color: #dc143c" ></span>
     </div>
 </div>
 

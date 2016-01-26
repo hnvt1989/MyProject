@@ -207,6 +207,7 @@ namespace MyProject.Controllers
                 var id = TempData["OrderId"];
 
                 order.PaymentTransaction.Amount = model.PaymentTransaction.Amount;
+                order.PostedAmount = model.PaymentTransaction.Amount;
                 order.PaymentTransaction.PaymentStatusId = _context.PaymentStatuses.Single(p => p.Description == paymentStatus).Id;
 
                 order.PaymentTransaction.PaymentTypeId =
