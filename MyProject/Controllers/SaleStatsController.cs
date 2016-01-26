@@ -58,6 +58,9 @@ namespace MyProject.Controllers
                         ret.TotalReceived = Math.Round(totalPosted/currencyConversionRate, 2,
                             MidpointRounding.AwayFromZero);
                     ret.ActualProfit = ret.EstimatedProfit + (ret.TotalReceived - ret.TotalSale - ret.Fee);
+
+                    //top customers
+
                 }
             }
             

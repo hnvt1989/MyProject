@@ -9,7 +9,7 @@
 
 <script type="text/javascript">
     $(function () {
-        $("#period").change(function() {
+        $("#period").change(function () {
             var selectedPeriod = $('option:selected', this).text();
             if (selectedPeriod != '') {
                 // Perform the ajax post
@@ -24,35 +24,61 @@
                         $('#total-fee').text(data.Fee);
                     });
             }
-            }
+        }
         );
     })
 
 </script>
-
 <div>
-    <div>
+    <fieldset>
         <h4>Sales Quick Summary</h4>
-    </div>
-    <div>
-        @Html.LabelFor(m => m.AvailPeriods)
-        @Html.DropDownListFor(m => m.SelectedPeriod, Model.AvailPeriods, new {style = "width: 160px", @id = "period"})
-    </div>
+        <div>
+            <div class="large-8 columns">
+                @Html.LabelFor(m => m.AvailPeriods)
+                @Html.DropDownListFor(m => m.SelectedPeriod, Model.AvailPeriods, new { style = "width: 160px", @id = "period" })
+            </div>
 
-    <div>
-        Number of order placed: <span id="num-order-placed" style="color: #dc143c"></span>
-        <p></p>
-        Number of items sold: <span id="num-items-sold" style="color: #dc143c" ></span>
-        <p></p>
-        Total Sale    (in USD): <span id="total-sale" style="color: #dc143c" ></span>
-        <p></p>
-        Total received (in USD): <span id="total-received" style="color: #dc143c" ></span>
-        <p></p>
-        Total Fee (in USD): <span id="total-fee" style="color: #dc143c" ></span>
-        <p></p>
-        Est profit (in USD): <span id="estimated-profit" style="color: #dc143c" ></span>
-        <p></p>
-        Actual profit (in USD): <span id="actual-profit" style="color: #dc143c" ></span>
-    </div>
+            <div class="large-8 columns">
+                Number of order placed: <span id="num-order-placed" style="color: #dc143c"></span>
+                <p></p>
+                Number of items sold: <span id="num-items-sold" style="color: #dc143c"></span>
+                <p></p>
+                Total Sale (in USD): <span id="total-sale" style="color: #dc143c"></span>
+                <p></p>
+                Total Received (in USD): <span id="total-received" style="color: #dc143c"></span>
+                <p></p>
+                Total Fee (in USD): <span id="total-fee" style="color: #dc143c"></span>
+                <p></p>
+                Est Profit (in USD): <span id="estimated-profit" style="color: #dc143c"></span>
+                <p></p>
+                Actual Profit (in USD): <span id="actual-profit" style="color: #dc143c"></span>
+            </div>
+        </div>
+    </fieldset>
+
+
+    <fieldset>
+        <h4>Sales Detail Summary</h4>
+        <div>
+            <div class="large-8 columns">
+            </div>
+
+            <div class="large-8 columns">
+                To be working on ...
+                @*                Number of order placed: <span id="num-order-placed" style="color: #dc143c"></span>
+                <p></p>
+                Number of items sold: <span id="num-items-sold" style="color: #dc143c"></span>
+                <p></p>
+                Total Sale (in USD): <span id="total-sale" style="color: #dc143c"></span>
+                <p></p>
+                Total Received (in USD): <span id="total-received" style="color: #dc143c"></span>
+                <p></p>
+                Total Fee (in USD): <span id="total-fee" style="color: #dc143c"></span>
+                <p></p>
+                Est Profit (in USD): <span id="estimated-profit" style="color: #dc143c"></span>
+                <p></p>
+                Actual Profit (in USD): <span id="actual-profit" style="color: #dc143c"></span>*@
+            </div>
+        </div>
+    </fieldset>
 </div>
-
