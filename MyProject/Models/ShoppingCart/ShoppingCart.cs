@@ -38,7 +38,7 @@ namespace MyProject.Models.ShoppingCart
                 var shippingRateObj = context.AppSettings.Single(a => a.Code == "ShippingRate");
                 var shippingRate = 0m;
                 if (shippingRateObj.ValueType == "decimal")
-                    shippingRate =  Convert.ToDecimal(shippingRateObj.Value);
+                    shippingRate = Convert.ToDecimal(shippingRateObj.Value);
 
                 var cartItems = context.Carts.Where(cart => cart.Code == ShoppingCartId).ToList();
 
@@ -111,7 +111,7 @@ namespace MyProject.Models.ShoppingCart
                         AddOnItem = false,
                         ShippingCost = 0m,
                         DiscountAmount = 0m,
-                        OriginalPrice = context.Products.Where(p => p.Id == product.Id).SelectMany( x => x.ProductOffers).ToList().Single(o => o.ProductId == product.Id && o.PriceTypeId == 1).Price,
+                        OriginalPrice = context.Products.Where(p => p.Id == product.Id).SelectMany(x => x.ProductOffers).ToList().Single(o => o.ProductId == product.Id && o.PriceTypeId == 1).Price,
                         //OriginalPrice = context.Products.Single(p => p.Id == product.Id).Price,
                         Product = context.Products.Single(p => p.Id == product.Id),
                         //DiscountedPrice = 0m,
@@ -167,7 +167,7 @@ namespace MyProject.Models.ShoppingCart
 
                 }
                 return context.Carts.Single(c => c.Code == ShoppingCartId && c.Id == id);
-            }      
+            }
         }
 
         //public Cart GetCartLine(string cartId, int id)
@@ -225,7 +225,7 @@ namespace MyProject.Models.ShoppingCart
         public List<Cart> GetCartItems()
         {
 
-           return soContext.Carts.Where(cart => cart.Code == ShoppingCartId).ToList();
+            return soContext.Carts.Where(cart => cart.Code == ShoppingCartId).ToList();
         }
 
         public int GetCount()
@@ -323,7 +323,10 @@ namespace MyProject.Models.ShoppingCart
                     {
                         if (product.QuantityOnHand < prod.Quantity)
                             order.OrderStatusId = backOrderStatusId;
+                        prod.Profit = prod.Total - (product.BuyInPrice * prod.Quantity);
+                        order.Profit += prod.Profit;
                     }
+
                 }
 
                 if (order.OrderStatusId != backOrderStatusId && order.OrderStatusId != processingOrderStatusId)

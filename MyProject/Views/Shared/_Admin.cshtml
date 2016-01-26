@@ -4,19 +4,24 @@
     if (User.IsInRole("Admin"))
     {
         <ul class="top-bar-items right">
+
+            <li>
+                @Html.ActionLink("Sales Stats", "Index", "SaleStats", routeValues: null, htmlAttributes: new {title = "Manage"})
+            </li>
+
             <li class="has-dropdown">
                 @Html.ActionLink("Product Mgt", "Index", "ProductManagement", routeValues: null, htmlAttributes: new {title = "Manage"})
                 <ul class="dropdown">
                     <li>
                         @Html.ActionLink("Products", "Index", "ProductManagement", routeValues: null, htmlAttributes: new {title = "Manage"})
                     </li>
-@*                    <li>
+                    @*                    <li>
                         @Html.ActionLink("Add Product", "EditProduct", "ProductManagement", new {id = -1}, new {@style = "color: #FFFFFF"})
                     </li>*@
                     <li>
                         @Html.ActionLink("Categories", "Index", "CategoryManagment", routeValues: null, htmlAttributes: new {title = "Manage"})
                     </li>
-@*                    <li>
+                    @*                    <li>
                         @Html.ActionLink("Add Category", "EditCategory", "CategoryManagment", new {id = -1}, new {@style = "color: #FFFFFF"})
                     </li>*@
                 </ul>
@@ -34,7 +39,7 @@
                         @Html.ActionLink("Content", "Index", "ContentManagement", routeValues: null, htmlAttributes: new {title = "Manage"})
                     </li>
 
-@*                    <li class="has-dropdown">
+                    @*                    <li class="has-dropdown">
                         @Html.ActionLink("Content Mgt", "Index", "AppSetting", routeValues: null, htmlAttributes: new {title = "Manage"})
                         <ul class="dropdown">
                             <li>

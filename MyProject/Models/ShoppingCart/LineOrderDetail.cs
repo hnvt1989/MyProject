@@ -22,6 +22,8 @@ namespace MyProject.Models.ShoppingCart
         public decimal Net { get; set; }
         public decimal TotalDiscount { get; set; }
 
+        public decimal Profit { get; set; }
+
         //total amount after discount
         public decimal Total { get; set; }
 
