@@ -116,7 +116,7 @@ namespace MyProject.Controllers
             }
 
             homeView.NewProducts = nProducts;
-            ViewBag.ProductHeader = "Sản phẩm mới nhất";
+            ViewBag.ProductHeader = "Sản phẩm mới";
             return View(homeView);
         }
 
