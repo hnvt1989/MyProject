@@ -78,8 +78,8 @@
         </div>
         <table>
             <tr>
-@*                <th>Sản phẩm
-                </th>*@
+                <th class="hide-for-small-only">Hình ảnh
+                </th>
                 <th>Tên sản phẩm
                 </th>
                 <th>Tiền
@@ -100,7 +100,7 @@
                 Model.CartItems)
             {
                 <tr id="row-@item.Id">
-@*                    <td>
+                    <td class="hide-for-small-only">
                         @{
                 if (@item.Product.Image != null)
                 {
@@ -114,7 +114,7 @@
                     <img src="~/Content/Images/ProductDefault.png" height="40" width="40"/>
                 }
                         }
-                    </td>*@
+                    </td>
                     <td>
                         @Html.ActionLink(item.Product.Description, "Details", "Store", new { id = item.ProductId }, null)
                     </td>
@@ -153,8 +153,8 @@
             <tr>
                 <td></td>
                 <td></td>
-                @*                <td></td>
-                <td></td>
+                <td class="hide-for-small-only"></td>
+@*                <td></td>
                 <td></td>
                 <td></td>*@
                 <td><b>@ViewBag.CartTotalShippingCost</b></td>
@@ -166,7 +166,8 @@
             <tr>
                 <td></td>
                 <td></td>
-                @*                <td></td>
+                <td class="hide-for-small-only"></td>
+                @*
                 <td></td>
                 <td></td>
                 <td></td>*@
