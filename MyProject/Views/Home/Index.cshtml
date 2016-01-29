@@ -8,18 +8,24 @@
     type="text/javascript"></script>
 
 <script type="text/javascript">
-    $(function () {
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-     })
-
+    ga('create', 'UA-73045117-1', 'auto');
+    ga('send', 'pageview');
 </script>
 
-@if (Model.Info.Annoucment != null)
+
+@*@if (Model.Info.Annoucment != null)
 {
     <div class="content">
-        <span style="color: #dc143c; font-family: Arial"><b>@Html.Raw(HttpUtility.HtmlDecode(Model.Info.Annoucment))</b></span>
+        <span style="color: #000000; font-family: Arial"><b>@Html.Raw(HttpUtility.HtmlDecode(Model.Info.Annoucment))</b></span>
     </div>
-}
+}*@
 
 @if (Model.Advertisement.Ads.Count > 0)
 {
@@ -75,7 +81,7 @@
 
 <div class="large-3 small-12 columns">
 
-    <div class="hide-for-small panel" style="background: #FFFFFF">
+    <div class="hide-for-small panel" style="background: #FFFFFF; border: none">
         <h3><b><span style="color: #dc143c; text-align: center; display: block" id="catLabel">HOT DEALS </span></b>
         </h3>
 
@@ -90,13 +96,13 @@
                         {
                             var base64 = Convert.ToBase64String(@c.Icon);
                             var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-                            <img src="@imgSrc" height="20" width="20"/>
-                            @c.Description
+                            <img src="@imgSrc" height="10" width="10"/>
+                            <span style="font-size: 12px">@c.Description</span>
 
                         }
                         else
                         {
-                            @c.Description
+                            <span style="font-size: 12px">@c.Description</span>
                         }
                     </a>
                 </li>
@@ -104,19 +110,11 @@
         </ul>
     </div>
 
-    <div class="hide-for-small panel" style="background: #FFFFFF">
+@*    <div class="hide-for-small panel" style="background: #FFFFFF; border: none">
         <div class="content">
             @Html.Raw(HttpUtility.HtmlDecode(Model.Info.ContactInfo))
         </div>
-        @*                    <h4><b>Thông tin liên lạc:</b></h4>
-                    <h6>&#9743; +1 503-740-7206 (Viber)</h6>
-                    <h6>&#9743; +1 503-984-5026 (Viber)</h6>
-                    <h6>&#64; <a href="https://www.facebook.com/profile.php?id=100010965467446&fref=ts">Nắng Hoa</a> (facebook)</h6>
-                    <h6>&#9993; muctim308@gmail.com</h6>
-                    <h6>&#9993; huynguyenvt1989@gmail.com</h6>*@
-
-
-    </div>
+    </div>*@
 
 </div>
 
@@ -128,25 +126,77 @@
     @if (Model.BestSellingProductsThisMonths.Count > 0)
     {
         <div>
-            <h4><b><span style="color: #00008b; text-align: left; display: block" id="catLabel">Sản phẩm yêu thích @DateTime.Now.ToString("yyyy")</span></b>
+            <h4><b><span style="color: #4b0082; text-align: left; display: block; font-family: serif; font-style: italic";  id="catLabel">Sản phẩm yêu thích @DateTime.Now.ToString("yyyy")</span></b>
+
+                <div class="row" data-equalizer="foo" data-options="equalize_on_stack: true">
+
+                    @foreach (var product in Model.BestSellingProductsThisMonths)
+                    {
+
+
+                        <div class="large-3 columns panel" data-equalizer-watch="foo" style="background: #FFFFFF; border: none; text-align: center">
+
+                            @*                            @if (product.OriginalPrice > 0 && product.OriginalPrice > product.Price)
+                            {
+                                var percent = 100 - (product.Price / product.OriginalPrice) * 100;
+                                <span style="font-size: 18px; font-family: Arial; background: #ff4500; color: #ffffff"><b>Giảm @percent.ToString("N0") %</b></span>
+                            }
+                            else
+                            {
+                                <span style="font-size: 18px; font-family: Arial; background: #ffffff; color: #ffffff"><b></b></span>
+                            }*@
+
+                            @if (@product.Image != null)
+                            {
+                                var base64 = Convert.ToBase64String(@product.Image);
+                                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                                <a href="/Store/Details/@product.Id">
+                                    <img src="@imgSrc" height="200" width="200"/>
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="/Store/Details/@product.Id">
+                                    <img src="~/Content/Images/ProductDefault.png" height="200" width="200" />
+                                </a>
+                            }
+                                <h5><span style="font-size: 10px; font-family: Arial;"><b>@product.Description</b></span></h5>
+
+                                <span style="color: #dc143c; font-family: Arial; font-size: 10px"><b>@product.Price.ToString("N0")</b></span>
+
+                                @if (product.OriginalPrice > 0 && product.OriginalPrice > product.Price)
+                                {
+                                    <span style="font-size: 10px; font-family: Arial;"><del><b>@product.OriginalPrice.ToString("N0")</b></del></span>
+                                }
+                                <div>
+                                <span style="color: #008000; font-family: Arial; font-size: 12px"><b>@product.BoughtQuantity sản phẩm đã bán! </b></span>
+                                </div>
+                            </div>
+                    }
+                </div>
+        </div>
+
+    }
+    <div>
+        <h4><b><span style="color: #4b0082; text-align: left; display: block;font-family: serif; font-style: italic" id="catLabel">@ViewBag.ProductHeader</span></b>
 
             <div class="row" data-equalizer="foo" data-options="equalize_on_stack: true">
 
-                @foreach (var product in Model.BestSellingProductsThisMonths)
+                @foreach (var product in Model.NewProducts)
                 {
 
 
-                    <div class="large-3 columns panel" data-equalizer-watch="foo" style="background: #FFFFFF">
+                    <div class="large-3 columns panel" data-equalizer-watch="foo" style="background: #FFFFFF; border: none; text-align: center">
 
-                        @if (product.OriginalPrice > 0 && product.OriginalPrice > product.Price)
+                        @*                        @if (product.OriginalPrice > 0 && product.OriginalPrice > product.Price)
                         {
-                            var percent = 100 - (product.Price/product.OriginalPrice)*100;
+                            var percent = 100 - (product.Price / product.OriginalPrice) * 100;
                             <span style="font-size: 18px; font-family: Arial; background: #ff4500; color: #ffffff"><b>Giảm @percent.ToString("N0") %</b></span>
                         }
                         else
                         {
                             <span style="font-size: 18px; font-family: Arial; background: #ffffff; color: #ffffff"><b></b></span>
-                        }
+                        }*@
 
                         @if (@product.Image != null)
                         {
@@ -159,78 +209,22 @@
                         else
                         {
                             <a href="/Store/Details/@product.Id">
-                                <img src="~/Content/Images/ProductDefault.png" height="200" width="200"/>
+                                <img src="~/Content/Images/ProductDefault.png" height="200" width="200" />
                             </a>
                         }
 
+                                <h5><span style="font-size: 10px; font-family: Arial;"><b>@product.Description</b></span></h5>
 
-                        <h5><span style="font-size: 14px; font-family: Arial;"><b>@product.Description</b></span></h5>
-                        <h6>
-                            @if (product.OriginalPrice > 0 && product.OriginalPrice > product.Price)
-                            {
-                                <span style="font-size: 16px; font-family: Arial;"><del><b>@product.OriginalPrice.ToString("N0")</b></del></span>
-                            }
+                                <span style="color: #dc143c; font-family: Arial; font-size: 10px"><b>@product.Price.ToString("N0")</b></span>
 
-                            <span style="color: #dc143c; font-family: Arial; font-size: 16px"><b>@product.Price.ToString("N0")</b></span>
-                        </h6>
-                        <h6>
-                            <span style="color: #008000; font-family: Arial; font-size: 12px"><b>@product.BoughtQuantity sản phẩm đã bán! </b></span>
-                        </h6>
+                                @if (product.OriginalPrice > 0 && product.OriginalPrice > product.Price)
+                                {
+                                    <span style="font-size: 10px; font-family: Arial;"><del><b>@product.OriginalPrice.ToString("N0")</b></del></span>
+                                }
+
                     </div>
                 }
             </div>
-        </div>
-
-    }
-    <div>
-        <h4><b><span style="color: #00008b; text-align: left; display: block" id="catLabel">@ViewBag.ProductHeader</span></b>
-
-        <div class="row" data-equalizer="foo" data-options="equalize_on_stack: true">
-
-            @foreach (var product in Model.NewProducts)
-            {
-
-
-                <div class="large-3 columns panel" data-equalizer-watch="foo" style="background: #FFFFFF">
-
-                    @if (product.OriginalPrice > 0 && product.OriginalPrice > product.Price)
-                    {
-                        var percent = 100 - (product.Price/product.OriginalPrice)*100;
-                        <span style="font-size: 18px; font-family: Arial; background: #ff4500; color: #ffffff"><b>Giảm @percent.ToString("N0") %</b></span>
-                    }
-                    else
-                    {
-                        <span style="font-size: 18px; font-family: Arial; background: #ffffff; color: #ffffff"><b></b></span>
-                    }
-
-                    @if (@product.Image != null)
-                    {
-                        var base64 = Convert.ToBase64String(@product.Image);
-                        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-                        <a href="/Store/Details/@product.Id">
-                            <img src="@imgSrc" height="200" width="200"/>
-                        </a>
-                    }
-                    else
-                    {
-                        <a href="/Store/Details/@product.Id">
-                            <img src="~/Content/Images/ProductDefault.png" height="200" width="200"/>
-                        </a>
-                    }
-
-
-                    <h5><span style="font-size: 14px; font-family: Arial;"><b>@product.Description</b></span></h5>
-                    <h6>
-                        @if (product.OriginalPrice > 0 && product.OriginalPrice > product.Price)
-                        {
-                            <span style="font-size: 16px; font-family: Arial;"><del><b>@product.OriginalPrice.ToString("N0")</b></del></span>
-                        }
-
-                        <span style="color: #dc143c; font-family: Arial; font-size: 16px"><b>@product.Price.ToString("N0")</b></span>
-                    </h6>
-                </div>
-            }
-        </div>
     </div>
 
 </div>

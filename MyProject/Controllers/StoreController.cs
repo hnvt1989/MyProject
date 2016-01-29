@@ -60,10 +60,10 @@ namespace MyProject.Controllers
             return View("Detail", productModel);
         }
 
-        public ActionResult ContinueToCart(int id)
-        {
-            var prod = _shoppingCartContext.Products.SingleOrDefault(p => p.Id == id);
-            return RedirectToAction("AddToCart", "ShoppingCart", prod);
-        }
+        //public ActionResult ContinueToCart(int id)
+        //{
+        //    var prod = _shoppingCartContext.Products.SingleOrDefault(p => p.Id == id);
+        //    return RedirectToAction("AddToCart", "ShoppingCart", prod);
+        //}
 	}
 }
