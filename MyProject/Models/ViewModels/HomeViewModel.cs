@@ -53,7 +53,8 @@ namespace MyProject.Models.ViewModels
                         Id = c.Id,
                         Code = c.Code,
                         Description = c.Description,
-                        Icon = c.Icon
+                        Icon = c.Icon,
+                        ParentId = c.ParentId
                     }));
 
                     return ret;

@@ -20,6 +20,8 @@ namespace MyProject.Models.ShoppingCart
         public virtual ICollection<Product> Products { get; set; } 
 
         public byte[] Icon { get; set; }
+
+        public int ParentId { get; set; }
     }
     
 }
