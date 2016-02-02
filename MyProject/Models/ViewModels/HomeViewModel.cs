@@ -17,6 +17,7 @@ namespace MyProject.Models.ViewModels
             this.Info = new HomePageInfo();
             this.BestSellingProductsThisMonths = new List<ProductViewModel>();
             this.NewProducts = new List<ProductViewModel>();
+            this.FilteredProducts = new List<ProductViewModel>();
         }
 
         [DisplayName("Danh muc sản phẩm")]
@@ -66,6 +67,8 @@ namespace MyProject.Models.ViewModels
 
         //list of feature products
         public List<MyProject.Models.ViewModels.ProductViewModel> NewProducts { get; set; }
+
+        public List<MyProject.Models.ViewModels.ProductViewModel> FilteredProducts { get; set; }
 
         public List<MyProject.Models.ViewModels.ProductViewModel> BestSellingProductsThisMonths { get; set; }
 

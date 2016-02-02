@@ -47,7 +47,7 @@ namespace MyProject.Controllers
 
                 //best selling products
                 //new products
-                var startDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+                var startDate = new DateTime(DateTime.Now.Year, 1, 1);
                 var endDate = startDate.AddYears(1).AddDays(-1);
 
                 var ordersThisYears = pContext.Orders.Where(o => o.OrderDate <= endDate && o.OrderDate >= startDate).Select(p => p.Id).ToList();
@@ -175,7 +175,7 @@ namespace MyProject.Controllers
                         prod.OriginalPrice = origPrice != null ? origPrice.Price : 0m;
                     }
 
-                    var homeView = new HomeViewModel {NewProducts = products};
+                    var homeView = new HomeViewModel {FilteredProducts = products};
                     homeView.SelectedCategory = code;
 
                     //var ret = new HeaderAdvertisementViewModel();

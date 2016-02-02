@@ -38,6 +38,8 @@ namespace MyProject.Controllers
                 var origPrice = offers.SingleOrDefault(po => po.ProductId == prod.Id && po.PriceTypeId == 3);
                 var curPrice = offers.SingleOrDefault(po => po.ProductId == prod.Id && po.PriceTypeId == 1);
 
+                productModel.Categories =
+                    pContext.Products.Where(p => p.Id == prod.Id).SelectMany(product => product.Categories).ToList();
                 if (origPrice != null)
                 {
                     if (origPrice.Price > 0)

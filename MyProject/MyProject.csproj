@@ -821,7 +821,6 @@
     <Content Include="Scripts\ckeditor\samples\toolbarconfigurator\font\fontello.woff" />
     <Content Include="Scripts\ckeditor\samples\toolbarconfigurator\lib\codemirror\LICENSE" />
     <Content Include="Scripts\ckeditor\skins\moono\readme.md" />
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
     <Content Include="Scripts\ckeditor\build-config.js" />
     <Content Include="Scripts\ckeditor\ckeditor.js" />
@@ -1191,8 +1190,7 @@
     <Content Include="Scripts\foundation\foundation.tooltip.js" />
     <Content Include="Scripts\foundation\foundation.topbar.js" />
     <Content Include="Scripts\foundation\jquery.cookie.js" />
-    <Content Include="Scripts\jquery-1.10.2.js" />
-    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\slick.min.js" />
     <None Include="Scripts\jquery-2.2.0.intellisense.js" />
     <Content Include="Scripts\jquery-2.2.0.js" />
     <Content Include="Scripts\jquery-2.2.0.min.js" />
@@ -1212,6 +1210,14 @@
     <Content Include="stylesheets\print.css" />
     <Content Include="stylesheets\screen.css" />
     <Content Include="stylesheets\Site.css" />
+    <Content Include="stylesheets\slick\ajax-loader.gif" />
+    <Content Include="stylesheets\slick\fonts\slick.svg" />
+    <Content Include="stylesheets\slick\slick-theme.css">
+      <DependentUpon>slick-theme.scss</DependentUpon>
+    </Content>
+    <Content Include="stylesheets\slick\slick.css" />
+    <Content Include="stylesheets\slick\slick.js" />
+    <Content Include="stylesheets\slick\slick.min.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1275,6 +1281,14 @@
     <Content Include="Views\Home\PurchaseInstruction.cshtml" />
     <Content Include="Views\ProductManagement\ViewProductLessDetail.cshtml" />
     <Content Include="Views\SaleStats\Index.cshtml" />
+    <Content Include="stylesheets\slick\config.rb" />
+    <Content Include="stylesheets\slick\fonts\slick.eot" />
+    <Content Include="stylesheets\slick\fonts\slick.ttf" />
+    <Content Include="stylesheets\slick\fonts\slick.woff" />
+    <Content Include="stylesheets\slick\slick-theme.less" />
+    <Content Include="stylesheets\slick\slick-theme.scss" />
+    <Content Include="stylesheets\slick\slick.less" />
+    <Content Include="stylesheets\slick\slick.scss" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

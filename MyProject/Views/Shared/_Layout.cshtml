@@ -1,13 +1,13 @@
 ﻿﻿<!DOCTYPE html>
 <html class="no-js" lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#">
 <head>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8" />
 
     @*Set the viewport width to device width for mobile *@
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>@ViewBag.Title - J.A shop</title>
-    <link href="~/Content/Images/favicon.JPG" rel="shortcut icon" type="image/x-icon"/>
+    <link href="~/Content/Images/favicon.JPG" rel="shortcut icon" type="image/x-icon" />
 
     @Styles.Render("~/Content/foundation/css")
 
@@ -16,50 +16,74 @@
 
     <script type="text/javascript" src="/Scripts/ckeditor/ckeditor.js"></script>
 
-    <meta property="og:image" content="http://jashopvn.com/Content/Images/banner.jpg"/>
+    <meta property="og:image" content="http://jashopvn.com/Content/Images/banner.jpg" />
+
+
 </head>
 
 <body>
+    <div>
+        <nav class="top-bar" data-topbar role="navigation">
 
-<nav class="top-bar" data-topbar role="navigation">
+            <ul class="title-area">
 
-    <ul class="title-area">
+                <li class="name">
+                    <h1></h1>
+                </li>
+                <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
 
-        <li class="name">
-            <h1></h1>
-        </li>
-        <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
-
-    </ul>
-
-
-    <section class="top-bar-section">
-        <ul class="top-bar-items right">
-            <li>@Html.ActionLink("Giỏ hàng", "Index", "ShoppingCart")</li>
-        </ul>
-
-        @Html.Partial("_LoginPartial")
-        @Html.Partial("_Admin")
-    </section>
-</nav>
-
-    <img alt="slide" src="/Content/Images/banner.jpg" height="150" width="1500"/>
-<p></p>
-
-@RenderBody()
+            </ul>
 
 
-@Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/bundles/foundation")
-<script>
-    $(document).foundation();
-</script>
-@*Use the Scripts section to define page specific scripts*@
-@RenderSection("scripts", required: false)
+            <section class="top-bar-section">
+                <ul class="top-bar-items right">
+                    <li>@Html.ActionLink("Giỏ hàng", "Index", "ShoppingCart")</li>
+                </ul>
+
+                @Html.Partial("_LoginPartial")
+                @Html.Partial("_Admin")
+            </section>
+        </nav>
+
+        <img alt="slide" src="/Content/Images/banner.jpg" height="150" width="1500" />
+        <p></p>
+    </div>
 
 
-@*<footer style="position: fixed; bottom: 0; left: 0">
-    <div class="panel">
+    <div>
+        @RenderBody()
+    </div>
+
+    <div style="background: #000000">
+        <div class="row" style="background: #000000">
+                <div>
+                    <span style="color: #ffffff">Zalo or Viber: +1 (503) 984 5029 &nbsp;  +1 (503) 740 7206</span>
+                </div>
+                <div>
+@*                    <div>
+                        <span style="color: #ffffff">Connect with us</span>
+                    </div>*@
+                    <a href="https://facebook.com/jashopvn.2016" class="webicon facebook"></a>
+
+                </div>
+
+        </div>
+
+    </div>
+
+
+    @*@Scripts.Render("~/bundles/jquery")*@
+    @Scripts.Render("~/bundles/foundation")
+    <script>
+        $(document).foundation();
+    </script>
+    @*Use the Scripts section to define page specific scripts*@
+    @RenderSection("scripts", required: false)
+
+
+    @*<footer style="position: fixed; bottom: 0; right: 0">
+    <div class="panel" style="background: transparent; border: none">
+        <h5>Liên lạc với J.A Shop</h5>
         <a href="https://facebook.com/jashopvn.2016" class="webicon facebook">Like us on Facebook</a>
     </div>
 </footer>*@
@@ -68,4 +92,4 @@
 
 </html>
 
-    
+
