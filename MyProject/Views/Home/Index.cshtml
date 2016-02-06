@@ -121,7 +121,7 @@
 
 <div class="large-3 small-12 columns">
 
-    <div class="hide-for-small panel" style="background: #FFFFFF; border: none">
+    <div style="background: #FFFFFF; border: none">
 @*        <h3><b><span style="color: #dc143c; text-align: center; display: block" id="catLabel">HOT DEALS </span></b>*@
         </h3>
 
@@ -138,18 +138,15 @@
                         
                 <li>
                     <a href="/Home/FilterByCategory?code=@c1.Code">
-                        @if (c1.Icon != null)
+@*                        @if (c1.Icon != null)
                         {
                             var base64 = Convert.ToBase64String(@c1.Icon);
                             var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
                             <img src="@imgSrc" height="10" width="10"/>
-                            <span style="font-size: 12px">@c1.Description</span>
 
-                        }
-                        else
-                        {
-                            <span style="font-size: 12px">@c1.Description</span>
-                        }
+
+                        }*@
+                        <span style="font-size: 12px">@c1.Description</span>
                     </a>
                 </li>
                     }
@@ -167,10 +164,10 @@
 </div>
 
 <div class="large-8 columns">
-    <div class="row hide-for-large hide-for-landscape">
+@*    <div class="row hide-for-large hide-for-landscape">
         <span><b>Danh mục sản phẩm</b></span>
         @Html.DropDownListFor(x => x.SelectedCategory, Model.CategoryList, new { id = "categorySelection", onchange = "document.location.href = '/Home/FilterByCategory?code=' + this.options[this.selectedIndex].value;" })
-    </div>
+    </div>*@
 
 
 
@@ -202,7 +199,7 @@
                                 <img src="~/Content/Images/ProductDefault.png" height="200" width="200"/>
                             </a>
                         }
-
+                        <h5><span style="font-size: 10px; font-family: Arial;"><b>@product.Description</b></span></h5>
                     </div>
                 }
             </div>
@@ -281,6 +278,7 @@
                                 <img src="~/Content/Images/ProductDefault.png" height="200" width="200"/>
                             </a>
                         }
+                        <h5><span style="font-size: 10px; font-family: Arial;"><b>@product.Description</b></span></h5>
                     </div>
                 }
             </div>
