@@ -52,7 +52,17 @@
             mobileFirst: true
         });
     });
-
+    function expand(parent) {
+        var children_id = "children_" + $(parent).attr("id").split("_")[1];
+        if (document.getElementById(children_id).style.display == "block"){
+            document.getElementById(children_id).style.display = "none";
+            parent.innerHTML = "+";
+        }
+        else {
+            document.getElementById(children_id).style.display = "block";
+            parent.innerHTML = "-";
+        }
+    };
 </script>
 
 
@@ -131,25 +141,38 @@
             {
                 if (c.ParentId == 0)
                 {
-                    var children = Model.CategoryViews.Where(c1 => c1.ParentId == c.Id);
-                    <span style="font-size: 20px; font-family: Arial">@c.Description</span>
-                    foreach (var c1 in children)
-                    {
+                    <div>
                         
-                <li>
-                    <a href="/Home/FilterByCategory?code=@c1.Code">
-@*                        @if (c1.Icon != null)
-                        {
-                            var base64 = Convert.ToBase64String(@c1.Icon);
-                            var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-                            <img src="@imgSrc" height="10" width="10"/>
+                        <div>
+                            <span style="font-size: 20px; font-family: Arial">@c.Description &nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            <span id="expand_@c.Id" onclick=" expand(this); " style="text-align: right">+</span>
+                        </div>
+
+                        <div id="children_@c.Id" style="display: none">
+                            @{
+                                var children = Model.CategoryViews.Where(c1 => c1.ParentId == c.Id);
+                            foreach (var c1 in children)
+                            {
+
+                                <li>
+                                    <a href="/Home/FilterByCategory?code=@c1.Code">
+                                        @*                        @if (c1.Icon != null)
+                            {
+                                var base64 = Convert.ToBase64String(@c1.Icon);
+                                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                                <img src="@imgSrc" height="10" width="10"/>
 
 
-                        }*@
-                        <span style="font-size: 12px">@c1.Description</span>
-                    </a>
-                </li>
-                    }
+                            }*@
+                                        <span style="font-size: 12px">@c1.Description</span>
+                                    </a>
+                                </li>
+                            }}
+
+                        </div>
+                    </div>
+                
+                
                 }
             }
         </ul>
