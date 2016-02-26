@@ -143,33 +143,53 @@
                 {
                     <div>
                         
-                        <div>
-                            <span style="font-size: 20px; font-family: Arial">@c.Description &nbsp;&nbsp;&nbsp;&nbsp;</span>
-                            <span id="expand_@c.Id" onclick=" expand(this); " style="text-align: right">+</span>
-                        </div>
+                            <div>
+                                <span style="font-size: 20px; font-family: Arial">@c.Description &nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                <span id="expand_@c.Id" onclick=" expand(this); " style="text-align: right">+</span>
+                            </div>
 
-                        <div id="children_@c.Id" style="display: none">
-                            @{
-                                var children = Model.CategoryViews.Where(c1 => c1.ParentId == c.Id);
-                            foreach (var c1 in children)
-                            {
+                            <div id="children_@c.Id" style="display: none">
+                                @{
+                                    var children = Model.CategoryViews.Where(c1 => c1.ParentId == c.Id);
+                                    <ul style="list-style-type:none">
+                                        @foreach (var c1 in children)
+                                        {
 
-                                <li>
-                                    <a href="/Home/FilterByCategory?code=@c1.Code">
-                                        @*                        @if (c1.Icon != null)
-                            {
-                                var base64 = Convert.ToBase64String(@c1.Icon);
-                                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-                                <img src="@imgSrc" height="10" width="10"/>
+                                            <li>
+                                                <a href="/Home/FilterByCategory?code=@c1.Code">
+                                                    <span style="font-size: 12px">&#10025;&nbsp;&nbsp;@c1.Description</span>
+                                                </a>
+
+                                                @{
+                                                    var subs = Model.CategoryViews.Where(c2 => c2.ParentId == c1.Id).ToList();
+                                                    if (subs.Count > 0)
+                                                    {
+                                                        <ul style="list-style-type:none">
+                                                            @foreach (var sub in subs)
+                                                            {
+                                                                <li>
+                                                                    <a href="/Home/FilterByCategory?code=@sub.Code">
+                                                                        <span style="font-size: 12px">&nbsp;&nbsp;&#10055;&nbsp;&nbsp;@sub.Description</span>
+                                                                    </a>
+                                                                </li>
+
+                                                            }
 
 
-                            }*@
-                                        <span style="font-size: 12px">@c1.Description</span>
-                                    </a>
-                                </li>
-                            }}
+                                                        </ul>
 
-                        </div>
+                                                    }
+                                                }
+                                            </li>
+                                            
+                                        }
+                                    </ul>
+                                    
+                                }
+
+                            </div>
+                        
+
                     </div>
                 
                 

@@ -77,23 +77,23 @@
             <div class="row">
                 <hr>
             <div class="medium-6 columns">
-                 @Html.ActionLink("<<< Back", "Index", "ProductManagement", new {id = -1}, new {@style = "color: #32cd32"})
+                 @Html.ActionLink("<<< Back", "Index", "ProductManagement", new { id = -1 }, new { @style = "color: #32cd32" })
                 <br/>
                 @{
-                    if (Model.ProductView.Image != null)
-                    {
-                        var base64 = Convert.ToBase64String(@Model.ProductView.Image);
-                        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+            if (Model.ProductView.Image != null)
+            {
+                var base64 = Convert.ToBase64String(@Model.ProductView.Image);
+                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
                         <img alt="@Model.ProductView.Description" src="@imgSrc" height="400" width="400"/>
-                    }
-                    else
-                    {
+            }
+            else
+            {
                         <img src="~/Content/Images/ProductDefault.png" height="400" width="400"/>
-                    }}
+            }}
                 <div class="form-group">
                     @*                        @Html.LabelFor(m => m.UserProfilePicture, new {@class = "col-md-2 control-label"})*@
                     <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.ProductView.ProductImage, new {type = "file"})
+                        @Html.TextBoxFor(m => m.ProductView.ProductImage, new { type = "file" })
                         @Html.ValidationMessage("CustomMessage")
                     </div>
                 </div>
@@ -101,20 +101,20 @@
                     <li>
 
                         @{
-                            if (Model.ProductView.ImageAlt0 != null)
-                            {
-                                var base64 = Convert.ToBase64String(@Model.ProductView.ImageAlt0);
-                                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+            if (Model.ProductView.ImageAlt0 != null)
+            {
+                var base64 = Convert.ToBase64String(@Model.ProductView.ImageAlt0);
+                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
                                 <img alt="@Model.ProductView.Description" src="@imgSrc" height="400" width="400"/>
-                            }
-                            else
-                            {
+            }
+            else
+            {
                                 <img src="~/Content/Images/ProductDefault.png" height="100" width="100"/>
-                            }}
+            }}
                         <div class="form-group">
                             @*                        @Html.LabelFor(m => m.UserProfilePicture, new {@class = "col-md-2 control-label"})*@
                             <div class="col-md-10">
-                                @Html.TextBoxFor(m => m.ProductView.ProductImageAlt0, new {type = "file"})
+                                @Html.TextBoxFor(m => m.ProductView.ProductImageAlt0, new { type = "file" })
                                 @Html.ValidationMessage("CustomMessage")
                             </div>
                         </div>
@@ -123,20 +123,20 @@
                     <li>
 
                         @{
-                            if (Model.ProductView.ImageAlt1 != null)
-                            {
-                                var base64 = Convert.ToBase64String(@Model.ProductView.ImageAlt1);
-                                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+            if (Model.ProductView.ImageAlt1 != null)
+            {
+                var base64 = Convert.ToBase64String(@Model.ProductView.ImageAlt1);
+                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
                                 <img alt="@Model.ProductView.Description" src="@imgSrc" height="400" width="400"/>
-                            }
-                            else
-                            {
+            }
+            else
+            {
                                 <img src="~/Content/Images/ProductDefault.png" height="100" width="100"/>
-                            }}
+            }}
                         <div class="form-group">
                             @*                        @Html.LabelFor(m => m.UserProfilePicture, new {@class = "col-md-2 control-label"})*@
                             <div class="col-md-10">
-                                @Html.TextBoxFor(m => m.ProductView.ProductImageAlt1, new {type = "file"})
+                                @Html.TextBoxFor(m => m.ProductView.ProductImageAlt1, new { type = "file" })
                                 @Html.ValidationMessage("CustomMessage")
                             </div>
                         </div>
@@ -180,10 +180,10 @@
                             </div>
 
                             <div class="form-group">
-                                @Html.LabelFor(m => m.ProductView.ReviewVideoUrl, new {@class = "col-md-2 control-label"})
+                                @Html.LabelFor(m => m.ProductView.ReviewVideoUrl, new { @class = "col-md-2 control-label" })
                                 <div class="col-md-10">
                                     @Html.TextBoxFor(m => m.ProductView.ReviewVideoUrl)
-                                    @Html.ValidationMessageFor(m => m.ProductView.ReviewVideoUrl, "", new {@class = "text-danger"})
+                                    @Html.ValidationMessageFor(m => m.ProductView.ReviewVideoUrl, "", new { @class = "text-danger" })
                                 </div>
                             </div>
 
@@ -221,7 +221,7 @@
                                     }
                                     <div class="form-group" id="price">
                                         <h6>@priceType</h6>
-                                            @Html.TextBoxFor(m => m.Offers[i].Price, new { @class = "amountPricing", id = "amount_" + Model.Offers[i].PriceTypeId, onchange = "calProfit();"})
+                                            @Html.TextBoxFor(m => m.Offers[i].Price, new { @class = "amountPricing", id = "amount_" + Model.Offers[i].PriceTypeId, onchange = "calProfit();" })
                                             @Html.HiddenFor(m => m.Offers[i].Price)
                                             @Html.HiddenFor(m => m.Offers[i].PriceTypeId)
                                             @*@Html.ValidationMessageFor(m => Model.Offers[i].Price, "", new { @class = "text-danger" })*@
@@ -235,10 +235,10 @@
                             <div class="panel">
                                 <h5><b><em>Purchase Price (Save in VND !!) </em></b></h5>
                                 <div class="form-group">
-                                    @Html.LabelFor(m => m.ProductView.BuyInPrice, new {@class = "col-md-2 control-label"})
+                                    @Html.LabelFor(m => m.ProductView.BuyInPrice, new { @class = "col-md-2 control-label" })
                                     <div class="col-md-10">
-                                        @Html.TextBoxFor(m => m.ProductView.BuyInPrice, new {@id = "buyIn"})
-                                        @Html.ValidationMessageFor(m => m.ProductView.BuyInPrice, "", new {@class = "text-danger"})
+                                        @Html.TextBoxFor(m => m.ProductView.BuyInPrice, new { @id = "buyIn" })
+                                        @Html.ValidationMessageFor(m => m.ProductView.BuyInPrice, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>
@@ -301,14 +301,59 @@
 
                             <div class="panel">
                                 <h5><b><em>Category: </em></b></h5>
-                                @for (int i = 0; i < Model.Categories.Count; i++)
-                                {
-                                    @Html.CheckBoxFor(m => m.Categories[i].IsChecked)<span>@Model.Categories[i].Description</span>
+                               @for (int i = 0; i < Model.Categories.Count; i++)
+                               {
+                                     @*@Html.CheckBoxFor(m => m.Categories[i].IsChecked)<span>@Model.Categories[i].Description</span>
                                     @Html.HiddenFor(m => m.Categories[i].IsChecked)
                                     @Html.HiddenFor(m => m.Categories[i].Code)
-                                    <br />
+                                    <br />*@
 
-                                }
+
+                                   var cat = Model.Categories[i];
+
+
+                                   if (cat.ParentId == 0)
+                                   {
+                                       <div>
+                                           <div>
+                                               <span style="font-size: 20px; font-family: Arial; color: #ff4500">@cat.Description &nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                               
+                                           </div>
+                                           <div>
+                                               @{
+                                                   var children = Model.Categories.Where(c1 => c1.ParentId == cat.Id).ToList();
+                                                   
+                                                   for (int j = 0 ; j < children.Count; j++)
+                                                   {
+                                                       var index = Model.Categories.FindIndex(c2 => c2.Id == children[j].Id);
+                                                       @Html.CheckBoxFor(m => m.Categories[index].IsChecked)<span>@Model.Categories[index].Description</span>
+
+                                                       var subs = Model.Categories.Where(c3 => c3.ParentId == children[j].Id).ToList();
+                                                       if (subs.Count > 0)
+                                                       {
+                                                           <br/>
+                                                           foreach (var sub in subs)
+                                                           {
+                                                               index = Model.Categories.FindIndex(c2 => c2.Id == sub.Id);
+                                                               <span>&nbsp; &nbsp; &nbsp; &nbsp;</span>@Html.CheckBoxFor(m => m.Categories[index].IsChecked)<span>@Model.Categories[index].Description</span>
+                                                                <br/>
+                                                           }
+                                                       }
+                                                       @*
+                                                       @Html.HiddenFor(m => m.Categories[index].IsChecked)
+                                                       @Html.HiddenFor(m => m.Categories[index].Code)
+                                                       *@
+                                                       <br/>
+                                                   }
+                                               }
+
+                                           </div>
+                                           ================
+                                       </div>
+                                   }
+                                    @Html.HiddenFor(m => m.Categories[i].IsChecked)
+                                    @Html.HiddenFor(m => m.Categories[i].Code)
+                               }
                             </div>
                         </div>
 

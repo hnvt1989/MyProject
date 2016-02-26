@@ -50,7 +50,7 @@ namespace MyProject.Controllers
                 var startDate = new DateTime(DateTime.Now.Year, 1, 1);
                 var endDate = startDate.AddYears(1).AddDays(-1);
 
-                var ordersThisYears = pContext.Orders.Where(o => o.OrderDate <= endDate && o.OrderDate >= startDate).Select(p => p.Id).ToList();
+                var ordersThisYears = pContext.Orders.Where(o => o.OrderDate <= endDate && o.OrderDate >= startDate && o.OrderStatusId != 7).Select(p => p.Id).ToList();
 
                 var bProds =
                     pContext.LineOrderDetails.Where(o => ordersThisYears.Contains(o.OrderId))

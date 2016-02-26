@@ -152,7 +152,9 @@ namespace MyProject.Controllers
                             {
                                 Code = c.Code,
                                 Description = c.Description,
-                                IsChecked = false
+                                IsChecked = false,
+                                ParentId = c.ParentId,
+                                Id = c.Id
                             }));
                     ret.PriceTypes.AddRange(priceTypes);
                     ret.Offers.AddRange(offers);
@@ -227,7 +229,8 @@ namespace MyProject.Controllers
                                 Id = c.Id,
                                 Code = c.Code,
                                 Description = c.Description,
-                                IsChecked = false
+                                IsChecked = false,
+                                ParentId = c.ParentId,
                             }));
                     ret.ProductView.Categories.AddRange(
                         context.Products.Where(p => p.Id == id).SelectMany(prod => prod.Categories));
@@ -295,284 +298,287 @@ namespace MyProject.Controllers
         public async Task<ActionResult> EditProduct(EditProductViewModel model)
         {
             var id = (int) TempData["ProductEditId"];
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid) return View(model);
+
+            using (var context = new ShoppingCartContext())
             {
-                using (var context = new ShoppingCartContext())
+                //new product
+                if (id == -1)
                 {
-                    //new product
-                    if (id == -1)
+                    var newProd = new Product()
                     {
-                        var newProd = new Product()
+                        Code = SeqHelper.Next("Item").ToString(),
+                        //Code = (string.IsNullOrEmpty(model.ProductView.Code)) ? SeqHelper.Next("Item").ToString() : (model.ProductView.Code),
+                        Description = model.ProductView.Description,
+                        FeatureProduct = true,
+                        //Weight = 0.5m,
+                        //QuantityOnHand = 22,
+                        BuyInPrice = model.ProductView.BuyInPrice,
+                        DetailDescription = model.ProductView.DetailDescription,
+                        Categories = new List<Category>()
                         {
-                            Code = SeqHelper.Next("Item").ToString(),
-                            //Code = (string.IsNullOrEmpty(model.ProductView.Code)) ? SeqHelper.Next("Item").ToString() : (model.ProductView.Code),
-                            Description = model.ProductView.Description,
-                            FeatureProduct = true,
-                            //Weight = 0.5m,
-                            //QuantityOnHand = 22,
-                            BuyInPrice = model.ProductView.BuyInPrice,
-                            DetailDescription = model.ProductView.DetailDescription,
-                            Categories = new List<Category>()
-                            {
-                                context.Categories.SingleOrDefault(c => c.Code == "1001")
-                            },
-                            Active = model.ProductView.Active,
-                            Notes = model.ProductView.Notes,
-                            ReviewVideoUrl = (model.ProductView.ReviewVideoUrl.IsNullOrWhiteSpace()) ? "" : model.ProductView.ReviewVideoUrl
-                        };
+                            context.Categories.SingleOrDefault(c => c.Code == "1001")
+                        },
+                        Active = model.ProductView.Active,
+                        Notes = model.ProductView.Notes,
+                        ReviewVideoUrl = (model.ProductView.ReviewVideoUrl.IsNullOrWhiteSpace()) ? "" : model.ProductView.ReviewVideoUrl
+                    };
 
-                        if (model.ProductView.ProductImage != null)
+                    if (model.ProductView.ProductImage != null)
+                    {
+                        if (model.ProductView.ProductImage.ContentLength > (4*1024*1024))
                         {
-                            if (model.ProductView.ProductImage.ContentLength > (4*1024*1024))
-                            {
-                                ModelState.AddModelError("CustomError", "Image can not be lager than 4MB.");
-                                return View();
-                            }
-                            if (
-                                !(model.ProductView.ProductImage.ContentType == "image/jpeg" ||
-                                  model.ProductView.ProductImage.ContentType == "image/gif"))
-                            {
-                                ModelState.AddModelError("CustomError", "Image must be in jpeg or gif format.");
-                            }
-
-                            byte[] data = new byte[model.ProductView.ProductImage.ContentLength];
-                            model.ProductView.ProductImage.InputStream.Read(data, 0,
-                                model.ProductView.ProductImage.ContentLength);
-
-                            newProd.Image = data;
+                            ModelState.AddModelError("CustomError", "Image can not be lager than 4MB.");
+                            return View();
+                        }
+                        if (
+                            !(model.ProductView.ProductImage.ContentType == "image/jpeg" ||
+                              model.ProductView.ProductImage.ContentType == "image/gif"))
+                        {
+                            ModelState.AddModelError("CustomError", "Image must be in jpeg or gif format.");
+                            return View();
                         }
 
-                        //alt image 0
-                        if (model.ProductView.ProductImageAlt0 != null)
+                        byte[] data = new byte[model.ProductView.ProductImage.ContentLength];
+                        model.ProductView.ProductImage.InputStream.Read(data, 0,
+                            model.ProductView.ProductImage.ContentLength);
+
+                        newProd.Image = data;
+                    }
+
+                    //alt image 0
+                    if (model.ProductView.ProductImageAlt0 != null)
+                    {
+                        if (model.ProductView.ProductImageAlt0.ContentLength > (4*1024*1024))
                         {
-                            if (model.ProductView.ProductImageAlt0.ContentLength > (4*1024*1024))
-                            {
-                                ModelState.AddModelError("CustomError", "Image can not be lager than 4MB.");
-                                return View();
-                            }
-                            if (
-                                !(model.ProductView.ProductImageAlt0.ContentType == "image/jpeg" ||
-                                  model.ProductView.ProductImageAlt0.ContentType == "image/gif"))
-                            {
-                                ModelState.AddModelError("CustomError", "Image must be in jpeg or gif format.");
-                            }
-
-                            byte[] data = new byte[model.ProductView.ProductImageAlt0.ContentLength];
-                            model.ProductView.ProductImageAlt0.InputStream.Read(data, 0,
-                                model.ProductView.ProductImageAlt0.ContentLength);
-
-                            newProd.ImageAlt0 = data;
+                            ModelState.AddModelError("CustomError", "Image can not be lager than 4MB.");
+                            return View();
+                        }
+                        if (
+                            !(model.ProductView.ProductImageAlt0.ContentType == "image/jpeg" ||
+                              model.ProductView.ProductImageAlt0.ContentType == "image/gif"))
+                        {
+                            ModelState.AddModelError("CustomError", "Image must be in jpeg or gif format.");
                         }
 
-                        //alt image 1
-                        if (model.ProductView.ProductImageAlt1 != null)
+                        byte[] data = new byte[model.ProductView.ProductImageAlt0.ContentLength];
+                        model.ProductView.ProductImageAlt0.InputStream.Read(data, 0,
+                            model.ProductView.ProductImageAlt0.ContentLength);
+
+                        newProd.ImageAlt0 = data;
+                    }
+
+                    //alt image 1
+                    if (model.ProductView.ProductImageAlt1 != null)
+                    {
+                        if (model.ProductView.ProductImageAlt1.ContentLength > (4*1024*1024))
                         {
-                            if (model.ProductView.ProductImageAlt1.ContentLength > (4*1024*1024))
-                            {
-                                ModelState.AddModelError("CustomError", "Image can not be lager than 4MB.");
-                                return View();
-                            }
-                            if (
-                                !(model.ProductView.ProductImageAlt1.ContentType == "image/jpeg" ||
-                                  model.ProductView.ProductImageAlt1.ContentType == "image/gif"))
-                            {
-                                ModelState.AddModelError("CustomError", "Image must be in jpeg or gif format.");
-                            }
-
-                            byte[] data = new byte[model.ProductView.ProductImageAlt1.ContentLength];
-                            model.ProductView.ProductImageAlt1.InputStream.Read(data, 0,
-                                model.ProductView.ProductImageAlt1.ContentLength);
-
-                            newProd.ImageAlt1 = data;
+                            ModelState.AddModelError("CustomError", "Image can not be lager than 4MB.");
+                            return View();
+                        }
+                        if (
+                            !(model.ProductView.ProductImageAlt1.ContentType == "image/jpeg" ||
+                              model.ProductView.ProductImageAlt1.ContentType == "image/gif"))
+                        {
+                            ModelState.AddModelError("CustomError", "Image must be in jpeg or gif format.");
                         }
 
-                        context.Products.Add(newProd);
-                        await context.SaveChangesAsync();
-                        int productId = newProd.Id;
+                        byte[] data = new byte[model.ProductView.ProductImageAlt1.ContentLength];
+                        model.ProductView.ProductImageAlt1.InputStream.Read(data, 0,
+                            model.ProductView.ProductImageAlt1.ContentLength);
 
-                        //update pricing
-                        foreach (var p in model.Offers)
+                        newProd.ImageAlt1 = data;
+                    }
+
+                    context.Products.Add(newProd);
+                    await context.SaveChangesAsync();
+
+
+                    id = newProd.Id;
+
+                    //update pricing
+                    foreach (var p in model.Offers)
+                    {
+                        context.ProductOffers.Add(new ProductOffer()
+                        {
+                            ProductId = id,
+                            PriceTypeId = p.PriceTypeId,
+                            Price = p.Price
+
+                        });
+                    }
+
+                    //weight
+                    decimal ounces = model.ProductView.WeightOunce;
+                    decimal lbs = model.ProductView.WeightPounds;
+                    decimal weight = lbs + (ounces/16);
+                    newProd.Weight = weight;
+
+                    //quantity on hand
+                    newProd.QuantityOnHand = model.ProductView.QuantityOnHand;
+
+                    //categories
+                    foreach (var cat in model.Categories)
+                    {
+
+                        if (cat.IsChecked)
+                        {
+                            newProd.Categories.Add(context.Categories.Single(c => c.Code == cat.Code));
+                        }
+                    }
+
+                    await context.SaveChangesAsync();
+
+                    //return View("Index");
+                    //return RedirectToAction("EditProduct", newProd.Id);
+                }
+                else
+                {
+
+
+                    //existing product
+                    var product = context.Products.Single(p => p.Id == id);
+
+                    //string paymentTypeValue = Request.Form["paymentType"].ToString();
+
+                    product.Description = model.ProductView.Description;
+                    //product.Code = model.ProductView.Code;
+                    product.DetailDescription = model.ProductView.DetailDescription;
+                    product.BuyInPrice = model.ProductView.BuyInPrice;
+                    product.Active = model.ProductView.Active;
+                    product.Notes = model.ProductView.Notes;
+                    product.ReviewVideoUrl = (model.ProductView.ReviewVideoUrl.IsNullOrWhiteSpace())
+                        ? ""
+                        : model.ProductView.ReviewVideoUrl;
+
+                    if (model.ProductView.ProductImage != null)
+                    {
+                        if (model.ProductView.ProductImage.ContentLength > (4*1024*1024))
+                        {
+                            ModelState.AddModelError("CustomError", "Image can not be lager than 4MB.");
+                            return View();
+                        }
+                        if (
+                            !(model.ProductView.ProductImage.ContentType == "image/jpeg" ||
+                              model.ProductView.ProductImage.ContentType == "image/gif"))
+                        {
+                            ModelState.AddModelError("CustomError", "Image must be in jpeg or gif format.");
+                        }
+
+                        byte[] data = new byte[model.ProductView.ProductImage.ContentLength];
+                        model.ProductView.ProductImage.InputStream.Read(data, 0,
+                            model.ProductView.ProductImage.ContentLength);
+
+                        product.Image = data;
+                    }
+
+                    //alt image 0
+                    if (model.ProductView.ProductImageAlt0 != null)
+                    {
+                        if (model.ProductView.ProductImageAlt0.ContentLength > (4*1024*1024))
+                        {
+                            ModelState.AddModelError("CustomError", "Image can not be lager than 4MB.");
+                            return View();
+                        }
+                        if (
+                            !(model.ProductView.ProductImageAlt0.ContentType == "image/jpeg" ||
+                              model.ProductView.ProductImageAlt0.ContentType == "image/gif"))
+                        {
+                            ModelState.AddModelError("CustomError", "Image must be in jpeg or gif format.");
+                        }
+
+                        byte[] data = new byte[model.ProductView.ProductImageAlt0.ContentLength];
+                        model.ProductView.ProductImageAlt0.InputStream.Read(data, 0,
+                            model.ProductView.ProductImageAlt0.ContentLength);
+
+                        product.ImageAlt0 = data;
+                    }
+
+                    //alt image 1
+                    if (model.ProductView.ProductImageAlt1 != null)
+                    {
+                        if (model.ProductView.ProductImageAlt1.ContentLength > (4*1024*1024))
+                        {
+                            ModelState.AddModelError("CustomError", "Image can not be lager than 4MB.");
+                            return View();
+                        }
+                        if (
+                            !(model.ProductView.ProductImageAlt1.ContentType == "image/jpeg" ||
+                              model.ProductView.ProductImageAlt1.ContentType == "image/gif"))
+                        {
+                            ModelState.AddModelError("CustomError", "Image must be in jpeg or gif format.");
+                        }
+
+                        byte[] data = new byte[model.ProductView.ProductImageAlt1.ContentLength];
+                        model.ProductView.ProductImageAlt1.InputStream.Read(data, 0,
+                            model.ProductView.ProductImageAlt1.ContentLength);
+
+                        product.ImageAlt1 = data;
+                    }
+
+                    //update pricing
+                    foreach (var p in model.Offers)
+                    {
+                        var update = context.ProductOffers.SingleOrDefault(
+                            po => po.ProductId == product.Id && p.PriceTypeId == po.PriceTypeId);
+                        if (update != null)
+                        {
+                            update.Price = p.Price;
+                        }
+                        else
                         {
                             context.ProductOffers.Add(new ProductOffer()
                             {
-                                ProductId = productId,
+                                ProductId = product.Id,
                                 PriceTypeId = p.PriceTypeId,
-                                Price = p.Price
-
+                                Discountable = true,
+                                Price = p.Price,
+                                Code = product.Code + "-" + "O"
                             });
                         }
-
-                        //weight
-                        decimal ounces = model.ProductView.WeightOunce;
-                        decimal lbs = model.ProductView.WeightPounds;
-                        decimal weight = lbs + (ounces/16);
-                        newProd.Weight = weight;
-
-                        //quantity on hand
-                        newProd.QuantityOnHand = model.ProductView.QuantityOnHand;
-
-                        //categories
-                        foreach (var cat in model.Categories)
-                        {
-
-                            if (cat.IsChecked)
-                            {
-                                newProd.Categories.Add(context.Categories.Single(c => c.Code == cat.Code));
-                            }
-                        }
-
-                        await context.SaveChangesAsync();
-
-                        return RedirectToAction("EditProduct", productId);
                     }
-                    else
+
+                    //weight
+                    decimal ounces = model.ProductView.WeightOunce;
+                    decimal lbs = model.ProductView.WeightPounds;
+                    decimal weight = lbs + (ounces/16);
+                    product.Weight = weight;
+
+
+                    //quantity on hand
+                    product.QuantityOnHand = model.ProductView.QuantityOnHand;
+
+
+                    //categories
+                    model.ProductView.Categories.AddRange(
+                        context.Products.Where(p => p.Id == id).SelectMany(prod => prod.Categories));
+
+                    var setCat = model.ProductView.Categories;
+
+                    //load both  collection before removing many-to-many can work !
+                    context.Entry(product).Collection("Categories").Load();
+
+                    foreach (var cat in model.Categories)
                     {
 
-
-                        //existing product
-                        var product = context.Products.Single(p => p.Id == id);
-
-                        //string paymentTypeValue = Request.Form["paymentType"].ToString();
-
-                        product.Description = model.ProductView.Description;
-                        //product.Code = model.ProductView.Code;
-                        product.DetailDescription = model.ProductView.DetailDescription;
-                        product.BuyInPrice = model.ProductView.BuyInPrice;
-                        product.Active = model.ProductView.Active;
-                        product.Notes = model.ProductView.Notes;
-                        product.ReviewVideoUrl = (model.ProductView.ReviewVideoUrl.IsNullOrWhiteSpace())
-                            ? ""
-                            : model.ProductView.ReviewVideoUrl;
-
-                        if (model.ProductView.ProductImage != null)
+                        if (cat.IsChecked && !setCat.Select(c => c.Code).ToList().Contains(cat.Code))
                         {
-                            if (model.ProductView.ProductImage.ContentLength > (4*1024*1024))
-                            {
-                                ModelState.AddModelError("CustomError", "Image can not be lager than 4MB.");
-                                return View();
-                            }
-                            if (
-                                !(model.ProductView.ProductImage.ContentType == "image/jpeg" ||
-                                  model.ProductView.ProductImage.ContentType == "image/gif"))
-                            {
-                                ModelState.AddModelError("CustomError", "Image must be in jpeg or gif format.");
-                            }
-
-                            byte[] data = new byte[model.ProductView.ProductImage.ContentLength];
-                            model.ProductView.ProductImage.InputStream.Read(data, 0,
-                                model.ProductView.ProductImage.ContentLength);
-
-                            product.Image = data;
+                            product.Categories.Add(context.Categories.Single(c => c.Code == cat.Code));
                         }
-
-                        //alt image 0
-                        if (model.ProductView.ProductImageAlt0 != null)
-                        {
-                            if (model.ProductView.ProductImageAlt0.ContentLength > (4*1024*1024))
-                            {
-                                ModelState.AddModelError("CustomError", "Image can not be lager than 4MB.");
-                                return View();
-                            }
-                            if (
-                                !(model.ProductView.ProductImageAlt0.ContentType == "image/jpeg" ||
-                                  model.ProductView.ProductImageAlt0.ContentType == "image/gif"))
-                            {
-                                ModelState.AddModelError("CustomError", "Image must be in jpeg or gif format.");
-                            }
-
-                            byte[] data = new byte[model.ProductView.ProductImageAlt0.ContentLength];
-                            model.ProductView.ProductImageAlt0.InputStream.Read(data, 0,
-                                model.ProductView.ProductImageAlt0.ContentLength);
-
-                            product.ImageAlt0 = data;
-                        }
-
-                        //alt image 1
-                        if (model.ProductView.ProductImageAlt1 != null)
-                        {
-                            if (model.ProductView.ProductImageAlt1.ContentLength > (4*1024*1024))
-                            {
-                                ModelState.AddModelError("CustomError", "Image can not be lager than 4MB.");
-                                return View();
-                            }
-                            if (
-                                !(model.ProductView.ProductImageAlt1.ContentType == "image/jpeg" ||
-                                  model.ProductView.ProductImageAlt1.ContentType == "image/gif"))
-                            {
-                                ModelState.AddModelError("CustomError", "Image must be in jpeg or gif format.");
-                            }
-
-                            byte[] data = new byte[model.ProductView.ProductImageAlt1.ContentLength];
-                            model.ProductView.ProductImageAlt1.InputStream.Read(data, 0,
-                                model.ProductView.ProductImageAlt1.ContentLength);
-
-                            product.ImageAlt1 = data;
-                        }
-
-                        //update pricing
-                        foreach (var p in model.Offers)
-                        {
-                            var update = context.ProductOffers.SingleOrDefault(
-                                po => po.ProductId == product.Id && p.PriceTypeId == po.PriceTypeId);
-                            if (update != null)
-                            {
-                                update.Price = p.Price;
-                            }
-                            else
-                            {
-                                context.ProductOffers.Add(new ProductOffer()
-                                {
-                                    ProductId = product.Id,
-                                    PriceTypeId = p.PriceTypeId,
-                                    Discountable = true,
-                                    Price = p.Price,
-                                    Code = product.Code + "-" + "O"
-                                });
-                            }
-                        }
-
-                        //weight
-                        decimal ounces = model.ProductView.WeightOunce;
-                        decimal lbs = model.ProductView.WeightPounds;
-                        decimal weight = lbs + (ounces/16);
-                        product.Weight = weight;
-
-
-                        //quantity on hand
-                        product.QuantityOnHand = model.ProductView.QuantityOnHand;
-
-
-                        //categories
-                        model.ProductView.Categories.AddRange(
-                            context.Products.Where(p => p.Id == id).SelectMany(prod => prod.Categories));
-
-                        var setCat = model.ProductView.Categories;
-
-                        //load both  collection before removing many-to-many can work !
-                        context.Entry(product).Collection("Categories").Load();
-
-                        foreach (var cat in model.Categories)
+                        if (!cat.IsChecked && setCat.Select(c => c.Code).ToList().Contains(cat.Code))
                         {
 
-                            if (cat.IsChecked && !setCat.Select(c => c.Code).ToList().Contains(cat.Code))
-                            {
-                                product.Categories.Add(context.Categories.Single(c => c.Code == cat.Code));
-                            }
-                            if (!cat.IsChecked && setCat.Select(c => c.Code).ToList().Contains(cat.Code))
-                            {
 
-
-                                product.Categories.Remove(context.Categories.Single(c => c.Code == cat.Code));
-                            }
+                            product.Categories.Remove(context.Categories.Single(c => c.Code == cat.Code));
                         }
-
-                        await context.SaveChangesAsync();
                     }
-                    return RedirectToAction("EditProduct", model.ProductView.Id);
+
+                    await context.SaveChangesAsync();
                 }
 
+                return RedirectToAction("EditProduct", id);
             }
-            return View();
+            
         }
 
 

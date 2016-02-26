@@ -21,7 +21,7 @@ namespace MyProject.Models.ViewModels
         [Display(Name = "Product Code")]
         public string Code { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Description is required")]
         [Display(Name = "Enter description")]
         public string Description { get; set; }
 
@@ -31,12 +31,12 @@ namespace MyProject.Models.ViewModels
         [Display(Name = "Bought Quantity")]
         public int BoughtQuantity { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Detail description is required")]
         [AllowHtml]
         [Display(Name = "Enter detail description")]
         public string DetailDescription { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Purchase price is required")]
         [DisplayName("Purchased Price (the price we bought in the product)")]
         public decimal BuyInPrice { get; set; }
 
