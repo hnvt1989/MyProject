@@ -53,7 +53,7 @@ namespace MyProject.Models.ViewModels
                     {
                         Id = c.Id,
                         Code = c.Code,
-                        Description = c.Description,
+                        Description = c.Description.ToUpper(),
                         Icon = c.Icon,
                         ParentId = c.ParentId
                     }));

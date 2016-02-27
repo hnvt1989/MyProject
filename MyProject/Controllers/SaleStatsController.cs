@@ -20,14 +20,27 @@ namespace MyProject.Controllers
         [HttpPost]
         public ActionResult QuickSummaryByPeriod(string period)
         {
-            var date = DateTime.Parse(period);
-            var start = new DateTime(date.Year, date.Month, 1);
-            var end = start.AddMonths(1);
+            var date = new DateTime();
+            var start = new DateTime();
+            var end = new DateTime();
+
+            if (period != "All")
+            {
+                date = DateTime.Parse(period);
+                start = new DateTime(date.Year, date.Month, 1);
+                end = start.AddMonths(1);
+            }
+            else
+            {
+                start = DateTime.MinValue;
+                end = DateTime.Now;
+            }
+
             var ret = new SaleQuickSummaryViewModel();
 
             using (var context = new ShoppingCartContext())
             {
-                var orderPlaced = context.Orders.Where(o => o.OrderDate <= end && o.OrderDate >= start).Select(o => o.Id).ToList();
+                var orderPlaced = context.Orders.Where(o => o.OrderDate <= end && o.OrderDate >= start && o.OrderStatusId != 7).Select(o => o.Id).ToList();
                 ret.NumberOfOrderPlaced = orderPlaced.Count;
                 if (ret.NumberOfOrderPlaced > 0)
                 {
@@ -66,5 +79,74 @@ namespace MyProject.Controllers
             
             return Json(ret);
         }
+
+        [HttpPost]
+        public ActionResult QuickFinanceStatistic(string period)
+        {
+            var date = new DateTime();
+            var start = new DateTime();
+            var end = new DateTime();
+
+            if (period != "All")
+            {
+                date = DateTime.Parse(period);
+                start = new DateTime(date.Year, date.Month, 1);
+                end = start.AddMonths(1);
+            }
+            else
+            {
+                start = DateTime.MinValue;
+                end = DateTime.Now;
+            }
+            
+            var ret = new QuickFinanceStatisticsViewModel();
+
+            using (var context = new ShoppingCartContext())
+            {
+                var orderPlaced = context.Orders.Where(o => o.OrderDate <= end && o.OrderDate >= start && o.OrderStatusId != 7).Select(o => o.Id).ToList();
+                //ret.NumberOfOrderPlaced = orderPlaced.Count;
+                if (orderPlaced.Count > 0)
+                {
+                    //context.LineOrderDetails.Where(l => orderPlaced.Contains(l.OrderId))
+                    //    .ForEach(s => ret.NumberOfItemSold += s.Quantity);
+                    context.LineOrderDetails.Where(l => orderPlaced.Contains(l.OrderId))
+                        .ForEach(s =>
+                        {
+                            //ret.EstimatedProfit += s.Profit;
+                            ret.TotalSale += s.Total;
+                            ret.Fee += s.ShippingCost;
+                        });
+
+                    var currencyConversionRate =
+                        Decimal.Parse(
+                            context.AppSettings.Where(a => a.Code == "ConversionRate").Select(ab => ab.Value).First());
+                    //ret.EstimatedProfit = Math.Round(ret.EstimatedProfit / currencyConversionRate, 2,
+                    //    MidpointRounding.AwayFromZero);
+
+                    ret.Revenue = Math.Round(ret.Revenue / currencyConversionRate, 2, MidpointRounding.AwayFromZero);
+                    ret.Fee = Math.Round(ret.Fee / currencyConversionRate, 2, MidpointRounding.AwayFromZero);
+
+                    var totalPosted =
+                        context.Orders.Where(o => o.OrderDate <= end && o.OrderDate >= start)
+                            .Select(oa => oa.PostedAmount)
+                            .Sum();
+                    if (totalPosted > 0)
+                        ret.Revenue = Math.Round(totalPosted / currencyConversionRate, 2,
+                            MidpointRounding.AwayFromZero);
+                    
+                    
+                    if(ret.TotalSale > 0)
+                        ret.TotalSale = Math.Round(ret.TotalSale / currencyConversionRate, 2,
+                            MidpointRounding.AwayFromZero);
+                    if(ret.Expense > 0)
+                        ret.Expense = Math.Round(ret.Expense / currencyConversionRate, 2,
+                            MidpointRounding.AwayFromZero);
+                    ret.Bank = ret.Revenue - ret.Expense;
+                }
+            }
+
+            return Json(ret);
+        }
+
     }
 }

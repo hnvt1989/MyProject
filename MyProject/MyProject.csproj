@@ -219,6 +219,8 @@
     <Compile Include="Models\Core\AppSetting.cs" />
     <Compile Include="Models\Core\ProductSortingOrder.cs" />
     <Compile Include="Models\Core\Sequence.cs" />
+    <Compile Include="Models\Earning\Earning.cs" />
+    <Compile Include="Models\Earning\Expense.cs" />
     <Compile Include="Models\ShoppingCart\Address.cs" />
     <Compile Include="Models\ShoppingCart\PaymentTransaction.cs" />
     <Compile Include="Models\ShoppingCart\Promotion.cs" />
@@ -246,6 +248,7 @@
     <Compile Include="Models\ViewModels\ProductManagementViewModel.cs" />
     <Compile Include="Models\ViewModels\ProductViewModel.cs" />
     <Compile Include="Models\ViewModels\PromotionSettingViewModel.cs" />
+    <Compile Include="Models\ViewModels\QuickFinanceStatisticsViewModel.cs" />
     <Compile Include="Models\ViewModels\SaleQuickSummaryViewModel.cs" />
     <Compile Include="Models\ViewModels\SaleStatViewModel.cs" />
     <Compile Include="Models\ViewModels\ShoppingCartAddViewModel.cs" />

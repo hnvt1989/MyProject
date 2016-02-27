@@ -23,6 +23,7 @@ namespace MyProject.Models.ViewModels
                     //return the list of the following 12 months
                     var ret = new Dictionary<string, string>();
                     ret.Add("Default", "Select a period");
+                    ret.Add("All", "All");
                     for (int i = 0; i < 12; i++)
                     {
                         var next = firstMonth.AddMonths(i).ToString("MM/yyyy");
@@ -36,5 +37,6 @@ namespace MyProject.Models.ViewModels
         public string SelectedPeriod { get; set; }
 
         public SaleQuickSummaryViewModel QuickSummary { get; set; }
+        public QuickFinanceStatisticsViewModel QuickFinance { get; set; }
     }
 }

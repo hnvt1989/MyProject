@@ -8,7 +8,7 @@
 
 <script type="text/javascript">
     $(function () {
-        $("#period").change(function () {
+        $("#periodsale").change(function () {
             var selectedPeriod = $('option:selected', this).text();
             if (selectedPeriod != '') {
                 // Perform the ajax post
@@ -25,6 +25,22 @@
             }
         }
         );
+
+        $("#periodfinance").change(function () {
+            var selectedPeriod = $('option:selected', this).text();
+            if (selectedPeriod != '') {
+                // Perform the ajax post
+                $.post("/SaleStats/QuickFinanceStatistic", { "period": selectedPeriod },
+                    function (data) {
+                        $('#f-total-sale').text(data.TotalSale);
+                        $('#f-revenue').text(data.Revenue);
+                        $('#f-expense').text(data.Expense);
+                        $('#f-bank').text(data.Bank);
+                        $('#f-fee').text(data.Fee);
+                    });
+            }
+        }
+        );
     })
 
 </script>
@@ -34,7 +50,7 @@
         <div>
             <div class="large-8 columns">
                 @Html.LabelFor(m => m.AvailPeriods)
-                @Html.DropDownListFor(m => m.SelectedPeriod, Model.AvailPeriods, new { style = "width: 160px", @id = "period" })
+                @Html.DropDownListFor(m => m.SelectedPeriod, Model.AvailPeriods, new { style = "width: 160px", @id = "periodsale" })
             </div>
 
             <div class="large-8 columns">
@@ -44,39 +60,39 @@
                 <p></p>
                 Total Sale (in USD): <span id="total-sale" style="color: #dc143c"></span>
                 <p></p>
-                Total Received (in USD): <span id="total-received" style="color: #dc143c"></span>
-                <p></p>
                 Total Fee (in USD): <span id="total-fee" style="color: #dc143c"></span>
                 <p></p>
+                <span style="background-color: #00ff00">Total Received (in USD): <span id="total-received" style="color: #dc143c"></span></span>
+                <p></p>
+                ========================
+                <br/>
                 Est Profit (in USD): <span id="estimated-profit" style="color: #dc143c"></span>
                 <p></p>
-                Actual Profit (in USD): <span id="actual-profit" style="color: #dc143c"></span>
+                <span style="background-color: #00ff00">Actual Profit (in USD): <span id="actual-profit" style="color: #dc143c"></span> </span>
             </div>
         </div>
     </fieldset>
 
 
     <fieldset>
-        <h4>Sales Detail Summary</h4>
+        <h4>Finance Quick Summary</h4>
         <div>
             <div class="large-8 columns">
+                @Html.LabelFor(m => m.AvailPeriods)
+                @Html.DropDownListFor(m => m.SelectedPeriod, Model.AvailPeriods, new { style = "width: 160px", @id = "periodfinance" })
             </div>
 
             <div class="large-8 columns">
-                To be working on ...
-                @*                Number of order placed: <span id="num-order-placed" style="color: #dc143c"></span>
+                Sale: <span id="f-total-sale" style="color: #dc143c"></span>
                 <p></p>
-                Number of items sold: <span id="num-items-sold" style="color: #dc143c"></span>
+                Fee: <span id="f-fee" style="color: #dc143c"></span>
                 <p></p>
-                Total Sale (in USD): <span id="total-sale" style="color: #dc143c"></span>
+                <span style="background-color: #00ff00">Revenue: <span id="f-revenue" style="color: #dc143c"></span></span>
                 <p></p>
-                Total Received (in USD): <span id="total-received" style="color: #dc143c"></span>
+                Expense: <span id="f-expense" style="color: #dc143c"></span>
                 <p></p>
-                Total Fee (in USD): <span id="total-fee" style="color: #dc143c"></span>
+                <span style="background-color: #00ff00">Bank: <span id="f-bank" style="color: #dc143c"></span></span>
                 <p></p>
-                Est Profit (in USD): <span id="estimated-profit" style="color: #dc143c"></span>
-                <p></p>
-                Actual Profit (in USD): <span id="actual-profit" style="color: #dc143c"></span>*@
             </div>
         </div>
     </fieldset>
