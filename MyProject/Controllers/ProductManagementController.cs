@@ -589,8 +589,13 @@ namespace MyProject.Controllers
 
             using (var context = new ShoppingCartContext())
             {
+                var shippingRate = Convert.ToDecimal(context.AppSettings.Single(a => a.Code == "ShippingRate").Value);
+
                 //existing product
                 var product = context.Products.Single(p => p.Id == id);
+
+                var shippingCost = product.Weight * shippingRate;
+
                 if (product != null)
                 {
                     //query for available price type and categories, also product offers for this product
@@ -599,7 +604,7 @@ namespace MyProject.Controllers
                     var retailpriceTypeid = context.PriceTypes.Single(pt => pt.Code == "R").Id;
                     ret.Price =
                         context.ProductOffers.Single(o => o.ProductId == id && o.PriceTypeId == retailpriceTypeid).Price;
-
+                    
                     ret.Code = product.Code;
                     ret.Description = product.Description;
                     ret.DetailDescription = product.DetailDescription;
@@ -607,9 +612,10 @@ namespace MyProject.Controllers
                     ret.ImageAlt0 = product.ImageAlt0;
                     ret.ImageAlt1 = product.ImageAlt1;
                     ret.Id = product.Id;
-                    ret.BuyInPrice = product.BuyInPrice;
+                    ret.BuyInPrice = product.BuyInPrice + shippingCost;
                     ret.Active = product.Active;
                     ret.QuantityOnHand = product.QuantityOnHand;
+                    ret.Profit = ret.Price - ret.BuyInPrice;
 
                     TempData["ProductEditId"] = id;
 

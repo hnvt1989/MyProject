@@ -119,6 +119,9 @@ namespace MyProject.Models.ViewModels
         [DisplayName("Giá rao bán")]
         public decimal Price { get; set; }
 
+        [DisplayName("Tiền lời")]
+        public decimal Profit { get; set; }
+
         [DisplayName("Giá mua vào")]
         public decimal BuyInPrice { get; set; }
 
