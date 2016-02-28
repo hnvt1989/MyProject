@@ -82,14 +82,18 @@
                 <div class="panel">
                     <h5><b><em>Giá cả: </em></b></h5>
                     <div class="form-group">
-                        <span>Giá rao bán: </span><span style="color: #b22222"><b>@Model.Price.ToString("N0")</b></span> đ
+                        <span>Giá rao bán: </span><span style="color: #b22222"><b>@Model.Price.ToString("N0")</b></span>
+                        
                     </div>
+@*                    <div class="form-group">
+                        <span>(Đã cộng:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #b22222"><b>@Model.ShippingCost.ToString("N0")</b></span> tiền gởi về từ Mỹ)</span>
+                    </div>*@
                     <div class="form-group">
-                        <span>Giá mua vào: </span><span style="color: #b22222"><b>@Model.BuyInPrice.ToString("N0")</b></span> đ
+                        <span>Giá mua: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #b22222"><b>@Model.BuyInPrice.ToString("N0")</b></span> đ
                     </div>
                     ===============
                     <div class="form-group">
-                        <span style="background: #00ff00">Tiền lời: <span style="color: #ff0000"><b>@Model.Profit.ToString("N0")</b></span> đ</span>
+                        <span style="background: #00ff00">Tiền lời: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #ff0000"><b>@Model.Profit.ToString("N0")</b></span> đ</span>
                     </div> 
                 </div>
             </div>

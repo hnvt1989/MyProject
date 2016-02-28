@@ -612,7 +612,11 @@ namespace MyProject.Controllers
                     ret.ImageAlt0 = product.ImageAlt0;
                     ret.ImageAlt1 = product.ImageAlt1;
                     ret.Id = product.Id;
+
+                    ret.ShippingCost = shippingCost;
                     ret.BuyInPrice = product.BuyInPrice + shippingCost;
+                    ret.Price += shippingCost;
+
                     ret.Active = product.Active;
                     ret.QuantityOnHand = product.QuantityOnHand;
                     ret.Profit = ret.Price - ret.BuyInPrice;
