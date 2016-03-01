@@ -664,6 +664,8 @@
     <Content Include="Content\foundation\webicons\webicon-zerply.png" />
     <Content Include="Content\foundation\webicons\webicon-zerply.svg" />
     <Content Include="Content\Icon\lotion.JPG" />
+    <Content Include="Content\Icon\minus.JPG" />
+    <Content Include="Content\Icon\plus.JPG" />
     <Content Include="Content\Icon\Zippo.JPG" />
     <Content Include="Content\Images\banner.jpg" />
     <Content Include="Content\Images\Email.JPG" />
@@ -676,7 +678,6 @@
     <Content Include="Content\Images\DefaultProfile.jpg" />
     <Content Include="Content\foundation\foundation.css" />
     <Content Include="Content\ie.css" />
-    <Content Include="Content\Images\Image5.jpg" />
     <Content Include="Content\Images\Profile2.jpg" />
     <Content Include="Content\Images\SiteOwner.jpg" />
     <Content Include="Content\Images\sort_asc.png" />
@@ -694,10 +695,6 @@
     <Content Include="Content\Site.css" />
     <Content Include="App_Readme\Foundation for Sites\readme.md" />
     <Content Include="config.rb" />
-    <Content Include="Content\Images\Image4.jpg" />
-    <Content Include="Content\Images\Image1.jpg" />
-    <Content Include="Content\Images\Image2.jpg" />
-    <Content Include="Content\Images\Image3.jpg" />
     <Content Include="sass\Site.scss">
       <Compile>True</Compile>
       <Minify>True</Minify>
