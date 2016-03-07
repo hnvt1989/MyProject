@@ -88,8 +88,7 @@
 
                         <table>
                             <tr>
-                                @*                            <th>
-                            </th>*@
+                                <th>Mã số</th>
                                 <th>Tên sản phẩm
                                 </th>
                                 <th>Giá tiền
@@ -124,6 +123,7 @@
                                         }
                                     }
                                 </td>*@
+                                    <td>@item.Product.Code</td>
                                     <td>
                                         @item.Product.Description
                                     </td>
@@ -160,6 +160,7 @@
                            <td></td>
                             <td></td>
                             <td></td>*@
+                                <td></td>
                                 <td><b>@ViewBag.TotalShippingCost</b></td>
                                 <td id="cart-total">
                                     <b>@String.Format("{0:N0}", @Model.ShippingCost)</b>
@@ -173,6 +174,7 @@
                             <td></td>
                             <td></td>
                             <td></td>*@
+                                <td></td>
                                 <td><b>@ViewBag.CartTotal</b></td>
                                 <td id="cart-total">
                                     <b>@String.Format("{0:N0}", @Model.Total)</b>
@@ -180,7 +182,45 @@
                             </tr>
                         </table>
                     </fieldset>
+    <fieldset>
+        <h4>Tiền lời</h4>
+        <table>
+            <tr>
+                <th>Tổng tiền lời
+                </th>
+                <th>Hoa hồng
+                </th>
+                <th>Tiền lời của JA Shop
+                </th>
+                <th>Tổng tiền JA Shop nhận
+                </th>
+            </tr>
+            <tr>
+                <td>@Model.TotalProfit.ToString("N0")
+                </td>
+                <td>
+                    <div class="col-md-10">
+                        @Html.KTextBoxFor(m => m.Commission, new {id = "commission", Value = Model.Commission, @class = "fill"})
+                        @Html.HiddenFor(m => m.Commission)
+                    </div>
 
+                </td>
+                <td>
+                    <div class="col-md-10">
+                        @Html.KTextBoxFor(m => m.TrueProfit, new {id = "trueProfit", Value = Model.TrueProfit, @class = "fill"})
+                        @Html.HiddenFor(m => m.TrueProfit)
+                    </div>
+
+                </td>
+                <td>@{
+                        var remaining = Model.Total - Model.Commission;
+                        <span>@remaining.ToString("N0")</span>
+                    }
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+                    
                     <fieldset>
                         <legend>
                             <h4>Thanh toán</h4>

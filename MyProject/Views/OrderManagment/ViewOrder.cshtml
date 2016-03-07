@@ -48,35 +48,35 @@
                         </div>
                     </div>
                 </fieldset>
-                <fieldset>
-                    <legend>
-                        <h4>Sản phẩm</h4>
-                    </legend>
+    <fieldset>
+        <legend>
+            <h4>Sản phẩm</h4>
+        </legend>
 
-                    <table>
-                        <tr>
-@*                            <th>
-                            </th>*@
-                            <th>Tên sản phẩm
-                            </th>
-                            <th>Giá tiền
-                            </th>
-                            <th>Số lượng
-                            </th>
-@*                            <th>Net
+        <table>
+            <tr>
+                <th>Mã số
+                </th>
+                <th>Tên sản phẩm
+                </th>
+                <th>Giá tiền
+                </th>
+                <th>Số lượng
+                </th>
+                @*                            <th>Net
                             </th>
                             <th>Discount
                             </th>
                             <th>Shipping
                             </th>*@
-                            <th>Tổng
-                            </th>
-                            <th></th>
-                        </tr>
-                        @foreach (var item in Model.OrderDetails)
-                        {
-                            <tr id="row-@item.Product.Id">
-@*                                <td>
+                <th>Tổng
+                </th>
+                <th></th>
+            </tr>
+            @foreach (var item in Model.OrderDetails)
+            {
+                <tr id="row-@item.Product.Id">
+                    @*                                <td>
                                     @{
                                         if (@item.Product.Image != null)
                                         {
@@ -91,17 +91,18 @@
                                         }
                                     }
                                 </td>*@
-                                <td>
-                                    @item.Product.Description
-                                </td>
-                                <td>
-                                    @String.Format("{0:N0}",@item.UnitPrice)
-                                    
-                                </td>
-                                <td id="item-count-@item.Product.Id">
-                                    @item.Quantity
-                                </td>
-@*                                <td id="item-net-@item.Product.Id">
+                    <td>@item.Product.Code</td>
+                    <td>
+                        @item.Product.Description
+                    </td>
+                    <td>
+                        @String.Format("{0:N0}", @item.UnitPrice)
+
+                    </td>
+                    <td id="item-count-@item.Product.Id">
+                        @item.Quantity
+                    </td>
+                    @*                                <td id="item-net-@item.Product.Id">
                                     @String.Format("{0:N}",@item.Net)
                         
                                 </td>
@@ -113,40 +114,71 @@
                                     @String.Format("{0:N}",@item.ShippingCost)
                         
                                 </td>*@
-                                <td id="item-sum-@item.Product.Id">
-                                    @String.Format("{0:N0}",@item.Total)
-                        
-                                </td>
-                            </tr>
-                        }
+                    <td id="item-sum-@item.Product.Id">
+                        @String.Format("{0:N0}", @item.Total)
 
-                        <tr>
-                            <td></td>
-                            <td></td>
-                             @*                            <td></td>
+                    </td>
+                </tr>
+            }
+
+            <tr>
+                <td></td>
+                <td></td>
+                @*                            <td></td>
                            <td></td>
                             <td></td>
                             <td></td>*@
-                            <td><b>@ViewBag.TotalShippingCost</b></td>
-                            <td id="cart-total">
-                                <b>@String.Format("{0:N0}", @Model.ShippingCost)</b>
-                            </td>
-                        </tr>
+                <td></td>
+                <td><b>@ViewBag.TotalShippingCost</b></td>
+                <td id="cart-total">
+                    <b>@String.Format("{0:N0}", @Model.ShippingCost)</b>
+                </td>
+            </tr>
 
-                        <tr>
-                            <td></td>
-                            <td></td>
-   @*                         <td></td>
+            <tr>
+                <td></td>
+                <td></td>
+                @*                         <td></td>
                             <td></td>
                             <td></td>
                             <td></td>*@
-                            <td><b>@ViewBag.CartTotal</b></td>
-                            <td id="cart-total">
-                                <b>@String.Format("{0:N0}",@Model.Total)</b>
-                            </td>
-                        </tr>
-                    </table>
-                </fieldset>
+                <td></td>
+                <td><b>@ViewBag.CartTotal</b></td>
+                <td id="cart-total">
+                    <b>@String.Format("{0:N0}", @Model.Total)</b>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+
+    <fieldset>
+        <h4>Tiền lời</h4>
+        <table>
+            <tr>
+                <th>Tổng tiền lời
+                </th>
+                <th>Hoa hồng
+                </th>
+                <th>Tiền lời của JA Shop
+                </th>
+                <th>Tổng tiền JA Shop nhận
+                </th>
+            </tr>
+            <tr>
+                <td>@Model.TotalProfit.ToString("N0")
+                </td>
+                <td>@Model.Commission.ToString("N0")
+                </td>
+                <td>@Model.TrueProfit.ToString("N0")
+                </td>
+                <td>@{
+                        var remaining = Model.Total - Model.Commission;
+                        <span>@remaining.ToString("N0")</span>
+                    }
+                </td>
+            </tr>
+        </table>
+    </fieldset>
 
         <fieldset>
             <h4>Thanh toán</h4>

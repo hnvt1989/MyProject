@@ -18,7 +18,7 @@ namespace MyProject.Models.ViewModels
             NumberOfOrderPlaced = 0;
             TotalSale = 0m;
             EstimatedProfit = 0m;
-
+            Commission = 0m;
             TotalReceived = 0m;
             ActualProfit = 0m;
             Fee = 0m;
@@ -29,6 +29,7 @@ namespace MyProject.Models.ViewModels
 
         public decimal TotalSale { get; set; }
 
+        public decimal Commission { get; set; }
         public decimal EstimatedProfit { get; set; }
 
         public decimal TotalReceived { get; set; }

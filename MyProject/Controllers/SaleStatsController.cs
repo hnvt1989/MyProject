@@ -33,7 +33,7 @@ namespace MyProject.Controllers
             else
             {
                 start = DateTime.MinValue;
-                end = DateTime.Now;
+                end = DateTime.Now.AddDays(1); //time zone different between local and hosted web
             }
 
             var ret = new SaleQuickSummaryViewModel();
@@ -46,14 +46,21 @@ namespace MyProject.Controllers
                 {
                     context.LineOrderDetails.Where(l => orderPlaced.Contains(l.OrderId))
                         .ForEach(s => ret.NumberOfItemSold += s.Quantity);
-                    context.LineOrderDetails.Where(l => orderPlaced.Contains(l.OrderId))
-                        .ForEach(s =>
-                        {
-                            ret.EstimatedProfit += s.Profit;
-                            ret.TotalSale += s.Total;
-                            ret.Fee += s.ShippingCost;
-                        });
-
+                    //context.LineOrderDetails.Where(l => orderPlaced.Contains(l.OrderId))
+                    //    .ForEach(s =>
+                    //    {
+                    //        ret.EstimatedProfit += s.Profit;
+                    //        ret.TotalSale += s.Total;
+                    //        ret.Fee += s.ShippingCost;
+                    //    });
+                    context.Orders.Where(order => orderPlaced.Contains(order.Id)).
+                        ForEach(o =>
+                    {
+                        ret.EstimatedProfit += o.Profit;
+                        ret.TotalSale += (o.Total - o.ShippingCost);
+                        ret.Fee += o.ShippingCost;
+                        ret.Commission += o.Commission;
+                    });
                     var currencyConversionRate =
                         Decimal.Parse(
                             context.AppSettings.Where(a => a.Code == "ConversionRate").Select(ab => ab.Value).First());
@@ -70,7 +77,7 @@ namespace MyProject.Controllers
                     if (totalPosted > 0)
                         ret.TotalReceived = Math.Round(totalPosted/currencyConversionRate, 2,
                             MidpointRounding.AwayFromZero);
-                    ret.ActualProfit = ret.EstimatedProfit + (ret.TotalReceived - ret.TotalSale - ret.Fee);
+                    ret.ActualProfit = ret.EstimatedProfit + (ret.TotalReceived - ret.TotalSale - ret.Fee - ret.Commission);
 
                     //top customers
 
@@ -96,7 +103,7 @@ namespace MyProject.Controllers
             else
             {
                 start = DateTime.MinValue;
-                end = DateTime.Now;
+                end = DateTime.Now.AddDays(1); //time zone different between local and hosted web
             }
             
             var ret = new QuickFinanceStatisticsViewModel();
@@ -109,12 +116,20 @@ namespace MyProject.Controllers
                 {
                     //context.LineOrderDetails.Where(l => orderPlaced.Contains(l.OrderId))
                     //    .ForEach(s => ret.NumberOfItemSold += s.Quantity);
-                    context.LineOrderDetails.Where(l => orderPlaced.Contains(l.OrderId))
-                        .ForEach(s =>
+                    //context.LineOrderDetails.Where(l => orderPlaced.Contains(l.OrderId))
+                    //    .ForEach(s =>
+                    //    {
+                    //        //ret.EstimatedProfit += s.Profit;
+                    //        ret.TotalSale += s.Total;
+                    //        ret.Fee += s.ShippingCost;
+                    //    });
+
+                    context.Orders.Where(order => orderPlaced.Contains(order.Id)).
+                        ForEach(o =>
                         {
-                            //ret.EstimatedProfit += s.Profit;
-                            ret.TotalSale += s.Total;
-                            ret.Fee += s.ShippingCost;
+                            //ret.EstimatedProfit += o.Profit;
+                            ret.TotalSale += (o.Total - o.ShippingCost - o.Commission);
+                            ret.Fee += o.ShippingCost;
                         });
 
                     var currencyConversionRate =

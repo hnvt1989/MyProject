@@ -123,6 +123,18 @@ namespace MyProject.Controllers
             ret.OrderDate = order.OrderDate;
             ret.OrderStatusId = order.OrderStatusId;
             ret.OrderDetails = _context.LineOrderDetails.Where(p => p.OrderId == id).ToList();
+            ret.TotalProfit = order.Profit;
+            ret.Commission = order.Commission;
+            ret.TrueProfit = order.TrueProfit;
+
+            if (order.FullName.Contains("Hiển Nguyễn") || order.FullName.Contains("Hien Nguyen") ||
+                order.FullName.Contains("Nguyen Hien") || order.FullName.Contains("Nguyễn Hiển"))
+            {
+                if(ret.Commission == 0)
+                    ret.Commission = Math.Round((ret.TotalProfit / 2) / 1000, 0, MidpointRounding.AwayFromZero) * 1000;
+                if(ret.TrueProfit == 0)
+                    ret.TrueProfit = ret.TotalProfit - ret.Commission;
+            }
 
             if (ret.OrderStatusId > 0)
             {
@@ -185,6 +197,20 @@ namespace MyProject.Controllers
             ret.ShippingCost = order.ShippingCost;
             ret.PaymentTransaction = order.PaymentTransaction;
 
+
+            ret.TotalProfit = order.Profit;
+            ret.Commission = order.Commission;
+            ret.TrueProfit = order.TrueProfit;
+
+            if (order.FullName.Contains("Hiển Nguyễn") || order.FullName.Contains("Hien Nguyen") ||
+                order.FullName.Contains("Nguyen Hien") || order.FullName.Contains("Nguyễn Hiển"))
+            {
+                if (ret.Commission == 0)
+                    ret.Commission = Math.Round((ret.TotalProfit / 2) / 1000, 0, MidpointRounding.AwayFromZero) * 1000;
+                if (ret.TrueProfit == 0)
+                    ret.TrueProfit = ret.TotalProfit - ret.Commission;
+            }
+
             ret.OrderNumber = order.OrderNumber;
             ret.PaymentTransaction = order.PaymentTransaction;
             ret.ShippingAddress = _context.Addresses.Single(a => a.Id == order.ShippingAddressId);
@@ -209,7 +235,8 @@ namespace MyProject.Controllers
                 order.PaymentTransaction.Amount = model.PaymentTransaction.Amount;
                 order.PostedAmount = model.PaymentTransaction.Amount;
                 order.PaymentTransaction.PaymentStatusId = _context.PaymentStatuses.Single(p => p.Description == paymentStatus).Id;
-
+                order.TrueProfit = model.TrueProfit;
+                order.Commission = model.Commission;
                 order.PaymentTransaction.PaymentTypeId =
                     _context.PaymentTypes.Single(p => p.Description == paymentType).Id;
 

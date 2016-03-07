@@ -34,6 +34,8 @@ namespace MyProject.Models.ShoppingCart
         public decimal Discount { get; set; }
         public decimal PostedAmount { get; set; }//deposit
         public decimal Profit { get; set; }
+        public decimal TrueProfit { get; set; }
+        public decimal Commission { get; set; }
         public string Notes { get; set; }
         //public decimal ActualSoldAmount { get; set; } //the amount we actually sold.
 
