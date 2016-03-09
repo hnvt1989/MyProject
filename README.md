@@ -1,6 +1,6 @@
 MyProject
 ===========
-This is my personal project. It is a small e-commerce website. You can view the live version of the website here:
+This is my personal project. It is a small e-commerce website. You can view the live version of the website here (sorry but the site is in vietnamese :( )
 
 http://jashopvn.com/
 ==================
