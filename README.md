@@ -1,5 +1,9 @@
-CuztomizeIt
+MyProject
 ===========
+This is my personal project. It is a small e-commerce website. You can view the live version of the website here:
+
+http://jashopvn.com/
+==================
 
 12/24/2014
 
