@@ -13,7 +13,7 @@ Website features:
 ●	Sale Order status tracking
 ●	Product management: inventory, pricing, category, quantity on hand.
 ●	Sale Statistics: calculating revenue, profits and expenses
-●	Profile management: users can update their profile.
+●	User account management
 ============================================================
 
 12/24/2014
