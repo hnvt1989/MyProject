@@ -1,9 +1,20 @@
 MyProject
-===========
-This is my personal project. It is a small e-commerce website. You can view the live version of the website here (sorry but the site is in vietnamese :( )
+==========================================================
+This is my personal project. It is a small e-commerce website. 
 
-http://jashopvn.com/
-==================
+Production URL: http://jashopvn.com/
+==========================================================
+Technologies: Microsoft Entity Framework, MSSQL, C#, JavaScript, HTML, CSS, Ajax, Foundation framework, NUnit, AWS, Git. 
+
+Website features:
+●	Flexible configuration: application settings and content management to re-configure the application without the need to deploy new codes to the site. 
+●	Sale Order flow: view products, add products to cart, and place the order. Payment options (Cash, PayPals, etc) are not implemented yet.  Application will send out confirmation emails when the sale order is submitted
+●	Sale Promotions and discount: application could be configured to apply sale promotions (buy x items get y% discount, etc)
+●	Sale Order status tracking
+●	Product management: inventory, pricing, category, quantity on hand.
+●	Sale Statistics: calculating revenue, profits and expenses
+●	Profile management: users can update their profile.
+============================================================
 
 12/24/2014
 
