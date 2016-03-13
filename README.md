@@ -16,8 +16,8 @@ Website features:
 - Product management: inventory, pricing, category, quantity on hand. 
 - Sale Statistics: calculating revenue, profits and expenses
 - User account management
-============================================================
 
+----------------------------------------------------------
 12/24/2014
 
 Currently built with the packages:
