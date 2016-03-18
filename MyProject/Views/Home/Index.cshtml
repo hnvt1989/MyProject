@@ -39,7 +39,7 @@
             speed: 300,
             slidesToShow: 3,
             autoplay: false,
-            arrow: true,
+            arrow: false,
             mobileFirst: true
         });
         $('.best-selling').slick({
@@ -48,8 +48,19 @@
             speed: 300,
             slidesToShow: 3,
             autoplay: false,
-            arrow: true,
+            arrow: false,
             mobileFirst: true
+        });
+        $('.advertisement').slick({
+            dots: true,
+            infinite: true,
+            speed: 500,
+            slidesToShow: 1,
+            autoplay: true,
+            arrow: false,
+            mobileFirst: true,
+            prevArrow: null,
+            nextArrow: null,
         });
     });
     function expand(parent) {
@@ -75,8 +86,27 @@
     </div>
 }*@
 
-
 @if (Model.Advertisement.Ads.Count > 0)
+{
+    <div class="advertisement">
+        @for (int i = 0; i < Model.Advertisement.Ads.Count; i++)
+        {
+            if (Model.Advertisement.Ads[i].Image != null)
+            {
+                var base64 = Convert.ToBase64String(Model.Advertisement.Ads[i].Image);
+                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                var text = Model.Advertisement.Ads[i].AdText;
+                var style = Model.Advertisement.Ads[i].AdTextStyle;
+            <a href="@Model.Advertisement.Ads[i].Url">
+                <span style="@style">@text</span>
+                <img alt="slide" src="@imgSrc" height="150" width="1500"/>
+            </a>
+                }
+
+             }
+    </div>
+}
+@*@if (Model.Advertisement.Ads.Count > 0)
 {
     <ul class="example-orbit" data-orbit data-options="slide_number: false">
         @for (int i = 0; i < Model.Advertisement.Ads.Count; i++)
@@ -90,7 +120,6 @@
                 {
                     var base64 = Convert.ToBase64String(Model.Advertisement.Ads[i].Image);
                     var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-                    //var style = "color: #ffffff; background: #dc143c; font-size: 35px; display: block; text-align: center";
                     var text = Model.Advertisement.Ads[i].AdText;
                     var style = Model.Advertisement.Ads[i].AdTextStyle;
                             <a href="@Model.Advertisement.Ads[i].Url">
@@ -100,9 +129,6 @@
                 }
                     }
 
-                    @*                <div class="orbit-caption">
-                    Caption Two.
-                </div>*@
                 </li>
             }
             else
@@ -112,7 +138,6 @@
                     {
                         var base64 = Convert.ToBase64String(Model.Advertisement.Ads[i].Image);
                         var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-                        //var style = "color: #ffffff; background: #006400; font-size: 35px; display: block; text-align: center";
                         var text = Model.Advertisement.Ads[i].AdText;
                         var style = Model.Advertisement.Ads[i].AdTextStyle;
                         <a href="@Model.Advertisement.Ads[i].Url">
@@ -125,7 +150,9 @@
 
         }
     </ul>
-}
+}*@
+
+
 
 <div class="row">
 
