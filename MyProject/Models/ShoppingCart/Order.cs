@@ -26,6 +26,8 @@ namespace MyProject.Models.ShoppingCart
         //[ForeignKey("OrderStatus")]
         public int OrderStatusId { get; set; }
 
+        public int ShipmentId { get; set; }
+
         public string Phone { get; set; }
         public string Email { get; set; }
 

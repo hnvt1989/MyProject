@@ -1,0 +1,56 @@
+﻿@model MyProject.Models.ViewModels.ShipmentViewModel
+
+@{
+    ViewBag.Title = "Add Shipment";
+}
+
+<body>
+    <section id="ShipmentForm">
+        @using (Html.BeginForm("EditShipment", "Shipment", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data", model = Model }))
+        {
+            @Html.AntiForgeryToken()
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="row">
+                <hr>
+                <h3>Add Shipment</h3>
+                <div class="large-5 columns">
+                    @Html.HiddenFor(m => m.Id)
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Code, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Code)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Recipient, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Recipient)
+                            @Html.ValidationMessageFor(m => m.Recipient, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.OrderIdsString, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.OrderIdsString)
+                            @Html.ValidationMessageFor(m => m.OrderIdsString, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.ShipDate, new {@class = "col-md-2 control-label"})
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.ShipDate)
+                            @Html.ValidationMessageFor(m => m.ShipDate, "", new {@class = "text-danger"})
+                        </div>
+                    </div>
+                    <div>
+                        <input type="submit" class="small success button" value="Save"/>
+                    </div>
+
+                </div>
+
+            </div>           
+        }
+
+    </section>
+</body>

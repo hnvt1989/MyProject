@@ -200,6 +200,7 @@
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\PromotionSettingController.cs" />
     <Compile Include="Controllers\SaleStatsController.cs" />
+    <Compile Include="Controllers\ShipmentController.cs" />
     <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="DAL\DatabaseMasterContext.cs" />
@@ -224,6 +225,7 @@
     <Compile Include="Models\ShoppingCart\Address.cs" />
     <Compile Include="Models\ShoppingCart\PaymentTransaction.cs" />
     <Compile Include="Models\ShoppingCart\Promotion.cs" />
+    <Compile Include="Models\ShoppingCart\Shipment.cs" />
     <Compile Include="Models\ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\ShoppingCart\Cart.cs" />
     <Compile Include="Models\ShoppingCart\Category.cs" />
@@ -251,6 +253,7 @@
     <Compile Include="Models\ViewModels\QuickFinanceStatisticsViewModel.cs" />
     <Compile Include="Models\ViewModels\SaleQuickSummaryViewModel.cs" />
     <Compile Include="Models\ViewModels\SaleStatViewModel.cs" />
+    <Compile Include="Models\ViewModels\ShipmentViewModel.cs" />
     <Compile Include="Models\ViewModels\ShoppingCartAddViewModel.cs" />
     <Compile Include="Models\ViewModels\ShoppingCartRemoveViewModel.cs" />
     <Compile Include="Models\ViewModels\ShoppingCartViewModel.cs" />
@@ -1289,6 +1292,9 @@
     <Content Include="stylesheets\slick\slick-theme.scss" />
     <Content Include="stylesheets\slick\slick.less" />
     <Content Include="stylesheets\slick\slick.scss" />
+    <Content Include="Views\Shipment\Index.cshtml" />
+    <Content Include="Views\Shipment\ViewShipment.cshtml" />
+    <Content Include="Views\Shipment\EditShipment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

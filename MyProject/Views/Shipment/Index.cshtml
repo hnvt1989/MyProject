@@ -1,0 +1,54 @@
+﻿@model List<MyProject.Models.ViewModels.ShipmentViewModel>
+
+@{
+    ViewBag.Title = "Shipment";
+}
+
+<link href="/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+<link href="/Content/DataTables/css/dataTables.foundation.min.css" rel="stylesheet" type="text/css" />
+
+
+<script src="/Scripts/jquery-2.2.0.js" type="text/javascript"></script>
+<script src="/Scripts/jquery-2.2.0.min.js" type="text/javascript"></script>
+<script src="/Scripts/jquery.dataTables.min.js" type="text/javascript"></script>
+
+
+
+
+
+<script type="text/javascript">
+    jQuery(document).ready(function ($) {
+        $('#shipment').dataTable();
+    });
+</script>
+
+<br />
+
+
+<div class="row">
+    <div class="large-12 columns">
+        <h3>Shipments</h3>
+        <table id="shipment" class="display" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>Mã số</th>
+                    <th>Ngày gởi</th>
+                    <th>Người nhận</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var o in Model)
+                {
+                    <tr>
+                        <td>@Html.ActionLink(@o.Code, "ViewShipment", "Shipment", new { code = o.Code }, new { @style = "color: #0000cd" })</td>
+                        <td>@o.ShipDate</td>
+                        <td>@o.Recipient</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <p class="button">
+            @Html.ActionLink("Add new", "EditShipment", "Shipment", new { id = 0 }, new { @style = "color: #FFFFFF" })
+        </p>
+    </div>
+</div>

@@ -1,0 +1,60 @@
+﻿@model MyProject.Models.ViewModels.ShipmentViewModel
+
+@{
+    ViewBag.Title = "View Shipment";
+}
+
+<div class="row">
+    <div class="large-12 columns">
+        <div align="center">
+            <h3>Shipment Details</h3>
+        </div>
+        <p class="small button">
+            @Html.ActionLink("Thay đổi", "EditShipment", "Shipment", new { Id = @Model.Id }, new { @style = "color: #f5fffa" })
+        </p>
+        <fieldset>
+            <legend>
+                <h4>Shipment info</h4>
+            </legend>
+
+            <div>
+                <div>
+                    <span><b>Shipment Code: </b>&nbsp;&nbsp;&nbsp;@Model.Code</span>
+                </div>
+                <div>
+                    <span><b>Shipment Date: </b>&nbsp;&nbsp;&nbsp;&nbsp;@Model.ShipDate</span>
+                </div>
+                <div>
+                    <span><b>Recipient: </b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Model.Recipient</span>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>
+                <h4>Orders</h4>
+            </legend>
+            <div>
+                @foreach (var o in @Model.Orders)
+                {
+                    <fieldset>
+                        <div>
+                            <span><b>Order Number: </b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@o.OrderNumber</span>
+                        </div>
+                        <div>
+                            <span><b>Customer Name: </b>&nbsp;&nbsp;&nbsp;&nbsp;@o.CustomerName</span>
+                        </div>
+                        <div>
+                            <span><b>Order Total: </b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@o.OrderTotal</span>
+                        </div>
+                    </fieldset>
+
+                    
+                }
+            </div>
+        </fieldset>
+    </div>
+</div>
+
+
+

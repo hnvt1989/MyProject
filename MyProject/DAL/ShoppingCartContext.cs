@@ -44,6 +44,7 @@ namespace MyProject.DAL
 
         public DbSet<Content> Contents { get; set; }
         public DbSet<ContentType> ContentTypes { get; set; }
+        public DbSet<Shipment> Shipments { get; set; }
         //public DbSet<CartLineItem> CartLineItems { get; set; }
 
 

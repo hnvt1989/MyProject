@@ -55,6 +55,8 @@
 
         <table>
             <tr>
+                            <th class="hide-for-small-only">Hình ảnh
+                            </th>                
                 <th>Mã số
                 </th>
                 <th>Tên sản phẩm
@@ -76,7 +78,7 @@
             @foreach (var item in Model.OrderDetails)
             {
                 <tr id="row-@item.Product.Id">
-                    @*                                <td>
+                                                    <td class="hide-for-small-only">
                                     @{
                                         if (@item.Product.Image != null)
                                         {
@@ -90,7 +92,7 @@
                                             <img src="~/Content/Images/ProductDefault.png" height="40" width="40"/>
                                         }
                                     }
-                                </td>*@
+                                </td>
                     <td>@item.Product.Code</td>
                     <td>
                         @item.Product.Description
@@ -124,10 +126,7 @@
             <tr>
                 <td></td>
                 <td></td>
-                @*                            <td></td>
-                           <td></td>
-                            <td></td>
-                            <td></td>*@
+                <td class="hide-for-small-only"></td>
                 <td></td>
                 <td><b>@ViewBag.TotalShippingCost</b></td>
                 <td id="cart-total">
@@ -138,10 +137,7 @@
             <tr>
                 <td></td>
                 <td></td>
-                @*                         <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>*@
+                <td class="hide-for-small-only"></td>
                 <td></td>
                 <td><b>@ViewBag.CartTotal</b></td>
                 <td id="cart-total">
