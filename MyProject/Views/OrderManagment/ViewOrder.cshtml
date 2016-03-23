@@ -206,23 +206,42 @@
 
         </fieldset>
 
-                <fieldset>
-                    <h4>Tình trạng đơn đặt hàng</h4>
-                    <table>
-                        <tr>
-                            <th>Tình trạng
-                            </th>
-                            <th>Ghi chú
-                            </th>
-                        </tr>
-                        <tr>
-                            <td>@Model.OrderStatus
-                            </td>
-                            <td>@Model.OrderStatusNote
-                            </td>
-                        </tr>
-                    </table>
-                </fieldset>
+    <fieldset>
+        <h4>Tình trạng đơn đặt hàng</h4>
+        <table>
+            <tr>
+                <th>Tình trạng
+                </th>
+                <th>Ghi chú
+                </th>
+            </tr>
+            <tr>
+                <td>@Model.OrderStatus
+                </td>
+                <td>@Model.OrderStatusNote
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+
+        <fieldset>
+            <legend>
+                <h4>Shipment</h4>
+            </legend>
+
+            <div>
+                <div>
+                    @if (@Model.ShipmentCode != string.Empty)
+                    {
+                        @Html.ActionLink(@Model.ShipmentCode, "ViewShipment", "Shipment", new {code = @Model.ShipmentCode}, new {@style = "color: #0000FF"})
+                    }
+                    else
+                    {
+                        <span><b>No shipment found</b></span>
+                    }
+                </div>
+            </div>
+        </fieldset>
     </div>
 </div>
 

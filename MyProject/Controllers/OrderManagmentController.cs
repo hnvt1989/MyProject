@@ -127,6 +127,12 @@ namespace MyProject.Controllers
             ret.Commission = order.Commission;
             ret.TrueProfit = order.TrueProfit;
 
+            var shipment = _context.Shipments.SingleOrDefault(s => s.Id == order.ShipmentId);
+            ret.ShipmentCode = string.Empty;
+            if (shipment != null)
+                ret.ShipmentCode = shipment.Code;
+
+
             if (order.FullName.Contains("Hiển Nguyễn") || order.FullName.Contains("Hien Nguyen") ||
                 order.FullName.Contains("Nguyen Hien") || order.FullName.Contains("Nguyễn Hiển"))
             {

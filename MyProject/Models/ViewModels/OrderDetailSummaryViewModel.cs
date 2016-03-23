@@ -42,7 +42,7 @@ namespace MyProject.Models.ViewModels
 
         public Address ShippingAddress { get; set; }
         public PaymentTransaction PaymentTransaction { get; set; }
-
+        public string ShipmentCode { get; set; }
         public SelectList PaymentTypesList
         {
             get

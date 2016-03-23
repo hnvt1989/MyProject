@@ -56,7 +56,8 @@ namespace MyProject.Controllers
                         {
                             CustomerName = or.FullName,
                             OrderNumber = or.OrderNumber,
-                            OrderTotal = or.Total
+                            OrderTotal = or.Total,
+                            Id = or.Id
                         }));
 
                 }

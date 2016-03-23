@@ -27,6 +27,7 @@ namespace MyProject.Models.ViewModels
 
     public class ShipmentOrderViewModel
     {
+        public int Id { get; set; }
         public long OrderNumber { get; set; }
         public string CustomerName { get; set; }
         public decimal OrderTotal { get; set; }

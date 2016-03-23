@@ -1,4 +1,5 @@
-﻿@model MyProject.Models.ViewModels.ShipmentViewModel
+﻿@using System.Web.UI.HtmlControls
+@model MyProject.Models.ViewModels.ShipmentViewModel
 
 @{
     ViewBag.Title = "View Shipment";
@@ -39,7 +40,7 @@
                 {
                     <fieldset>
                         <div>
-                            <span><b>Order Number: </b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@o.OrderNumber</span>
+                            <span><b>Order Number: </b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @Html.ActionLink(o.OrderNumber.ToString(), "ViewOrder", "OrderManagment", new{id = o.Id}, new { @style = "color: #0000FF" })</span>
                         </div>
                         <div>
                             <span><b>Customer Name: </b>&nbsp;&nbsp;&nbsp;&nbsp;@o.CustomerName</span>
