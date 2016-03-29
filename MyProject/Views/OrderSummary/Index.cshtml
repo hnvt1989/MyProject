@@ -74,17 +74,17 @@
                             </th>
                             <th>Tên sản phẩm
                             </th>
-                            <th>Giá tiền
+                            <th class="hide-for-small-only">Tiền
                             </th>
                             <th>Số lượng
                             </th>
-                            @*                            <th>Net
+                            @*                <th>Tổng
+                        </th>
+                        <th>Khuyến mãi
+                        </th>*@
+                            <th class="hide-for-small-only">Vận chuyển
                             </th>
-                            <th>Discount
-                            </th>
-                            <th>Shipping
-                            </th>*@
-                            <th>Tổng
+                            <th>Tổng cộng
                             </th>
                             <th></th>
                         </tr>
@@ -109,7 +109,7 @@
                                 <td>
                                     @item.Product.Description
                                 </td>
-                                <td>
+                                <td class="hide-for-small-only">
                                     @String.Format("{0:N0}", @item.UnitPrice)
 
                                 </td>
@@ -123,41 +123,42 @@
                                 <td id="item-discount-@item.Product.Id">
                                     @String.Format("{0:N}",@item.TotalDiscount)
                         
-                                </td>
-                                <td id="item-shippingcost-@item.Product.Id">
-                                    @String.Format("{0:N}",@item.ShippingCost)
-                        
                                 </td>*@
-                                <td id="item-sum-@item.Product.Id">
-                                    @String.Format("{0:N0}", @item.Total)
+                                <td class="hide-for-small-only" style="text-align: right">
+                                    @item.ShippingCost.ToString("N0")
+                        
+                                </td>
+                                <td style="text-align: right">
+                                    @{
+                                        var subtotal = @item.ShippingCost + @item.Total;
+                                    }
+                                    @subtotal.ToString("N0")
 
                                 </td>
                             </tr>
                         }
 
-                        <tr>
+@*                        <tr>
                             <td></td>
                             <td></td>
                             <td class="hide-for-small-only"></td>
-@*                            <td></td>
                             <td></td>
-                            <td></td>*@
+                            <td></td>
+                            <td></td>
                             <td><b>@ViewBag.TotalShippingCost</b></td>
                             <td id="cart-total">
                                 <b>@String.Format("{0:N0}", @Model.ShippingCost)</b>
                             </td>
-                        </tr>
+                        </tr>*@
 
-                        <tr>
-                            <td></td>
+                          <tr>
                             <td></td>
                             <td class="hide-for-small-only"></td>
-@*                            <td></td>
-                            <td></td>
-                            <td></td>*@
-                            <td><b>@ViewBag.CartTotal</b></td>
-                            <td id="cart-total">
-                                <b>@String.Format("{0:N0}", @Model.Total)</b>
+                            <td class="hide-for-small-only"></td>
+                            <td class="hide-for-small-only"></td>
+                            <td><b>Tổng tiền:</b></td>
+                            <td id="cart-total" style="text-align: right">
+                               @Model.Total.ToString("N0")
                             </td>
                         </tr>
                     </table>

@@ -26,6 +26,7 @@
                             $('#item-count-' + data.DeleteId).text(data.ItemCount);
                             //$('#item-net-' + data.DeleteId).text(data.NetBeforeDiscount);
                             $('#item-sum-' + data.DeleteId).text(data.SumToString);
+                            $('#item-shippingcost-' + data.DeleteId).text(data.ShippingCostToString);
                             //$('#item-discount-' + data.DeleteId).text(data.TotalDiscount);
                             //$('#item-shippingcost-' + data.DeleteId).text(data.ShippingCost);      
                         }
@@ -48,7 +49,7 @@
                         //$('#item-net-' + data.AddId).text(data.NetBeforeDiscount);
                         $('#item-sum-' + data.AddId).text(data.SumToString);
                         //$('#item-discount-' + data.AddId).text(data.TotalDiscount);
-                        //$('#item-shippingcost-' + data.AddId).text(data.ShippingCost);
+                        $('#item-shippingcost-' + data.AddId).text(data.ShippingCostToString);
                         $('#cart-total').text(data.CartTotalToString);
                         $('#update-message').text(data.Message);
                         $('#cart-status').text('Cart (' + data.CartCount + ')');
@@ -82,16 +83,16 @@
                 </th>
                 <th>Tên sản phẩm
                 </th>
-                <th>Tiền
+                <th class="hide-for-small-only">Tiền
                 </th>
                 <th>Số lượng
                 </th>
 @*                <th>Tổng
                 </th>
                 <th>Khuyến mãi
-                </th>
-                <th>Cước vận chuyển
                 </th>*@
+                <th class="hide-for-small-only">Vận chuyển
+                </th>
                 <th>Tổng cộng
                 </th>
                 <th></th>
@@ -118,7 +119,7 @@
                     <td>
                         @Html.ActionLink(item.Product.Description, "Details", "Store", new { id = item.ProductId }, null)
                     </td>
-                    <td>
+                    <td class="hide-for-small-only" style="text-align: right">
                         @item.OriginalPrice.ToString("N0")
                     </td>
                     <td id="item-count-@item.Id">
@@ -131,14 +132,17 @@
                     <td id="item-discount-@item.Id">
                         @item.TotalDiscountAmount.ToString("N0")
                         
-                    </td>
-                    <td id="item-shippingcost-@item.Id">
+                    </td>*@
+                    <td id="item-shippingcost-@item.Id" class="hide-for-small-only" style="text-align: right">
                         @item.ShippingCost.ToString("N0")
                         
-                    </td>*@
-                    <td id="item-sum-@item.Id">
-                        @item.Sum.ToString("N0")
-                        
+                    </td>
+                    <td id="item-sum-@item.Id" style="text-align: right">
+                        @{
+                            var subtotal = @item.ShippingCost + @item.Sum;
+                        }
+                        @subtotal.ToString("N0")
+
                     </td>
                     <td>
                         <a href="#" class="AddLink" data-id="@item.Id">Thêm</a>
@@ -150,30 +154,27 @@
                 </tr>
             }
 
-            <tr>
+@*            <tr>
                 <td></td>
                 <td></td>
                 <td class="hide-for-small-only"></td>
-@*                <td></td>
                 <td></td>
-                <td></td>*@
+                <td></td>
+                <td></td>
                 <td><b>@ViewBag.CartTotalShippingCost</b></td>
                 <td id="cart-total-shipping">
                     @Model.CartTotalShippingCost.ToString("N0") đ
                 </td>
-            </tr>
+            </tr>*@
 
             <tr>
                 <td></td>
-                <td></td>
                 <td class="hide-for-small-only"></td>
-                @*
-                <td></td>
-                <td></td>
-                <td></td>*@
+                <td class="hide-for-small-only"></td>
+                <td class="hide-for-small-only"></td>
                 <td><b>Tổng tiền:</b></td>
-                <td id="cart-total">
-                    @Model.CartTotal.ToString("N0") đ
+                <td id="cart-total" style="text-align: right">
+                    @Model.CartTotal.ToString("N0")
                 </td>
             </tr>
         </table>

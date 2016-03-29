@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using Microsoft.AspNet.Identity;
 using System.Linq;
 using System.Net.Mime;
@@ -57,15 +58,16 @@ namespace MyProject.Models.ShoppingCart
                         {
                             cart.Quantity = nCart.Quantity;
                             cart.DiscountAmount = nCart.DiscountAmount;
-                            cart.ShippingCost = cart.ProductWeight * nCart.Quantity * shippingRate; //fixed rate shipping
+                            cart.ShippingCost = nCart.ProductWeight * nCart.Quantity * shippingRate; //fixed rate shipping
                             cart.DiscountAmount = nCart.DiscountAmount;
                             cart.OriginalPrice = nCart.OriginalPrice;
                             cart.AddOnItem = nCart.AddOnItem;
                             //cart.DiscountedPrice = nCart.DiscountedPrice;
                             cart.NetBeforeDiscount = nCart.NetBeforeDiscount;
-                            cart.Sum = nCart.Sum;
+                            cart.Sum = nCart.Sum + (nCart.ProductWeight*nCart.Quantity*shippingRate);
                             cart.TotalDiscountAmount = nCart.TotalDiscountAmount;
 
+                            //context.Entry(cart).State = EntityState.Modified;
                         }
                     }
 
@@ -197,10 +199,10 @@ namespace MyProject.Models.ShoppingCart
 
                     UpdateCart();
                 }
-
-                return context.Carts.Single(
+                var ret = context.Carts.Single(
                     cart => cart.Code == ShoppingCartId
                             && cart.Id == id);
+                return ret;
             }
         }
 

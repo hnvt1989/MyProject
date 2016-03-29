@@ -20,6 +20,8 @@ namespace MyProject.Models.ViewModels
             this.FilteredProducts = new List<ProductViewModel>();
         }
 
+        public string SearchKey { get; set; }
+
         [DisplayName("Danh muc sản phẩm")]
         public SelectList CategoryList
         {

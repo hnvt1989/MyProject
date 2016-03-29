@@ -172,6 +172,71 @@ namespace MyProject.Controllers
         }
 
         [HttpGet]
+        public ActionResult ViewInvoice(long orderNumber)
+        {
+            var ret = new OrderDetailSummaryViewModel();
+            var lineItems = new List<LineOrderDetail>();
+
+            //using (var context = new ShoppingCartContext())
+            //{
+            var order = _context.Orders.Single(o => o.OrderNumber == orderNumber);
+
+            //ret.ActualSoldAmount = order.ActualSoldAmount;
+            ret.Email = order.Email;
+            ret.FullName = order.FullName;
+            ret.OrderDate = order.OrderDate;
+            ret.OrderStatusId = order.OrderStatusId;
+            ret.OrderDetails = _context.LineOrderDetails.Where(p => p.OrderId== order.Id).ToList();
+            ret.TotalProfit = order.Profit;
+            ret.Commission = order.Commission;
+            ret.TrueProfit = order.TrueProfit;
+
+            var shipment = _context.Shipments.SingleOrDefault(s => s.Id == order.ShipmentId);
+            ret.ShipmentCode = string.Empty;
+            if (shipment != null)
+                ret.ShipmentCode = shipment.Code;
+
+
+            if (order.FullName.Contains("Hiển Nguyễn") || order.FullName.Contains("Hien Nguyen") ||
+                order.FullName.Contains("Nguyen Hien") || order.FullName.Contains("Nguyễn Hiển"))
+            {
+                if (ret.Commission == 0)
+                    ret.Commission = Math.Round((ret.TotalProfit / 2) / 1000, 0, MidpointRounding.AwayFromZero) * 1000;
+                if (ret.TrueProfit == 0)
+                    ret.TrueProfit = ret.TotalProfit - ret.Commission;
+            }
+
+            if (ret.OrderStatusId > 0)
+            {
+                ret.OrderStatus = _context.OrderStatuses.Single(s => s.Id == ret.OrderStatusId).Description;
+            }
+            else
+            {
+                ret.OrderStatus = "Unknown";
+            }
+            ret.OrderStatusNote = order.Notes;
+
+            //context.LineOrderDetails.Where(o => o.OrderId == id).ForEach(p => ret.OrderDetails.Add(new LineOrderDetail()
+            //{
+            //    Product = p.Product,
+            //    UnitPrice = p.UnitPrice,
+            //    Quantity = p.Quantity,
+            //    Total = p.Total
+            //}));
+            ret.Total = order.Total;
+            ret.ShippingCost = order.ShippingCost;
+            ret.PaymentTransaction = order.PaymentTransaction;
+
+            ret.OrderNumber = order.OrderNumber;
+            ret.PaymentTransaction = order.PaymentTransaction;
+            ret.ShippingAddress = _context.Addresses.Single(a => a.Id == order.ShippingAddressId);
+            //}           
+
+            return View(ret);            
+        }
+
+
+        [HttpGet]
         public ActionResult EditOrder(long number)
         {
             var ret = new OrderDetailSummaryViewModel();

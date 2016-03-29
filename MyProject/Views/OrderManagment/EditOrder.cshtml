@@ -88,19 +88,20 @@
 
                         <table>
                             <tr>
-                                <th>Mã số</th>
+                                <th class="hide-for-small-only">Hình ảnh</th>                
+                                 <th class="hide-for-small-only">Mã số
                                 <th>Tên sản phẩm
                                 </th>
-                                <th>Giá tiền
+                                <th class="hide-for-small-only">Giá tiền
                                 </th>
                                 <th>Số lượng
                                 </th>
                                 @*                            <th>Net
                             </th>
                             <th>Discount
-                            </th>
-                            <th>Shipping
                             </th>*@
+
+                                <th class="hide-for-small-only">Vận chuyển</th>
                                 <th>Tổng
                                 </th>
                                 <th></th>
@@ -108,7 +109,7 @@
                             @foreach (var item in Model.OrderDetails)
                             {
                                 <tr id="row-@item.Product.Id">
-                                    @*                                <td>
+                                  <td class="hide-for-small-only">
                                     @{
                                         if (@item.Product.Image != null)
                                         {
@@ -122,12 +123,12 @@
                                             <img src="~/Content/Images/ProductDefault.png" height="40" width="40"/>
                                         }
                                     }
-                                </td>*@
-                                    <td>@item.Product.Code</td>
+                                </td>
+                                    <td class="hide-for-small-only">@item.Product.Code</td>
                                     <td>
                                         @item.Product.Description
                                     </td>
-                                    <td>
+                                    <td class="hide-for-small-only">
                                         @String.Format("{0:N0}", @item.UnitPrice)
 
                                     </td>
@@ -139,42 +140,42 @@
                         
                                 </td>
                                 <td id="item-discount-@item.Product.Id">
-                                    @String.Format("{0:N}",@item.TotalDiscount)
+                                    @String.Format("{0:N}",@item.TotalDiscount)*@
+                        
+                                <td id="item-shippingcost-@item.Product.Id" class="hide-for-small-only">
+                                                @String.Format("{0:N}",@item.ShippingCost)
                         
                                 </td>
-                                <td id="item-shippingcost-@item.Product.Id">
-                                    @String.Format("{0:N}",@item.ShippingCost)
-                        
-                                </td>*@
-                                    <td id="item-sum-@item.Product.Id">
-                                        @String.Format("{0:N0}", @item.Total)
+                                <td id="item-sum-@item.Product.Id" >
+                                    @{
+                                        var subtotal = @item.ShippingCost + @item.Total;
+                                    }
+                                    @String.Format("{0:N0}", @subtotal)
 
-                                    </td>
+                                </td>
                                 </tr>
                             }
 
-                            <tr>
+@*                            <tr>
                                 <td></td>
                                 <td></td>
-                                @*                            <td></td>
+                                                            <td></td>
                            <td></td>
                             <td></td>
-                            <td></td>*@
+                            <td></td>
                                 <td></td>
                                 <td><b>@ViewBag.TotalShippingCost</b></td>
                                 <td id="cart-total">
                                     <b>@String.Format("{0:N0}", @Model.ShippingCost)</b>
                                 </td>
-                            </tr>
+                            </tr>*@
 
                             <tr>
                                 <td></td>
-                                <td></td>
-                                @*                         <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>*@
-                                <td></td>
+                                <td class="hide-for-small-only"></td>
+                                <td class="hide-for-small-only"></td>
+                                <td class="hide-for-small-only"></td>
+                                <td class="hide-for-small-only"></td>
                                 <td><b>@ViewBag.CartTotal</b></td>
                                 <td id="cart-total">
                                     <b>@String.Format("{0:N0}", @Model.Total)</b>

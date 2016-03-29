@@ -13,16 +13,7 @@
         <div align="center">
             <h3>Đơn đặt hàng</h3>
         </div>
-    <p class="small button">
-        @Html.ActionLink("Thay đổi", "EditOrder", "OrderManagment", new {number = @Model.OrderNumber}, new {@style = "color: #f5fffa"})
-    </p>
-
-    <p class="small button">
-        @Html.ActionLink("Print Invoice", "ViewInvoice", "OrderManagment", new {orderNumber = @Model.OrderNumber}, new {@style = "color: #f5fffa", @target = "_blank"}) 
-
-    </p>
-
-    <fieldset>
+        <fieldset>
             <legend>
                 <h4>Thông tin khách hàng</h4>
             </legend>
@@ -156,104 +147,15 @@
                 </tr>
 
             </table>
+            <span style="font-size: 14px"><strong>***Ghi chú:</strong> @Model.OrderStatusNote</span>
         </fieldset>
 
-        <fieldset>
-            <h4>Tiền lời</h4>
-            <table>
-                <tr>
-                    <th>Tổng tiền lời
-                    </th>
-                    <th>Hoa hồng
-                    </th>
-                    <th>Tiền lời của JA Shop
-                    </th>
-                    <th>Tổng tiền JA Shop nhận
-                    </th>
-                </tr>
-                <tr>
-                    <td>@Model.TotalProfit.ToString("N0")
-                    </td>
-                    <td>@Model.Commission.ToString("N0")
-                    </td>
-                    <td>@Model.TrueProfit.ToString("N0")
-                    </td>
-                    <td>@{
-                        var remaining = Model.Total - Model.Commission;
-                        <span>@remaining.ToString("N0")</span>
-                    }
-                    </td>
-                </tr>
-            </table>
-        </fieldset>
-
-        <fieldset>
-            <h4>Thanh toán</h4>
-            <table>
-                <tr>
-                    <th>Cách thanh toán
-                    </th>
-                    <th>Tổng
-                    </th>
-                    <th>Tình trạng
-                    </th>
-                </tr>
-                <tr>
-                    <td>@Model.PaymentTransaction.PaymentType.Description
-                    </td>
-                    <td>@String.Format("{0:N0}", @Model.PaymentTransaction.Amount)
-                    </td>
-                    <td>@Model.PaymentTransaction.PaymentStatus.Description
-                    </td>
-                </tr>
-            </table>
-            <div class="amount-due">
-                @{
-                    var amountDue = Model.Total - Model.PaymentTransaction.Amount;
-                    <b>Còn lại: <span>@amountDue.ToString("N0") đ</span></b>
-                }
-
-            </div>
-
-        </fieldset>
-
-        <fieldset>
-            <h4>Tình trạng đơn đặt hàng</h4>
-            <table>
-                <tr>
-                    <th>Tình trạng
-                    </th>
-                    <th>Ghi chú
-                    </th>
-                </tr>
-                <tr>
-                    <td>@Model.OrderStatus
-                    </td>
-                    <td>@Model.OrderStatusNote
-                    </td>
-                </tr>
-            </table>
-        </fieldset>
-
-        <fieldset>
-            <legend>
-                <h4>Shipment</h4>
-            </legend>
-
-            <div>
-                <div>
-                    @if (@Model.ShipmentCode != string.Empty)
-                    {
-                        @Html.ActionLink(@Model.ShipmentCode, "ViewShipment", "Shipment", new { code = @Model.ShipmentCode }, new { @style = "color: #0000FF" })
-                    }
-                    else
-                    {
-                        <span><b>No shipment found</b></span>
-                    }
-                </div>
-            </div>
+        <fieldset style="border: none">
+            &#10048;&#10048;&#10048; Thank you for your order - Cảm ơn bạn đã đặt hàng ở J.A Shop &#10048;&#10048;&#10048;
         </fieldset>
     </div>
 </div>
+
+
 
 

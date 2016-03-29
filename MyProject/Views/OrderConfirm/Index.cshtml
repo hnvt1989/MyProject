@@ -63,22 +63,23 @@
 
                     <table>
                         <tr>
-                            <th class="hide-for-small-only"> Hình ảnh
+                            <th class="hide-for-small-only">Hình ảnh
                             </th>
                             <th>Tên sản phẩm
                             </th>
-                            <th>Giá tiền
+                            <th class="hide-for-small-only">Tiền
                             </th>
                             <th>Số lượng
                             </th>
-@*                            <th>Net
+                            @*                <th>Tổng
+                        </th>
+                        <th>Khuyến mãi
+                        </th>*@
+                            <th class="hide-for-small-only">Vận chuyển
                             </th>
-                            <th>Discount
+                            <th>Tổng cộng
                             </th>
-                            <th>Shipping
-                            </th>*@
-                            <th>Tổng
-                            </th>
+                            <th></th>
                         </tr>
                         @foreach (var item in Model.CartViewModel.CartItems)
                         {
@@ -101,55 +102,57 @@
                                 <td>
                                     @Html.ActionLink(item.Product.Description, "Details", "Store", new { id = item.ProductId }, null)
                                 </td>
-                                <td>
+                                <td class="hide-for-small-only">
                                     @String.Format("{0:N}",@item.OriginalPrice)
                                     
                                 </td>
                                 <td id="item-count-@item.Id">
                                     @item.Quantity
                                 </td>
-  @*                              <td id="item-net-@item.Id">
+                                @*                              <td id="item-net-@item.Id">
                                     @String.Format("{0:N}",@item.NetBeforeDiscount)
                                     
                                 </td>
                                 <td id="item-discount-@item.Id">
                                     @String.Format("{0:N}",@item.TotalDiscountAmount)
                                     
-                                </td>
-                                <td id="item-shippingcost-@item.Id">
-                                    @String.Format("{0:N}",@item.ShippingCost)
-                                    
                                 </td>*@
-                                <td id="item-sum-@item.Id">
-                                    @String.Format("{0:N0}",@item.Sum)
-                                    
+                                <td id="item-shippingcost-@item.Id" class="hide-for-small-only" style="text-align: right">
+                                    @item.ShippingCost.ToString("N0")
+                        
+                                </td>
+                                <td id="item-sum-@item.Id" style="text-align: right">
+                                    @{
+                                        var subtotal = @item.ShippingCost + @item.Sum;
+                                    }
+                                    @subtotal.ToString("N0")
+
                                 </td>
                             </tr>
                         }
-                       <tr>
+                        @*                       <tr>
                             <td></td>
                             <td></td>
                             <td class="hide-for-small-only"></td>
-@*                            <td></td>
                             <td></td>
-                            <td></td>*@
+                            <td></td>
+                            <td></td>
                             <td><b>@ViewBag.TotalShippingCost</b></td>
                             <td id="cart-total">      
                                 <b>@String.Format("{0:N0}",@Model.CartViewModel.CartTotalShippingCost)</b>
                             </td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td class="hide-for-small-only"></td>
-@*                            <td></td>
-                            <td></td>
-                            <td></td>*@
-                            <td><b>@ViewBag.CartTotal</b></td>
-                            <td id="cart-total">      
-                                <b>@String.Format("{0:N0}",@Model.CartViewModel.CartTotal)</b>
-                            </td>
-                        </tr>
+                        </tr>*@
+
+                      <tr>
+                        <td></td>
+                        <td class="hide-for-small-only"></td>
+                        <td class="hide-for-small-only"></td>
+                        <td class="hide-for-small-only"></td>
+                        <td><b>Tổng tiền:</b></td>
+                        <td id="cart-total" style="text-align: right">
+                           @Model.CartViewModel.CartTotal.ToString("N0")
+                        </td>
+                    </tr>
                     </table>
                 </fieldset>@*
 

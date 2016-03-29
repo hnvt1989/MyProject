@@ -247,6 +247,85 @@ namespace MyProject.Controllers
             return View(ret);
         }
 
+
+        public ActionResult SearchProduct(HomeViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+
+                //if (code == "All")
+                //    return RedirectToAction("Index");
+                var prods = new List<Product>();
+
+                using (var context = new ShoppingCartContext())
+                {
+                    prods = context.Products.Where(p => p.Code == model.SearchKey.Trim()).ToList();
+                    if (prods.Count == 0)
+                        prods = context.Products.Where(p => p.Description.Contains(model.SearchKey.Trim())).Take(20).ToList();
+                }
+                using (var context = new ShoppingCartContext())
+                {
+                    var products = new List<ProductViewModel>();
+                    var offers = context.ProductOffers.ToList();
+                    foreach (var p in prods)
+                    {
+                        products.Add(new ProductViewModel()
+                        {
+                            Id = p.Id,
+                            Code = p.Code,
+                            Description = p.Description,
+                            Price = offers.Single(po => po.ProductId == p.Id && po.PriceTypeId == 1).Price,
+                            FeatureProduct = p.FeatureProduct,
+                            Image = p.Image
+                        });
+                    }
+
+                    foreach (var prod in products)
+                    {
+                        var origPrice = offers.SingleOrDefault(po => po.ProductId == prod.Id && po.PriceTypeId == 3);
+                        prod.OriginalPrice = origPrice != null ? origPrice.Price : 0m;
+                    }
+
+                    var homeView = new HomeViewModel { FilteredProducts = products };
+                    //homeView.SelectedCategory = ;
+
+                    //var ret = new HeaderAdvertisementViewModel();
+                    //var id = context.ContentTypes.Single(p => p.Code == "Ad").Id;
+
+                    //context.Contents.Where(c => c.ContentTypeId == id).ForEach(c => ret.Ads.Add(new HeaderAd()
+                    //{
+                    //    Image = c.Image,
+                    //    Url = c.ImageUrl,
+                    //    AdText = c.AdText,
+                    //    AdTextStyle = c.AdTextStyle
+                    //}));
+                    //ret.Ads = ret.Ads.OrderBy(o => o.DisplayOrder).ToList();
+
+                    //homeView.Advertisement = ret;
+                    homeView.Advertisement = new HeaderAdvertisementViewModel()
+                    {
+                        Ads = new List<HeaderAd>()
+                    };
+
+                    var contactInfo = context.Contents.SingleOrDefault(c => c.TextLocation == "Home.ContactInfo");
+
+                    if (contactInfo != null)
+                    {
+                        homeView.Info.ContactInfo = contactInfo.TextValue;
+                    }
+
+                    var annoucement = context.Contents.SingleOrDefault(c => c.TextLocation == "Home.Announcement");
+                    if (annoucement != null)
+                    {
+                        homeView.Info.Annoucment = annoucement.TextValue;
+                    }
+
+                    ViewBag.ProductHeader = string.Empty;
+                    return View("Index", homeView);
+                }
+            }
+            return RedirectToAction("Index");
+        }
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
