@@ -309,8 +309,9 @@ namespace MyProject.Controllers
                 order.PaymentTransaction.Amount = model.PaymentTransaction.Amount;
                 order.PostedAmount = model.PaymentTransaction.Amount;
                 order.PaymentTransaction.PaymentStatusId = _context.PaymentStatuses.Single(p => p.Description == paymentStatus).Id;
-                order.TrueProfit = model.TrueProfit - model.Discount;
-                order.Commission = model.Commission;
+                order.TrueProfit = model.TrueProfit - (model.Discount/2);
+                order.Commission = model.Commission - (model.Discount/2);
+                order.Profit -= model.Discount;
                 order.Discount = model.Discount;
                 order.Total -= order.Discount;
                 order.PaymentTransaction.PaymentTypeId =
