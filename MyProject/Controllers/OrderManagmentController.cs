@@ -126,6 +126,7 @@ namespace MyProject.Controllers
             ret.TotalProfit = order.Profit;
             ret.Commission = order.Commission;
             ret.TrueProfit = order.TrueProfit;
+            ret.Discount = order.Discount;
 
             var shipment = _context.Shipments.SingleOrDefault(s => s.Id == order.ShipmentId);
             ret.ShipmentCode = string.Empty;
@@ -190,6 +191,7 @@ namespace MyProject.Controllers
             ret.TotalProfit = order.Profit;
             ret.Commission = order.Commission;
             ret.TrueProfit = order.TrueProfit;
+            ret.Discount = order.Discount;
 
             var shipment = _context.Shipments.SingleOrDefault(s => s.Id == order.ShipmentId);
             ret.ShipmentCode = string.Empty;
@@ -272,6 +274,7 @@ namespace MyProject.Controllers
             ret.TotalProfit = order.Profit;
             ret.Commission = order.Commission;
             ret.TrueProfit = order.TrueProfit;
+            ret.Discount = order.Discount;
 
             if (order.FullName.Contains("Hiển Nguyễn") || order.FullName.Contains("Hien Nguyen") ||
                 order.FullName.Contains("Nguyen Hien") || order.FullName.Contains("Nguyễn Hiển"))
@@ -306,8 +309,10 @@ namespace MyProject.Controllers
                 order.PaymentTransaction.Amount = model.PaymentTransaction.Amount;
                 order.PostedAmount = model.PaymentTransaction.Amount;
                 order.PaymentTransaction.PaymentStatusId = _context.PaymentStatuses.Single(p => p.Description == paymentStatus).Id;
-                order.TrueProfit = model.TrueProfit;
+                order.TrueProfit = model.TrueProfit - model.Discount;
                 order.Commission = model.Commission;
+                order.Discount = model.Discount;
+                order.Total -= order.Discount;
                 order.PaymentTransaction.PaymentTypeId =
                     _context.PaymentTypes.Single(p => p.Description == paymentType).Id;
 

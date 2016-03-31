@@ -34,6 +34,7 @@ namespace MyProject.Models.ViewModels
         public decimal TotalProfit { get; set; }
         public decimal Commission { get; set; }
         public decimal TrueProfit { get; set; }
+        public decimal Discount { get; set; }
         //public decimal ActualSoldAmount { get; set; }
 
 
