@@ -179,6 +179,39 @@
 
         </fieldset>
 
+        @if (@Model.FullName.Contains("Hiển Nguyễn"))
+        {
+        <fieldset>
+            <h4>Tiền lời</h4>
+            <table>
+                <tr>
+                    <th>Tổng tiền lời
+                    </th>
+                    <th>Hoa hồng
+                    </th>
+                    <th>Tiền lời của JA Shop
+                    </th>
+                    <th>Tổng tiền JA Shop nhận
+                    </th>
+                </tr>
+                <tr>
+                    <td>@Model.TotalProfit.ToString("N0")
+                    </td>
+                    <td>@Model.Commission.ToString("N0")
+                    </td>
+                    <td>@Model.TrueProfit.ToString("N0")
+                    </td>
+                    <td>@{
+                            var remaining = Model.Total - Model.Commission;
+                            <span>@remaining.ToString("N0")</span>
+                        }
+                    </td>
+                </tr>
+            </table>
+        </fieldset>            
+        }
+
+
     </div>
 </div>
 
