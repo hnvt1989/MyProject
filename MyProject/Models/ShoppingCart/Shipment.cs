@@ -18,5 +18,7 @@ namespace MyProject.Models.ShoppingCart
         public string Recipient { get; set; }
 
         public DateTime ShipDate { get; set; }
+
+        public bool Received { get; set; }
     }
 }

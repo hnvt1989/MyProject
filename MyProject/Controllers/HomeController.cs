@@ -154,6 +154,7 @@ namespace MyProject.Controllers
                 }
                 using (var context = new ShoppingCartContext())
                 {
+                    var shippingRate = Convert.ToDecimal(context.AppSettings.Single(a => a.Code == "ShippingRate").Value);
                     var products = new List<ProductViewModel>();
                     var offers = context.ProductOffers.ToList();
                     foreach (var p in prods)
@@ -163,7 +164,7 @@ namespace MyProject.Controllers
                             Id = p.Id,
                             Code = p.Code,
                             Description = p.Description,
-                            Price = offers.Single(po => po.ProductId == p.Id && po.PriceTypeId == 1).Price,
+                            Price = offers.Single(po => po.ProductId == p.Id && po.PriceTypeId == 1).Price + (shippingRate * p.Weight),
                             FeatureProduct = p.FeatureProduct,
                             Image = p.Image
                         });

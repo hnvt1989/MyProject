@@ -27,6 +27,7 @@ namespace MyProject.Controllers
                     Code = s.Code,
                     ShipDate = s.ShipDate.ToShortDateString(),
                     Recipient = s.Recipient,
+                    Received = s.Received
                 }));
 
                 return View(shipments);

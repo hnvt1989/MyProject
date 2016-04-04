@@ -34,15 +34,18 @@
                     <th>Mã số</th>
                     <th>Ngày gởi</th>
                     <th>Người nhận</th>
+                    <th>Đã nhận</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var o in Model)
                 {
+                    var received = o.Received ? "Yes" : "No";
                     <tr>
                         <td>@Html.ActionLink(@o.Code, "ViewShipment", "Shipment", new { code = o.Code }, new { @style = "color: #0000cd" })</td>
                         <td>@o.ShipDate</td>
                         <td>@o.Recipient</td>
+                        <td>@received</td>
                     </tr>
                 }
             </tbody>

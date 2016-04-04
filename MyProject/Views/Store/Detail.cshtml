@@ -113,14 +113,25 @@
         <span style="font-size: 12px; font-family: Arial">Mã số: @Model.Code</span>
         <p></p>
         <div>
-            <span style="color: #dc143c">@Model.Price.ToString("N0")</span>
+            @{
+                var listPrice = Model.Price + Model.ShippingCost;
+                <span style="color: #dc143c">@listPrice.ToString("N0")</span>
+                <div>
+                    <span style="font-size: 10px; text-align: right">-------------------------</span>
+                </div>
+                
+                <div>
+                    <span style="font-size: 10px;text-align: right">@Model.Price.ToString("N0") (giá sản phẩm)</span>
+                </div>
+            }
+            
 
             @if (@Model.OriginalPrice > 0m)
             {
-                var percent = 100 - (Model.Price / Model.OriginalPrice) * 100;
+                var percent = 100 - (Model.Price/Model.OriginalPrice)*100;
                 if (percent > 0)
                 {
-                <span style="text-decoration: line-through">@Model.OriginalPrice.ToString("N0")</span>
+                    <span style="text-decoration: line-through">@Model.OriginalPrice.ToString("N0")</span>
 @*
                     
                 <div>
@@ -133,14 +144,14 @@
         @if (Model.ShippingCost > 0)
         {
             <div>
-                <span style="font-size: 10px">+ @Model.ShippingCost.ToString("N0") (cước vận chuyển)</span>
+                <span style="font-size: 10px; text-align: right">+ @Model.ShippingCost.ToString("N0") (cước vận chuyển)</span>
             </div>
 
         }
         else
         {
             <div>
-                <span style="font-size: 10px">+ Miễn phí cước vận chuyển</span>
+                <span style="font-size: 10px;text-align: right">+ Miễn phí cước vận chuyển</span>
             </div>
             
         }

@@ -22,7 +22,8 @@ namespace MyProject.Models.ViewModels
         [DisplayName("List of Orders Id, coma separated")]
         public string OrderIdsString { get; set; }
         public List<int> OrdersId { get; set; } 
-        public List<ShipmentOrderViewModel> Orders { get; set; } 
+        public List<ShipmentOrderViewModel> Orders { get; set; }
+        public bool Received { get; set; }
     }
 
     public class ShipmentOrderViewModel
