@@ -15,6 +15,8 @@ namespace MyProject.Models.ViewModels
         {
             this.OrderDetails = new List<LineOrderDetail>();
         }
+
+
         public long OrderNumber { get; set; }
 
         public int OrderStatusId { get; set; }
@@ -29,6 +31,9 @@ namespace MyProject.Models.ViewModels
         public string Email { get; set; }
 
         public decimal Total { get; set; }
+
+        public decimal TotalBeforeDiscount { get; set; }
+
         public decimal ShippingCost { get; set; }
         public decimal PostedAmount { get; set; }
         public decimal TotalProfit { get; set; }

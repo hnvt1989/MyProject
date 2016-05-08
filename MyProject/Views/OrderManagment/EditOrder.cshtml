@@ -38,7 +38,7 @@
 
     $(function () {
         $('#discount').on('input', function () {
-            var total = @Model.Total -parseFloat($('#discount').val()).toFixed(2);
+            var total = @Model.TotalBeforeDiscount -parseFloat($('#discount').val()).toFixed(2);
             if (isNaN(total)) {
                 total = 0;
             }

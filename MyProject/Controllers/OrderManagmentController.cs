@@ -249,6 +249,7 @@ namespace MyProject.Controllers
             var order = _context.Orders.Single(o => o.OrderNumber == number);
 
             //ret.ActualSoldAmount = order.ActualSoldAmount;
+
             ret.Email = order.Email;
             ret.FullName = order.FullName;
             ret.OrderDate = order.OrderDate;
@@ -266,7 +267,7 @@ namespace MyProject.Controllers
             }
             ret.OrderStatusNote = order.Notes;
 
-            ret.Total = order.Total;
+            
             ret.ShippingCost = order.ShippingCost;
             ret.PaymentTransaction = order.PaymentTransaction;
 
@@ -274,7 +275,10 @@ namespace MyProject.Controllers
             ret.TotalProfit = order.Profit;
             ret.Commission = order.Commission;
             ret.TrueProfit = order.TrueProfit;
+
             ret.Discount = order.Discount;
+            ret.Total = order.Total;
+            ret.TotalBeforeDiscount = order.Total + order.Discount;
 
             if (order.FullName.Contains("Hiển Nguyễn") || order.FullName.Contains("Hien Nguyen") ||
                 order.FullName.Contains("Nguyen Hien") || order.FullName.Contains("Nguyễn Hiển"))
@@ -289,7 +293,7 @@ namespace MyProject.Controllers
             ret.PaymentTransaction = order.PaymentTransaction;
             ret.ShippingAddress = _context.Addresses.Single(a => a.Id == order.ShippingAddressId);
             //}           
-            TempData["OrderId"] = order.Id;
+            //TempData["OrderId"] = order.Id;
 
             return View(ret);
         }
@@ -304,16 +308,21 @@ namespace MyProject.Controllers
                 string orderStatus = Request.Form["orderStatus"].ToString();
 
                 var order = _context.Orders.Single(o => o.OrderNumber == model.OrderNumber);
-                var id = TempData["OrderId"];
+                //var id = TempData["OrderId"];
+                //var id = model.OrderId;
 
                 order.PaymentTransaction.Amount = model.PaymentTransaction.Amount;
                 order.PostedAmount = model.PaymentTransaction.Amount;
                 order.PaymentTransaction.PaymentStatusId = _context.PaymentStatuses.Single(p => p.Description == paymentStatus).Id;
-                order.TrueProfit = model.TrueProfit - (model.Discount/2);
-                order.Commission = model.Commission - (model.Discount/2);
-                order.Profit -= model.Discount;
+                //order.TrueProfit = model.TrueProfit - (model.Discount/2);
+                //order.Commission = model.Commission - (model.Discount/2);
+                order.Profit -= model.Discount - order.Discount;
+
+                order.Total = order.Total + order.Discount - model.Discount;
+
                 order.Discount = model.Discount;
-                order.Total -= order.Discount;
+                
+
                 order.PaymentTransaction.PaymentTypeId =
                     _context.PaymentTypes.Single(p => p.Description == paymentType).Id;
 
@@ -321,7 +330,7 @@ namespace MyProject.Controllers
                 order.Notes = model.OrderStatusNote;
 
                 await _context.SaveChangesAsync();
-                return RedirectToAction("ViewOrder", new { id });
+                return RedirectToAction("ViewOrder", new { order.Id });
             }
 
             return View();
