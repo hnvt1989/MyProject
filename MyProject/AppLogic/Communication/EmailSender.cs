@@ -88,7 +88,7 @@ namespace MyProject.AppLogic.Communication
             var ret = "<p><b>                        ORDER  " + orderNumber + "</b></p>";
             foreach (var p in order.CartViewModel.CartItems)
             {
-                ret += "<p> Product Code" + p.Product.Code + " . <b>Product:</b> " + p.Product.Description + "                   <b>Unit Price:</b>" + p.OriginalPrice.ToString("0.00") + ". <b>Qty:</b>     " + p.Quantity + " </p>";
+                ret += "<p> <b>Product Code:</b>" + p.Product.Code + " . <b>Product:</b> " + p.Product.Description + "                   <b>Unit Price:</b>" + p.OriginalPrice.ToString("0.00") + ". <b>Qty:</b>     " + p.Quantity + " </p>";
             }
             ret += "<p><b>Shipping cost:</b> " + order.CartViewModel.CartTotalShippingCost.ToString("0.00") + "</p>";
             ret += "<p><b>Order total:</b>" + order.CartViewModel.CartTotal.ToString("0.00") + "</p>";
