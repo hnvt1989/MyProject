@@ -21,6 +21,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <IsCompassProject>True</IsCompassProject>
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -185,6 +186,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Api\ProductController.cs" />
     <Compile Include="Controllers\AppSettingController.cs" />
     <Compile Include="Controllers\CategoryManagmentController.cs" />
     <Compile Include="Controllers\CheckoutController.cs" />
@@ -195,7 +197,6 @@
     <Compile Include="Controllers\OrderManagmentController.cs" />
     <Compile Include="Controllers\OrderSummaryController.cs" />
     <Compile Include="Controllers\ProductManagementController.cs" />
-    <Compile Include="Controllers\ProductApiController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\PromotionSettingController.cs" />
     <Compile Include="Controllers\SaleStatsController.cs" />
@@ -221,6 +222,10 @@
     <Compile Include="Models\Core\Sequence.cs" />
     <Compile Include="Models\Earning\Earning.cs" />
     <Compile Include="Models\Earning\Expense.cs" />
+    <Compile Include="Models\Resource\Culture.cs" />
+    <Compile Include="Models\Resource\ResourceValue.cs" />
+    <Compile Include="Models\Resource\ResourceKey.cs" />
+    <Compile Include="Models\Resource\ResourceSet.cs" />
     <Compile Include="Models\ShoppingCart\Address.cs" />
     <Compile Include="Models\ShoppingCart\PaymentTransaction.cs" />
     <Compile Include="Models\ShoppingCart\Promotion.cs" />
@@ -235,6 +240,7 @@
     <Compile Include="Models\ViewModels\CategoryViewModel.cs" />
     <Compile Include="Models\ViewModels\CheckoutViewModel.cs" />
     <Compile Include="Models\ViewModels\ContentManagement\ContentManagmentViewModel.cs" />
+    <Compile Include="Models\ViewModels\ContentManagement\ResourceModel.cs" />
     <Compile Include="Models\ViewModels\HomeViewModel.cs" />
     <Compile Include="Models\ViewModels\ManageViewModels.cs" />
     <Compile Include="Models\ShoppingCart\LineOrderDetail.cs" />
@@ -692,11 +698,14 @@
     <Content Include="Content\jquery.dataTables_themeroller.css" />
     <Content Include="Content\print.css" />
     <Content Include="Content\screen.css" />
+    <Content Include="DAL\migration.txt" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="App_Readme\Foundation for Sites\readme.md" />
     <Content Include="config.rb" />
+    <Content Include="Misc\migration.txt" />
+    <Content Include="Misc\queries.sql.txt" />
     <Content Include="sass\Site.scss">
       <Compile>True</Compile>
       <Minify>True</Minify>

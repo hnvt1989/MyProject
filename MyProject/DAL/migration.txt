@@ -1,0 +1,6 @@
+Enable-Migrations -ProjectName MyProject -ContextTypeName MyProject.DAL.ShoppingCartContext
+Enable-Migrations -ProjectName MyProject -ContextTypeName MyProject.DAL.IdentityContext
+
+Update-Database -ProjectName MyProject -ConfigurationTypeName Configuration_IdentityDb
+Update-Database -ProjectName MyProject -ConfigurationTypeName Configuration_ShoppingCart
+

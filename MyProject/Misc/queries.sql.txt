@@ -1,0 +1,21 @@
+﻿Product Query:
+select p.Code, p.Description, ((select Description from dbo.Category where Id = c.ParentId) + '/' + c.Description) as Category, (p.BuyInPrice/22400) as [Buy In Price], (po.Price / 22400) as [Selling Price], p.Weight from dbo.Product p 
+                join dbo.CategoryProduct cp on p.Id = cp.Product_Id
+                join dbo.Category c on cp.Category_Id = c.Id
+                join dbo.ProductOffer po on p.Id = po.ProductId
+                where 
+                --c.Id in (3,4,6,41,21,21,33,18,19)
+                p.Active = 1
+                and po.PriceTypeId = 1
+                order by p.Code
+--------------------------------------
+Delete ‘Canceld’ order:
+use MyProject
+declare @orderStatus int
+set @orderStatus = (select Id from dbo.OrderStatus where Code = 'Canceled')
+
+
+delete from dbo.Address where Id in (select ShippingAddressId from dbo.[Order] where OrderStatusId = @orderStatus)
+delete from dbo.LineOrderDetail where OrderId in (select Id from dbo.[Order] where  OrderStatusId = @orderStatus)
+delete from dbo.PaymentTransaction where Id in (select PaymentTransactionId from dbo.[Order] where OrderStatusId = @orderStatus)
+delete from dbo.[Order] where OrderStatusId = @orderStatus

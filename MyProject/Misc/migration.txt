@@ -1,0 +1,38 @@
+Enable-Migrations -ProjectName MyProject -ContextTypeName MyProject.DAL.ShoppingCartContext
+Enable-Migrations -ProjectName MyProject -ContextTypeName MyProject.DAL.IdentityContext
+
+Update-Database -ProjectName MyProject -ConfigurationTypeName Configuration_IdentityDb
+Update-Database -ProjectName MyProject -ConfigurationTypeName Configuration_ShoppingCart
+
+
+
+------------
+5/21/2016
+Update: Resource Key, set, values and Culture
+  --insert into MyProject.dbo.Culture (Code, Description, [Default])
+  --values
+  --('en-US', 'English United States', 0),
+  --('vi-VN', 'Vietnamese Vietnam', 1)
+
+    --insert into MyProject.dbo.ResourceKey
+  --(Code, Context, Name, Property)
+  --values
+  --(NEWID(), 'HomePage', 'SideMenuHeader', 'Text')
+    --(NEWID(), 'HomePage', 'BestSellingProducts', 'Text'),
+  --(NEWID(), 'HomePage', 'NewProducts', 'Text'),
+  --(NEWID(), 'MainMenu', 'LoginButton', 'Text')
+
+  --  insert into MyProject.dbo.ResourceSet
+  --(Code, Description)
+  --values
+  --('SalesPortal', 'Sales Portal')
+
+  --  insert into MyProject.dbo.ResourceValue 
+  --(Code, ResourceKeyId, ResourceSetId, CultureId, Value)
+  --values
+  --(NEWID(), 1, 1, 1, 'Products Menu')
+
+
+    insert into MyProject.dbo.AppSetting (Code, Description, Value, ValueType)
+  values
+  ('SelectedCulture', 'Selected Culture for this application', 'en-US', 'string')

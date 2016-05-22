@@ -10,6 +10,7 @@ using MyProject.Models.Account;
 using MyProject.Models.Content;
 using MyProject.Models.Core;
 using MyProject.Models.ShoppingCart;
+using MyProject.Models.Resource;
 
 namespace MyProject.DAL
 {
@@ -46,6 +47,11 @@ namespace MyProject.DAL
         public DbSet<ContentType> ContentTypes { get; set; }
         public DbSet<Shipment> Shipments { get; set; }
         //public DbSet<CartLineItem> CartLineItems { get; set; }
+
+        public DbSet<Culture> Cultures { get; set; }
+        public DbSet<ResourceSet> ResourceSets { get; set; }
+        public DbSet<ResourceKey> ResourceKeys { get; set; }
+        public DbSet<ResourceValue> ResourceValues { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

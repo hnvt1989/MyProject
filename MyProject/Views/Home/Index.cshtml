@@ -276,7 +276,7 @@
     @if (Model.NewProducts.Count > 0)
     {
         <div>
-            <h4><b><span style="color: #4b0082; text-align: left; display: block; font-family: serif; font-style: italic" id="catLabel">@ViewBag.ProductHeader</span></b>
+            <h4><b><span style="color: #4b0082; text-align: left; display: block; font-family: serif; font-style: italic" id="catLabel">@Model.GetResource("HomePage.NewProducts.Text")</span></b>
 
             <div class="new-product">
 
@@ -356,19 +356,19 @@
         <div >
 
 
-            <h4><b><span style="color: #4b0082; text-align: left; display: block; font-family: serif; font-style: italic";  id="catLabel">Sản phẩm yêu thích @DateTime.Now.ToString("yyyy")</span></b>
+            <h4><b><span style="color: #4b0082; text-align: left; display: block; font-family: serif; font-style: italic";  id="catLabel">@Model.GetResource("HomePage.BestSellingProducts.Text")</span></b>
 
             <div class="best-selling">
 
                 @foreach (var product in Model.BestSellingProductsThisMonths)
-                {
+                    {
 
 
                     <div class="large-3 columns panel" style="background: #FFFFFF; border: none; text-align: center">
                         @if (@product.Image != null)
-                        {
-                            var base64 = Convert.ToBase64String(@product.Image);
-                            var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                    {
+                        var base64 = Convert.ToBase64String(@product.Image);
+                        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
                             <a href="/Store/Details/@product.Id">
                                 <img src="@imgSrc" height="200" width="200"/>
                             </a>

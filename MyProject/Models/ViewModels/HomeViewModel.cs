@@ -7,17 +7,25 @@ using System.Web.Mvc;
 using MyProject.DAL;
 using MyProject.Models.ShoppingCart;
 using WebGrease.Css.Extensions;
+using MyProject.Models.ViewModels.ContentManagement;
 
 namespace MyProject.Models.ViewModels
 {
-    public class HomeViewModel
+    public class HomeViewModel: ResourceModel
     {
+        private string _resourceContext = "HomePage";
+        private string _resourceSet = "SalesPortal";
+
         public HomeViewModel()
         {
-            this.Info = new HomePageInfo();
-            this.BestSellingProductsThisMonths = new List<ProductViewModel>();
-            this.NewProducts = new List<ProductViewModel>();
-            this.FilteredProducts = new List<ProductViewModel>();
+            Info = new HomePageInfo();
+            BestSellingProductsThisMonths = new List<ProductViewModel>();
+            NewProducts = new List<ProductViewModel>();
+            FilteredProducts = new List<ProductViewModel>();
+
+            //initialize resources
+            base.ResourceContext = _resourceContext;
+            base.InitializeResources();
         }
 
         public string SearchKey { get; set; }
@@ -78,6 +86,12 @@ namespace MyProject.Models.ViewModels
 
         public HomePageInfo Info { get; set; }
 
+        public string GetResource(string key)
+        {
+            var ret = "Default Resource";
+            Resources.TryGetValue(key, out ret);
+            return ret;    
+        }
     }
 
     public class HeaderAdvertisementViewModel
