@@ -8,13 +8,24 @@ using System.Web.Mvc;
 using MyProject.DAL;
 using MyProject.Models.ShoppingCart;
 using Address = MyProject.Models.ShoppingCart.Address;
+using MyProject.Models.ViewModels.ContentManagement;
 
 namespace MyProject.Models.ViewModels
 {
-    public class CheckoutViewModel
+    public class CheckoutViewModel : ResourceModel
     {
+        private string _resourceContext = "Checkout";
+        private string _resourceSet = "SalesPortal";
+
+        public CheckoutViewModel()
+        {
+            ResourceContext = _resourceContext;
+            base.InitializeResources();
+
+        }
+
         [Required]
-        [DisplayName("Tên")]
+        //[DisplayName("Tên")]
         public string Name { get; set; }
 
         public string CartCode { get; set; }
@@ -24,11 +35,11 @@ namespace MyProject.Models.ViewModels
         public decimal PaymentAmount { get; set; }
 
         [Required]
-        [DisplayName("Số phone")]
+        //[DisplayName("Số phone")]
         public string Phone { get; set; }
 
         [Required]
-        [DisplayName("Địa chỉ Email")]
+        //[DisplayName("Địa chỉ Email")]
         public string Email { get; set; }
 
         public Address BillingAddress { get; set; }

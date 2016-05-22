@@ -111,46 +111,40 @@
         <div>
             @{
                 var total = Model.Price + Model.ShippingCost;
-                <span style="color: #dc143c">@Model.GetResource("StoreDetail.TotalPrice.Text"): @total.ToString("N0")</span>
+
                 <div>
-                    <span style="font-size: 10px; text-align: right">-------------------------</span>
+                    <span style="font-size: 12px;text-align: right">@Model.GetResource("StoreDetail.Price.Text"): @Model.Price.ToString("0.00")</span>
                 </div>
-                
+
+                if (Model.ShippingCost > 0)
+                {
+                    <div>
+                        <span style="font-size: 12px; text-align: right">@Model.GetResource("StoreDetail.ShippingCost.Text"): @Model.ShippingCost.ToString("0.00")</span>
+                    </div>
+
+                }
+
                 <div>
-                    <span style="font-size: 10px;text-align: right">@Model.GetResource("StoreDetail.Price.Text"): @Model.Price</span>
+                    <span style="font-size: 16px;color: #dc143c">@Model.GetResource("StoreDetail.TotalPrice.Text"): @total.ToString("0.00")</span>
                 </div>
             }
             
 
-            @if (@Model.OriginalPrice > 0m)
+            @*@if (@Model.OriginalPrice > 0m)
             {
                 var percent = 100 - (Model.Price/Model.OriginalPrice)*100;
                 if (percent > 0)
                 {
-                    <span style="text-decoration: line-through">@Model.OriginalPrice.ToString("N0")</span>
-@*
+                    <span style="text-decoration: line-through">@Model.OriginalPrice.ToString("0.00")</span>
+
                     
                 <div>
                     <span style="font-size: 18px; font-family: Arial; color: #ff4500"><b>GIẢM  :  @percent.ToString("N0") %</b></span>
-                </div>  *@
+                </div>  
                 }
 
-            }
+            }*@
         </div>
-        @if (Model.ShippingCost > 0)
-        {
-            <div>
-                <span style="font-size: 10px; text-align: right">@Model.GetResource("StoreDetail.ShippingCost.Text"): @Model.ShippingCost.ToString("N0")</span>
-            </div>
-
-        }
-        else
-        {
-            <div>
-                <span style="font-size: 10px;text-align: right">+ Miễn phí cước vận chuyển</span>
-            </div>
-            
-        }
 
         <p></p>
         <p></p>

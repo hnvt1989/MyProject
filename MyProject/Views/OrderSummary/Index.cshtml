@@ -17,7 +17,7 @@
                 <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-                if (Model.FirstTime)
+                @*if (Model.FirstTime)
                 {
                 <fieldset>
                     <h4>Thank you !</h4>
@@ -27,30 +27,30 @@
 
 
                 </fieldset>
-                }
+                }*@
                 <div align="center">
-                    <h3>Đơn đặt hàng</h3>
+                    <h3>@Model.GetResource("OrderSummary.Header.Text")</h3>
                 </div>
                 <fieldset>
                     <legend>
-                        <h4>Thông tin khách hàng</h4>
+                        <h4>@Model.GetResource("OrderSummary.CustomerInfoHeaderLabel.Text")</h4>
                     </legend>
 
                     <div>
                         <div>
-                            <span><b>Mã số đơn đặt hàng: </b>&nbsp;&nbsp;&nbsp;&nbsp;@Model.OrderNumber</span>
+                            <span><b>@Model.GetResource("OrderSummary.OrderNumberLabel.Text"): </b>&nbsp;&nbsp;&nbsp;&nbsp;@Model.OrderNumber</span>
                         </div>
                         <div>
-                            <span><b>Tên khách hàng: </b>&nbsp;&nbsp;@Model.FullName</span>
+                            <span><b>@Model.GetResource("OrderSummary.CustomerInfoNameLabel.Text"): </b>&nbsp;&nbsp;@Model.FullName</span>
                         </div>
                         <div>
-                            <span><b>Địa chỉ Email: </b>&nbsp;&nbsp;@Model.Email</span>
+                            <span><b>@Model.GetResource("OrderSummary.CustomerInfoEmailAddressLabel.Text"): </b>&nbsp;&nbsp;@Model.Email</span>
                         </div>
                         <div>
-                            <span><b>Số phone: </b>&nbsp;@Model.Phone</span>
+                            <span><b>@Model.GetResource("OrderSummary.CustomerInfoContactPhoneLabel.Text"): </b>&nbsp;@Model.Phone</span>
                         </div>
                         <div>
-                            <span><b>Địa chỉ: </b></span>
+                            <span><b>@Model.GetResource("OrderSummary.CustomerInfoAddressLabel.Text"): </b></span>
                         </div>
                         <div>
                             <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Model.ShippingAddress.Line1</span>
@@ -65,27 +65,21 @@
                 </fieldset>
                 <fieldset>
                     <legend>
-                        <h4>Sản phẩm</h4>
+                        <h4>@Model.GetResource("OrderSummary.ShoppingCartHeaderLabel.Text")</h4>
                     </legend>
 
                     <table>
                         <tr>
-                            <th class="hide-for-small-only">Hình ảnh
-                            </th>
-                            <th>Tên sản phẩm
-                            </th>
-                            <th class="hide-for-small-only">Tiền
-                            </th>
-                            <th>Số lượng
-                            </th>
+                            <th class="hide-for-small-only">@Model.GetResource("OrderSummary.ShoppingCartThumbnailLabel.Text")</th>
+                            <th>@Model.GetResource("OrderSummary.ShoppingCartProductDescriptionLabel.Text")</th>
+                            <th class="hide-for-small-only">@Model.GetResource("OrderSummary.ShoppingCartUnitPriceLabel.Text")</th>
+                            <th>@Model.GetResource("OrderSummary.ShoppingCartQuantityLabel.Text")</th>
                             @*                <th>Tổng
                         </th>
                         <th>Khuyến mãi
                         </th>*@
-                            <th class="hide-for-small-only">Vận chuyển
-                            </th>
-                            <th>Tổng cộng
-                            </th>
+                            <th class="hide-for-small-only">@Model.GetResource("OrderSummary.ShoppingCartShippingCostLabel.Text")</th>
+                            <th>@Model.GetResource("OrderSummary.ShoppingCartLineTotalLabel.Text")</th>
                             <th></th>
                         </tr>
                         @foreach (var item in Model.OrderDetails)
@@ -110,7 +104,7 @@
                                     @item.Product.Description
                                 </td>
                                 <td class="hide-for-small-only">
-                                    @String.Format("{0:N0}", @item.UnitPrice)
+                                    @item.UnitPrice.ToString("0.00")
 
                                 </td>
                                 <td id="item-count-@item.Product.Id">
@@ -125,14 +119,14 @@
                         
                                 </td>*@
                                 <td class="hide-for-small-only" style="text-align: right">
-                                    @item.ShippingCost.ToString("N0")
+                                    @item.ShippingCost.ToString("0.00")
                         
                                 </td>
                                 <td style="text-align: right">
                                     @{
                                         var subtotal = @item.ShippingCost + @item.Total;
                                     }
-                                    @subtotal.ToString("N0")
+                                    @subtotal.ToString("0.00")
 
                                 </td>
                             </tr>
@@ -156,15 +150,15 @@
                             <td class="hide-for-small-only"></td>
                             <td class="hide-for-small-only"></td>
                             <td class="hide-for-small-only"></td>
-                            <td><b>Tổng tiền:</b></td>
+                            <td><b>@Model.GetResource("OrderSummary.ShoppingCartNetTotalLabel.Text")</b></td>
                             <td id="cart-total" style="text-align: right">
-                               @Model.Total.ToString("N0")
+                               @Model.Total.ToString("0.00")
                             </td>
                         </tr>
                     </table>
                 </fieldset>
 
-                <fieldset>
+                @*<fieldset>
                     <h4>Thanh toán</h4>
                     <table>
                         <tr>
@@ -192,7 +186,7 @@
 
                     </div>
 
-                </fieldset>
+                </fieldset>*@
                 
             }
         </section>

@@ -19,7 +19,10 @@
 </script>
 <div class="row">
     <div class="large-12 columns">
-        <h3>Xác nhận đơn đặt hàng </h3>
+        <div align="center">
+            <h3>@Model.GetResource("OrderConfirm.Header.Text")</h3>
+        </div>
+
         <section id="ProfileForm">
             @using (Html.BeginForm("Index", "OrderConfirm", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
             {
@@ -28,22 +31,22 @@
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <fieldset>
                     <legend>
-                        <h4>Thông tin khách hàng</h4>
+                        <h4>@Model.GetResource("OrderConfirm.CustomerInfoHeaderLabel.Text")</h4>
                     </legend>
 
                     <div>
 
                         <div>
-                            <span><b>Tên khách hàng: </b>&nbsp;&nbsp;@Model.CheckOutInfo.Name</span>
+                            <span><b>@Model.GetResource("OrderConfirm.CustomerInfoNameLabel.Text") :</b>&nbsp;&nbsp;@Model.CheckOutInfo.Name</span>
                         </div>
                         <div>
-                            <span><b>Địa chỉ Email: </b>&nbsp;&nbsp;@Model.CheckOutInfo.Email</span>
+                            <span><b>@Model.GetResource("OrderConfirm.CustomerInfoEmailAddressLabel.Text") :</b>&nbsp;&nbsp;@Model.CheckOutInfo.Email</span>
                         </div>
                         <div>
-                            <span><b>Số phone: </b>&nbsp;@Model.CheckOutInfo.Phone</span>
+                            <span><b>@Model.GetResource("OrderConfirm.CustomerInfoContactPhoneLabel.Text") :</b>&nbsp;@Model.CheckOutInfo.Phone</span>
                         </div>
                         <div>
-                            <span><b>Địa chỉ nhà: </b></span>
+                            <span><b>@Model.GetResource("OrderConfirm.CustomerInfoAddressLabel.Text") :</b></span>
                         </div>
                         <div>
                             <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Model.CheckOutInfo.ShippingAddress.Line1</span>
@@ -58,27 +61,21 @@
                 </fieldset>
                 <fieldset>
                     <legend>
-                        <h4>Giỏ hàng</h4>
+                        <h4>@Model.GetResource("OrderConfirm.ShoppingCartHeaderLabel.Text")</h4>
                     </legend>
 
                     <table>
                         <tr>
-                            <th class="hide-for-small-only">Hình ảnh
-                            </th>
-                            <th>Tên sản phẩm
-                            </th>
-                            <th class="hide-for-small-only">Tiền
-                            </th>
-                            <th>Số lượng
-                            </th>
+                            <th class="hide-for-small-only">@Model.GetResource("OrderConfirm.ShoppingCartThumbnailLabel.Text")</th>
+                            <th>@Model.GetResource("OrderConfirm.ShoppingCartProductDescriptionLabel.Text")</th>
+                            <th class="hide-for-small-only">@Model.GetResource("OrderConfirm.ShoppingCartUnitPriceLabel.Text")</th>
+                            <th>@Model.GetResource("OrderConfirm.ShoppingCartQuantityLabel.Text")</th>
                             @*                <th>Tổng
                         </th>
                         <th>Khuyến mãi
                         </th>*@
-                            <th class="hide-for-small-only">Vận chuyển
-                            </th>
-                            <th>Tổng cộng
-                            </th>
+                            <th class="hide-for-small-only">@Model.GetResource("OrderConfirm.ShoppingCartShippingCostLabel.Text")</th>
+                            <th>@Model.GetResource("OrderConfirm.ShoppingCartLineTotalLabel.Text")</th>
                             <th></th>
                         </tr>
                         @foreach (var item in Model.CartViewModel.CartItems)
@@ -103,7 +100,7 @@
                                     @Html.ActionLink(item.Product.Description, "Details", "Store", new { id = item.ProductId }, null)
                                 </td>
                                 <td class="hide-for-small-only">
-                                    @String.Format("{0:N}",@item.OriginalPrice)
+                                   @item.OriginalPrice.ToString("0.00")
                                     
                                 </td>
                                 <td id="item-count-@item.Id">
@@ -118,14 +115,14 @@
                                     
                                 </td>*@
                                 <td id="item-shippingcost-@item.Id" class="hide-for-small-only" style="text-align: right">
-                                    @item.ShippingCost.ToString("N0")
+                                    @item.ShippingCost.ToString("0.00")
                         
                                 </td>
                                 <td id="item-sum-@item.Id" style="text-align: right">
                                     @{
                                         var subtotal = @item.ShippingCost + @item.Sum;
                                     }
-                                    @subtotal.ToString("N0")
+                                    @subtotal.ToString("0.00")
 
                                 </td>
                             </tr>
@@ -148,9 +145,9 @@
                         <td class="hide-for-small-only"></td>
                         <td class="hide-for-small-only"></td>
                         <td class="hide-for-small-only"></td>
-                        <td><b>Tổng tiền:</b></td>
+                        <td><b>@Model.GetResource("OrderConfirm.ShoppingCartNetTotalLabel.Text")</b></td>
                         <td id="cart-total" style="text-align: right">
-                           @Model.CartViewModel.CartTotal.ToString("N0")
+                           @Model.CartViewModel.CartTotal.ToString("0.00")
                         </td>
                     </tr>
                     </table>
@@ -174,8 +171,8 @@
                     </table>
                 </fieldset>*@
 
-                <input id="backBtn" class="button success" value="Quay lại" />
-                <input id="submitBtn" type="submit" class="button success" value="Đặt hàng ngay!" />
+                <input id="backBtn" class="button success" value=@Model.GetResource("OrderConfirm.ShoppingCartBackButton.Text") />
+                <input id="submitBtn" type="submit" class="button success" value=@Model.GetResource("OrderConfirm.ShoppingCartPlaceOrderButton.Text") />
             }
         </section>
     </div>

@@ -4,7 +4,7 @@
 
 ﻿@model MyProject.Models.ViewModels.HomeViewModel
 @{
-    ViewBag.Title = "Trang chủ";
+    ViewBag.Title = "Home";
 }
 
 <head>
@@ -243,7 +243,7 @@
                     <div class="row collapse">
                     <div class="large-6 columns">
 
-                        @Html.KTextBoxFor(m => m.SearchKey, new {@class = "fill", @placeholder = "Tìm kiếm sản phẩm"})
+                        @Html.KTextBoxFor(m => m.SearchKey, new {@class = "fill", @placeholder = "Search product"})
                         @Html.HiddenFor(m => m.SearchKey)
                     </div>
                         <div class="large-2 end columns">

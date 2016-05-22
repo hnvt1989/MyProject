@@ -58,4 +58,50 @@ namespace MyProject.Models.ViewModels.ContentManagement
             return ret;
         }
     }
+
+    public static class ResourcesHelper
+    {
+        public static string GetResource(string key)
+        {
+            using (var context = new ShoppingCartContext())
+            {
+                var selectedCultureId = 0;
+
+                var selectedCultureAppSetting = context.AppSettings.SingleOrDefault(a => a.Code == "SelectedCulture").Value;
+                if (selectedCultureAppSetting != null)
+                {
+                    var selectedCulture = context.Cultures.SingleOrDefault(c => c.Code == selectedCultureAppSetting);
+                    if (selectedCulture == null)
+                        throw new Exception("Missing Culture [" + selectedCultureAppSetting + "]");
+                    else
+                        selectedCultureId = selectedCulture.Id;
+                }
+                else
+                {
+                    //look for default culture
+                    selectedCultureId = context.Cultures.Where(c => c.Default).First().Id;
+                }
+
+                var toks = key.Split('.');
+                var resourceSet = toks[0];
+                var resourceContext = toks[1];
+                var resourceName = toks[2];
+                var resourceProperty = toks[3];
+
+                var resourceKey = context.ResourceKeys.Where(rk => rk.Context == resourceContext && rk.Name == resourceName).FirstOrDefault();
+                if (resourceKey == null)
+                    throw new Exception("Missing resource key");
+
+                var resourceKeyId = resourceKey.Id;
+
+                var rValue = context.ResourceValues.Where(r => r.ResourceKeyId == resourceKeyId && r.CultureId == selectedCultureId).FirstOrDefault();
+                if (rValue == null)
+                    throw new Exception("Missing resource value");
+
+                return rValue.Value;
+
+
+            }
+        }
+    }
 }

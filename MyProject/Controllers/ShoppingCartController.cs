@@ -6,12 +6,16 @@ using System.Web.Mvc;
 using MyProject.DAL;
 using MyProject.Models.ShoppingCart;
 using MyProject.Models.ViewModels;
+using MyProject.Models.ViewModels.ContentManagement;
 
 namespace MyProject.Controllers
 {
     public class ShoppingCartController : Controller
     {
         readonly ShoppingCartContext _shoppingCartContext = new ShoppingCartContext();
+        readonly string ItemAddedPromptedMessage = ResourcesHelper.GetResource("SalesPortal.ShoppingCart.ItemAddedMessage.Text");
+        readonly string ItemRemovedPromptedMessage = ResourcesHelper.GetResource("SalesPortal.ShoppingCart.ItemRemovedMessage.Text");
+
         //ProductContext _productContext = new ProductContext();
         //
         // GET: /ShoppingCart/
@@ -65,8 +69,9 @@ namespace MyProject.Controllers
             // update cart view
             var results = new ShoppingCartRemoveViewModel()
             {
-                Message = "(1) " + Server.HtmlEncode(productDescription) +
-                    " đã được lấy ra giỏ hàng.",
+                Message = string.Format(ItemRemovedPromptedMessage, 1, Server.HtmlEncode(productDescription)),
+                //Message = "(1) " + Server.HtmlEncode(productDescription) +
+                //    " đã được lấy ra giỏ hàng.",
                 CartTotalToString = (cart.GetTotal() + cart.GetTotalShippingCost()).ToString("N0"),
                 CartTotal = cart.GetTotal() + cart.GetTotalShippingCost(),
                 CartCount = cart.GetCount(),
@@ -112,8 +117,7 @@ namespace MyProject.Controllers
             // update cart view
             var results = new ShoppingCartAddViewModel()
             {
-                Message = "(1)" + Server.HtmlEncode(productDescription) +
-                    " đã được thêm vào giỏ hàng của bạn.",
+                Message = string.Format(ItemAddedPromptedMessage, 1, Server.HtmlEncode(productDescription)),
                 CartTotal = cart.GetTotal() + cart.GetTotalShippingCost(),
                 CartTotalToString = (cart.GetTotal() + cart.GetTotalShippingCost()).ToString("N0"),
                 CartCount = cart.GetCount(),
