@@ -253,6 +253,7 @@
     <Compile Include="Models\ViewModels\OrderSummaryViewModel.cs" />
     <Compile Include="Models\ViewModels\EditProductViewModel.cs" />
     <Compile Include="Models\ViewModels\ProductManagementViewModel.cs" />
+    <Compile Include="Models\ViewModels\ProductDetailViewModel.cs" />
     <Compile Include="Models\ViewModels\ProductViewModel.cs" />
     <Compile Include="Models\ViewModels\PromotionSettingViewModel.cs" />
     <Compile Include="Models\ViewModels\QuickFinanceStatisticsViewModel.cs" />

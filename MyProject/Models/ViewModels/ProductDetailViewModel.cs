@@ -13,7 +13,7 @@ namespace MyProject.Models.ViewModels
 {
     public class ProductDetailViewModel : ResourceModel
     {
-        private string _resourceContext = "StoreProductDetails";
+        private string _resourceContext = "StoreDetail";
         private string _resourceSet = "SalesPortal";
 
         public ProductDetailViewModel()
@@ -28,6 +28,8 @@ namespace MyProject.Models.ViewModels
 
         public string Description { get; set; }
 
+        public string DetailDescription { get; set; }
+
         public decimal Price { get; set; }
 
         public decimal OriginalPrice { get; set; }
@@ -36,14 +38,17 @@ namespace MyProject.Models.ViewModels
 
         public decimal ShippingCost { get; set; }
 
-        [Display(Name = "Quantity on hand")]
         public int QuantityOnHand { get; set; }
+
+        public Category Category { get; set; }
 
         public byte[] Image { get; set; }
 
         public byte[] ImageAlt0 { get; set; }
 
         public byte[] ImageAlt1 { get; set; }
+
+        
 
     }
 }

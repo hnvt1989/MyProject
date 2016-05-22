@@ -1,6 +1,6 @@
 ﻿@using Microsoft.Ajax.Utilities
 @using MyProject.AppLogic
-@model MyProject.Models.ViewModels.ProductViewModel
+@model MyProject.Models.ViewModels.ProductDetailViewModel
 
 @{
     //ViewBag.Title = "ProductDetails";
@@ -28,8 +28,8 @@
 
         <div class="row">
             <div>
-                <span style="font-size: 15px; color: #000000"><a href="/Home/Index"> Trang chủ &nbsp;&nbsp;&nbsp;&nbsp;</a></span>
-                <span style="font-size: 15px; color: #000000"><a href="/Home/FilterByCategory?code=@Model.Categories.First().Code"> /&nbsp;&nbsp;&nbsp;&nbsp;@Model.Categories.First().Description</a></span>
+                <span style="font-size: 15px; color: #000000"><a href="/Home/Index"> @Model.GetResource("StoreDetail.MainPageUrl.Text") &nbsp;&nbsp;&nbsp;&nbsp;</a></span>
+                <span style="font-size: 15px; color: #000000"><a href="/Home/FilterByCategory?code=@Model.Category.Code"> /&nbsp;&nbsp;&nbsp;&nbsp;@Model.Category.Description</a></span>
             </div>
             @if (@Model.ImageAlt0 != null)
             {
@@ -78,9 +78,8 @@
             </ul>
 
             <ul class="tabs" data-tab>
-                <li class="tab-title active"><a href="#panel1">Chi tiết</a></li>
-                <li class="tab-title"><a href="#panel2">Video</a></li>
-                <li class="tab-title"><a href="#panel3">Cách mua</a></li>
+                <li class="tab-title active"><a href="#panel1">@Model.GetResource("StoreDetail.DetailDescription.Text")</a></li>
+                <li class="tab-title"><a href="#panel2">@Model.GetResource("StoreDetail.Video.Text")</a></li>
 
             </ul>
             <div class="tabs-content">
@@ -98,9 +97,6 @@
                         </div>
                     }
                 </div>
-                <div class="content" id="panel3">
-                    <span style="font-size: 12px"><a href="/Home/PurchaseInstruction">Xin bạn nhấn vào đây để chuyến đến trang Hướng Dẫn Cách Mua ở J.A Shop</a></span>
-                </div>
 
             </div>
 
@@ -110,18 +106,18 @@
 
     <div class="medium-6 large-5 columns">
         <div><span style="font-family: Arial; font-size: 16px"><b>@Model.Description</b></span></div>
-        <span style="font-size: 12px; font-family: Arial">Mã số: @Model.Code</span>
+        <span style="font-size: 12px; font-family: Arial">@Model.GetResource("StoreDetail.ProductCode.Text") : @Model.Code</span>
         <p></p>
         <div>
             @{
-                var listPrice = Model.Price + Model.ShippingCost;
-                <span style="color: #dc143c">@listPrice.ToString("N0")</span>
+                var total = Model.Price + Model.ShippingCost;
+                <span style="color: #dc143c">@Model.GetResource("StoreDetail.TotalPrice.Text"): @total.ToString("N0")</span>
                 <div>
                     <span style="font-size: 10px; text-align: right">-------------------------</span>
                 </div>
                 
                 <div>
-                    <span style="font-size: 10px;text-align: right">@Model.Price.ToString("N0") (giá sản phẩm)</span>
+                    <span style="font-size: 10px;text-align: right">@Model.GetResource("StoreDetail.Price.Text"): @Model.Price</span>
                 </div>
             }
             
@@ -144,7 +140,7 @@
         @if (Model.ShippingCost > 0)
         {
             <div>
-                <span style="font-size: 10px; text-align: right">+ @Model.ShippingCost.ToString("N0") (cước vận chuyển)</span>
+                <span style="font-size: 10px; text-align: right">@Model.GetResource("StoreDetail.ShippingCost.Text"): @Model.ShippingCost.ToString("N0")</span>
             </div>
 
         }
@@ -161,7 +157,7 @@
         <p></p>
 
         <p class="button" style="background: #000000; color: #ffffff">
-            @Html.ActionLink("Thêm vào giỏ hàng", "AddToCart", "ShoppingCart", new { id = @Model.Id }, new { @style = "color: #FFFFFF" })
+            @Html.ActionLink(Model.GetResource("StoreDetail.AddToCartBtn.Text"), "AddToCart", "ShoppingCart", new { id = @Model.Id }, new { @style = "color: #FFFFFF" })
         </p>
 
     </div>

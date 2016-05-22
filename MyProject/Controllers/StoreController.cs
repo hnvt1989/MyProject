@@ -11,7 +11,6 @@ namespace MyProject.Controllers
 {
     public class StoreController : Controller
     {
-        ShoppingCartContext _shoppingCartContext = new ShoppingCartContext();
         //
         // GET: /Store/
         //public ActionResult Index()
@@ -21,7 +20,7 @@ namespace MyProject.Controllers
 
         public ActionResult Details(int id)
         {
-            var productModel = new ProductViewModel();
+            var productModel = new ProductDetailViewModel();
 
             using (var pContext = new ShoppingCartContext())
             {
@@ -38,8 +37,12 @@ namespace MyProject.Controllers
                 var origPrice = offers.SingleOrDefault(po => po.ProductId == prod.Id && po.PriceTypeId == 3);
                 var curPrice = offers.SingleOrDefault(po => po.ProductId == prod.Id && po.PriceTypeId == 1);
 
-                productModel.Categories =
-                    pContext.Products.Where(p => p.Id == prod.Id).SelectMany(product => product.Categories).ToList();
+                var cat = pContext.Products.Where(p => p.Id == prod.Id).SelectMany(product => product.Categories).FirstOrDefault();
+                if(cat != null)
+                {
+                    productModel.Category = cat;
+                }
+
                 if (origPrice != null)
                 {
                     if (origPrice.Price > 0)
@@ -52,7 +55,6 @@ namespace MyProject.Controllers
                     productModel.Price = curPrice.Price;
                 }
                 //productModel.Price = offers.Single(po => po.ProductId == prod.Id && po.PriceTypeId == 1).Price;
-                productModel.FeatureProduct = prod.FeatureProduct;
                 productModel.Image = prod.Image;
                 productModel.ImageAlt0 = prod.ImageAlt0;
                 productModel.ImageAlt1 = prod.ImageAlt1;

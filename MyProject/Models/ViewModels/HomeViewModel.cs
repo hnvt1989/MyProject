@@ -86,12 +86,7 @@ namespace MyProject.Models.ViewModels
 
         public HomePageInfo Info { get; set; }
 
-        public string GetResource(string key)
-        {
-            var ret = "Default Resource";
-            Resources.TryGetValue(key, out ret);
-            return ret;    
-        }
+
     }
 
     public class HeaderAdvertisementViewModel

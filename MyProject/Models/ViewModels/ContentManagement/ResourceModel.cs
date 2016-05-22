@@ -49,6 +49,13 @@ namespace MyProject.Models.ViewModels.ContentManagement
                         }
                     );
             }
-        } 
+        }
+
+        public virtual string GetResource(string key)
+        {
+            var ret = "Default Resource";
+            Resources.TryGetValue(key, out ret);
+            return ret;
+        }
     }
 }
