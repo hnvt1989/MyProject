@@ -2,7 +2,8 @@ MyProject
 ==========================================================
 This is my personal project. It is a small e-commerce website. 
 
-Production URL: http://jashopvn.com/
+Website is hosted @ the URL:  http://myproject-dev.us-west-2.elasticbeanstalk.com/
+
 ==========================================================
 Technologies: Microsoft Entity Framework, MSSQL, C#, JavaScript, HTML, CSS, Ajax, Foundation framework, NUnit, AWS, Git.
 
