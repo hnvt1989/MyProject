@@ -19,7 +19,7 @@ namespace MyProject.Migrations
 
         protected override void Seed(MyProject.DAL.IdentityContext context)
         {
-            if (false)
+            if (true)
             {
                 var userStore = new UserStore<ApplicationUser>(context);
                 var userManager = new UserManager<ApplicationUser>(userStore);

@@ -17,7 +17,7 @@ using MyProject.Models.ShoppingCart;
 
 namespace MyProject.DAL
 {
-    public class DatabaseMasterInitializer : DropCreateDatabaseIfModelChanges<DatabaseMasterContext>
+    public class DatabaseMasterInitializer : DropCreateDatabaseAlways<DatabaseMasterContext>
     {
         protected override void Seed(DatabaseMasterContext context)
         {
@@ -105,7 +105,7 @@ namespace MyProject.DAL
                         FeatureProduct = true,
                         Weight = 1,
                         QuantityOnHand = 29,
-                        DetailDescription = "this is a good product , Heathered Knit Drawstring Jumpsuit. Ship from USA.",
+                        DetailDescription = "Heathered Knit Drawstring Jumpsuit. Ship from USA.",
                         Categories = new List<Category>()
                         {
                             cContext.Categories.SingleOrDefault(c=>c.Code=="30000")

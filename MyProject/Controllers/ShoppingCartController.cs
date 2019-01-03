@@ -66,7 +66,7 @@ namespace MyProject.Controllers
             var results = new ShoppingCartRemoveViewModel()
             {
                 Message = "(1) " + Server.HtmlEncode(productDescription) +
-                    " đã được lấy ra giỏ hàng.",
+                    " has taken out from the cart.",
                 CartTotalToString = (cart.GetTotal() + cart.GetTotalShippingCost()).ToString("N0"),
                 CartTotal = cart.GetTotal() + cart.GetTotalShippingCost(),
                 CartCount = cart.GetCount(),
@@ -113,7 +113,7 @@ namespace MyProject.Controllers
             var results = new ShoppingCartAddViewModel()
             {
                 Message = "(1)" + Server.HtmlEncode(productDescription) +
-                    " đã được thêm vào giỏ hàng của bạn.",
+                    " has been added to the cart.",
                 CartTotal = cart.GetTotal() + cart.GetTotalShippingCost(),
                 CartTotalToString = (cart.GetTotal() + cart.GetTotalShippingCost()).ToString("N0"),
                 CartCount = cart.GetCount(),

@@ -22,7 +22,7 @@ namespace MyProject.Migrations
         protected override void Seed(MyProject.DAL.ShoppingCartContext cContext)
         {
 
-            if (false)
+            if (true)
             {
                 //set up account address
                 AddressFlow.AddNewAddress("huynguyenvt1989@gmail.com", new Address()

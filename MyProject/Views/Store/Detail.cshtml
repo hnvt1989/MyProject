@@ -28,7 +28,7 @@
 
         <div class="row">
             <div>
-                <span style="font-size: 15px; color: #000000"><a href="/Home/Index"> Trang chủ &nbsp;&nbsp;&nbsp;&nbsp;</a></span>
+                <span style="font-size: 15px; color: #000000"><a href="/Home/Index"> Home &nbsp;&nbsp;&nbsp;&nbsp;</a></span>
                 <span style="font-size: 15px; color: #000000"><a href="/Home/FilterByCategory?code=@Model.Categories.First().Code"> /&nbsp;&nbsp;&nbsp;&nbsp;@Model.Categories.First().Description</a></span>
             </div>
             @if (@Model.ImageAlt0 != null)
@@ -161,7 +161,7 @@
         <p></p>
 
         <p class="button" style="background: #000000; color: #ffffff">
-            @Html.ActionLink("Thêm vào giỏ hàng", "AddToCart", "ShoppingCart", new { id = @Model.Id }, new { @style = "color: #FFFFFF" })
+            @Html.ActionLink("Add to cart", "AddToCart", "ShoppingCart", new { id = @Model.Id }, new { @style = "color: #FFFFFF" })
         </p>
 
     </div>
