@@ -453,7 +453,8 @@ namespace MyProject.Migrations
                     new PaymentStatus() { Code = "Hold", Description = "On Hold"},
                     new PaymentStatus() { Code = "Processing", Description = "Processing"},
                     new PaymentStatus() { Code = "Processed", Description = "Processed"},
-                    new PaymentStatus() { Code = "Completed", Description = "Completed"}
+                    new PaymentStatus() { Code = "Completed", Description = "Completed"},
+                    new PaymentStatus() { Code = "NotPaid", Description = "Not yet paid"}
                 };
 
                 cContext.PaymentStatuses.AddRange(paymentStatuses);
@@ -462,8 +463,9 @@ namespace MyProject.Migrations
 
                 cContext.PaymentTypes.AddRange(new List<PaymentType>
                 {
-                    new PaymentType() {Code = "Bank", Description = "Chuyển tiền qua tài khoản"},
-                    new PaymentType() {Code = "Cash", Description = "Gởi tiền mặt"},
+                    new PaymentType() {Code = "Bank", Description = "Bank transfer"},
+                    new PaymentType() {Code = "Cash", Description = "Cash"},
+                    new PaymentType() {Code = "PayLater", Description = "Pay Later"}
                 });
                 cContext.SaveChanges();
 
