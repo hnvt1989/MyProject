@@ -217,6 +217,10 @@
     <Compile Include="Migrations\201901030737573_InitialCreate.Designer.cs">
       <DependentUpon>201901030737573_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901030917198_InitialCreate1.cs" />
+    <Compile Include="Migrations\201901030917198_InitialCreate1.Designer.cs">
+      <DependentUpon>201901030917198_InitialCreate1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\Configuration_IdentityDb.cs" />
     <Compile Include="Migrations\Configuration_ShoppingCart.cs" />
@@ -704,7 +708,7 @@
     <Content Include="Content\jquery.dataTables_themeroller.css" />
     <Content Include="Content\print.css" />
     <Content Include="Content\screen.css" />
-    <None Include="Setup.README" />
+    <None Include="Setup.md" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -1325,6 +1329,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201901030737573_InitialCreate.resx">
       <DependentUpon>201901030737573_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901030917198_InitialCreate1.resx">
+      <DependentUpon>201901030917198_InitialCreate1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -43,6 +43,16 @@ namespace MyProject.Migrations
                     //ProfilePicture = ImageToByteArray(Image.FromFile(HostingEnvironment.MapPath(@"~/Content/Images/Profile2.jpg"))),
                 };
                 userManager.Create(userToInsert, "vt1989");
+
+                userToInsert = new ApplicationUser
+                {
+                    Email = "test.user@gmail.com",
+                    UserName = "test.user@gmail.com",
+                    FirstName = "Test",
+                    LastName = "User",
+                    //ProfilePicture = ImageToByteArray(Image.FromFile(HostingEnvironment.MapPath(@"~/Content/Images/Profile2.jpg"))),
+                };
+                userManager.Create(userToInsert, "test1234");
             }
         }
 

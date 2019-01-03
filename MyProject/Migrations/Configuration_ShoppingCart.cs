@@ -44,6 +44,17 @@ namespace MyProject.Migrations
                     Line3 = "Viet Nam",
                     Primary = false
                 });
+
+                AddressFlow.AddNewAddress("test.user@gmail.com", new Address()
+                {
+                    AddressType = new AddressType() { Code = "Alternative", Description = "Alternative address" },
+                    Code = Guid.NewGuid().ToString(),
+                    Line1 = "1234 SE Morrison",
+                    Line2 = "Suite 456",
+                    Line3 = "Portland, OR",
+                    Primary = false
+                });
+
                 var sequences = new List<Sequence>
                 {
                     new Sequence(){Code = "Order", StartValue = 10000, CurrentValue = 10000},
