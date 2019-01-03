@@ -79,21 +79,21 @@
         </div>
         <table>
             <tr>
-                <th class="hide-for-small-only">Hình ảnh
+                <th class="hide-for-small-only">View
                 </th>
-                <th>Tên sản phẩm
+                <th>Product Name
                 </th>
-                <th class="hide-for-small-only">Tiền
+                <th class="hide-for-small-only">Price
                 </th>
-                <th>Số lượng
+                <th>Quantity
                 </th>
 @*                <th>Tổng
                 </th>
                 <th>Khuyến mãi
                 </th>*@
-                <th class="hide-for-small-only">Vận chuyển
+                <th class="hide-for-small-only">Shipping fee
                 </th>
-                <th>Tổng cộng
+                <th>Total
                 </th>
                 <th></th>
             </tr>
@@ -145,11 +145,11 @@
 
                     </td>
                     <td>
-                        <a href="#" class="AddLink" data-id="@item.Id">Thêm</a>
+                        <a href="#" class="AddLink" data-id="@item.Id">Add</a>
 
                     </td>
                     <td>
-                        <a href="#" class="RemoveLink" data-id="@item.Id">Bớt</a>
+                        <a href="#" class="RemoveLink" data-id="@item.Id">Remove</a>
                     </td>
                 </tr>
             }
@@ -172,7 +172,7 @@
                 <td class="hide-for-small-only"></td>
                 <td class="hide-for-small-only"></td>
                 <td class="hide-for-small-only"></td>
-                <td><b>Tổng tiền:</b></td>
+                <td><b>Total amount:</b></td>
                 <td id="cart-total" style="text-align: right">
                     @Model.CartTotal.ToString("N0")
                 </td>
@@ -180,18 +180,18 @@
         </table>
 
         <p class="button success">
-            @Html.ActionLink("Quay về", "Index", "Home", new { cartItem = Model.CartItems }, new { @style = "color: #FFFFFF" })
+            @Html.ActionLink("Back", "Index", "Home", new { cartItem = Model.CartItems }, new { @style = "color: #FFFFFF" })
         </p>
 
 
         <p class="button success" id="checkoutBtn">
             @if (Model.CartItems.Count > 0)
             {
-                @Html.ActionLink("Tiếp tục", "Index", "Checkout", new { cartCode = Model.CartItems.FirstOrDefault().Code, cartTotal = Model.CartTotal }, new { @style = "color: #FFFFFF" })
+                @Html.ActionLink("Next", "Index", "Checkout", new { cartCode = Model.CartItems.FirstOrDefault().Code, cartTotal = Model.CartTotal }, new { @style = "color: #FFFFFF" })
             }
             else
             {
-                @Html.ActionLink("Tiếp tục", "Index", "Checkout", new { cartCode = "", cartTotal = Model.CartTotal }, new { onclick = "javascript:return false;", @style = "color: #FFFFFF" })
+                @Html.ActionLink("Next", "Index", "Checkout", new { cartCode = "", cartTotal = Model.CartTotal }, new { onclick = "javascript:return false;", @style = "color: #FFFFFF" })
             }
         </p>
 

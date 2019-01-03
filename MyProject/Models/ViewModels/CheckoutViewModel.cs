@@ -14,7 +14,7 @@ namespace MyProject.Models.ViewModels
     public class CheckoutViewModel
     {
         [Required]
-        [DisplayName("Tên")]
+        [DisplayName("Name")]
         public string Name { get; set; }
 
         public string CartCode { get; set; }
@@ -24,11 +24,11 @@ namespace MyProject.Models.ViewModels
         public decimal PaymentAmount { get; set; }
 
         [Required]
-        [DisplayName("Số phone")]
+        [DisplayName("Phone #")]
         public string Phone { get; set; }
 
         [Required]
-        [DisplayName("Địa chỉ Email")]
+        [DisplayName("Email")]
         public string Email { get; set; }
 
         public Address BillingAddress { get; set; }

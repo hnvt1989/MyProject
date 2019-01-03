@@ -29,19 +29,19 @@
 
 <div class="row">
     <div class="large-12 columns">
-        <h3>Danh sách Sản phẩm</h3>
+        <h3>Product Catalog</h3>
         @*        @Html.LabelFor(x => x.CategoryList)*@
-        <h6>Tìm kiếm theo danh mục</h6>
+        <h6>Category</h6>
         @Html.DropDownListFor(x => x.SelectedCategory, Model.CategoryList, new { id = "categorySelection", onchange = "document.location.href = '/ProductManagement/FilterByCategory?code=' + this.options[this.selectedIndex].value;" })
 
 
         <table id="products" class="display" cellspacing="0" width="100%">
             <thead>
                 <tr>
-                    <th>Mã số</th>
-                    <th>Tên</th>
-                    <th>Danh mục sản phẩm</th>
-                    <th>Số lượng đang có</th>
+                    <th>Code</th>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Quantity On-hand</th>
                     <th>Active</th>
                 </tr>
             </thead>
