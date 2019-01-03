@@ -1,13 +1,13 @@
 ﻿@model MyProject.Models.ViewModels.ProductViewLessDetail
 
 @{
-    ViewBag.Title = "Xem sản phẩm chi tiết";
+    ViewBag.Title = "View Product Details";
 }
 
 <div class="row">
     <hr>
     <div class="medium-6 columns">
-        @Html.ActionLink("<<< Quay lại", "Index", "ProductManagement", new { id = -1 }, new { @style = "color: #32cd32" })
+        @Html.ActionLink("<<< Go back", "Index", "ProductManagement", new { id = -1 }, new { @style = "color: #32cd32" })
         <br />
         @{
             if (Model.Image != null)
@@ -55,45 +55,45 @@
 
 
     <div class="large-5 columns">
-        <h4> Thông tin</h4>
+        <h4> Details</h4>
         <fieldset>
             <div class="content active" id="panel1">
 
-                <h5><b><em>Mã số sản phẩm: </em></b></h5>
+                <h5><b><em>Product Code: </em></b></h5>
                 <div class="form-group">
                     @Html.DisplayTextFor(m => m.Code)
                 </div>
 
-                 <h5><b><em>Đang bán: </em></b></h5>
+                 <h5><b><em>Active: </em></b></h5>
                 <div class="form-group">
                     @Html.CheckBoxFor(m => m.Active, new {disabled = true})
                 </div>
 
-                <h5><b><em>Thông tin: </em></b></h5>
+                <h5><b><em>Description: </em></b></h5>
                 <div class="form-group">
                    @Html.DisplayTextFor(m => m.Description)
                 </div>
 
-@*                 <h5><b><em>Thông tin chi tiết: </em></b></h5>
+@*                 <h5><b><em>More detail: </em></b></h5>
                 <div class="form-group">
                     @Html.Raw(HttpUtility.HtmlDecode(Model.DetailDescription))
                 </div>*@
 
                 <div class="panel">
-                    <h5><b><em>Giá cả: </em></b></h5>
+                    <h5><b><em>Price: </em></b></h5>
                     <div class="form-group">
-                        <span>Giá rao bán: </span><span style="color: #b22222"><b>@Model.Price.ToString("N0")</b></span>
+                        <span>Selling Price: </span><span style="color: #b22222"><b>@Model.Price.ToString("N0")</b></span>
                         
                     </div>
 @*                    <div class="form-group">
                         <span>(Đã cộng:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #b22222"><b>@Model.ShippingCost.ToString("N0")</b></span> tiền gởi về từ Mỹ)</span>
                     </div>*@
                     <div class="form-group">
-                        <span>Giá mua: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #b22222"><b>@Model.BuyInPrice.ToString("N0")</b></span> đ
+                        <span>Buy-in Price: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #b22222"><b>@Model.BuyInPrice.ToString("N0")</b></span> đ
                     </div>
                     ===============
                     <div class="form-group">
-                        <span style="background: #00ff00">Tiền lời: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #ff0000"><b>@Model.Profit.ToString("N0")</b></span> đ</span>
+                        <span style="background: #00ff00">Profit: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #ff0000"><b>@Model.Profit.ToString("N0")</b></span> đ</span>
                     </div> 
                 </div>
             </div>
@@ -103,7 +103,7 @@
             <h5><b><em>Số lượng: </em></b></h5>
             <div class="form-group">
                 <div class="col-md-10">
-                    <span>Số lượng đang có trong tay: </span><span style="color: #b22222"><b>@Model.QuantityOnHand </b></span> sản phẩm
+                    <span>Quanity On Hand: </span><span style="color: #b22222"><b>@Model.QuantityOnHand </b></span> sản phẩm
                 </div>
             </div>
         </div>

@@ -104,30 +104,30 @@ namespace MyProject.Models.ViewModels
     {
         public int Id { get; set; }
 
-        [DisplayName("Mã số")]
+        [DisplayName("Product Code")]
         public string Code { get; set; }
 
-        [DisplayName("Thông tin")]
+        [DisplayName("Description")]
         public string Description { get; set; }
 
-        [Display(Name = "Đang bán")]
+        [Display(Name = "Active")]
         public bool Active { get; set; }
 
-        [DisplayName("Thông tin chi tiết")]
+        [DisplayName("Product Details")]
         public string DetailDescription { get; set; }
 
-        [DisplayName("Giá rao bán")]
+        [DisplayName("Price")]
         public decimal Price { get; set; }
 
-        [DisplayName("Tiền lời")]
+        [DisplayName("Profit")]
         public decimal Profit { get; set; }
 
-        [DisplayName("Giá mua vào")]
+        [DisplayName("Buy-in Price")]
         public decimal BuyInPrice { get; set; }
 
         public decimal ShippingCost { get; set; }
 
-        [Display(Name = "Số lượng đang có")]
+        [Display(Name = "Quantity on-hand")]
         public int QuantityOnHand { get; set; }
 
         public byte[] Image { get; set; }
