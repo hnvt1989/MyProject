@@ -29,28 +29,28 @@
                 </fieldset>
                 }
                 <div align="center">
-                    <h3>Đơn đặt hàng</h3>
+                    <h3>Order Summary</h3>
                 </div>
                 <fieldset>
                     <legend>
-                        <h4>Thông tin khách hàng</h4>
+                        <h4>Customer Info</h4>
                     </legend>
 
                     <div>
                         <div>
-                            <span><b>Mã số đơn đặt hàng: </b>&nbsp;&nbsp;&nbsp;&nbsp;@Model.OrderNumber</span>
+                            <span><b>Code: </b>&nbsp;&nbsp;&nbsp;&nbsp;@Model.OrderNumber</span>
                         </div>
                         <div>
-                            <span><b>Tên khách hàng: </b>&nbsp;&nbsp;@Model.FullName</span>
+                            <span><b>Customer Info: </b>&nbsp;&nbsp;@Model.FullName</span>
                         </div>
                         <div>
-                            <span><b>Địa chỉ Email: </b>&nbsp;&nbsp;@Model.Email</span>
+                            <span><b>Email-Address: </b>&nbsp;&nbsp;@Model.Email</span>
                         </div>
                         <div>
-                            <span><b>Số phone: </b>&nbsp;@Model.Phone</span>
+                            <span><b>Phone #: </b>&nbsp;@Model.Phone</span>
                         </div>
                         <div>
-                            <span><b>Địa chỉ: </b></span>
+                            <span><b>Address: </b></span>
                         </div>
                         <div>
                             <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Model.ShippingAddress.Line1</span>
@@ -65,26 +65,26 @@
                 </fieldset>
                 <fieldset>
                     <legend>
-                        <h4>Sản phẩm</h4>
+                        <h4>Product</h4>
                     </legend>
 
                     <table>
                         <tr>
-                            <th class="hide-for-small-only">Hình ảnh
+                            <th class="hide-for-small-only">View
                             </th>
-                            <th>Tên sản phẩm
+                            <th>Name
                             </th>
-                            <th class="hide-for-small-only">Tiền
+                            <th class="hide-for-small-only">Price
                             </th>
-                            <th>Số lượng
+                            <th>Quantity
                             </th>
                             @*                <th>Tổng
                         </th>
                         <th>Khuyến mãi
                         </th>*@
-                            <th class="hide-for-small-only">Vận chuyển
+                            <th class="hide-for-small-only">Shipping
                             </th>
-                            <th>Tổng cộng
+                            <th>Total
                             </th>
                             <th></th>
                         </tr>
@@ -156,7 +156,7 @@
                             <td class="hide-for-small-only"></td>
                             <td class="hide-for-small-only"></td>
                             <td class="hide-for-small-only"></td>
-                            <td><b>Tổng tiền:</b></td>
+                            <td><b>Total amount:</b></td>
                             <td id="cart-total" style="text-align: right">
                                @Model.Total.ToString("N0")
                             </td>
@@ -165,14 +165,14 @@
                 </fieldset>
 
                 <fieldset>
-                    <h4>Thanh toán</h4>
+                    <h4>Payment</h4>
                     <table>
                         <tr>
-                            <th>Cách thanh toán
+                            <th>Type
                             </th>
-                            <th>Tổng
+                            <th>Total
                             </th>
-                            <th>Tình trạng
+                            <th>Status
                             </th>
                         </tr>
                         <tr>
@@ -187,7 +187,7 @@
                     <div class="amount-due">
                         @{
                         var amountDue = Model.Total - Model.PaymentTransaction.Amount;
-                            <b>Còn lại: <span>@amountDue.ToString("N0") đ</span></b>
+                            <b>Remaining: <span>@amountDue.ToString("N0") đ</span></b>
                         }
 
                     </div>

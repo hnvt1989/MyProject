@@ -2,8 +2,8 @@
 
 @{
     ViewBag.Title = "Confirm Order";
-    ViewBag.TotalShippingCost = "Cước vận chuyển";
-    ViewBag.CartTotal = "Tổng số tiền";
+    ViewBag.TotalShippingCost = "Shipping fee";
+    ViewBag.CartTotal = "Cart Total";
 }
 
 <script src="/Scripts/jquery-2.2.0.min.js" type="text/javascript"></script>
@@ -28,22 +28,22 @@
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <fieldset>
                     <legend>
-                        <h4>Thông tin khách hàng</h4>
+                        <h4>Customer Information</h4>
                     </legend>
 
                     <div>
 
                         <div>
-                            <span><b>Tên khách hàng: </b>&nbsp;&nbsp;@Model.CheckOutInfo.Name</span>
+                            <span><b>Name: </b>&nbsp;&nbsp;@Model.CheckOutInfo.Name</span>
                         </div>
                         <div>
-                            <span><b>Địa chỉ Email: </b>&nbsp;&nbsp;@Model.CheckOutInfo.Email</span>
+                            <span><b>Email-address: </b>&nbsp;&nbsp;@Model.CheckOutInfo.Email</span>
                         </div>
                         <div>
-                            <span><b>Số phone: </b>&nbsp;@Model.CheckOutInfo.Phone</span>
+                            <span><b>Phone: </b>&nbsp;@Model.CheckOutInfo.Phone</span>
                         </div>
                         <div>
-                            <span><b>Địa chỉ nhà: </b></span>
+                            <span><b>Physical Address: </b></span>
                         </div>
                         <div>
                             <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Model.CheckOutInfo.ShippingAddress.Line1</span>
@@ -65,19 +65,19 @@
                         <tr>
                             <th class="hide-for-small-only">Hình ảnh
                             </th>
-                            <th>Tên sản phẩm
+                            <th>Product Name
                             </th>
                             <th class="hide-for-small-only">Tiền
                             </th>
-                            <th>Số lượng
+                            <th>Quantity
                             </th>
                             @*                <th>Tổng
                         </th>
                         <th>Khuyến mãi
                         </th>*@
-                            <th class="hide-for-small-only">Vận chuyển
+                            <th class="hide-for-small-only">Shipping
                             </th>
-                            <th>Tổng cộng
+                            <th>Total
                             </th>
                             <th></th>
                         </tr>

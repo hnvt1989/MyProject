@@ -21,3 +21,8 @@ insert into dbo.AppSetting (Code, [Description], [Value], [ValueType])
 insert into dbo.ContentType (Code, [Description]) values ('Ad', 'Advertisement')
 
 update dbo.Product set Active = 1
+
+//Manualy insert into db
+dbo.AspNetRoles with values (1, 'Admin'), (2, 'Consultant')
+
+//Map created users with either Admin or consultant roles for administrative access (menus)

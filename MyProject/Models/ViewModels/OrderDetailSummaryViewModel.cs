@@ -76,7 +76,7 @@ namespace MyProject.Models.ViewModels
             }
         }
 
-        [DisplayName("Chọn tình trạng đơn đặt hàng:")]
+        [DisplayName("Order Statues:")]
         public SelectList OrderStatusList
         {
             get
