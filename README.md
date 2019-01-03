@@ -1,6 +1,6 @@
 MyProject
 ==========================================================
-This is my personal project. It is a small e-commerce website. 
+Lightweight e-commerce .net app
 
 Demo (hosted in AWS beanstalk): 
 
