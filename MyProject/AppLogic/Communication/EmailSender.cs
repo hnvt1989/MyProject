@@ -88,10 +88,10 @@ namespace MyProject.AppLogic.Communication
             ret += "<p><b>                        ORDER RECEIPT  " + orderNumber + "</b></p>";
             foreach (var p in order.CartViewModel.CartItems)
             {
-                ret += "<p> #" + p.Product.Code + " . <b>Product name:</b> " + p.Product.Description + "                   <b>Price/Per unit:</b>" + p.OriginalPrice.ToString("N0") + "đ    . <b>Quantity:</b>     " + p.Quantity + " </p>";
+                ret += "<p> #" + p.Product.Code + " . <b>Product name:</b> " + p.Product.Description + "                   <b>Price/Per unit:</b>" + p.OriginalPrice.ToString("N0") + "usd    . <b>Quantity:</b>     " + p.Quantity + " </p>";
             }
-            ret += "<p><b>Shipping fee:</b> " + order.CartViewModel.CartTotalShippingCost.ToString("N0") + "đ </p>";
-            ret += "<p><b>Total amount:</b>" + order.CartViewModel.CartTotal.ToString("N0") + "đ </p>";
+            ret += "<p><b>Shipping fee:</b> " + order.CartViewModel.CartTotalShippingCost.ToString("N0") + "usd </p>";
+            ret += "<p><b>Total amount:</b>" + order.CartViewModel.CartTotal.ToString("N0") + "usd </p>";
             ret += string.Format("<p> <a href=\"{0}/OrderSummary?orderNumber={1}&guid={2}&firstTime=False\">Track order status</a></p>", rootUrl, orderNumber, order.OrderGuid);
             ret += "<p> ================================================================= </p>";
             ret += contact;

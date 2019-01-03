@@ -533,16 +533,23 @@ namespace MyProject.Migrations
                     },
                     new AppSetting()
                     {
+                        Code = "NotificationEmails",
+                        Description = "Emails to send notification to",
+                        Value = "jashopvn.2016@gmail.com",
+                        ValueType = "string"
+                    },
+                    new AppSetting()
+                    {
                         Code = "NotificationEmail1",
                         Description = "Send order notification to email 1",
-                        Value = "huynguyenvt1989@gmail.com",
+                        Value = "jashopvn.2016@gmail.com",
                         ValueType = "string"
                     },
                     new AppSetting()
                     {
                         Code = "NotificationEmail2",
                         Description = "Send order notification to email 2",
-                        Value = "huynguyenvt1989@gmail.com",
+                        Value = "jashopvn.2016@gmail.com",
                         ValueType = "string"
                     },
                     new AppSetting()

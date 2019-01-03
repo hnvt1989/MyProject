@@ -19,7 +19,7 @@
 </script>
 <div class="row">
     <div class="large-12 columns">
-        <h3>Xác nhận đơn đặt hàng </h3>
+        <h3>Order Summary </h3>
         <section id="ProfileForm">
             @using (Html.BeginForm("Index", "OrderConfirm", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
             {
@@ -63,11 +63,11 @@
 
                     <table>
                         <tr>
-                            <th class="hide-for-small-only">Hình ảnh
+                            <th class="hide-for-small-only">View
                             </th>
                             <th>Product Name
                             </th>
-                            <th class="hide-for-small-only">Tiền
+                            <th class="hide-for-small-only">Price
                             </th>
                             <th>Quantity
                             </th>
@@ -148,7 +148,7 @@
                         <td class="hide-for-small-only"></td>
                         <td class="hide-for-small-only"></td>
                         <td class="hide-for-small-only"></td>
-                        <td><b>Tổng tiền:</b></td>
+                        <td><b>Cart Total:</b></td>
                         <td id="cart-total" style="text-align: right">
                            @Model.CartViewModel.CartTotal.ToString("N0")
                         </td>
@@ -174,8 +174,8 @@
                     </table>
                 </fieldset>*@
 
-                <input id="backBtn" class="button success" value="Quay lại" />
-                <input id="submitBtn" type="submit" class="button success" value="Đặt hàng ngay!" />
+                <input id="backBtn" class="button success" value="Back" />
+                <input id="submitBtn" type="submit" class="button success" value="Order now!" />
             }
         </section>
     </div>

@@ -10,13 +10,13 @@ namespace MyProject.Models.ViewModels
     {
         public int Id { get; set; }
 
-        [DisplayName("Mã số")]
+        [DisplayName("Code")]
         public string Code { get; set; }
 
-        [DisplayName("Tên khách hàng")]
+        [DisplayName("Customer Name")]
         public string CustomerName { get; set; }
 
-        [DisplayName("Ngày đặt hàng")]
+        [DisplayName("Order Date")]
         public string OrderDate { get; set; }
 
         public decimal OrderTotal { get; set; }
