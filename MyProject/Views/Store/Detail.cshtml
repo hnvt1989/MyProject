@@ -99,7 +99,7 @@
                     }
                 </div>
                 <div class="content" id="panel3">
-                    <span style="font-size: 12px"><a href="/Home/PurchaseInstruction">Xin bạn nhấn vào đây để chuyến đến trang Hướng Dẫn Cách Mua ở J.A Shop</a></span>
+                    <span style="font-size: 12px"><a href="/Home/PurchaseInstruction">Shopping direction at J.A Shop</a></span>
                 </div>
 
             </div>
@@ -110,7 +110,7 @@
 
     <div class="medium-6 large-5 columns">
         <div><span style="font-family: Arial; font-size: 16px"><b>@Model.Description</b></span></div>
-        <span style="font-size: 12px; font-family: Arial">Mã số: @Model.Code</span>
+        <span style="font-size: 12px; font-family: Arial">Code: @Model.Code</span>
         <p></p>
         <div>
             @{
@@ -121,7 +121,7 @@
                 </div>
                 
                 <div>
-                    <span style="font-size: 10px;text-align: right">@Model.Price.ToString("N0") (giá sản phẩm)</span>
+                    <span style="font-size: 10px;text-align: right">@Model.Price.ToString("N0") (Price per unit)</span>
                 </div>
             }
             
@@ -144,14 +144,14 @@
         @if (Model.ShippingCost > 0)
         {
             <div>
-                <span style="font-size: 10px; text-align: right">+ @Model.ShippingCost.ToString("N0") (cước vận chuyển)</span>
+                <span style="font-size: 10px; text-align: right">+ @Model.ShippingCost.ToString("N0") (Shipping)</span>
             </div>
 
         }
         else
         {
             <div>
-                <span style="font-size: 10px;text-align: right">+ Miễn phí cước vận chuyển</span>
+                <span style="font-size: 10px;text-align: right">+ Free shipping</span>
             </div>
             
         }

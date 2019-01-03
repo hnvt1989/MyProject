@@ -83,21 +83,19 @@ namespace MyProject.AppLogic.Communication
                 rootUrl = context.AppSettings.Single(a => a.Code == "RootUrl").Value;
             }
 
-            var ret = "Cảm ơn bạn đã đặt hàng ở J.A Shop. Số đơn đặt hàng của bạn là: " + orderNumber;
+            var ret = "Thank you for shopping at J.A Shop. Your order number is: " + orderNumber;
             ret += "<p> ================================================================= </p>";
-            ret += "<p><b>                        ĐƠN ĐẶT HÀNG  " + orderNumber + "</b></p>";
+            ret += "<p><b>                        ORDER RECEIPT  " + orderNumber + "</b></p>";
             foreach (var p in order.CartViewModel.CartItems)
             {
-                ret += "<p> #" + p.Product.Code + " . <b>Tên sản phẩm:</b> " + p.Product.Description + "                   <b>Giá tiền/1 sản phẩm:</b>" + p.OriginalPrice.ToString("N0") + "đ    . <b>Số lượng:</b>     " + p.Quantity + " </p>";
+                ret += "<p> #" + p.Product.Code + " . <b>Product name:</b> " + p.Product.Description + "                   <b>Price/Per unit:</b>" + p.OriginalPrice.ToString("N0") + "đ    . <b>Quantity:</b>     " + p.Quantity + " </p>";
             }
-            ret += "<p><b>Cước vận chuyển:</b> " + order.CartViewModel.CartTotalShippingCost.ToString("N0") + "đ </p>";
-            ret += "<p><b>Tổng tiền của đơn đặt hàng:</b>" + order.CartViewModel.CartTotal.ToString("N0") + "đ </p>";
-            ret += string.Format("<p> <a href=\"{0}/OrderSummary?orderNumber={1}&guid={2}&firstTime=False\">Theo dõi đơn đặt hàng của bạn</a></p>", rootUrl, orderNumber, order.OrderGuid);
+            ret += "<p><b>Shipping fee:</b> " + order.CartViewModel.CartTotalShippingCost.ToString("N0") + "đ </p>";
+            ret += "<p><b>Total amount:</b>" + order.CartViewModel.CartTotal.ToString("N0") + "đ </p>";
+            ret += string.Format("<p> <a href=\"{0}/OrderSummary?orderNumber={1}&guid={2}&firstTime=False\">Track order status</a></p>", rootUrl, orderNumber, order.OrderGuid);
             ret += "<p> ================================================================= </p>";
             ret += contact;
             return ret;
-            //return string.Format(text, "J.A Shop", "Cảm ơn bạn đã đặt hàng ở J.A Shop. Số đơn đặt hàng của bạn là: " + orderNumber, contact);
-
         }
 
         public static async Task<int> SendMail(string orderNumber, OrderConfirmViewModel order)
@@ -183,7 +181,7 @@ namespace MyProject.AppLogic.Communication
 
                         var messageToCustomer = new MailMessage
                         {
-                            Subject = "Cảm ơn bạn đã đặt hàng ở H.A Shop !",
+                            Subject = "Thank you for shopping at J.A Shop !",
                             From = new MailAddress(FROM, "J.A shop")
                         };
                         TO = order.CheckOutInfo.Email;
