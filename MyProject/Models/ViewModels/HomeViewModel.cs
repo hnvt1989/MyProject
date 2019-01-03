@@ -30,7 +30,7 @@ namespace MyProject.Models.ViewModels
 
         public string SearchKey { get; set; }
 
-        [DisplayName("Danh muc sản phẩm")]
+        [DisplayName("Products Catalog")]
         public SelectList CategoryList
         {
             get
@@ -43,7 +43,7 @@ namespace MyProject.Models.ViewModels
                     {
                         Id = 0,
                         Code = "All",
-                        Description = "Tất cả"
+                        Description = "All products"
                     });
                     cat.AddRange(context.Categories.Where(c => c.Active).ToList());
                     return new SelectList(cat, "Code", "Description", "All");

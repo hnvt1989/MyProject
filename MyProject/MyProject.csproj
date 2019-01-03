@@ -213,6 +213,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\Helper.cs" />
+    <Compile Include="Migrations\201901030737573_InitialCreate.cs" />
+    <Compile Include="Migrations\201901030737573_InitialCreate.Designer.cs">
+      <DependentUpon>201901030737573_InitialCreate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\Configuration_IdentityDb.cs" />
     <Compile Include="Migrations\Configuration_ShoppingCart.cs" />
@@ -1317,6 +1321,11 @@
       <SubType>Designer</SubType>
     </Content>
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201901030737573_InitialCreate.resx">
+      <DependentUpon>201901030737573_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

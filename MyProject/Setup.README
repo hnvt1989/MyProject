@@ -1,0 +1,23 @@
+//NOTE: DO NOT execute the commented lines
+
+// Enable-Migrations -ProjectName MyProject -ContextTypeName MyProject.DAL.ShoppingCartContext
+// Enable-Migrations -ProjectName MyProject -ContextTypeName MyProject.DAL.IdentityContext
+
+// Update-Database -ProjectName MyProject -ConfigurationTypeName MyProject.DAL.DatabaseMasterContext
+Update-Database -ProjectName MyProject -ConfigurationTypeName Configuration_IdentityDb
+Update-Database -ProjectName MyProject -ConfigurationTypeName Configuration_ShoppingCart
+
+//If run into the EF Migration object already exists error, run the 2 lines below
+//Add-Migration InitialCreate –IgnoreChanges -ProjectName MyProject -ConfigurationTypeName Configuration_ShoppingCart
+//Update-Database -ProjectName MyProject -ConfigurationTypeName Configuration_ShoppingCart
+
+
+//db on start
+INSERT INTO dbo.Culture (Code, [Description], [Default]) values ('en-US', 'US English', 1);
+
+insert into dbo.AppSetting (Code, [Description], [Value], [ValueType])
+  values('SelectedCulture', 'Selected Culture', 'en-US', 'US English')
+
+insert into dbo.ContentType (Code, [Description]) values ('Ad', 'Advertisement')
+
+update dbo.Product set Active = 1
