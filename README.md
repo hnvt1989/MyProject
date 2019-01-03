@@ -2,10 +2,11 @@ MyProject
 ==========================================================
 This is my personal project. It is a small e-commerce website. 
 
-Demo (hosted in AWS beanstalk)
+Demo (hosted in AWS beanstalk): 
 
-http://myecommerceproject.us-west-2.elasticbeanstalk.com/
-demo account: test.user@gmail.com / test1234
+account: test.user@gmail.com / test1234
+URL: http://myecommerceproject.us-west-2.elasticbeanstalk.com/
+
 
 ==========================================================
 Technologies: Microsoft Entity Framework, MSSQL, C#, JavaScript, HTML, CSS, Ajax, Foundation framework, NUnit, AWS, Git.
